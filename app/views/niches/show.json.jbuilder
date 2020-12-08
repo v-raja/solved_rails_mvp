@@ -1,1 +1,1 @@
-json.partial! "niches/nich", nich: @nich
+json.partial! "niches/niche", niche: @niche

@@ -1,5 +1,5 @@
 class NichesController < ApplicationController
-  before_action :set_nich, only: [:show, :edit, :update, :destroy]
+  before_action :set_niche, only: [:show, :edit, :update, :destroy]
 
   # GET /niches
   # GET /niches.json
@@ -14,7 +14,7 @@ class NichesController < ApplicationController
 
   # GET /niches/new
   def new
-    @nich = Niche.new
+    @niche = Niche.new
   end
 
   # GET /niches/1/edit
@@ -24,15 +24,15 @@ class NichesController < ApplicationController
   # POST /niches
   # POST /niches.json
   def create
-    @nich = Niche.new(nich_params)
+    @niche = Niche.new(niche_params)
 
     respond_to do |format|
-      if @nich.save
-        format.html { redirect_to @nich, notice: 'Niche was successfully created.' }
-        format.json { render :show, status: :created, location: @nich }
+      if @niche.save
+        format.html { redirect_to @niche, notice: 'Niche was successfully created.' }
+        format.json { render :show, status: :created, location: @niche }
       else
         format.html { render :new }
-        format.json { render json: @nich.errors, status: :unprocessable_entity }
+        format.json { render json: @niche.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,12 +41,12 @@ class NichesController < ApplicationController
   # PATCH/PUT /niches/1.json
   def update
     respond_to do |format|
-      if @nich.update(nich_params)
-        format.html { redirect_to @nich, notice: 'Niche was successfully updated.' }
-        format.json { render :show, status: :ok, location: @nich }
+      if @niche.update(niche_params)
+        format.html { redirect_to @niche, notice: 'Niche was successfully updated.' }
+        format.json { render :show, status: :ok, location: @niche }
       else
         format.html { render :edit }
-        format.json { render json: @nich.errors, status: :unprocessable_entity }
+        format.json { render json: @niche.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,7 +54,7 @@ class NichesController < ApplicationController
   # DELETE /niches/1
   # DELETE /niches/1.json
   def destroy
-    @nich.destroy
+    @niche.destroy
     respond_to do |format|
       format.html { redirect_to niches_url, notice: 'Niche was successfully destroyed.' }
       format.json { head :no_content }
@@ -63,12 +63,12 @@ class NichesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_nich
-      @nich = Niche.find(params[:id])
+    def set_niche
+      @niche = Niche.find_by(slug: params[:slug])
     end
 
     # Only allow a list of trusted parameters through.
-    def nich_params
-      params.require(:nich).permit(:title, :description, :code, :slug)
+    def niche_params
+      params.require(:niche).permit(:title, :description, :code, :slug)
     end
 end

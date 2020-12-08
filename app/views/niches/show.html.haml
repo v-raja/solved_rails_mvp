@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Title:
+  = @niche.title
+%p
+  %strong Description:
+  = @niche.description
+%p
+  %strong Code:
+  = @niche.code
+%p
+  %strong Slug:
+  = @niche.slug
+= link_to 'Edit', edit_niche_path(@niche)
+|
+= link_to 'Back', niches_path
