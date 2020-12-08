@@ -1,0 +1,167 @@
+-# ---- SIDEBAR / FILTER START ----
+-# %div{c: "border-b border-gray-400 shadow-2xl"}
+%section{c: "bg-gray-200", data: { controller: "toggle", toggle: { class: "hidden" } } }
+  %div{c: "flex justify-between px-4 pb-3 bg-white"}
+    %button{c: "inline-flex items-center text-black bg-gray-100 rounded-full shadow px-3 items-center transition duration-100 ease-in-out transform",
+            f: "shadow-outline outline-none",
+            h: "scale-110 shadow-lg",
+            data: { action: "click->toggle#toggle touch->toggle#toggle" }}
+      -# f: "bg-black text-white shadow-outline outline-none",
+      -# Filter Button
+      %div{c: "hidden", md: "block"}
+        Filter
+      %div{c: "h-6 w-6 fill-current",
+          md: "ml-2"}
+        = svg_tag "filter"
+    -# Search  Bar
+    %div{c: "ml-4",
+         md: "max-w-2xl"}
+      = render 'shared/search'
+
+
+    %button{c: "ml-4 items-center inline-flex text-black bg-gray-100 rounded-full shadow px-3 items-center transition duration-100 ease-in-out transform",
+            f: "shadow-outline outline-none",
+            h: "scale-110 shadow-lg",
+            data: { action: "click->toggle#toggle touch->toggle#toggle" }}
+      -# Filter Button
+      %div{c: "hidden", md: "block"}
+        Explore
+      %div{c: "h-6 w-6 fill-current",
+          md: "ml-2"}
+        = svg_tag "explore"
+
+  %form{data: { target: "toggle.toggleable" },
+        class: "hidden"}
+    %div{sm: "grid grid-cols-2 grid-flow-rows",
+         lg: ""}
+      -# Search filters
+      %div{c: "px-4 py-4 border-t border-dashed border-gray-900",
+          sm: ""}
+        -# Top Section
+          -# Price
+        %div{sm: ""}
+          %label
+            %span{c: "block font-semibold text-black"}
+              Sort by
+            %select{c: "mt-2 form-select block w-full",
+                    sm: "w-3/4"}
+              %option Popular
+              %option Most recent
+              %option Price (Low to high)
+              %option Price (High to low)
+              %option Top (Past week)
+              %option Top (Past month)
+              %option Top (Past year)
+              %option Top (All time)
+      %div{c: "px-4 py-4 border-t border-dashed border-gray-900",
+          sm: "border-l"}
+        %span{c: "block text font-semibold text-black"}
+          Price
+        %div{c: "mt-1 flex justify-between space-x-16",
+            sm: "space-x-8"}
+          %label{c: "block w-full",
+                sm: "w-full px-0"}
+            -# %span{c: "text-sm font-semibold text-black text-center"}
+            -#   Minimum
+            %div{c: "flex items-center"}
+              %span{c: "text-lg font-medium text-black"}
+                $
+              %input{c: "mt-1 ml-1 form-input block w-full max-w-xs",
+                    sm: "w-full", placeholder: "0"}
+          %label{c: "block w-full",
+                sm: "w-full px-0"}
+            -# %span{c: "text-sm font-semibold text-black text-center"}
+            -#   Maximum
+            %div{c: "flex items-center"}
+              %span{c: "text-lg font-medium text-black"}
+                $
+              %input{c: "mt-1 ml-1 form-input block w-full max-w-xs",
+                    sm: "w-full", placeholder: "∞"}
+
+      %div{c: "px-4 py-4 border-t border-dashed border-gray-900",
+          sm: "",
+          lg: ""}
+        %span{c: "block font-semibold text-black"}
+          Rating
+        -# %div{lg: "grid grid-cols- grid-flow-rows"}
+        %div{lg: "grid grid-cols-2 grid-flow-row"}
+          %label{c: "mt-3 flex items-center",
+                 lg: ""}
+            %input{c: "form-radio w-6 h-6 items-center", type: "radio",
+                  value: "4", name: "property-type"}
+              %span{c: "ml-2 flex items-center"}
+                = render 'shared/stars', color: 'text-primary', rating: 4, size: 6
+                %span{c: "ml-1 text-black"}
+                  and up
+          %label{c: "mt-3 flex items-center",
+                 lg: ""}
+            %input{c: "form-radio w-6 h-6", type: "radio",
+                   value: "3", name: "property-type"}
+              %span{c: "ml-2 flex items-center"}
+                = render 'shared/stars', color: 'text-primary', rating: 3, size: 6
+                %span{c: "ml-1 text-black"}
+                  and up
+          %label{c: "mt-3 flex items-center",
+                 lg: ""}
+            %input{c: "form-radio w-6 h-6", type: "radio",
+                   value: "2", name: "property-type"}
+              %span{c: "ml-2 flex items-center"}
+                = render 'shared/stars', color: 'text-primary', rating: 2, size: 6
+                %span{c: "ml-1 text-black"}
+                  and up
+          %label{c: "mt-3 flex items-center",
+                 lg: ""}
+            %input{c: "form-radio w-6 h-6", type: "radio",
+                   value: "1", name: "property-type"}
+              %span{c: "ml-2 flex items-center"}
+                = render 'shared/stars', color: 'text-primary', rating: 1, size: 6
+                %span{c: "ml-1 text-black"}
+                  and up
+      %div{c: "px-4 py-4 border-t border-dashed border-gray-900",
+           sm: "border-l",
+           lg: ""}
+        %span{c: "block font-semibold text-black"}
+          Contains
+        %div{sm: "grid grid-cols-2 grid-flow-rows",
+            lg: "flex flex-wrap"}
+          %label{c: "mt-3 flex items-center",
+                lg: "w-1/4"}
+            %input{c: "h-6 w-6 form-checkbox", type: "checkbox",
+                  name: "video"}
+              %span{c: "ml-2 text-black"}
+                Video
+          %label{c: "mt-3 flex items-center",
+                lg: "w-1/4"}
+            %input{c: "h-6 w-6 form-checkbox", type: "checkbox",
+                  name: "image"}
+              %span{c: "ml-2 text-black"}
+                Image
+          %label{c: "mt-3 flex items-center",
+                lg: "w-1/4"}
+            %input{c: "h-6 w-6 form-checkbox", type: "checkbox",
+                  name: "podcast"}
+              %span{c: "ml-2 text-black"}
+                Audio
+          %label{c: "mt-3 flex items-center",
+                lg: "w-1/4"}
+            %input{c: "h-6 w-6 form-checkbox", type: "checkbox",
+                  name: "podcast"}
+              %span{c: "ml-2 text-black"}
+                PDF
+          %label{c: "mt-3 flex items-center",
+                lg: "w-1/4"}
+            %input{c: "h-6 w-6 form-checkbox", type: "checkbox",
+                  name: "other"}
+              %span{c: "ml-2 text-black"}
+                Other
+      %div{c: "bg-gray-200 px-4 py-4 border-t border-dashed border-gray-900",
+          sm: "col-span-2 text-right"}
+        %button{c: "block w-full text-gray-900 font-semibold bg-white border border-black px-4 py-2 rounded-lg",
+                sm: "w-auto inline-block",
+                hover: "bg-secondary text-white"}
+          Update results
+
+-# ---- SIDEBAR / FILTER END ----
+
+-# - content_for :head do
+-#   = javascript_pack_tag 'instantsearch'

@@ -1,0 +1,12 @@
+-# = "#{rating} helllo"
+- size  = size    || 6
+- color = color   || "text-primary"
+- rating = rating || 2
+- max_stars = 5
+- blank_stars = max_stars - rating.to_i
+- rating.to_i.times do
+  %div{class: "h-#{size} w-#{size} #{color} text-primary fill-current"}
+    = svg_tag "star"
+- blank_stars.times do
+  %div{class: "h-#{size} w-#{size} text-gray-400 fill-current"}
+    = svg_tag "star"

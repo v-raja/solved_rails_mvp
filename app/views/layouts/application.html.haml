@@ -1,13 +1,13 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+    %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
     %title PhApp
     = render 'layouts/rails_default'
     = render 'layouts/shim'
-    -# = csrf_meta_tags
-    -# = csp_meta_tag
-
-
+    = yield :head
   %body
-    = yield
+    #app{class: "min-h-screen bg-gray-fb bg-opacity-80 antialiased"}
+      = yield
