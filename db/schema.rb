@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_062403) do
+ActiveRecord::Schema.define(version: 2020_12_09_074846) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 2020_12_09_062403) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gallery_id", "gallery_position"], name: "index_media_urls_on_gallery_id_and_gallery_position"
     t.index ["gallery_id"], name: "index_media_urls_on_gallery_id"
+  end
+
+  create_table "niche_posts", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "niche_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["niche_id"], name: "index_niche_posts_on_niche_id"
+    t.index ["post_id", "niche_id"], name: "index_niche_posts_on_post_id_and_niche_id", unique: true
+    t.index ["post_id"], name: "index_niche_posts_on_post_id"
   end
 
   create_table "niches", force: :cascade do |t|

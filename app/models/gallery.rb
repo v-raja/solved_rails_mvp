@@ -9,4 +9,5 @@
 #  updated_at    :datetime         not null
 #
 class Gallery < ApplicationRecord
+  has_many :media_urls
 end

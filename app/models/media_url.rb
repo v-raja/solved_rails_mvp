@@ -10,5 +10,5 @@
 #  updated_at       :datetime         not null
 #
 class MediaUrl < ApplicationRecord
-  # belongs_to: :post
+  belongs_to :gallery
 end
