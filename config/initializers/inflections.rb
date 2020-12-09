@@ -17,4 +17,5 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'niche', 'niches'
+  inflect.irregular 'media', 'medias'
 end

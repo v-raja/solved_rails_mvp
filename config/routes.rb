@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :products
+  resources :galleries
+  resources :posts
   get 'requests/index'
   # resources :n, controller: :niches
   resources :niches, path: '/n' do

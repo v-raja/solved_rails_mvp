@@ -1,0 +1,29 @@
+%h1 Listing posts
+
+%table
+  %thead
+    %tr
+      %th Problem title
+      %th Tagline
+      %th Description
+      %th Youtube url
+      %th Product url
+      %th
+      %th
+      %th
+
+  %tbody
+    - @posts.each do |post|
+      %tr
+        %td= post.problem_title
+        %td= post.tagline
+        %td= post.description
+        %td= post.youtube_url
+        %td= post.product_url
+        %td= link_to 'Show', post
+        %td= link_to 'Edit', edit_post_path(post)
+        %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Post', new_post_path

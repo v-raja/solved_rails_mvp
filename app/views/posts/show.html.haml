@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Problem title:
+  = @post.problem_title
+%p
+  %b Tagline:
+  = @post.tagline
+%p
+  %b Description:
+  = @post.description
+%p
+  %b Youtube url:
+  = @post.youtube_url
+%p
+  %b Product url:
+  = @post.product_url
+
+= link_to 'Edit', edit_post_path(@post)
+\|
+= link_to 'Back', posts_path

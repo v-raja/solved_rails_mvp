@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id            :integer          not null, primary key
+#  problem_title :string
+#  tagline       :string
+#  description   :text
+#  product_url   :string
+#  product_id    :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+one:
+  problem_title: MyString
+  tagline: MyString
+  description: MyText
+  youtube_url: MyString
+  product_url: MyString
+
+two:
+  problem_title: MyString
+  tagline: MyString
+  description: MyText
+  youtube_url: MyString
+  product_url: MyString
