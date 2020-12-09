@@ -1,4 +1,4 @@
-﻿ISCO 08 Code,Title EN
+﻿Code,Title
 1,Managers
 11,"Chief executives, senior officials and legislators"
 111,Legislators and senior officials
@@ -80,8 +80,8 @@
 2166,Graphic and multimedia designers
 22,Health professionals
 221,Medical doctors
-2211,Generalist medical practitioners 
-2212,Specialist medical practitioners 
+2211,Generalist medical practitioners
+2212,Specialist medical practitioners
 222,Nursing and midwifery professionals
 2221,Nursing professionals
 2222,Midwifery professionals
@@ -95,7 +95,7 @@
 2261,Dentists
 2262,Pharmacists
 2263,Environmental and occupational health and hygiene professionals
-2264,Physiotherapists 
+2264,Physiotherapists
 2265,Dieticians and nutritionists
 2266,Audiologists and speech therapists
 2267,Optometrists and ophthalmic opticians
@@ -208,7 +208,7 @@
 32,Health associate professionals
 321,Medical and pharmaceutical technicians
 3211,Medical imaging and therapeutic equipment technicians
-3212,Medical and pathology laboratory technicians 
+3212,Medical and pathology laboratory technicians
 3213,Pharmaceutical technicians and assistants
 3214,Medical and dental prosthetic technicians
 322,Nursing and midwifery associate professionals
@@ -353,7 +353,7 @@
 521,Street and market salespersons
 5211,Stall and market salespersons
 5212,Street food salespersons
-522,Shop salespersons 
+522,Shop salespersons
 5221,Shop keepers
 5222,Shop supervisors
 5223,Shop sales assistants
@@ -464,13 +464,13 @@
 7319,Handicraft workers not elsewhere classified
 732,Printing trades workers
 7321,Pre-press technicians
-7322,Printers 
+7322,Printers
 7323,Print finishing and binding workers
 74,Electrical and electronic trades workers
 741,Electrical equipment installers and repairers
 7411,Building and related electricians
 7412,Electrical mechanics and fitters
-7413,Electrical line installers and repairers 
+7413,Electrical line installers and repairers
 742,Electronics and telecommunications installers and repairers
 7421,Electronics mechanics and servicers
 7422,Information and communications technology installers and servicers
