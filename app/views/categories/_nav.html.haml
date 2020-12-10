@@ -1,0 +1,9 @@
+= render 'layouts/header', locals: {render_shadow: false}
+- both     = "text-gray-900 font-semibold text-base rounded-lg px-3 py-2"
+- active   = "#{both} bg-gray-200"
+- inactive = "#{both} h:bg-gray-200"
+%div{class: "flex justify-center bg-white"}
+  %nav{class: "flex justify-between max-w-screen-lg w-full"}
+    = link_to_unless_current("Industries", industry_categories_path, class: "#{inactive}") do link_to('Industries', industry_categories_path, class: "#{active}") end
+    = link_to_unless_current("Occupations", occupation_categories_path, class: "#{inactive}") do link_to("Occupations", occupation_categories_path, class: "#{active}") end
+    = link_to_unless_current("Products", products_path, class: "#{inactive}") do link_to("Products", products_path, class: "#{active}") end

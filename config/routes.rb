@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  resources :categories
   resources :products
   resources :galleries
   resources :posts
+  resources :industries
+  resources :occupations
   get 'requests/index'
 
   resources :industries, path: '/i' do
@@ -15,5 +18,15 @@ Rails.application.routes.draw do
     resources :search, only: [:index] # to generate the view helpers
     resources :requests, only: [:index]
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :industry_categories, controller: :categories, type: "IndustryCategory", path: '/dir/i'
+
+  resources :occupation_categories, controller: :categories, type: "OccupationCategory", path: '/dir/o'
+
+
+  # resources :occupation_categories, path: '/dir/o'
+
+  # resources :industry_categories, path: '/dir' do
+
+
 end

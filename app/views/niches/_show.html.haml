@@ -1,7 +1,7 @@
 = render 'layouts/header'
 -# = render 'layouts/filter'
 
-= render 'niches/header'
+= render 'niches/header', locals: {niche: niche}
 
 -# %div{class: "flex justify-center w-full"}
 %div{class: "mt-10 flex justify-center"}
@@ -14,9 +14,9 @@
         %div{class: "px-4 pt-3 w-full text-lg font-medium"}
           About Niche
         %div{class: "px-4 py-1 w-full rounded-lg"}
-          = simple_format @niche.description, class: "text-sm"
+          = simple_format niche.description, class: "text-sm"
         -# %div{class: "w-full"}
-        -#   = "Notify me weekly about products posted to #{@niche.title}"
+        -#   = "Notify me weekly about products posted to #{niche.title}"
         -# %div{c: "flex items-center py-2"}
         -#   %input{c: "mt-0 block bg-transparent w-full px-0.5 border-0 border-b border-primary focus:ring-0 focus:border-primary",
         -#               "aria-label": "Email", placeholder: "jane@doe.com", type: "text"}
@@ -28,16 +28,16 @@
 -# %div{class: "mt-4 px-4 bg-white border border-gray-800 -my-2 -mx-2 py-2 max-w-md rounded-md w-screen max-w-md",
 -#       data: { controller: "toggle" }}
 -#   %div{class: "text-gray-900 font-semibold text-2xl"}
--#     = @niche.title
+-#     = niche.title
 -#   %div{c: "text-gray-800 text-primary tracking-wider"}
--#     = "n/#{@niche.slug}"
+-#     = "n/#{niche.slug}"
 
 -#   %div{class: "mt-2 hidden", data: { target: "toggle.toggleable" }}
 -#     %div{class: "mt-2 text-gray-800 border-b border-gray-300 pb-2"}
--#       = simple_format @niche.description
+-#       = simple_format niche.description
 
 -#     %p{class: "text-gray-600 mt-2"}
--#       = "Notify me weekly about products posted to n/#{@niche.slug}"
+-#       = "Notify me weekly about products posted to n/#{niche.slug}"
 
     -# %div{c: "flex items-center py-2"}
     -#   %input{c: "mt-0 block bg-transparent w-full px-0.5 border-0 border-b border-primary focus:ring-0 focus:border-primary",

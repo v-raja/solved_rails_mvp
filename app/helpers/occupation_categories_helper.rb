@@ -1,0 +1,2 @@
+module OccupationCategoriesHelper
+end

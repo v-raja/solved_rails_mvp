@@ -9,12 +9,23 @@
 #  slug        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  type        :string
 #
 class Niche < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   validates :title,       presence: true
+  validates :code,        presence: true,
+                          numericality: { only_integer: true,
+                                          greater_than_or_equal_to: 100000,
+                                          less_than_or_equal_to:    999999 }
+  validates :description, presence: true
+
+  validates :code,        presence: true,
+  numericality: { only_integer: true,
+                  greater_than_or_equal_to: 1000,
+                  less_than_or_equal_to:    9999 }
 
   has_many :niche_posts, dependent: :destroy
   has_many :posts,       through: :niche_posts

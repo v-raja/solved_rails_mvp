@@ -12,6 +12,7 @@ module PhApp
     config.load_defaults 6.0
 
     config.autoload_paths += %W(#{config.root}/app/models/niches)
+    config.autoload_paths += %W(#{config.root}/app/models/categories)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

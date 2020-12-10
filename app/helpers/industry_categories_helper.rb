@@ -1,0 +1,2 @@
+module IndustryCategoriesHelper
+end

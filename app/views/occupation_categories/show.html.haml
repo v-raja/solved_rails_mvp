@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @occupation_category.title
+%p
+  %b Code:
+  = @occupation_category.code
+%p
+  %b Slug:
+  = @occupation_category.slug
+
+= link_to 'Edit', edit_occupation_category_path(@occupation_category)
+\|
+= link_to 'Back', occupation_categories_path

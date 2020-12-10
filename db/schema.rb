@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_120717) do
+ActiveRecord::Schema.define(version: 2020_12_10_181419) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "code", null: false
+    t.string "slug", null: false
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_categories_on_ancestry"
+    t.index ["slug", "type"], name: "by_slug_and_type", unique: true
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -29,6 +42,27 @@ ActiveRecord::Schema.define(version: 2020_12_09_120717) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_galleries_on_post_id"
+  end
+
+  create_table "industries", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "slug", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_industries_on_category_id"
+    t.index ["slug"], name: "index_industries_on_slug", unique: true
+  end
+
+  create_table "industry_posts", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "industry_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["industry_id"], name: "index_industry_posts_on_industry_id"
+    t.index ["post_id", "industry_id"], name: "index_industry_posts_on_post_id_and_industry_id", unique: true
+    t.index ["post_id"], name: "index_industry_posts_on_post_id"
   end
 
   create_table "media_urls", force: :cascade do |t|
@@ -63,6 +97,29 @@ ActiveRecord::Schema.define(version: 2020_12_09_120717) do
     t.index ["slug"], name: "index_niches_on_slug", unique: true
   end
 
+  create_table "occupation_posts", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "occupation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["occupation_id"], name: "index_occupation_posts_on_occupation_id"
+    t.index ["post_id", "occupation_id"], name: "index_occupation_posts_on_post_id_and_occupation_id", unique: true
+    t.index ["post_id"], name: "index_occupation_posts_on_post_id"
+  end
+
+  create_table "occupations", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "code", null: false
+    t.string "slug", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_occupations_on_category_id"
+    t.index ["code"], name: "index_occupations_on_code", unique: true
+    t.index ["slug"], name: "index_occupations_on_slug", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "problem_title"
     t.string "tagline"
@@ -82,6 +139,8 @@ ActiveRecord::Schema.define(version: 2020_12_09_120717) do
   end
 
   add_foreign_key "galleries", "posts"
+  add_foreign_key "industries", "categories"
   add_foreign_key "media_urls", "galleries"
+  add_foreign_key "occupations", "categories"
   add_foreign_key "posts", "products"
 end

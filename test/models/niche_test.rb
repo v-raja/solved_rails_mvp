@@ -9,6 +9,7 @@
 #  slug        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  type        :string
 #
 require 'test_helper'
 

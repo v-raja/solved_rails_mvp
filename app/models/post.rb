@@ -12,6 +12,9 @@
 #  updated_at    :datetime         not null
 #
 class Post < ApplicationRecord
-  has_many :niche_posts, dependent: :destroy
-  has_many :niches, through: :niche_posts
+  has_many :industry_posts, dependent: :destroy
+  has_many :industries, through: :industry_posts
+
+  has_many :occupation_posts, dependent: :destroy
+  has_many :occupations, through: :occupation_posts
 end

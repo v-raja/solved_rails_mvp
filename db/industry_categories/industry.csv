@@ -1,0 +1,1366 @@
+Code,Title,Description
+11111,Soybean Farming,""
+11112,Oilseed (except Soybean) Farming,""
+11113,Dry Pea and Bean Farming,""
+11114,Wheat Farming,""
+11115,Corn Farming,""
+11116,Rice Farming,""
+11119,Other Grain Farming,"This industry comprises establishments primarily engaged in (1) growing grain(s) and/or producing grain seeds (except wheat, corn, and rice) or (2) growing a combination of grain(s) and oilseed(s) with no one grain (or family of grains) or oilseed (or family of oilseeds) accounting for one-half of the establishment's agricultural production (i.e., value of crops for market).  Combination grain(s) and oilseed(s) establishments may produce oilseed(s) and grain(s) seeds and/or grow oilseed(s) and grain(s).
+
+Illustrative Examples:
+
+Barley farming
+Rye farming
+Milo farming
+Sorghum farming
+Oat farming
+Wild rice farming
+Oilseed and grain combination farming"
+11121,Vegetable and Melon Farming,This industry comprises establishments primarily engaged in one or more of the following: (1) growing vegetable and/or melon crops; (2) producing vegetable and/or melon seeds; and (3) growing vegetable and/or melon bedding plants.  The crops included in this industry have an annual growth cycle and are grown in open fields.  Climate and cultural practices limit producing areas but often permit the growing of a combination of crops in a year.
+11131,Orange Groves,""
+11132,Citrus (except Orange) Groves,""
+11133,Noncitrus Fruit and Tree Nut Farming,"This industry comprises establishments primarily engaged in one or more of the following: (1) growing noncitrus fruits (e.g., apples, grapes, berries, peaches); (2) growing tree nuts (e.g., pecans, almonds, pistachios); or (3) growing a combination of fruit(s) and tree nut(s) with no one fruit (or family of fruit) or family of tree nuts accounting for one-half of the establishment's agricultural production (i.e., value of crops for market)."
+11141,Food Crops Grown Under Cover,"This industry comprises establishments primarily engaged in growing food crops (e.g., fruits, melons, tomatoes) under glass or protective cover."
+11142,Nursery and Floriculture Production,"This industry comprises establishments primarily engaged in (1) growing nursery and floriculture products (e.g., nursery stock, shrubbery, cut flowers, flower seeds, foliage plants) under cover or in open fields and/or (2) growing short rotation woody trees with a growing and harvesting cycle of 10 years or less for pulp or tree stock (e.g., cut Christmas trees, cottonwoods)."
+11191,Tobacco Farming,""
+11192,Cotton Farming,""
+11193,Sugarcane Farming,""
+11194,Hay Farming,""
+11199,All Other Crop Farming,"This industry comprises establishments primarily engaged in (1) growing crops (except oilseeds and/or grains; vegetables and/or melons; fruits and/or tree nuts; greenhouse, nursery, and/or floriculture products; tobacco; cotton; sugarcane; or hay) or (2) growing a combination of crops (except a combination of oilseed(s) and grain(s); and a combination of fruit(s) and tree nut(s)) with no one crop or family of crops accounting for one-half of the establishment's agricultural production (i.e., value of crops for market).
+
+Illustrative Examples:
+
+Agave farming
+Spice farming
+General combination crop farming (except oilseed and grain; vegetables and melons; fruit and nut combinations)
+Tea farming
+Hay seed farming
+Maple sap gathering
+Peanut farming
+Sugar beet farming
+Grass seed farming"
+11211,"Beef Cattle Ranching and Farming, including Feedlots","This industry comprises establishments primarily engaged in raising cattle (including cattle for dairy herd replacements), or feeding cattle for fattening."
+11212,Dairy Cattle and Milk Production,""
+11213,Dual-Purpose Cattle Ranching and Farming,""
+11221,Hog and Pig Farming,""
+11231,Chicken Egg Production,""
+11232,Broilers and Other Meat Type Chicken Production,""
+11233,Turkey Production,""
+11234,Poultry Hatcheries,""
+11239,Other Poultry Production,""
+11241,Sheep Farming,""
+11242,Goat Farming,""
+11251,Aquaculture,"This industry comprises establishments primarily engaged in the farm raising and production of aquatic animals or plants in controlled or selected aquatic environments.  These establishments use some form of intervention in the rearing process to enhance production, such as holding in captivity, regular stocking, feeding, and protecting from predators, pests, and disease."
+11291,Apiculture,""
+11292,Horses and Other Equine Production,""
+11293,Fur-Bearing Animal and Rabbit Production,""
+11299,All Other Animal Production,""
+11311,Timber Tract Operations,""
+11321,Forest Nurseries and Gathering of Forest Products,""
+11331,Logging,""
+11411,Fishing,"This industry comprises establishments primarily engaged in the commercial catching or taking of finfish, shellfish, or miscellaneous marine products from a natural habitat, such as the catching of bluefish, eels, salmon, tuna, clams, crabs, lobsters, mussels, oysters, shrimp, frogs, sea urchins, and turtles."
+11421,Hunting and Trapping,""
+11511,Support Activities for Crop Production,"This industry comprises establishments primarily engaged in providing support activities for growing crops.
+
+Illustrative Examples:
+
+Aerial crop dusting or spraying (i.e., using specialized or dedicated aircraft)
+Farm management services
+Cotton ginning
+Planting crops
+Cultivating services
+Vineyard cultivation services"
+11521,Support Activities for Animal Production,""
+11531,Support Activities for Forestry,""
+21112,Crude Petroleum Extraction,""
+21113,Natural Gas Extraction,""
+21211,Coal Mining,"This industry comprises establishments primarily engaged in one or more of the following: (1) mining bituminous coal, anthracite, and lignite by underground mining, auger mining, strip mining, culm bank mining, and other surface mining; (2) developing coal mine sites; and (3) beneficiating (i.e., preparing) coal (e.g., cleaning, washing, screening, and sizing coal)."
+21221,Iron Ore Mining,""
+21222,Gold Ore and Silver Ore Mining,"This industry comprises establishments primarily engaged in developing the mine site, mining, and/or beneficiating (i.e., preparing) ores valued chiefly for their gold and/or silver content.  Establishments primarily engaged in the transformation of the gold and silver into bullion or dore bar in combination with mining activities are included in this industry."
+21223,"Copper, Nickel, Lead, and Zinc Mining",""
+21229,Other Metal Ore Mining,"This industry comprises establishments primarily engaged in developing the mine site, mining, and/or beneficiating (i.e., preparing) metal ores (except iron and manganiferous ores valued for their iron content, gold ore, silver ore, copper, nickel, lead, and zinc ore).
+
+Illustrative Examples:
+
+Antimony ores mining and/or beneficiating
+Tantalum ores mining and/or beneficiating
+Columbite ores mining and/or beneficiating
+Tungsten ores mining and/or beneficiating
+Ilmenite ores mining and/or beneficiating
+Uranium-radium-vanadium ores mining and/or beneficiating
+Molybdenum ores mining and/or beneficiating"
+21231,Stone Mining and Quarrying,"This industry comprises (1) establishments primarily engaged in developing the mine site, mining or quarrying dimension stone (i.e., rough blocks and/or slabs of stone), or mining and quarrying crushed and broken stone and/or (2) preparation plants primarily engaged in beneficiating stone (e.g., crushing, grinding, washing, screening, pulverizing, and sizing)."
+21232,"Sand, Gravel, Clay, and Ceramic and Refractory Minerals Mining and Quarrying","This industry comprises (1) establishments primarily engaged in developing the mine site and/or mining, quarrying, dredging for sand and gravel, or mining clay (e.g., china clay, paper clay and slip clay) and (2) preparation plants primarily engaged in beneficiating (e.g., washing, screening, and grinding) sand and gravel, clay, and ceramic and refractory minerals."
+21239,Other Nonmetallic Mineral Mining and Quarrying,"This industry comprises establishments primarily engaged in developing the mine site, mining, and/or milling or otherwise beneficiating (i.e., preparing) nonmetallic minerals (except coal, stone, sand, gravel, clay, ceramic, and refractory minerals).
+
+Illustrative Examples:
+
+Barite mining and/or beneficiating
+Phosphate rock mining and/or beneficiating
+Borate, natural, mining and/or beneficiating
+Potash mining and/or beneficiating
+Peat mining and/or beneficiating
+Rock salt mining and/or beneficiating"
+21311,Support Activities for Mining,"This industry comprises establishments primarily engaged in providing support services, on a contract or fee basis, required for the mining and quarrying of minerals and for the extraction of oil and gas.  Drilling, taking core samples, and making geological observations at prospective sites (except geophysical surveying and mapping) for minerals, on a contract or fee basis, are included in this industry."
+22111,Electric Power Generation,"This industry comprises establishments primarily engaged in operating electric power generation facilities.  These facilities convert other forms of energy, such as water power (i.e., hydroelectric), fossil fuels, nuclear power, and solar power, into electrical energy.  The establishments in this industry produce electric energy and provide electricity to transmission systems or to electric power distribution systems."
+22112,"Electric Power Transmission, Control, and Distribution","This industry comprises establishments primarily engaged in operating electric power transmission systems, controlling (i.e., regulating voltages) the transmission of electricity, and/or distributing electricity.  The transmission system includes lines and transformer stations.  These establishments arrange, facilitate, or coordinate the transmission of electricity from the generating source to the distribution centers, other electric utilities, or final consumers.  The distribution system consists of lines, poles, meters, and wiring that deliver the electricity to final consumers."
+22121,Natural Gas Distribution,""
+22131,Water Supply and Irrigation Systems,""
+22132,Sewage Treatment Facilities,""
+22133,Steam and Air-Conditioning Supply,""
+23611,Residential Building Construction,"This industry comprises establishments primarily responsible for the construction or remodeling and renovation of single-family and multifamily residential buildings.  Included in this industry are residential housing general contractors (i.e., new construction, remodeling, or renovating existing residential structures), for-sale builders and remodelers of residential structures, residential project construction management firms, and residential design-build firms."
+23621,Industrial Building Construction,""
+23622,Commercial and Institutional Building Construction,""
+23711,Water and Sewer Line and Related Structures Construction,""
+23712,Oil and Gas Pipeline and Related Structures Construction,""
+23713,Power and Communication Line and Related Structures Construction,""
+23721,Land Subdivision,""
+23731,"Highway, Street, and Bridge Construction",""
+23799,Other Heavy and Civil Engineering Construction,""
+23811,Poured Concrete Foundation and Structure Contractors,""
+23812,Structural Steel and Precast Concrete Contractors,""
+23813,Framing Contractors,""
+23814,Masonry Contractors,""
+23815,Glass and Glazing Contractors,""
+23816,Roofing Contractors,""
+23817,Siding Contractors,""
+23819,"Other Foundation, Structure, and Building Exterior Contractors",""
+23821,Electrical Contractors and Other Wiring Installation Contractors,""
+23822,"Plumbing, Heating, and Air-Conditioning Contractors",""
+23829,Other Building Equipment Contractors,""
+23831,Drywall and Insulation Contractors,""
+23832,Painting and Wall Covering Contractors,""
+23833,Flooring Contractors,""
+23834,Tile and Terrazzo Contractors,""
+23835,Finish Carpentry Contractors,""
+23839,Other Building Finishing Contractors,""
+23891,Site Preparation Contractors,""
+23899,All Other Specialty Trade Contractors,""
+31111,Animal Food Manufacturing,"This industry comprises establishments primarily engaged in manufacturing food and feed for animals from ingredients, such as grains, oilseed mill products, and meat products."
+31121,Flour Milling and Malt Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) milling flour or meal from grains or vegetables; (2) preparing flour mixes or doughs from flour milled in the same establishment; (3) milling, cleaning, and polishing rice; and (4) manufacturing malt from barley, rye, or other grains."
+31122,Starch and Vegetable Fats and Oils Manufacturing,This industry comprises establishments primarily engaged in one or more of the following: (1) wet milling corn and vegetables; (2) crushing oilseeds and tree nuts; (3) refining and/or blending vegetable oils; (4) manufacturing shortening and margarine; and (5) blending purchased animal fats with vegetable fats.
+31123,Breakfast Cereal Manufacturing,""
+31131,Sugar Manufacturing,"This industry comprises establishments primarily engaged in manufacturing raw sugar, liquid sugar, and refined sugar from sugarcane, raw cane sugar and sugar beets."
+31134,Nonchocolate Confectionery Manufacturing,""
+31135,Chocolate and Confectionery Manufacturing,This industry comprises establishments primarily engaged in (1) manufacturing chocolate and chocolate confectioneries from cacao beans or (2) manufacturing chocolate confectioneries from chocolate produced elsewhere.  Included in this industry are establishments primarily engaged in retailing chocolate confectionery products not for immediate consumption made on the premises from chocolate made elsewhere.
+31141,Frozen Food Manufacturing,"This industry comprises establishments primarily engaged in manufacturing frozen fruit, frozen juices, frozen vegetables, and frozen specialty foods (except seafood), such as frozen dinners, entrees, and side dishes; frozen pizza; frozen whipped toppings; and frozen waffles, pancakes, and french toast."
+31142,"Fruit and Vegetable Canning, Pickling, and Drying","This industry comprises establishments primarily engaged in manufacturing canned, pickled, and dried fruits, vegetables, and specialty foods.  Establishments in this industry may package the dried or dehydrated ingredients they make with other purchased ingredients.  Examples of products made by these establishments are canned juices; canned baby foods; canned soups (except seafood); canned dry beans; canned tomato-based sauces, such as catsup, salsa, chili sauce, spaghetti sauce, barbeque sauce, and tomato paste; pickles and relishes; jams and jellies; dried soup mixes and bouillon; and sauerkraut."
+31151,Dairy Product (except Frozen) Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing dairy products (except frozen) from raw milk and/or processed milk products; (2) manufacturing dairy substitutes (except frozen) from soybeans and other nondairy substances; and (3) manufacturing dry, condensed, concentrated, and evaporated dairy and dairy substitute products."
+31152,Ice Cream and Frozen Dessert Manufacturing,""
+31161,Animal Slaughtering and Processing,"This industry comprises establishments primarily engaged in one or more of the following: (1) slaughtering animals; (2) preparing processed meats and meat byproducts; and (3) rendering and/or refining animal fat, bones, and meat scraps.  This industry includes establishments primarily engaged in assembly cutting and packing of meats (i.e., boxed meats) from purchased carcasses."
+31171,Seafood Product Preparation and Packaging,""
+31181,Bread and Bakery Product Manufacturing,This industry comprises establishments primarily engaged in manufacturing fresh and frozen bread and other bakery products.
+31182,"Cookie, Cracker, and Pasta Manufacturing",This industry comprises establishments primarily engaged in one of the following: (1) manufacturing cookies and crackers; (2) preparing flour and dough mixes and dough from flour ground elsewhere; and (3) manufacturing dry pasta.  The establishments in this industry may package the dry pasta they manufacture with other ingredients.
+31183,Tortilla Manufacturing,""
+31191,Snack Food Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) salting, roasting, drying, cooking, or canning nuts; (2) processing grains or seeds into snacks; (3) manufacturing peanut butter; and (4) manufacturing potato chips, corn chips, popped popcorn, pretzels (except soft), pork rinds, and similar snacks."
+31192,Coffee and Tea Manufacturing,""
+31193,Flavoring Syrup and Concentrate Manufacturing,""
+31194,Seasoning and Dressing Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing dressings and sauces, such as mayonnaise, salad dressing, vinegar, mustard, horseradish, soy sauce, tarter sauce, Worcestershire sauce, and other prepared sauces (except tomato-based and gravies); (2) manufacturing spices, table salt, seasoning, and flavoring extracts (except coffee and meat), and natural food colorings; and (3) manufacturing dry mix food preparations, such as salad dressing mixes, gravy and sauce mixes, frosting mixes, and other dry mix preparations."
+31199,All Other Food Manufacturing,"This industry comprises establishments primarily engaged in manufacturing food (except animal food; grain and oilseed milling; sugar and confectionery products; preserved fruits, vegetables, and specialty foods; dairy products; meat products; seafood products; baked goods and tortillas; snack foods; coffee and tea; flavoring syrups and concentrates; seasonings; and dressings).  Included in this industry are establishments primarily engaged in mixing purchased dried and/or dehydrated ingredients, including those mixing purchased dried and/or dehydrated ingredients for soup mixes and bouillon.
+
+Illustrative Examples:
+
+Baking powder manufacturing
+Cut or peeled fresh vegetables manufacturing
+Dessert puddings manufacturing
+Egg substitutes manufacturing
+Sweetening syrups (except pure maple) manufacturing
+Fresh pasta manufacturing
+Fresh pizza manufacturing
+Honey processing
+Popcorn (except popped) manufacturing
+Powdered drink mixes (except chocolate, coffee, tea, or milk based) manufacturing"
+31211,Soft Drink and Ice Manufacturing,This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing soft drinks; (2) manufacturing ice; and (3) purifying and bottling water.
+31212,Breweries,""
+31213,Wineries,""
+31214,Distilleries,""
+31223,Tobacco Manufacturing,""
+31311,"Fiber, Yarn, and Thread Mills",""
+31321,Broadwoven Fabric Mills,""
+31322,Narrow Fabric Mills and Schiffli Machine Embroidery,""
+31323,Nonwoven Fabric Mills,""
+31324,Knit Fabric Mills,""
+31331,Textile and Fabric Finishing Mills,""
+31332,Fabric Coating Mills,""
+31411,Carpet and Rug Mills,""
+31412,Curtain and Linen Mills,""
+31491,Textile Bag and Canvas Mills,""
+31499,All Other Textile Product Mills,"This industry comprises establishments primarily engaged in manufacturing nonapparel textile products (except carpet, rugs, curtains, linens, bags, and canvas products) from purchased materials.  This industry includes establishments primarily engaged in decorative stitching such as embroidery or other art needlework on textile products, including apparel.
+
+Illustrative Examples:
+
+Batts and batting (except nonwoven fabrics) manufacturing
+Carpet cutting and binding
+Diapers (except disposable) made from purchased materials
+Embroidering on textile products or apparel for the trade
+Fishing nets made from purchased materials
+Ropes (except wire rope) manufacturing
+Sleeping bags manufacturing
+Tire cord and fabric, all materials, manufacturing
+Twines manufacturing"
+31511,Hosiery and Sock Mills,""
+31519,Other Apparel Knitting Mills,""
+31521,Cut and Sew Apparel Contractors,""
+31522,Men’s and Boys’ Cut and Sew Apparel Manufacturing,""
+31524,"Women’s, Girls’, and Infants’ Cut and Sew Apparel Manufacturing",""
+31528,Other Cut and Sew Apparel Manufacturing,""
+31599,Apparel Accessories and Other Apparel Manufacturing,""
+31611,Leather and Hide Tanning and Finishing,""
+31621,Footwear Manufacturing,""
+31699,Other Leather and Allied Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing leather products (except footwear and apparel) from purchased leather or leather substitutes (e.g., fabric, plastics).
+
+Illustrative Examples:
+
+Billfolds, all materials, manufacturing
+Boot and shoe cut stock and findings, leather, manufacturing
+Dog furnishings (e.g., collars, leashes, harnesses, muzzles), manufacturing
+Luggage, all materials, manufacturing
+Purses, women's, all materials (except metal), manufacturing
+Shoe soles, leather, manufacturing
+Toilet kits and cases (except metal) manufacturing
+Watch bands (except metal) manufacturing
+Welders' jackets, leggings, and sleeves, leather, manufacturing"
+32111,Sawmills and Wood Preservation,"This industry comprises establishments primarily engaged in one or more of the following: (1) sawing dimension lumber, boards, beams, timber, poles, ties, shingles, shakes, siding, and wood chips from logs or bolts; (2) sawing round wood poles, pilings, and posts and treating them with preservatives; and (3) treating wood sawed, planed, or shaped in other establishments with creosote or other preservatives to prevent decay and to protect against fire and insects.  Sawmills may plane the rough lumber that they make with a planing machine to achieve smoothness and uniformity of size."
+32121,"Veneer, Plywood, and Engineered Wood Product Manufacturing","This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing veneer and/or plywood; (2) manufacturing engineered wood members; and (3) manufacturing reconstituted wood products.  This industry includes manufacturing plywood from veneer made in the same establishment or from veneer made in other establishments, and manufacturing plywood faced with nonwood materials, such as plastics or metal.
+
+Illustrative Examples:
+
+Fabricated structural wood members manufacturing
+Laminated structural wood members manufacturing
+Medium density fiberboard (MDF) manufacturing
+Oriented strandboard (OSB) manufacturing
+Particleboard manufacturing
+Plywood manufacturing
+Reconstituted wood sheets and boards manufacturing
+Roof trusses, wood, manufacturing
+Veneer mills
+Waferboard manufacturing"
+32191,Millwork,"This industry comprises establishments primarily engaged in manufacturing hardwood and softwood cut stock and dimension stock (i.e., shapes); wood windows and wood doors; and other millwork including wood flooring.  Dimension stock or cut stock is defined as lumber and worked wood products cut or shaped to specialized sizes.  These establishments generally use woodworking machinery, such as jointers, planers, lathes, and routers to shape wood."
+32192,Wood Container and Pallet Manufacturing,""
+32199,All Other Wood Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing wood products (except establishments operating sawmills and wood preservation facilities; and establishments manufacturing veneer, plywood, engineered wood products, millwork, wood containers, or pallets).
+
+Illustrative Examples:
+
+Mobile homes manufacturing
+Panels, prefabricated wood building, manufacturing
+Prefabricated wood buildings manufacturing
+Sections, prefabricated wood building, manufacturing
+Wood dowels manufacturing
+Wood handles (e.g., broom, handtool, mop) manufacturing"
+32211,Pulp Mills,""
+32212,Paper Mills,"This industry comprises establishments primarily engaged in manufacturing paper from pulp. These establishments may manufacture or purchase pulp.  In addition, the establishments may convert the paper they make.  The activity of making paper classifies an establishment into this industry regardless of the output."
+32213,Paperboard Mills,""
+32221,Paperboard Container Manufacturing,"This industry comprises establishments primarily engaged in converting paperboard into containers without manufacturing paperboard.  These establishments use corrugating, cutting, and shaping machinery to form paperboard into containers.  Products made by these establishments include boxes, corrugated sheets, pads, pallets, paper dishes, and fiber drums and reels."
+32222,Paper Bag and Coated and Treated Paper Manufacturing,""
+32223,Stationery Product Manufacturing,""
+32229,Other Converted Paper Product Manufacturing,"This industry comprises establishments primarily engaged in (1) converting paper and paperboard into products (except containers, bags, coated and treated paper and paperboard, and stationery products) or (2) converting pulp into pulp products, such as disposable diapers, or molded pulp egg cartons, food trays, and dishes.  Processes used include laminating or lining purchased paper or paperboard.
+
+Illustrative Examples:
+
+Crepe paper made from purchased paper
+Die-cut paper products (except for office use) made from purchased paper or paperboard
+Molded pulp products (e.g., egg cartons, food containers, food trays) manufacturing
+Paper novelties made from purchased paper
+Sanitary products made from purchased sanitary paper stock"
+32311,Printing,"This industry comprises establishments primarily engaged in printing on apparel and textile products, paper, metal, glass, plastics, and other materials, except fabric (grey goods).  The printing processes employed include, but are not limited to, lithographic, gravure, screen, flexographic, digital, and letterpress.  Establishments in this industry do not manufacture the stock that they print, but may perform postprinting activities, such as folding, cutting, or laminating the materials they print, and mailing."
+32312,Support Activities for Printing,""
+32411,Petroleum Refineries,""
+32412,"Asphalt Paving, Roofing, and Saturated Materials Manufacturing",This industry comprises establishments primarily engaged in (1) manufacturing asphalt and tar paving mixtures and blocks and roofing cements and coatings from purchased asphaltic materials and/or (2) saturating purchased mats and felts with asphalt or tar from purchased asphaltic materials.
+32419,Other Petroleum and Coal Products Manufacturing,"This industry comprises establishments primarily engaged in manufacturing petroleum products (except asphalt paving, roofing, and saturated materials) from refined petroleum or coal products made in coke ovens not integrated with a steel mill.
+
+Illustrative Examples:
+
+Biodiesel fuels not made in petroleum refineries and blended with purchased refined petroleum
+Coke oven products (e.g., coke, gases, tars) made in coke oven establishments
+Petroleum brake fluids made from refined petroleum
+Petroleum briquettes made from refined petroleum
+Petroleum jelly made from refined petroleum
+Petroleum lubricating oils and greases made from refined petroleum
+Petroleum waxes made from refined petroleum
+Re-refining used petroleum lubricating oils"
+32511,Petrochemical Manufacturing,""
+32512,Industrial Gas Manufacturing,""
+32513,Synthetic Dye and Pigment Manufacturing,""
+32518,Other Basic Inorganic Chemical Manufacturing,""
+32519,Other Basic Organic Chemical Manufacturing,"This industry comprises establishments primarily engaged in manufacturing basic organic chemicals (except petrochemicals, industrial gases, and synthetic dyes and pigments).
+
+Illustrative Examples:
+
+Biodiesel fuels not made in petroleum refineries and not blended with petroleum
+Carbon organic compounds, not specified elsewhere by process, manufacturing
+Cyclic intermediates made from refined petroleum or natural gas (except aromatic petrochemicals)
+Enzyme proteins (i.e., basic synthetic chemicals) (except pharmaceutical use) manufacturing
+Fatty acids (e.g., margaric, oleic, stearic) manufacturing
+Gum and wood chemicals manufacturing
+Organo-inorganic compound manufacturing
+Plasticizers (i.e., basic synthetic chemical) manufacturing
+Silicone (except resins) manufacturing
+Synthetic sweeteners (i.e., sweetening agents) manufacturing"
+32521,Resin and Synthetic Rubber Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing synthetic resins, plastics materials, and nonvulcanizable elastomers and mixing and blending resins on a custom basis; (2) manufacturing noncustomized synthetic resins; and (3) manufacturing synthetic rubber."
+32522,Artificial and Synthetic Fibers and Filaments Manufacturing,""
+32531,Fertilizer Manufacturing,This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing nitrogenous or phosphatic fertilizer materials; (2) manufacturing fertilizers from sewage or animal waste; (3) manufacturing nitrogenous or phosphatic materials and mixing with other ingredients into fertilizers; and (4) mixing ingredients made elsewhere into fertilizers.
+32532,Pesticide and Other Agricultural Chemical Manufacturing,""
+32541,Pharmaceutical and Medicine Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing biological and medicinal products; (2) processing (i.e., grading, grinding, and milling) botanical drugs and herbs; (3) isolating active medicinal principals from botanical drugs and herbs; and (4) manufacturing pharmaceutical products intended for internal and external consumption in such forms as ampoules, tablets, capsules, vials, ointments, powders, solutions, and suspensions."
+32551,Paint and Coating Manufacturing,""
+32552,Adhesive Manufacturing,""
+32561,Soap and Cleaning Compound Manufacturing,"This industry comprises establishments primarily engaged in manufacturing and packaging soaps and other cleaning compounds, surface active agents, and textile and leather finishing agents used to reduce tension or speed the drying process."
+32562,Toilet Preparation Manufacturing,""
+32591,Printing Ink Manufacturing,""
+32592,Explosives Manufacturing,""
+32599,All Other Chemical Product and Preparation Manufacturing,"This industry comprises establishments primarily engaged in manufacturing chemical products (except basic chemicals, resins, and synthetic rubber; cellulosic and noncellulosic fibers and filaments; pesticides, fertilizers, and other agricultural chemicals; pharmaceuticals and medicines; paints, coatings, and adhesives; soaps, cleaning compounds, and toilet preparations; printing inks; and explosives).
+
+Illustrative Examples:
+
+Activated carbon and charcoal manufacturing
+Antifreeze preparations manufacturing
+Custom compounding (i.e., blending and mixing) of purchased plastics resins
+Electronic cigarette vapor refills manufacturing
+Industrial salt manufacturing
+Matches and matchbook manufacturing
+Photographic chemicals manufacturing
+Pyrotechnics (e.g., flares, flashlight bombs, signals) manufacturing
+Sugar substitutes (i.e., synthetic sweeteners blended with other ingredients) made from purchased synthetic sweeteners
+Swimming pool chemical preparations manufacturing
+Writing inks manufacturing"
+32611,Plastics Packaging Materials and Unlaminated Film and Sheet Manufacturing,"This industry comprises establishments primarily engaged in (1) converting plastics resins into unsupported plastics film and sheet and/or (2) forming, coating, or laminating plastics film and sheet into plastics bags."
+32612,"Plastics Pipe, Pipe Fitting, and Unlaminated Profile Shape Manufacturing","This industry comprises establishments primarily engaged in manufacturing plastics pipes and pipe fittings, and plastics profile shapes such as rod, tube, and sausage casings."
+32613,"Laminated Plastics Plate, Sheet (except Packaging), and Shape Manufacturing",""
+32614,Polystyrene Foam Product Manufacturing,""
+32615,Urethane and Other Foam Product (except Polystyrene) Manufacturing,""
+32616,Plastics Bottle Manufacturing,""
+32619,Other Plastics Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing plastics plumbing fixtures and other plastics products (except film, sheet, bags, profile shapes, pipes, pipe fittings, laminates, foam products, and bottles).
+
+Illustrative Examples:
+
+Inflatable plastics swimming pool rafts and similar flotation devices manufacturing
+Plastics air mattresses manufacturing
+Plastics bottle caps and lids manufacturing
+Plastics bowls and bowl covers manufacturing
+Plastics clothes hangers manufacturing
+Plastics cups (except foam) manufacturing
+Plastics dinnerware (except foam) manufacturing
+Plastics gloves manufacturing
+Plastics hardware manufacturing
+Plastics ice chests or coolers (except plastics foam) manufacturing
+Plastics or fiberglass plumbing fixtures (e.g., toilets, shower stalls, urinals) manufacturing
+Plastics prefabricated buildings manufacturing
+Plastics siding manufacturing
+Plastics trash containers manufacturing
+Resilient floor coverings (e.g., sheet, tiles) manufacturing"
+32621,Tire Manufacturing,This industry comprises establishments primarily engaged in manufacturing tires and inner tubes from natural and synthetic rubber and retreading or rebuilding tires.
+32622,Rubber and Plastics Hoses and Belting Manufacturing,""
+32629,Other Rubber Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing rubber products (except tires, hoses, and belting) from natural and synthetic rubber.
+
+Illustrative Examples:
+
+Birth control devices (e.g., diaphragms, prophylactics) manufacturing
+Latex foam rubber manufacturing
+Mechanical rubber goods (i.e., molded, extruded, lathe-cut) manufacturing
+Reclaiming rubber from waste and scrap
+Rubber balloons manufacturing
+Rubber bands manufacturing
+Rubber floor mats (e.g., door, bath) manufacturing
+Rubber hair care products (e.g., combs, curlers) manufacturing
+Rubber tubing manufacturing"
+32711,"Pottery, Ceramics, and Plumbing Fixture Manufacturing",""
+32712,Clay Building Material and Refractories Manufacturing,""
+32721,Glass and Glass Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing glass and/or glass products.  Establishments in this industry may manufacture glass and/or glass products by melting silica sand or cullet, or from purchased glass."
+32731,Cement Manufacturing,""
+32732,Ready-Mix Concrete Manufacturing,""
+32733,"Concrete Pipe, Brick, and Block Manufacturing","This industry comprises establishments primarily engaged in manufacturing concrete pipe, brick, and block."
+32739,Other Concrete Product Manufacturing,""
+32741,Lime Manufacturing,""
+32742,Gypsum Product Manufacturing,""
+32791,Abrasive Product Manufacturing,""
+32799,All Other Nonmetallic Mineral Product Manufacturing,This industry comprises establishments primarily engaged in manufacturing nonmetallic mineral products (except pottery and plumbing fixtures; clay building materials and refractories; glass and glass products; cement; ready-mix concrete; concrete products; lime; gypsum products; and abrasive products).
+33111,Iron and Steel Mills and Ferroalloy Manufacturing,""
+33121,Iron and Steel Pipe and Tube Manufacturing from Purchased Steel,""
+33122,Rolling and Drawing of Purchased Steel,"This industry comprises establishments primarily engaged in rolling and/or drawing steel shapes, such as plate, sheet, strip, rod, and bar, from purchased steel."
+33131,Alumina and Aluminum Production and Processing,"This industry comprises establishments primarily engaged in one or more of the following: (1) refining alumina; (2) making (i.e., the primary production) aluminum from alumina; (3) recovering aluminum from scrap or dross; (4) alloying purchased aluminum; and (5) manufacturing aluminum primary forms (e.g., bar, foil, pipe, plate, rod, sheet, tube, wire)."
+33141,Nonferrous Metal (except Aluminum) Smelting and Refining,""
+33142,"Copper Rolling, Drawing, Extruding, and Alloying",""
+33149,"Nonferrous Metal (except Copper and Aluminum) Rolling, Drawing, Extruding, and Alloying","This industry comprises establishments primarily engaged in one or more of the following: (1) recovering nonferrous metals (except copper and aluminum) and nonferrous metal alloys from scrap; (2) alloying purchased nonferrous metals (except copper and aluminum); (3) rolling, drawing, and extruding shapes from purchased nonferrous metals (except copper and aluminum); and (4) recovering nonferrous metals from scrap (except copper and aluminum) and rolling, drawing, or extruding shapes in integrated facilities."
+33151,Ferrous Metal Foundries,This industry comprises establishments primarily engaged in pouring molten iron and steel into molds of a desired shape to make castings.  Establishments in this industry purchase iron and steel made in other establishments.
+33152,Nonferrous Metal Foundries,"This industry comprises establishments primarily engaged in pouring and/or introducing molten nonferrous metal, under high pressure, into metal molds or dies to manufacture castings. Establishments in this industry purchase nonferrous metals made in other establishments."
+33211,Forging and Stamping,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing forgings from purchased metals; (2) manufacturing metal custom roll forming products; (3) manufacturing metal stamped and spun products (except automotive, cans, coins); and (4) manufacturing powder metallurgy products.  Establishments making metal forgings, metal stampings, and metal spun products and further manufacturing (e.g., machining, assembling) a specific manufactured product are classified in the industry of the finished product.  Metal forging, metal stamping, and metal spun products establishments may perform surface finishing operations, such as cleaning and deburring, on the products they manufacture."
+33221,Cutlery and Handtool Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing metal kitchen cookware (except by casting (e.g., cast iron skillets) or stamped without further fabrication), utensils, and/or nonprecious and precious plated metal cutlery and flatware; (2) manufacturing saw blades, all types (including those for power sawing machines); and (3) manufacturing nonpowered handtools and edge tools."
+33231,Plate Work and Fabricated Structural Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing one or more of the following: (1) prefabricated metal buildings, panels and sections; (2) structural metal products; and (3) metal plate work products."
+33232,Ornamental and Architectural Metal Products Manufacturing,"This industry comprises establishments primarily engaged in manufacturing one or more of the following: (1) metal framed windows (i.e., typically using purchased glass) and metal doors; (2) sheet metal work; and (3) ornamental and architectural metal products."
+33241,Power Boiler and Heat Exchanger Manufacturing,""
+33242,Metal Tank (Heavy Gauge) Manufacturing,""
+33243,"Metal Can, Box, and Other Metal Container (Light Gauge) Manufacturing",This industry comprises establishments primarily engaged in forming light gauge metal containers.
+33251,Hardware Manufacturing,""
+33261,Spring and Wire Product Manufacturing,"This industry comprises establishments primarily engaged in (1) manufacturing steel springs by forming, such as cutting, bending, and heat winding, metal rod or strip stock and/or (2) manufacturing wire springs and fabricated wire products from wire drawn elsewhere (except watch and clock springs)."
+33271,Machine Shops,""
+33272,"Turned Product and Screw, Nut, and Bolt Manufacturing","This industry comprises establishments primarily engaged in (1) machining precision turned products or (2) manufacturing metal bolts, nuts, screws, rivets, and other industrial fasteners.  Included in this industry are establishments primarily engaged in manufacturing parts for machinery and equipment on a custom basis."
+33281,"Coating, Engraving, Heat Treating, and Allied Activities","This industry comprises establishments primarily engaged in one or more of the following: (1) heat treating metals and metal products; (2) enameling, lacquering, and varnishing metals and metal products; (3) hot dip galvanizing metals and metal products; (4) engraving, chasing, or etching metals and metal products (except jewelry; personal goods carried on or about the person, such as compacts and cigarette cases; precious metal products (except precious plated flatware and other plated ware); and printing plates); (5) powder coating metals and metal products; (6) electroplating, plating, anodizing, coloring, and finishing metals and metal products; and (7) providing other metal surfacing services for the trade.  Establishments in this industry coat, engrave, and heat treat metals and metal formed products fabricated elsewhere."
+33291,Metal Valve Manufacturing,This industry comprises establishments primarily engaged in manufacturing one or more of the following metal valves: (1) industrial valves; (2) fluid power valves and hose fittings; (3) plumbing fixture fittings and trim; and (4) other metal valves and pipe fittings.
+33299,All Other Fabricated Metal Product Manufacturing,"This industry comprises establishments primarily engaged in manufacturing fabricated metal products (except forgings and stampings, cutlery and handtools, architectural and structural metal products, boilers, tanks, shipping containers, hardware, spring and wire products, machine shop products, turned products, screws, nuts and bolts, and metal valves).
+
+Illustrative Examples:
+
+Ammunition manufacturing
+Ball and roller bearing manufacturing
+Enameled iron and metal sanitary ware manufacturing
+Fabricated pipe and pipe fittings made from purchased metal pipe
+Foil containers (except bags) manufacturing
+Industrial pattern manufacturing
+Metal safes manufacturing
+Portable metal ladders manufacturing
+Small arms and other ordnance manufacturing
+Steel wool manufacturing"
+33311,Agricultural Implement Manufacturing,"This industry comprises establishments primarily engaged in manufacturing farm machinery and equipment, powered mowing equipment, and other powered home lawn and garden equipment.
+
+Illustrative Examples:
+
+Combines (i.e., harvester-threshers) manufacturing
+Cotton ginning machinery manufacturing
+Fertilizing machinery, farm-type, manufacturing
+Haying machines manufacturing
+Milking machines manufacturing
+Planting machines, farm-type, manufacturing
+Plows, farm-type, manufacturing
+Poultry brooders, feeders, and waterers manufacturing
+Powered lawnmowers manufacturing
+Snowblowers and throwers, residential-type, manufacturing
+Tractors and attachments, lawn and garden-type and farm-type, manufacturing"
+33312,Construction Machinery Manufacturing,""
+33313,Mining and Oil and Gas Field Machinery Manufacturing,"This industry comprises establishments primarily engaged in manufacturing oil and gas field and underground mining machinery and equipment.
+
+Illustrative Examples:
+
+Coal breakers, cutters, and pulverizers manufacturing
+Core drills, underground mining-type, manufacturing
+Mineral processing and beneficiating machinery manufacturing
+Mining cars manufacturing
+Oil and gas field-type derricks manufacturing
+Oil and gas field-type drilling machinery and equipment (except offshore floating platforms) manufacturing
+Stationary rock crushing machinery manufacturing
+Water well drilling machinery manufacturing"
+33324,Industrial Machinery Manufacturing,"This industry comprises establishments primarily engaged in manufacturing industrial machinery, such as food and beverage manufacturing machinery, semiconductor manufacturing machinery, sawmill and woodworking machinery (except handheld), machinery for making paper and paper products, printing and binding machinery and equipment, textile making machinery, and machinery for making plastics and rubber products."
+33331,Commercial and Service Industry Machinery Manufacturing,"This industry comprises establishments primarily engaged in manufacturing commercial and service industry machinery, such as optical instruments, photographic and photocopying equipment, automatic vending machinery, commercial laundry and drycleaning machinery, office machinery, automotive maintenance equipment (except mechanics’ handtools), and commercial-type cooking equipment."
+33341,"Ventilation, Heating, Air-Conditioning, and Commercial Refrigeration Equipment Manufacturing","This industry comprises establishments primarily engaged in manufacturing ventilating, heating, air-conditioning, and commercial and industrial refrigeration and freezer equipment.
+
+Illustrative Examples:
+
+Air-conditioner filters manufacturing
+Air-conditioning and warm air heating combination units manufacturing
+Attic fans manufacturing
+Dust and fume collecting equipment manufacturing
+Gas fireplaces manufacturing
+Heating boilers manufacturing
+Industrial and commercial-type fans manufacturing
+Refrigerated counter and display cases manufacturing
+Refrigerated drinking fountains manufacturing
+Space heaters (except portable electric) manufacturing"
+33351,Metalworking Machinery Manufacturing,"This industry comprises establishments primarily engaged in manufacturing metalworking machinery, such as metal cutting and metal forming machine tools; cutting tools; accessories for metalworking machinery; special dies, tools, jigs, and fixtures; industrial molds; rolling mill machinery; assembly machinery; coil handling, conversion, or straightening equipment; and wire drawing and fabricating machines."
+33361,"Engine, Turbine, and Power Transmission Equipment Manufacturing","This industry comprises establishments primarily engaged in manufacturing turbines, power transmission equipment, and internal combustion engines (except automotive gasoline and aircraft).
+
+Illustrative Examples:
+
+Clutches and brakes (except electromagnetic industrial controls, motor vehicle) manufacturing
+Diesel and semidiesel engines manufacturing
+Electric outboard motors manufacturing
+Internal combustion engines for hybrid drive systems (except automotive) manufacturing
+Plain bearings (except internal combustion engine) manufacturing
+Plain bushings (except internal combustion engine) manufacturing
+Power transmission pulleys manufacturing
+Speed changers (i.e., power transmission equipment) manufacturing
+Speed reducers (i.e., power transmission equipment) manufacturing
+Turbine generator set units manufacturing
+Universal joints (except aircraft, motor vehicle) manufacturing"
+33391,Pump and Compressor Manufacturing,"This industry comprises establishments primarily engaged in manufacturing pumps and compressors, such as general purpose air and gas compressors, nonagricultural spraying and dusting equipment, general purpose pumps and pumping equipment (except fluid power pumps and motors), and measuring and dispensing pumps."
+33392,Material Handling Equipment Manufacturing,"This industry comprises establishments primarily engaged in manufacturing material handling equipment, such as elevators and moving stairs; conveyors and conveying equipment; overhead traveling cranes, hoists, and monorail systems; and industrial trucks, tractors, trailers, and stacker machinery."
+33399,All Other General Purpose Machinery Manufacturing,"This industry comprises establishments primarily engaged in manufacturing general purpose machinery (except ventilation, heating, air-conditioning, and commercial refrigeration equipment; metalworking machinery; engines, turbines, and power transmission equipment; pumps and compressors; and material handling equipment).
+
+Illustrative Examples:
+
+Automatic fire sprinkler systems manufacturing
+Bridge and gate lifting machinery manufacturing
+Fluid power cylinders manufacturing
+Fluid power pumps manufacturing
+Hydraulic and pneumatic jacks manufacturing
+Industrial-type furnaces manufacturing
+Packaging machinery manufacturing
+Power-driven handtools manufacturing
+Scales manufacturing
+Welding equipment manufacturing"
+33411,Computer and Peripheral Equipment Manufacturing,"This industry comprises establishments primarily engaged in manufacturing and/or assembling electronic computers, such as mainframes, personal computers, workstations, laptops, and computer servers; and computer peripheral equipment, such as storage devices, printers, monitors, and input/output devices and terminals.  Computers can be analog, digital, or hybrid.  Digital computers, the most common type, are devices that do all of the following: (1) store the processing program or programs and the data immediately necessary for the execution of the program; (2) can be freely programmed in accordance with the requirements of the user; (3) perform arithmetical computations specified by the user; and (4) execute, without human intervention, a processing program that requires the computer to modify its execution by logical decision during the processing run.  Analog computers are capable of simulating mathematical models and comprise at least analog, control, and programming elements."
+33421,Telephone Apparatus Manufacturing,""
+33422,Radio and Television Broadcasting and Wireless Communications Equipment Manufacturing,""
+33429,Other Communications Equipment Manufacturing,""
+33431,Audio and Video Equipment Manufacturing,""
+33441,Semiconductor and Other Electronic Component Manufacturing,"This industry comprises establishments primarily engaged in manufacturing semiconductors and other components for electronic applications.  Examples of products made by these establishments are capacitors, resistors, microprocessors, bare and loaded printed circuit boards, electron tubes, electronic connectors, and computer modems."
+33451,"Navigational, Measuring, Electromedical, and Control Instruments Manufacturing","This industry comprises establishments primarily engaged in manufacturing navigational, measuring, electromedical, and control instruments.  Examples of products made by these establishments are aeronautical instruments, appliance regulators and controls (except switches), laboratory analytical instruments, navigation and guidance systems, and physical properties testing equipment."
+33461,Manufacturing and Reproducing Magnetic and Optical Media,"This industry comprises establishments primarily engaged in (1) manufacturing optical and magnetic media, such as blank audio tapes, blank video tapes, and blank diskettes, and/or (2) mass duplicating (i.e., making copies) audio, video, software, and other data on magnetic, optical, and similar media."
+33511,Electric Lamp Bulb and Part Manufacturing,""
+33512,Lighting Fixture Manufacturing,"This industry comprises establishments primarily engaged in manufacturing electric lighting fixtures (except vehicular), nonelectric lighting equipment, lamp shades (except glass and plastics), and lighting fixture components (except current-carrying wiring devices)."
+33521,Small Electrical Appliance Manufacturing,""
+33522,Major Household Appliance Manufacturing,""
+33531,Electrical Equipment Manufacturing,"This industry comprises establishments primarily engaged in manufacturing power, distribution, and specialty transformers; electric motors, generators, and motor generator sets; switchgear and switchboard apparatus; relays; and industrial controls."
+33591,Battery Manufacturing,This industry comprises establishments primarily engaged in manufacturing primary and storage batteries.
+33592,Communication and Energy Wire and Cable Manufacturing,"This industry comprises establishments insulating fiber optic cable, and manufacturing insulated nonferrous wire and cable from nonferrous wire drawn in other establishments."
+33593,Wiring Device Manufacturing,This industry comprises establishments primarily engaged in manufacturing current-carrying wiring devices and noncurrent-carrying wiring devices for wiring electrical circuits.
+33599,All Other Electrical Equipment and Component Manufacturing,"This industry comprises establishments primarily engaged in manufacturing electrical equipment (except electric lighting equipment, household-type appliances, transformers, motors, generators, switchgear, relays, industrial controls, batteries, communication and energy wire and cable, and wiring devices).
+
+Illustrative Examples:
+
+Carbon and graphite electrodes and brushes manufacturing
+Door opening and closing devices, electrical, manufacturing
+Extension cords made from purchased insulated wire
+Surge suppressors manufacturing"
+33611,Automobile and Light Duty Motor Vehicle Manufacturing,"This industry comprises establishments primarily engaged in (1) manufacturing complete automobile and light duty motor vehicles (i.e., body and chassis or unibody) or (2) manufacturing automobile and light duty motor vehicle chassis only."
+33612,Heavy Duty Truck Manufacturing,""
+33621,Motor Vehicle Body and Trailer Manufacturing,"This industry comprises establishments primarily engaged in (1) manufacturing motor vehicle bodies and cabs or (2) manufacturing truck, automobile and utility trailers, truck trailer chassis, detachable trailer bodies, and detachable trailer chassis.  The products made may be sold separately or may be assembled on purchased chassis and sold as complete vehicles.
+
+Motor homes are units where the motor and the living quarters are contained in the same integrated unit, while travel trailers are designed to be towed by a motor unit, such as an automobile or a light truck.
+
+Illustrative Examples:
+
+Bodies and cabs, truck, manufacturing
+Camper units, slide-in, for pick-up trucks, manufacturing
+Motor homes, self-contained, assembling on purchased chassis
+Pick-up canopies, caps, or covers manufacturing
+Semi-trailers manufacturing
+Travel trailers, recreational, manufacturing"
+33631,Motor Vehicle Gasoline Engine and Engine Parts Manufacturing,""
+33632,Motor Vehicle Electrical and Electronic Equipment Manufacturing,""
+33633,Motor Vehicle Steering and Suspension Components (except Spring) Manufacturing,""
+33634,Motor Vehicle Brake System Manufacturing,""
+33635,Motor Vehicle Transmission and Power Train Parts Manufacturing,""
+33636,Motor Vehicle Seating and Interior Trim Manufacturing,""
+33637,Motor Vehicle Metal Stamping,""
+33639,Other Motor Vehicle Parts Manufacturing,""
+33641,Aerospace Product and Parts Manufacturing,"This industry comprises establishments primarily engaged in one or more of the following: (1) manufacturing complete aircraft, missiles, or space vehicles; (2) manufacturing aerospace engines, propulsion units, auxiliary equipment or parts; (3) developing and making prototypes of aerospace products; (4) aircraft conversion (i.e., major modifications to systems); and (5) complete aircraft or propulsion systems overhaul and rebuilding (i.e., periodic restoration of aircraft to original design specifications)."
+33651,Railroad Rolling Stock Manufacturing,""
+33661,Ship and Boat Building,"This industry comprises establishments primarily engaged in operating shipyards or boat yards (i.e., ship or boat manufacturing facilities).  Shipyards are fixed facilities with drydocks and fabrication equipment capable of building a ship, defined as watercraft typically suitable or intended for other than personal or recreational use.  Boats are defined as watercraft typically suitable or intended for personal use.  Activities of shipyards include the construction of ships, their repair, conversion and alteration, production of prefabricated ship and barge sections, and specialized services, such as ship scaling.
+
+Illustrative Examples:
+
+Barge building
+Boat yards (i.e., boat manufacturing facilities)
+Cargo ship building
+Drilling and production platforms, floating, oil and gas, building
+Inflatable plastic boats, heavy-duty, manufacturing
+Inflatable rubber boats, heavy-duty, manufacturing
+Passenger ship building
+Rigid inflatable boats (RIBs) manufacturing
+Rowboats manufacturing"
+33699,Other Transportation Equipment Manufacturing,"This industry comprises establishments primarily engaged in manufacturing motorcycles, bicycles, metal tricycles, complete military armored vehicles, tanks, self-propelled weapons, vehicles pulled by draft animals, and other transportation equipment (except motor vehicles, boats, ships, railroad rolling stock, and aerospace products), including parts thereof."
+33711,Wood Kitchen Cabinet and Countertop Manufacturing,""
+33712,Household and Institutional Furniture Manufacturing,"This industry comprises establishments primarily engaged in manufacturing household-type and public building furniture (i.e., library, school, theater, and church furniture).  This industry includes establishments that manufacture general purpose hospital, laboratory and/or dental furniture (e.g., stools, tables, benches).  The furniture may be made on a stock or custom basis and may be assembled or unassembled (i.e., knockdown)."
+33721,Office Furniture (including Fixtures) Manufacturing,"This industry comprises establishments primarily engaged in manufacturing office furniture and/or office and store fixtures.  The furniture may be made on a stock or custom basis and may be assembled or unassembled (i.e., knockdown)."
+33791,Mattress Manufacturing,""
+33792,Blind and Shade Manufacturing,""
+33911,Medical Equipment and Supplies Manufacturing,"This industry comprises establishments primarily engaged in manufacturing medical equipment and supplies.  Examples of products made by these establishments are surgical and medical instruments, surgical appliances and supplies, dental equipment and supplies, orthodontic goods, ophthalmic goods, dentures, and orthodontic appliances."
+33991,Jewelry and Silverware Manufacturing,""
+33992,Sporting and Athletic Goods Manufacturing,""
+33993,"Doll, Toy, and Game Manufacturing",""
+33994,Office Supplies (except Paper) Manufacturing,""
+33995,Sign Manufacturing,""
+33999,All Other Miscellaneous Manufacturing,"This industry comprises establishments primarily engaged in miscellaneous manufacturing (except medical equipment and supplies, jewelry and flatware, sporting and athletic goods, dolls, toys, games, office supplies (except paper), and signs).
+
+Illustrative Examples:
+
+Artificial Christmas trees manufacturing
+Burial caskets and cases manufacturing
+Candles manufacturing
+Coin-operated amusement machines (except jukebox) manufacturing
+Electronic cigarettes manufacturing
+Fasteners, buttons, needles, and pins (except precious metals or precious and semiprecious stones and gems) manufacturing
+Floor and dust mops manufacturing
+Gasket, packing, and sealing devices manufacturing
+Musical instruments (except toy) manufacturing
+Portable fire extinguishers manufacturing
+Umbrellas manufacturing"
+42311,Automobile and Other Motor Vehicle Merchant Wholesalers,""
+42312,Motor Vehicle Supplies and New Parts Merchant Wholesalers,""
+42313,Tire and Tube Merchant Wholesalers,""
+42314,Motor Vehicle Parts (Used) Merchant Wholesalers,""
+42321,Furniture Merchant Wholesalers,""
+42322,Home Furnishing Merchant Wholesalers,""
+42331,"Lumber, Plywood, Millwork, and Wood Panel Merchant Wholesalers",""
+42332,"Brick, Stone, and Related Construction Material Merchant Wholesalers",""
+42333,"Roofing, Siding, and Insulation Material Merchant Wholesalers",""
+42339,Other Construction Material Merchant Wholesalers,""
+42341,Photographic Equipment and Supplies Merchant Wholesalers,""
+42342,Office Equipment Merchant Wholesalers,""
+42343,Computer and Computer Peripheral Equipment and Software Merchant Wholesalers,""
+42344,Other Commercial Equipment Merchant Wholesalers,""
+42345,"Medical, Dental, and Hospital Equipment and Supplies Merchant Wholesalers",""
+42346,Ophthalmic Goods Merchant Wholesalers,""
+42349,Other Professional Equipment and Supplies Merchant Wholesalers,""
+42351,Metal Service Centers and Other Metal Merchant Wholesalers,""
+42352,Coal and Other Mineral and Ore Merchant Wholesalers,""
+42361,"Electrical Apparatus and Equipment, Wiring Supplies, and Related Equipment Merchant Wholesalers",""
+42362,"Household Appliances, Electric Housewares, and Consumer Electronics Merchant Wholesalers",""
+42369,Other Electronic Parts and Equipment Merchant Wholesalers,""
+42371,Hardware Merchant Wholesalers,""
+42372,Plumbing and Heating Equipment and Supplies (Hydronics) Merchant Wholesalers,""
+42373,Warm Air Heating and Air-Conditioning Equipment and Supplies Merchant Wholesalers,""
+42374,Refrigeration Equipment and Supplies Merchant Wholesalers,""
+42381,Construction and Mining (except Oil Well) Machinery and Equipment Merchant Wholesalers,""
+42382,Farm and Garden Machinery and Equipment Merchant Wholesalers,""
+42383,Industrial Machinery and Equipment Merchant Wholesalers,""
+42384,Industrial Supplies Merchant Wholesalers,""
+42385,Service Establishment Equipment and Supplies Merchant Wholesalers,""
+42386,Transportation Equipment and Supplies (except Motor Vehicle) Merchant Wholesalers,""
+42391,Sporting and Recreational Goods and Supplies Merchant Wholesalers,""
+42392,Toy and Hobby Goods and Supplies Merchant Wholesalers,""
+42393,Recyclable Material Merchant Wholesalers,""
+42394,"Jewelry, Watch, Precious Stone, and Precious Metal Merchant Wholesalers",""
+42399,Other Miscellaneous Durable Goods Merchant Wholesalers,""
+42411,Printing and Writing Paper Merchant Wholesalers,""
+42412,Stationery and Office Supplies Merchant Wholesalers,""
+42413,Industrial and Personal Service Paper Merchant Wholesalers,""
+42421,Drugs and Druggists' Sundries Merchant Wholesalers,""
+42431,"Piece Goods, Notions, and Other Dry Goods Merchant Wholesalers",""
+42432,Men's and Boys' Clothing and Furnishings Merchant Wholesalers,""
+42433,"Women's, Children's, and Infants' Clothing and Accessories Merchant Wholesalers",""
+42434,Footwear Merchant Wholesalers,""
+42441,General Line Grocery Merchant Wholesalers,""
+42442,Packaged Frozen Food Merchant Wholesalers,""
+42443,Dairy Product (except Dried or Canned) Merchant Wholesalers,""
+42444,Poultry and Poultry Product Merchant Wholesalers,""
+42445,Confectionery Merchant Wholesalers,""
+42446,Fish and Seafood Merchant Wholesalers,""
+42447,Meat and Meat Product Merchant Wholesalers,""
+42448,Fresh Fruit and Vegetable Merchant Wholesalers,""
+42449,Other Grocery and Related Products Merchant Wholesalers,""
+42451,Grain and Field Bean Merchant Wholesalers,""
+42452,Livestock Merchant Wholesalers,""
+42459,Other Farm Product Raw Material Merchant Wholesalers,""
+42461,Plastics Materials and Basic Forms and Shapes Merchant Wholesalers,""
+42469,Other Chemical and Allied Products Merchant Wholesalers,""
+42471,Petroleum Bulk Stations and Terminals,""
+42472,Petroleum and Petroleum Products Merchant Wholesalers (except Bulk Stations and Terminals),""
+42481,Beer and Ale Merchant Wholesalers,""
+42482,Wine and Distilled Alcoholic Beverage Merchant Wholesalers,""
+42491,Farm Supplies Merchant Wholesalers,""
+42492,"Book, Periodical, and Newspaper Merchant Wholesalers",""
+42493,"Flower, Nursery Stock, and Florists' Supplies Merchant Wholesalers",""
+42494,Tobacco and Tobacco Product Merchant Wholesalers,""
+42495,"Paint, Varnish, and Supplies Merchant Wholesalers",""
+42499,Other Miscellaneous Nondurable Goods Merchant Wholesalers,""
+42511,Business to Business Electronic Markets,""
+42512,Wholesale Trade Agents and Brokers,""
+44111,New Car Dealers,""
+44112,Used Car Dealers,""
+44121,Recreational Vehicle Dealers,""
+44122,"Motorcycle, Boat, and Other Motor Vehicle Dealers","This industry comprises establishments primarily engaged in retailing new and used motorcycles, boats, and other vehicles (except automobiles, light trucks, and recreational vehicles), or retailing these new vehicles in combination with activities, such as repair services and selling replacement parts and accessories.
+
+Illustrative Examples:
+
+Aircraft dealers
+Motorcycle dealers
+All-terrain vehicle (ATV) dealers
+Utility trailer dealers
+Boat dealers, new and used"
+44131,Automotive Parts and Accessories Stores,""
+44132,Tire Dealers,""
+44211,Furniture Stores,""
+44221,Floor Covering Stores,""
+44229,Other Home Furnishings Stores,"This industry comprises establishments primarily engaged in retailing new home furnishings (except furniture and floor coverings).
+
+Illustrative Examples:
+
+Bath shops
+Kitchenware stores
+Chinaware stores
+Window treatment stores
+Glassware stores"
+44314,Electronics and Appliance Stores,"This industry comprises establishments primarily engaged in one of the following: (1) retailing an array of new household-type appliances and consumer-type electronic products, such as televisions, computers, and cameras; (2) specializing in retailing a single line of new consumer-type electronic products; (3) retailing these new products in combination with repair and support services; (4) retailing new prepackaged computer software; and/or (5) retailing prerecorded audio and video media, such as CDs, DVDs, and tapes.
+
+Illustrative Examples:
+
+Appliance stores, household-type
+Cellular telephone accessories stores
+Consumer-type electronic stores (e.g., televisions, computers, cameras)"
+44411,Home Centers,""
+44412,Paint and Wallpaper Stores,""
+44413,Hardware Stores,""
+44419,Other Building Material Dealers,""
+44421,Outdoor Power Equipment Stores,""
+44422,"Nursery, Garden Center, and Farm Supply Stores",""
+44511,Supermarkets and Other Grocery (except Convenience) Stores,""
+44512,Convenience Stores,""
+44521,Meat Markets,""
+44522,Fish and Seafood Markets,""
+44523,Fruit and Vegetable Markets,""
+44529,Other Specialty Food Stores,"This industry comprises establishments primarily engaged in retailing specialty foods (except meat, fish, seafood, and fruits and vegetables) not for immediate consumption and not made on the premises.
+
+Illustrative Examples:
+
+Baked goods stores (except immediate consumption)
+Dairy product stores
+Coffee and tea (i.e., packaged) stores
+Gourmet food stores
+Confectionery (i.e., packaged) stores
+Nut (i.e., packaged) stores"
+44531,"Beer, Wine, and Liquor Stores",""
+44611,Pharmacies and Drug Stores,""
+44612,"Cosmetics, Beauty Supplies, and Perfume Stores",""
+44613,Optical Goods Stores,""
+44619,Other Health and Personal Care Stores,"This industry comprises establishments primarily engaged in retailing health and personal care items (except drugs, medicines, optical goods, perfumes, cosmetics, and beauty supplies).
+
+Illustrative Examples:
+
+Convalescent supply stores
+Prosthetic stores
+Food (i.e., health) supplement stores
+Sick room supply stores
+Hearing aid stores"
+44711,Gasoline Stations with Convenience Stores,""
+44719,Other Gasoline Stations,""
+44811,Men's Clothing Stores,""
+44812,Women's Clothing Stores,""
+44813,Children's and Infants' Clothing Stores,""
+44814,Family Clothing Stores,""
+44815,Clothing Accessories Stores,""
+44819,Other Clothing Stores,""
+44821,Shoe Stores,""
+44831,Jewelry Stores,""
+44832,Luggage and Leather Goods Stores,""
+45111,Sporting Goods Stores,""
+45112,"Hobby, Toy, and Game Stores",""
+45113,"Sewing, Needlework, and Piece Goods Stores",""
+45114,Musical Instrument and Supplies Stores,""
+45121,Book Stores and News Dealers,"This industry comprises establishments primarily engaged in retailing new books, newspapers, magazines, and other periodicals."
+45221,Department Stores,""
+45231,"General Merchandise Stores, including Warehouse Clubs and Supercenters","This industry comprises establishments primarily engaged in retailing new goods in general merchandise stores (except department stores).  These establishments retail a general line of new merchandise, such as apparel, automotive parts, dry goods, hardware, groceries, housewares, and home furnishings, with no one merchandise line predominating.  Establishments known as warehouse clubs, superstores, or supercenters are included in this industry.
+
+Illustrative Examples:
+
+Dollar stores
+General merchandise catalog showrooms (except catalog mail-order)
+General merchandise trading posts
+General stores
+Home and auto supply stores
+Superstores (i.e., food and general merchandise)
+Variety stores
+Warehouse clubs (i.e., food and general merchandise)"
+45311,Florists,""
+45321,Office Supplies and Stationery Stores,""
+45322,"Gift, Novelty, and Souvenir Stores",""
+45331,Used Merchandise Stores,""
+45391,Pet and Pet Supplies Stores,""
+45392,Art Dealers,""
+45393,Manufactured (Mobile) Home Dealers,""
+45399,All Other Miscellaneous Store Retailers,"This industry comprises establishments primarily engaged in retailing specialized lines of merchandise (except motor vehicle and parts dealers; furniture and home furnishings stores; electronics and appliance stores; building material and garden equipment and supplies dealers; food and beverage stores; health and personal care stores; gasoline stations; clothing and clothing accessories stores; sporting goods, hobby, book, and music stores; general merchandise stores; florists; office supplies, stationery, and gift stores; used merchandise stores; pet and pet supplies stores; art dealers; and manufactured home (i.e., mobile home) dealers).  This industry also includes establishments primarily engaged in retailing a general line of new and used merchandise on an auction basis (except electronic auctions).
+
+Illustrative Examples:
+
+Art supply stores
+Swimming pool supply stores, new
+Cemetery memorial (e.g., markers, headstones, vaults) dealers
+Tobacco stores
+Cigar stores"
+45411,Electronic Shopping and Mail-Order Houses,""
+45421,Vending Machine Operators,""
+45431,Fuel Dealers,""
+45439,Other Direct Selling Establishments,""
+48111,Scheduled Air Transportation,"This industry comprises establishments primarily engaged in providing air transportation of passengers and/or cargo over regular routes and on regular schedules.  Establishments in this industry operate flights even if partially loaded.  Establishments primarily engaged in providing scheduled air transportation of mail on a contract basis are included in this industry.
+
+Illustrative Examples:
+
+Air commuter carriers, scheduled
+Scheduled air passenger carriers
+Scheduled air cargo carriers (except air couriers)
+Scheduled helicopter passenger carriers"
+48121,Nonscheduled Air Transportation,"This industry comprises establishments primarily engaged in (1) providing air transportation of passengers and/or cargo with no regular routes and regular schedules or (2) providing specialty flying services with no regular routes and regular schedules using general purpose aircraft.  These establishments have more flexibility with respect to choice of airports, hours of operation, load factors, and similar operational characteristics.
+
+Illustrative Examples:
+
+Air taxi services
+Nonscheduled air freight transportation services
+Aircraft charter services
+Nonscheduled air passenger transportation services"
+48211,Rail Transportation,"This industry comprises establishments primarily engaged in operating railroads (except street railroads, commuter rail, urban rapid transit, and scenic and sightseeing trains). Line-haul railroads and short-line railroads are included in this industry."
+48311,"Deep Sea, Coastal, and Great Lakes Water Transportation","This industry comprises establishments primarily engaged in providing deep sea, coastal, Great Lakes, and St. Lawrence Seaway water transportation.  Marine transportation establishments using the facilities of the St. Lawrence Seaway Authority Commission are considered to be using the Great Lakes Water Transportation System."
+48321,Inland Water Transportation,"This industry comprises establishments primarily engaged in providing inland water transportation of passengers and/or cargo on lakes, rivers, or intracoastal waterways (except on the Great Lakes System)."
+48411,"General Freight Trucking, Local",""
+48412,"General Freight Trucking, Long-Distance","This industry comprises establishments primarily engaged in providing long-distance general freight trucking.  General freight trucking establishments handle a wide variety of commodities, generally palletized and transported in a container or van trailer.  Long-distance general freight trucking establishments usually provide trucking between metropolitan areas which may cross North American country borders.  Included in this industry are establishments operating as truckload (TL) or less than truckload (LTL) carriers."
+48421,Used Household and Office Goods Moving,""
+48422,"Specialized Freight (except Used Goods) Trucking, Local",""
+48423,"Specialized Freight (except Used Goods) Trucking, Long-Distance",""
+48511,Urban Transit Systems,"This industry comprises establishments primarily engaged in operating local and suburban passenger transit systems over regular routes and on regular schedules within a metropolitan area and its adjacent nonurban areas.  Such transportation systems involve the use of one or more modes of transport including light rail, commuter rail, subways, and streetcars, as well as buses and other motor vehicles."
+48521,Interurban and Rural Bus Transportation,""
+48531,Taxi Service,""
+48532,Limousine Service,""
+48541,School and Employee Bus Transportation,""
+48551,Charter Bus Industry,""
+48599,Other Transit and Ground Passenger Transportation,"This industry comprises establishments primarily engaged in providing other transit and ground passenger transportation (except urban transit systems, interurban and rural bus transportation, taxi services, school and employee bus transportation, charter bus services, and limousine services (except shuttle services)).  Shuttle services (except employee bus) and special needs transportation services are included in this industry.  Shuttle services establishments generally travel within a metropolitan area and its adjacent nonurban areas on regular routes, on regular schedules and provide services between hotels, airports, or other destination points.  Establishments in the Special Needs Transportation industry provide passenger transportation to the infirm, elderly, or handicapped.  These establishments may use specially equipped vehicles to provide passenger transportation."
+48611,Pipeline Transportation of Crude Oil,""
+48621,Pipeline Transportation of Natural Gas,""
+48691,Pipeline Transportation of Refined Petroleum Products,""
+48699,All Other Pipeline Transportation,""
+48711,"Scenic and Sightseeing Transportation, Land",""
+48721,"Scenic and Sightseeing Transportation, Water",""
+48799,"Scenic and Sightseeing Transportation, Other",""
+48811,Airport Operations,"This industry comprises establishments primarily engaged in (1) operating international, national, or civil airports or public flying fields or (2) supporting airport operations (except special food services contractors), such as rental of hangar space, air traffic control services, baggage handling services, and cargo handling services."
+48819,Other Support Activities for Air Transportation,""
+48821,Support Activities for Rail Transportation,""
+48831,Port and Harbor Operations,""
+48832,Marine Cargo Handling,""
+48833,Navigational Services to Shipping,""
+48839,Other Support Activities for Water Transportation,""
+48841,Motor Vehicle Towing,""
+48849,Other Support Activities for Road Transportation,""
+48851,Freight Transportation Arrangement,""
+48899,Other Support Activities for Transportation,"This industry comprises establishments primarily engaged in providing support activities to transportation (except for air transportation; rail transportation; water transportation; road transportation; and freight transportation arrangement).
+
+Illustrative Examples:
+
+Arrangement of vanpools or carpools
+Stockyards (i.e., not for fattening or selling livestock)
+Independent pipeline terminal facilities"
+49111,Postal Service,""
+49211,Couriers and Express Delivery Services,""
+49221,Local Messengers and Local Delivery,""
+49311,General Warehousing and Storage,""
+49312,Refrigerated Warehousing and Storage,""
+49313,Farm Product Warehousing and Storage,""
+49319,Other Warehousing and Storage,""
+51111,Newspaper Publishers,""
+51112,Periodical Publishers,""
+51113,Book Publishers,""
+51114,Directory and Mailing List Publishers,""
+51119,Other Publishers,"This industry comprises establishments known as publishers (except newspaper, magazine, book, directory, mailing list, and music publishers).  These establishments may publish works in print or electronic form.
+
+Illustrative Examples:
+
+Art print publishers (except exclusive Internet publishing)
+Greeting card publishers (except exclusive Internet publishing)
+Calendar publishers (except exclusive Internet publishing)"
+51121,Software Publishers,""
+51211,Motion Picture and Video Production,""
+51212,Motion Picture and Video Distribution,""
+51213,Motion Picture and Video Exhibition,"This industry comprises establishments primarily engaged in operating motion picture theaters and/or exhibiting motion pictures or videos at film festivals, and so forth."
+51219,Postproduction Services and Other Motion Picture and Video Industries,"This industry comprises establishments primarily engaged in providing postproduction services and other services to the motion picture industry, including specialized motion picture or video postproduction services, such as editing, film/tape transfers, titling, subtitling, credits, closed captioning, and computer-produced graphics, animation and special effects, as well as developing and processing motion picture film.
+
+Illustrative Examples:
+
+Motion picture film laboratories
+Stock footage film libraries
+Postproduction facilities
+Teleproduction services"
+51223,Music Publishers,""
+51224,Sound Recording Studios,""
+51225,Record Production and Distribution,""
+51229,Other Sound Recording Industries,""
+51511,Radio Broadcasting,"This industry comprises establishments primarily engaged in broadcasting audio signals.  These establishments operate radio broadcasting studios and facilities for the transmission of aural programming to the public, to affiliates, or to subscribers.  The radio programs may include entertainment, news, talk shows, business data, or religious services."
+51512,Television Broadcasting,""
+51521,Cable and Other Subscription Programming,""
+51731,Wired and Wireless Telecommunications Carriers,"This industry comprises establishments primarily engaged in operating, maintaining, and/or providing access to switching and transmission facilities and infrastructure that they own and/or lease for the transmission of voice, data, text, sound, and video using wired and wireless telecommunications networks.  Transmission facilities may be based on a single technology or a combination of technologies.  By exception, establishments providing satellite television distribution services using facilities and infrastructure that they operate are included in this industry.
+
+Illustrative Examples:
+
+Broadband Internet service providers, wired (e.g., cable, DSL)
+Cable television distribution services
+Cellular telephone services
+Direct-to-home satellite system (DTH) services
+Satellite television distribution systems
+Telecommunications carriers, wired
+VoIP service providers, using own operated wired telecommunications infrastructure
+Wireless Internet service providers, except satellite
+Wireless telecommunications carriers, except satellite
+Wireless telephone communications carriers, except satellite"
+51741,Satellite Telecommunications,""
+51791,Other Telecommunications,"This industry comprises establishments primarily engaged in (1) purchasing access and network capacity from owners and operators of telecommunications networks and reselling wired and wireless telecommunications services (except satellite) to businesses and households; (2) providing specialized telecommunications services, such as satellite tracking, communications telemetry, and radar station operation; (3) providing satellite terminal stations and associated facilities connected with one or more terrestrial systems and capable of transmitting telecommunications to, and receiving telecommunications from, satellite systems; or (4) providing Internet access services or Voice over Internet protocol (VoIP) services via client-supplied telecommunications connections.  Establishments in this industry do not operate as telecommunications carriers. Mobile virtual network operators (MVNOs) are included in this industry."
+51821,"Data Processing, Hosting, and Related Services",""
+51911,News Syndicates,""
+51912,Libraries and Archives,""
+51913,Internet Publishing and Broadcasting and Web Search Portals,""
+51919,All Other Information Services,""
+52111,Monetary Authorities-Central Bank,""
+52211,Commercial Banking,""
+52212,Savings Institutions,""
+52213,Credit Unions,""
+52219,Other Depository Credit Intermediation,""
+52221,Credit Card Issuing,""
+52222,Sales Financing,""
+52229,Other Nondepository Credit Intermediation,"This industry comprises establishments primarily engaged in making cash loans or extending credit through credit instruments (except credit cards and sales finance agreements).
+
+Illustrative Examples:
+
+Consumer finance companies (i.e., unsecured cash loans)
+Mortgage companies
+International trade financing
+Secondary market financing"
+52231,Mortgage and Nonmortgage Loan Brokers,""
+52232,"Financial Transactions Processing, Reserve, and Clearinghouse Activities",""
+52239,Other Activities Related to Credit Intermediation,""
+52311,Investment Banking and Securities Dealing,""
+52312,Securities Brokerage,""
+52313,Commodity Contracts Dealing,""
+52314,Commodity Contracts Brokerage,""
+52321,Securities and Commodity Exchanges,""
+52391,Miscellaneous Intermediation,""
+52392,Portfolio Management,""
+52393,Investment Advice,""
+52399,All Other Financial Investment Activities,"This industry comprises establishments primarily engaged in acting as agents or brokers (except securities brokerages and commodity contracts brokerages) in buying and selling financial contracts and those providing financial investment services (except securities and commodity exchanges, portfolio management, and investment advice).
+
+Illustrative Examples:
+
+Bank trust offices
+Fiduciary agencies (except real estate)
+Escrow agencies (except real estate)
+Stock quotation services"
+52411,"Direct Life, Health, and Medical Insurance Carriers","This industry comprises establishments primarily engaged in initially underwriting (i.e., assuming the risk and assigning premiums) annuities and life insurance policies, disability income insurance policies, accidental death and dismemberment insurance policies, and health and medical insurance policies."
+52412,"Direct Insurance (except Life, Health, and Medical) Carriers","This industry comprises establishments primarily engaged in initially underwriting (i.e., assuming the risk and assigning premiums) various types of insurance policies (except life, disability income, accidental death and dismemberment, and health and medical insurance policies).
+
+Illustrative Examples:
+
+Automobile insurance carriers, direct
+Property and casualty insurance carriers, direct
+Bank deposit insurance carriers, direct
+Title insurance carriers, real estate, direct
+Mortgage guaranty insurance carriers, direct
+Warranty insurance carriers (e.g., appliance, automobile, homeowners’, product), direct"
+52413,Reinsurance Carriers,""
+52421,Insurance Agencies and Brokerages,""
+52429,Other Insurance Related Activities,"This industry comprises establishments primarily engaged in providing services related to insurance (except insurance agencies and brokerages).
+
+Illustrative Examples:
+
+Claims adjusting, insurance
+Insurance plan administrative services, third party
+Insurance actuarial services
+Insurance claims adjusting"
+52511,Pension Funds,""
+52512,Health and Welfare Funds,""
+52519,Other Insurance Funds,""
+52591,Open-End Investment Funds,""
+52592,"Trusts, Estates, and Agency Accounts",""
+52599,Other Financial Vehicles,""
+53111,Lessors of Residential Buildings and Dwellings,""
+53112,Lessors of Nonresidential Buildings (except Miniwarehouses),""
+53113,Lessors of Miniwarehouses and Self-Storage Units,""
+53119,Lessors of Other Real Estate Property,""
+53121,Offices of Real Estate Agents and Brokers,""
+53131,Real Estate Property Managers,"This industry comprises establishments primarily engaged in managing real property for others.  Management includes ensuring that various activities associated with the overall operation of the property are performed, such as collecting rents and overseeing other services (e.g., maintenance, security, trash removal.)"
+53132,Offices of Real Estate Appraisers,""
+53139,Other Activities Related to Real Estate,""
+53211,Passenger Car Rental and Leasing,This industry comprises establishments primarily engaged in renting or leasing passenger cars without drivers.
+53212,"Truck, Utility Trailer, and RV (Recreational Vehicle) Rental and Leasing",""
+53221,Consumer Electronics and Appliances Rental,""
+53228,Other Consumer Goods Rental,"This industry comprises establishments primarily engaged in renting consumer goods (except consumer electronics and appliances).
+
+Illustrative Examples:
+
+Costume rental
+Formal wear rental
+Furniture (i.e., residential) rental centers
+Hospital bed rental and leasing (i.e., home use)
+Party rental supply centers
+Sporting goods rental
+Video disc rental for home electronic equipment (e.g., DVD)"
+53231,General Rental Centers,""
+53241,"Construction, Transportation, Mining, and Forestry Machinery and Equipment Rental and Leasing","This industry comprises establishments primarily engaged in renting or leasing one or more of the following without operators:  heavy construction, off-highway transportation, mining, and forestry machinery and equipment.  Establishments in this industry may rent or lease products, such as aircraft, railroad cars, steamships, tugboats, bulldozers, earthmoving equipment, well drilling machinery and equipment, or cranes."
+53242,Office Machinery and Equipment Rental and Leasing,""
+53249,Other Commercial and Industrial Machinery and Equipment Rental and Leasing,""
+53311,Lessors of Nonfinancial Intangible Assets (except Copyrighted Works),""
+54111,Offices of Lawyers,""
+54112,Offices of Notaries,""
+54119,Other Legal Services,"This industry comprises establishments of legal practitioners (except lawyers and attorneys) primarily engaged in providing specialized legal or paralegal services.
+
+Illustrative Examples:
+
+Notary public services
+Process serving services
+Paralegal services
+Real estate settlement offices
+Patent agent services (i.e., patent filing and searching services)
+Real estate title abstract companies"
+54121,"Accounting, Tax Preparation, Bookkeeping, and Payroll Services","This industry comprises establishments primarily engaged in providing services, such as auditing of accounting records, designing accounting systems, preparing financial statements, developing budgets, preparing tax returns, processing payrolls, bookkeeping, and billing.
+
+Illustrative Examples:
+
+Accountants' offices
+Payroll processing services
+Bookkeeping services
+Tax return preparation services"
+54131,Architectural Services,""
+54132,Landscape Architectural Services,""
+54133,Engineering Services,""
+54134,Drafting Services,""
+54135,Building Inspection Services,""
+54136,Geophysical Surveying and Mapping Services,""
+54137,Surveying and Mapping (except Geophysical) Services,""
+54138,Testing Laboratories,""
+54141,Interior Design Services,""
+54142,Industrial Design Services,""
+54143,Graphic Design Services,""
+54149,Other Specialized Design Services,""
+54151,Computer Systems Design and Related Services,"This industry comprises establishments primarily engaged in providing expertise in the field of information technologies through one or more of the following activities: (1) writing, modifying, testing, and supporting software to meet the needs of a particular customer; (2) planning and designing computer systems that integrate computer hardware, software, and communication technologies; (3) on-site management and operation of clients' computer systems and/or data processing facilities; and (4) other professional and technical computer related advice and services.
+
+Illustrative Examples:
+
+Computer facilities management services
+Custom computer programming services
+Computer hardware or software consulting services
+Software installation services
+Computer systems integration design services"
+54161,Management Consulting Services,"This industry comprises establishments primarily engaged in providing advice and assistance to businesses and other organizations on management issues, such as strategic and organizational planning; financial planning and budgeting; marketing objectives and policies; human resource policies, practices, and planning; production scheduling; and control planning.
+
+Illustrative Examples:
+
+Actuarial, benefit, and compensation consulting services
+Marketing consulting services
+Administrative and general management consulting services
+Process, physical distribution, and logistics consulting services
+Human resources consulting services"
+54162,Environmental Consulting Services,""
+54169,Other Scientific and Technical Consulting Services,""
+54171,"Research and Development in the Physical, Engineering, and Life Sciences","This industry comprises establishments primarily engaged in conducting research and experimental development in the physical, engineering, and life sciences, such as agriculture, electronics, environmental, biology, botany, biotechnology, computers, chemistry, food, fisheries, forests, geology, health, mathematics, medicine, nanotechnology, oceanography, pharmacy, physics, veterinary, and other allied subjects."
+54172,Research and Development in the Social Sciences and Humanities,""
+54181,Advertising Agencies,""
+54182,Public Relations Agencies,""
+54183,Media Buying Agencies,""
+54184,Media Representatives,""
+54185,Outdoor Advertising,""
+54186,Direct Mail Advertising,""
+54187,Advertising Material Distribution Services,""
+54189,Other Services Related to Advertising,""
+54191,Marketing Research and Public Opinion Polling,""
+54192,Photographic Services,"This industry comprises establishments primarily engaged in providing still, video, or digital photography services.  These establishments may specialize in a particular field of photography, such as commercial and industrial photography, portrait photography, and special events photography.  Commercial or portrait photography studios are included in this industry."
+54193,Translation and Interpretation Services,""
+54194,Veterinary Services,""
+54199,"All Other Professional, Scientific, and Technical Services",""
+55111,Management of Companies and Enterprises,"This industry comprises (1) establishments primarily engaged in holding the securities of (or other equity interests in) companies and enterprises for the purpose of owning a controlling interest or influencing management decisions or (2) establishments (except government establishments) that administer, oversee, and manage other establishments of the company or enterprise and that normally undertake the strategic or organizational planning and decision-making role of the company or enterprise.  Establishments that administer, oversee, and manage may hold the securities of the company or enterprise."
+56111,Office Administrative Services,""
+56121,Facilities Support Services,""
+56131,Employment Placement Agencies and Executive Search Services,"This industry comprises establishments primarily engaged in one of the following: 1) listing employment vacancies and referring or placing applicants for employment; or 2) providing executive search, recruitment, and placement services.
+
+Illustrative Examples:
+
+Employment agencies
+Executive placement agencies or services
+Executive search services"
+56132,Temporary Help Services,""
+56133,Professional Employer Organizations,""
+56141,Document Preparation Services,""
+56142,Telephone Call Centers,"This industry comprises (1) establishments primarily engaged in answering telephone calls and relaying messages to clients and (2) establishments primarily engaged in providing telemarketing services on a contract or fee basis for others, such as promoting clients' products or services by telephone; taking orders for clients by telephone; and soliciting contributions or providing information for clients by telephone.  Telemarketing establishments never own the product or provide the service that they are representing and generally originate and/or receive calls for others."
+56143,Business Service Centers,"This industry comprises (1) establishments primarily engaged in providing mailbox rental and other postal and mailing services (except direct mail advertising); (2) establishments, generally known as copy centers or shops, primarily engaged in providing photocopying, duplicating, blueprinting, and other document copying services without also providing printing services (i.e., offset printing, quick printing, digital printing, prepress services); and (3) establishments that provide a range of office support services (except printing services), such as mailing services, document copying services, facsimile services, word processing services, on-site PC rental services, and office product sales."
+56144,Collection Agencies,""
+56145,Credit Bureaus,""
+56149,Other Business Support Services,"This industry comprises establishments primarily engaged in providing business support services (except secretarial and other document preparation services; telephone answering or telemarketing services; private mail services or document copying services conducted as separate activities or in conjunction with other office support services; monetary debt collection services; and credit reporting services).
+
+Illustrative Examples:
+
+Address bar coding services
+Mail presorting services
+Bar code imprinting services
+Real-time (i.e., simultaneous) closed captioning of live television performances, meetings, conferences
+Court reporting services
+Repossession services
+Fundraising organization services on a contract or fee basis"
+56151,Travel Agencies,""
+56152,Tour Operators,""
+56159,Other Travel Arrangement and Reservation Services,"This industry comprises establishments (except travel agencies and tour operators) primarily engaged in providing travel arrangement and reservation services.
+
+Illustrative Examples:
+
+Condominium time-share exchange services
+Road and travel services automobile clubs
+Convention or visitors bureaus
+Ticket (e.g., airline, bus, cruise ship, sports, theatrical) offices
+Reservation (e.g., airline, car rental, hotel, restaurant) services
+Ticket (e.g., amusement, sports, theatrical) agencies"
+56161,"Investigation, Guard, and Armored Car Services","This industry comprises establishments primarily engaged in providing one or more of the following: (1) investigation and detective services; (2) guard and patrol services; and (3) picking up and delivering money, receipts, or other valuable items with personnel and equipment to protect such properties while in transit.
+
+Illustrative Examples:
+
+Armored car services
+Private detective services
+Bodyguard services
+Security guard services
+Polygraph services"
+56162,Security Systems Services,"This industry comprises establishments engaged in (1) selling security systems, such as burglar and fire alarms and locking devices, along with installation, repair, or monitoring services or (2) remote monitoring of electronic security alarm systems."
+56171,Exterminating and Pest Control Services,""
+56172,Janitorial Services,""
+56173,Landscaping Services,""
+56174,Carpet and Upholstery Cleaning Services,""
+56179,Other Services to Buildings and Dwellings,""
+56191,Packaging and Labeling Services,""
+56192,Convention and Trade Show Organizers,""
+56199,All Other Support Services,""
+56211,Waste Collection,"This industry comprises establishments primarily engaged in (1) collecting and/or hauling hazardous waste, nonhazardous waste, and/or recyclable materials within a local area and/or (2) operating hazardous or nonhazardous waste transfer stations. Hazardous waste collection establishments may be responsible for the identification, treatment, packaging, and labeling of waste for the purposes of transport."
+56221,Waste Treatment and Disposal,"This industry comprises establishments primarily engaged in (1) operating waste treatment or disposal facilities (except sewer systems or sewage treatment facilities) or (2) the combined activity of collecting and/or hauling of waste materials within a local area and operating waste treatment or disposal facilities.  Waste combustors or incinerators (including those that may produce byproducts, such as electricity), solid waste landfills, and compost dumps are included in this industry."
+56291,Remediation Services,""
+56292,Materials Recovery Facilities,""
+56299,All Other Waste Management Services,"This industry comprises establishments primarily engaged in waste management services (except waste collection, waste treatment and disposal, remediation, operation of materials recovery facilities, and waste management consulting services).
+
+Illustrative Examples:
+
+Beach cleaning and maintenance services
+Pumping (i.e., cleaning) cesspools, portable toilets, or septic tanks
+Cesspool cleaning services
+Sewer cleaning and rodding services
+Portable toilet renting and/or servicing
+Sewer or storm basin cleanout services"
+61111,Elementary and Secondary Schools,""
+61121,Junior Colleges,""
+61131,"Colleges, Universities, and Professional Schools",""
+61141,Business and Secretarial Schools,""
+61142,Computer Training,""
+61143,Professional and Management Development Training,""
+61151,Technical and Trade Schools,"This industry comprises establishments primarily engaged in offering vocational and technical training in a variety of technical subjects and trades. The training often leads to job-specific certification.  Instruction may be provided in diverse settings, such as the establishment's or client's training facilities, educational institutions, the workplace, or the home, and through diverse means, such as correspondence, television, the Internet, or other electronic and distance-learning methods.  The training provided by these establishments may include the use of simulators and simulation methods.
+
+Illustrative Examples:
+
+Apprenticeship training programs
+Graphic arts schools
+Aviation and flight training schools
+Modeling schools
+Computer repair training
+Nursing schools (except academic)
+Cosmetology schools
+Real estate schools
+Electronic equipment repair training
+Truck driving schools"
+61161,Fine Arts Schools,""
+61162,Sports and Recreation Instruction,""
+61163,Language Schools,""
+61169,All Other Schools and Instruction,"This industry comprises establishments primarily engaged in offering instruction (except business, computer, management, technical, trade, fine arts, athletic, and language instruction).  Also excluded from this industry are academic schools, colleges, and universities.
+
+Illustrative Examples:
+
+Academic tutoring services
+Public speaking training
+Automobile driving schools
+Speed reading instruction
+Exam preparation services"
+61171,Educational Support Services,""
+62111,Offices of Physicians,"This industry comprises establishments of health practitioners having the degree of M.D. (Doctor of Medicine) or D.O. (Doctor of Osteopathy) primarily engaged in the independent practice of general or specialized medicine (e.g., anesthesiology, oncology, ophthalmology, psychiatry) or surgery.  These practitioners operate private or group practices in their own offices (e.g., centers, clinics) or in the facilities of others, such as hospitals or HMO medical centers."
+62121,Offices of Dentists,""
+62131,Offices of Chiropractors,""
+62132,Offices of Optometrists,""
+62133,Offices of Mental Health Practitioners (except Physicians),""
+62134,"Offices of Physical, Occupational and Speech Therapists, and Audiologists",""
+62139,Offices of All Other Health Practitioners,"This industry comprises establishments of independent health practitioners (except physicians; dentists; chiropractors; optometrists; mental health specialists; physical, occupational, and speech therapists; and audiologists).  These practitioners operate private or group practices in their own offices (e.g., centers, clinics) or in the facilities of others, such as hospitals or HMO medical centers.
+
+Illustrative Examples:
+
+Acupuncturists' (except MDs or DOs) offices
+Inhalation or respiratory therapists' offices
+Dental hygienists' offices
+Midwives' offices
+Denturists' offices
+Naturopaths' offices
+Dietitians' offices
+Podiatrists' offices
+Homeopaths' offices
+Registered or licensed practical nurses' offices"
+62141,Family Planning Centers,""
+62142,Outpatient Mental Health and Substance Abuse Centers,""
+62149,Other Outpatient Care Centers,"This industry comprises establishments with medical staff primarily engaged in providing general or specialized outpatient care (except family planning centers and outpatient mental health and substance abuse centers).  Centers or clinics of health practitioners with different degrees from more than one industry practicing within the same establishment (i.e., Doctor of Medicine and Doctor of Dental Medicine) are included in this industry.
+
+Illustrative Examples:
+
+Dialysis centers and clinics
+Outpatient biofeedback centers and clinics
+Freestanding ambulatory surgical centers and clinics
+Outpatient community health centers and clinics
+Freestanding emergency medical centers and clinics
+Outpatient sleep disorder centers and clinics
+Health maintenance organization (HMO) medical centers and clinics"
+62151,Medical and Diagnostic Laboratories,"This industry comprises establishments known as medical and diagnostic laboratories primarily engaged in providing analytic or diagnostic services, including body fluid analysis and diagnostic imaging, generally to the medical profession or to the patient on referral from a health practitioner.
+
+Illustrative Examples:
+
+Dental or medical X-ray laboratories
+Medical pathology laboratories
+Diagnostic imaging centers
+Medical testing laboratories
+Medical forensic laboratories"
+62161,Home Health Care Services,""
+62191,Ambulance Services,""
+62199,All Other Ambulatory Health Care Services,"This industry comprises establishments primarily engaged in providing ambulatory health care services (except offices of physicians, dentists, and other health practitioners; outpatient care centers; medical and diagnostic laboratories; home health care providers; and ambulances).
+
+Illustrative Examples:
+
+Blood donor stations
+Pacemaker monitoring services
+Blood or body organ banks
+Physical fitness evaluation services (except by offices of health practitioners)
+Health screening services (except by offices of health practitioners)
+Smoking cessation programs
+Hearing testing services (except by offices of audiologists)"
+62211,General Medical and Surgical Hospitals,""
+62221,Psychiatric and Substance Abuse Hospitals,""
+62231,Specialty (except Psychiatric and Substance Abuse) Hospitals,""
+62311,Nursing Care Facilities (Skilled Nursing Facilities),""
+62321,Residential Intellectual and Developmental Disability Facilities,""
+62322,Residential Mental Health and Substance Abuse Facilities,""
+62331,Continuing Care Retirement Communities and Assisted Living Facilities for the Elderly,"This industry comprises establishments primarily engaged in providing residential and personal care services for (1) the elderly and other persons who are unable to fully care for themselves and/or (2) the elderly and other persons who do not desire to live independently.  The care typically includes room, board, supervision, and assistance in daily living, such as housekeeping services.  In some instances these establishments provide skilled nursing care for residents in separate on-site facilities.
+
+Illustrative Examples:
+
+Assisted living facilities
+Assisted living facilities for the elderly without nursing care
+Continuing care retirement communities
+Rest homes without nursing care"
+62399,Other Residential Care Facilities,""
+62411,Child and Youth Services,""
+62412,Services for the Elderly and Persons with Disabilities,""
+62419,Other Individual and Family Services,""
+62421,Community Food Services,""
+62422,Community Housing Services,"This industry comprises establishments primarily engaged in providing one or more of the following community housing services: (1) short-term emergency shelter for victims of domestic violence, sexual assault, or child abuse; (2) temporary residential shelter for the homeless, runaway youths, and patients and families caught in medical crises; (3) transitional housing for low-income individuals and families; (4) volunteer construction or repair of low-cost housing, in partnership with the homeowner who may assist in construction or repair work; and (5) repair of homes for elderly or disabled homeowners.  These establishments may operate their own shelter, they may subsidize housing using existing homes, apartments, hotels, or motels, or they may require a low-cost mortgage or work (sweat) equity."
+62423,Emergency and Other Relief Services,""
+62431,Vocational Rehabilitation Services,""
+62441,Child Day Care Services,""
+71111,Theater Companies and Dinner Theaters,""
+71112,Dance Companies,""
+71113,Musical Groups and Artists,""
+71119,Other Performing Arts Companies,""
+71121,Spectator Sports,"This industry comprises (1) sports teams or clubs primarily participating in live sporting events before a paying audience; (2) establishments primarily engaged in operating racetracks; (3) independent athletes engaged in participating in live sporting or racing events before a paying audience; (4) owners of racing participants, such as cars, dogs, and horses, primarily engaged in entering them in racing events or other spectator sports events; and (5) establishments, such as sports trainers, primarily engaged in providing specialized services to support participants in sports events or competitions.  The sports teams and clubs included in this industry may or may not operate their own arena, stadium, or other facility for presenting their games or other spectator sports events."
+71131,"Promoters of Performing Arts, Sports, and Similar Events with Facilities",""
+71132,"Promoters of Performing Arts, Sports, and Similar Events without Facilities",""
+71141,"Agents and Managers for Artists, Athletes, Entertainers, and Other Public Figures",""
+71151,"Independent Artists, Writers, and Performers",""
+71211,Museums,""
+71212,Historical Sites,""
+71213,Zoos and Botanical Gardens,""
+71219,Nature Parks and Other Similar Institutions,""
+71311,Amusement and Theme Parks,""
+71312,Amusement Arcades,""
+71321,Casinos (except Casino Hotels),""
+71329,Other Gambling Industries,""
+71391,Golf Courses and Country Clubs,""
+71392,Skiing Facilities,""
+71393,Marinas,""
+71394,Fitness and Recreational Sports Centers,""
+71395,Bowling Centers,""
+71399,All Other Amusement and Recreation Industries,""
+72111,Hotels (except Casino Hotels) and Motels,""
+72112,Casino Hotels,""
+72119,Other Traveler Accommodation,"This industry comprises establishments primarily engaged in providing short-term lodging (except hotels, motels, and casino hotels).
+
+Illustrative Examples:
+
+Bed-and-breakfast inns
+Tourist homes
+Guest houses
+Youth hostels
+Housekeeping cabins and cottages"
+72121,RV (Recreational Vehicle) Parks and Recreational Camps,"This industry comprises establishments primarily engaged in operating recreational vehicle parks and campgrounds and recreational and vacation camps.  These establishments cater to outdoor enthusiasts and are characterized by the type of accommodation and by the nature and the range of recreational facilities and activities provided to their clients.
+
+Illustrative Examples:
+
+Campgrounds
+Fishing and hunting camps
+Travel trailer campsites
+Outdoor adventure retreats
+Vacation camps (except instructional, day)
+Recreational vehicle parks"
+72131,"Rooming and Boarding Houses, Dormitories, and Workers' Camps",""
+72231,Food Service Contractors,""
+72232,Caterers,""
+72233,Mobile Food Services,""
+72241,Drinking Places (Alcoholic Beverages),""
+72251,Restaurants and Other Eating Places,"This industry comprises establishments primarily engaged in one of the following: (1) providing food services to patrons who order and are served while seated (i.e., waiter/waitress service) and pay after eating; (2) providing food services to patrons who generally order or select items (e.g., at a counter, in a buffet line) and pay before eating; or (3) preparing and/or serving a specialty snack (e.g., ice cream, frozen yogurt, cookies) and/or nonalcoholic beverages (e.g., coffee, juices, sodas) for consumption on or near the premises."
+81111,Automotive Mechanical and Electrical Repair and Maintenance,"This industry comprises establishments primarily engaged in providing mechanical or electrical repair and maintenance services for automotive vehicles, such as passenger cars, trucks, and vans, and all trailers.  These establishments may specialize in a single service or may provide a wide range of these services."
+81112,"Automotive Body, Paint, Interior, and Glass Repair","This industry comprises establishments primarily engaged in providing one or more of the following: (1) repairing or customizing automotive vehicles, such as passenger cars, trucks, and vans, and all trailer bodies and interiors; (2) painting automotive vehicle and trailer bodies; (3) replacing, repairing, and/or tinting automotive vehicle glass; and (4) customizing automobile, truck, and van interiors for the physically disabled or other customers with special requirements.
+
+Illustrative Examples:
+
+Automotive body shops
+Automotive paint shops
+Automotive glass shops
+Automotive windshield repair shops"
+81119,Other Automotive Repair and Maintenance,"This industry comprises establishments primarily engaged in providing automotive repair and maintenance services (except mechanical and electrical repair and maintenance; transmission repair; and body, paint, interior, and glass repair) for automotive vehicles, such as passenger cars, trucks, and vans, and all trailers.
+
+Illustrative Examples:
+
+Automotive air-conditioning repair shops
+Automotive tire repair (except retreading) shops
+Automotive oil change and lubrication shops
+Car washes
+Automotive rustproofing and undercoating shops"
+81121,Electronic and Precision Equipment Repair and Maintenance,"This industry comprises establishments primarily engaged in repairing and maintaining one or more of the following: (1) consumer electronic equipment; (2) computers; (3) office machines; (4) communication equipment; and (5) other electronic and precision equipment and instruments, without retailing these products as new.  Establishments in this industry repair items, such as microscopes, radar and sonar equipment, televisions, stereos, video recorders, computers, fax machines, photocopying machines, two-way radios and other communications equipment, scientific instruments, and medical equipment."
+81131,Commercial and Industrial Machinery and Equipment (except Automotive and Electronic) Repair and Maintenance,""
+81141,Home and Garden Equipment and Appliance Repair and Maintenance,"This industry comprises establishments primarily engaged in repairing and servicing home and garden equipment and/or household-type appliances without retailing new equipment or appliances.  Establishments in this industry repair and maintain items, such as lawnmowers, edgers, snowblowers, leaf blowers, washing machines, clothes dryers, and refrigerators."
+81142,Reupholstery and Furniture Repair,""
+81143,Footwear and Leather Goods Repair,""
+81149,Other Personal and Household Goods Repair and Maintenance,""
+81211,"Hair, Nail, and Skin Care Services","This industry comprises establishments primarily engaged in one or more of the following: (1) providing hair care services; (2) providing nail care services; and (3) providing facials or applying makeup (except permanent makeup).
+
+Illustrative Examples:
+
+Barber shops
+Hair stylist shops
+Beauty salons
+Nail salons
+Cosmetology salons"
+81219,Other Personal Care Services,"This industry comprises establishments primarily engaged in providing personal care services (except hair, nail, facial, or nonpermanent makeup services).
+
+Illustrative Examples:
+
+Day spas
+Depilatory or electrolysis (i.e., hair removal) salons
+Permanent makeup salons
+Ear piercing services
+Steam or turkish baths
+Hair replacement (except by offices of physicians) or weaving services
+Tanning salons
+Massage parlors
+Tattoo parlors
+Non-medical diet and weight reducing centers"
+81221,Funeral Homes and Funeral Services,""
+81222,Cemeteries and Crematories,""
+81231,Coin-Operated Laundries and Drycleaners,""
+81232,Drycleaning and Laundry Services (except Coin-Operated),""
+81233,Linen and Uniform Supply,"This industry comprises establishments primarily engaged in supplying, on a rental or contract basis, laundered items, such as uniforms, gowns and coats, table linens, bed linens, towels, clean room apparel, and treated mops or shop towels."
+81291,Pet Care (except Veterinary) Services,""
+81292,Photofinishing,"This industry comprises establishments primarily engaged in developing film and/or making photographic slides, prints, and enlargements."
+81293,Parking Lots and Garages,""
+81299,All Other Personal Services,""
+81311,Religious Organizations,""
+81321,Grantmaking and Giving Services,"This industry comprises (1) establishments known as grantmaking foundations or charitable trusts and (2) establishments primarily engaged in raising funds for a wide range of social welfare activities, such as health, educational, scientific, and cultural activities."
+81331,Social Advocacy Organizations,"This industry comprises establishments primarily engaged in promoting a particular cause or working for the realization of a specific social or political goal to benefit a broad or specific constituency.  These organizations may solicit contributions and offer memberships to support these goals.
+
+Illustrative Examples:
+
+Community action advocacy organizations
+Firearms advocacy organizations
+Conservation advocacy organizations
+Human rights advocacy organizations
+Environmental advocacy organizations
+Wildlife preservation organizations"
+81341,Civic and Social Organizations,""
+81391,Business Associations,""
+81392,Professional Organizations,""
+81393,Labor Unions and Similar Labor Organizations,""
+81394,Political Organizations,""
+81399,"Other Similar Organizations (except Business, Professional, Labor, and Political Organizations)",""
+81411,Private Households,""
+92111,Executive Offices,""
+92112,Legislative Bodies,""
+92113,Public Finance Activities,""
+92114,"Executive and Legislative Offices, Combined",""
+92115,American Indian and Alaska Native Tribal Governments,""
+92119,Other General Government Support,""
+92211,Courts,""
+92212,Police Protection,""
+92213,Legal Counsel and Prosecution,""
+92214,Correctional Institutions,""
+92215,Parole Offices and Probation Offices,""
+92216,Fire Protection,""
+92219,"Other Justice, Public Order, and Safety Activities",""
+92311,Administration of Education Programs,""
+92312,Administration of Public Health Programs,""
+92313,"Administration of Human Resource Programs (except Education, Public Health, and Veterans' Affairs Programs)",""
+92314,Administration of Veterans' Affairs,""
+92411,Administration of Air and Water Resource and Solid Waste Management Programs,""
+92412,Administration of Conservation Programs,""
+92511,Administration of Housing Programs,""
+92512,Administration of Urban Planning and Community and Rural Development,""
+92611,Administration of General Economic Programs,""
+92612,Regulation and Administration of Transportation Programs,""
+92613,"Regulation and Administration of Communications, Electric, Gas, and Other Utilities",""
+92614,Regulation of Agricultural Marketing and Commodities,""
+92615,"Regulation, Licensing, and Inspection of Miscellaneous Commercial Sectors",""
+92711,Space Research and Technology,""
+92811,National Security,""
+92812,International Affairs,""

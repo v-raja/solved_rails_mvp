@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: occupations
+#
+#  id                     :integer          not null, primary key
+#  title                  :string
+#  description            :text
+#  code                   :integer          not null
+#  slug                   :string           not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  occupation_category_id :integer          not null
+#
+
+one:
+  title: MyString
+  description: MyText
+  code: 1
+  slug: MyString
+
+two:
+  title: MyString
+  description: MyText
+  code: 1
+  slug: MyString
