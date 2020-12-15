@@ -1,0 +1,25 @@
+%div{class: "flex justify-center bg-white"}
+  %div{class: "max-w-screen-lg w-full"}
+    %div{class: "pt-3 flex items-center"}
+      - breadcrumb_class = "text-gray-600 underline text-xs hover:bg-transparent hover:text-black"
+      = link_to(niche_type.pluralize, [niche_type.downcase.to_sym, :categories], class: breadcrumb_class)
+      %div{class: "mx-1"}
+        = " > "
+      - subsector_id = (niche_type == "Industry" ? (niche.id / 100) : (niche.id / 10) * 10)
+      - subsector = (niche_type + "Category").constantize.find_by(id: subsector_id).parent
+      = link_to(subsector.title, subsector, class: breadcrumb_class)
+      %div{class: "mx-1"}
+        = " > "
+      %div{class: "text-xs"}
+        = niche.title
+    %div{class: "mt-2 text-gray-900 font-bold text-2xl"}
+      = niche.title
+    %div{c: "text-gray-700 text-xs"}
+      - letter = (niche_type == "Industry" ? 'i' : 'o')
+      = "#{letter}/#{niche.code}"
+    - active   = "py-1 border-b-2 border-primary font-medium text-gray-900 hover:bg-white hover:text-gray-900"
+    - inactive = "py-1 text-gray-600 border-b-2 border-gray-300 hover:text-gray-900 hover:bg-white hover:border-gray-500"
+    %nav{class: "mt-4 h-full mb-0.5 text-base space-x-4"}
+      = link_to_unless_current("Home", niche, class: "#{inactive}") do link_to 'Home', niche, class: "#{active}" end
+      = link_to_unless_current("Search", [:search, niche], class: "#{inactive}") do link_to("Search", [:search, niche], class: "#{active}") end
+      = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end

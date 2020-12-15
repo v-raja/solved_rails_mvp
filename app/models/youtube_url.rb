@@ -1,0 +1,4 @@
+class YoutubeUrl < MediaUrl
+
+
+end

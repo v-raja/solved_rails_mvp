@@ -77,6 +77,9 @@ GEM
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
     childprocess (3.0.0)
+    commontator (6.3.0)
+      rails (>= 5.2)
+      will_paginate
     concurrent-ruby (1.1.7)
     crass (1.0.6)
     erubi (1.10.0)
@@ -216,6 +219,7 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.2)
@@ -229,6 +233,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  commontator
   friendly_id (~> 5.4.0)
   haml-rails (~> 2.0)
   jbuilder (~> 2.7)
@@ -236,6 +241,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   sass-rails (>= 6)
+  sassc-rails
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)

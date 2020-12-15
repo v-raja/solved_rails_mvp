@@ -1,0 +1,19 @@
+- group = local_assigns[:group]
+-# %div{class: "text-base font-semibold"}
+  -# = group.title
+%ul{class: "ml-6 list-disc space-y-6"}
+  - group.children.each do |major_group|
+    %li
+      %div{class: "font-sans text-base font-medium"}
+        = major_group.title
+      -# = child.title
+      %ul{class: "ml-6 list-disc "}
+        - major_group.children.each do |sector|
+          %li
+            %div{class: "font-sans text-base"}
+              = link_to "#{sector.title}", sector, class: "font-sans text-sm underline"
+              -# = sector.title
+            -# %ul{class: "ml-6 list-disc"}
+            -#   - sector.children.each do |subsector|
+            -#     %li
+            -#       = link_to "#{subsector.title}", subsector, class: "font-sans text-sm underline"

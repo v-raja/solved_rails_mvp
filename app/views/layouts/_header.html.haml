@@ -1,4 +1,8 @@
-- render_shadow = (render_shadow.nil? ? true : render_shadow)
+- render_shadow = true
+- if local_assigns.has_key? :render_shadow
+  - render_shadow = local_assigns[:render_shadow]
+-# - render_shadow = (render_shadow.nil? ? true : render_shadow)
+-# - render_shadow = false
 -# ---- HEADER ----
 %div{class: "bg-white"}
   %div{class: "flex justify-center border-0 #{render_shadow ? "shadow-md" : nil}"}
@@ -16,8 +20,8 @@
         -#         f: "shadow-outline outline-none",
         -#         h: "scale-110 shadow-lg",
         -#         data: { action: "click->toggle#toggle touch->toggle#toggle" }}
-        %div{class: "ml-2"}
-          = link_to_unless_current "Explore", industry_categories_path, class: "text-base text-gray-700 px-2"
+        %div{class: "ml-4"}
+          = link_to "Explore", industry_categories_path, class: "text-base text-gray-600 px-2 hover:text-black hover:bg-white #{add_class_if_path_is_base("/explore", "text-black")}"
 
         -# %div{c: "flex",
         -#     sm: "hidden"}
@@ -31,7 +35,7 @@
         -#     <path data-target="toggle.toggleable" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         -#     <path data-target="toggle.toggleable" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         -#     </svg>
-      %div{c: "justify-self-center"}
+      %div{c: "justify-self-center w-full ml-4"}
         %div{c: "block relative w-full"}
           %div{c: "absolute inset-y-0 left-0 flex items-center pl-3 z-50"}
             <svg class="h-6 w-6 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -46,12 +50,12 @@
                   autocomplete: "off",
                   autocorrect: "off",
                   autocapitalize: "none",
-                  placeholder: "Search for your niche",
+                  placeholder: "Search for your industry or occupation",
                   spellcheck: "false"}
 
       %nav{data: { target: "toggle.toggleable" },
             c: "hidden",
-            sm: "flex items-center px-4 justify-self-end" }
+            sm: "flex items-center px-4 justify-self-end flex-shrink-0" }
         %div{class: "px-2 pt-2 pb-5 border-b border-gray-500",
             sm: "flex border-b-0 text-sm py-0 px-0",}
           -# = link_to "Become an affiliate" , '#', class: "px-3 py-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 sm:ml-2"

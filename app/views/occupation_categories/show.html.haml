@@ -1,15 +1,41 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @occupation_category.title
-%p
-  %b Code:
-  = @occupation_category.code
-%p
-  %b Slug:
-  = @occupation_category.slug
+= render 'shared/explore/header'
+-# Side-bar: popular industries, new requests, new solutions
+:css
+  .container-overflow {
+   -webkit-column-count: 2;
+      -moz-column-count: 2;
+           column-count: 2;
 
-= link_to 'Edit', edit_occupation_category_path(@occupation_category)
-\|
-= link_to 'Back', occupation_categories_path
+   -webkit-column-gap: 20px;
+      -moz-column-gap: 20px;
+           column-gap: 20px;
+  }
+
+%div{class: "flex flex-wrap justify-center pb-10"}
+  %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
+    = "#{@occupation_category.title} (o/#{@occupation_category.code})"
+
+  %div{class: "mt-4 max-w-screen-lg w-full relative flex"}
+    #container
+      %ul{class: "ml-6 list-disc space-y-6"}
+        - @occupation_category.children.each do |minor_group|
+          %li{class: ""}
+            %div{class: "font-sans text-base font-medium"}
+              = "#{minor_group.title} (o/#{minor_group.code})"
+            %ul{class: "ml-6 list-disc"}
+              - minor_group.occupations.each do |unit|
+                %li
+                  = link_to "#{unit.title} (o/#{unit.code})", unit, class: "font-sans text-sm underline"
+
+
+:javascript
+  var container_elem = document.getElementById("container");
+  var height = container_elem.scrollHeight;
+  if (height > window.innerHeight) {
+    console.log("here");
+    container_elem.classList.add("container-overflow")
+  } else {
+    console.log("here1");
+  }

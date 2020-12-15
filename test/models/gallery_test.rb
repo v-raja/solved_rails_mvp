@@ -4,7 +4,7 @@
 #
 #  id            :integer          not null, primary key
 #  thumbnail_url :string
-#  post_id       :integer          not null
+#  post_id       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

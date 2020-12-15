@@ -5,7 +5,9 @@
 #  id                     :integer          not null, primary key
 #  title                  :string
 #  description            :text
-#  code                   :integer          not null
+#  code                   :string           not null
+#  illustrative_examples  :text
+#  other_examples         :text
 #  slug                   :string           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

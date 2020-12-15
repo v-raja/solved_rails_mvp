@@ -1,4 +1,7 @@
 module.exports = {
+  // corePlugins: {
+  //   listStyleType: false
+  // },
   purge: [
     './app/**/*.html.erb',
     './app/**/*.html.haml',
@@ -157,7 +160,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    // require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
   ],
 

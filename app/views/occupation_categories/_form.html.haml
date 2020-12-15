@@ -1,7 +1,7 @@
 = form_for @occupation_category do |f|
   - if @occupation_category.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@occupation_category.errors.count, "error")} prohibited this occupation_category from being saved:"
+      %h2= "#{pluralize(@occupation_category.errors.count, "error")} prohibited this category from being saved:"
       %ul
         - @occupation_category.errors.full_messages.each do |message|
           %li= message
@@ -9,6 +9,9 @@
   .field
     = f.label :title
     = f.text_field :title
+  .field
+    = f.label :description
+    = f.text_area :description
   .field
     = f.label :code
     = f.text_field :code

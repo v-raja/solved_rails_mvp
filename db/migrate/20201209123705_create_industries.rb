@@ -3,6 +3,7 @@ class CreateIndustries < ActiveRecord::Migration[6.0]
     create_table :industries do |t|
       t.string :title
       t.text :description
+      t.string :code
       t.string :slug
 
       t.timestamps

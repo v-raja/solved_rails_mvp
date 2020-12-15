@@ -9,7 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 require("stylesheets/application.scss")
-
+require("jquery")
 
 // StimulusJS
 import { Application } from "stimulus"

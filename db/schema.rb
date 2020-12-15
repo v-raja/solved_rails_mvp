@@ -10,19 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_181419) do
+ActiveRecord::Schema.define(version: 2020_12_14_164530) do
 
-  create_table "categories", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "code", null: false
-    t.string "slug", null: false
-    t.string "type"
+  create_table "commontator_comments", force: :cascade do |t|
+    t.integer "thread_id", null: false
+    t.string "creator_type", null: false
+    t.integer "creator_id", null: false
+    t.string "editor_type"
+    t.integer "editor_id"
+    t.text "body", null: false
+    t.datetime "deleted_at"
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "ancestry"
-    t.index ["ancestry"], name: "index_categories_on_ancestry"
-    t.index ["slug", "type"], name: "by_slug_and_type", unique: true
+    t.integer "parent_id"
+    t.index ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
+    t.index ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
+    t.index ["creator_id", "creator_type", "thread_id"], name: "index_commontator_comments_on_c_id_and_c_type_and_t_id"
+    t.index ["editor_type", "editor_id"], name: "index_commontator_comments_on_editor_type_and_editor_id"
+    t.index ["parent_id"], name: "index_commontator_comments_on_parent_id"
+    t.index ["thread_id", "created_at"], name: "index_commontator_comments_on_thread_id_and_created_at"
+  end
+
+  create_table "commontator_subscriptions", force: :cascade do |t|
+    t.integer "thread_id", null: false
+    t.string "subscriber_type", null: false
+    t.integer "subscriber_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true
+    t.index ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
+  end
+
+  create_table "commontator_threads", force: :cascade do |t|
+    t.string "commontable_type"
+    t.integer "commontable_id"
+    t.string "closer_type"
+    t.integer "closer_id"
+    t.datetime "closed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["closer_type", "closer_id"], name: "index_commontator_threads_on_closer_type_and_closer_id"
+    t.index ["commontable_type", "commontable_id"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -38,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_181419) do
 
   create_table "galleries", force: :cascade do |t|
     t.string "thumbnail_url"
-    t.integer "post_id", null: false
+    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_galleries_on_post_id"
@@ -47,12 +77,27 @@ ActiveRecord::Schema.define(version: 2020_12_10_181419) do
   create_table "industries", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.string "code"
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category_id", null: false
-    t.index ["category_id"], name: "index_industries_on_category_id"
+    t.integer "industry_category_id", null: false
+    t.index ["industry_category_id"], name: "index_industries_on_industry_category_id"
     t.index ["slug"], name: "index_industries_on_slug", unique: true
+  end
+
+  create_table "industry_categories", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "code", null: false
+    t.string "slug", null: false
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "ancestry"
+    t.integer "ancestry_depth", default: 0
+    t.index ["ancestry"], name: "index_industry_categories_on_ancestry"
+    t.index ["slug", "type"], name: "index_industry_categories_on_slug_and_type", unique: true
   end
 
   create_table "industry_posts", force: :cascade do |t|
@@ -97,6 +142,22 @@ ActiveRecord::Schema.define(version: 2020_12_10_181419) do
     t.index ["slug"], name: "index_niches_on_slug", unique: true
   end
 
+  create_table "occupation_categories", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "illustrative_examples"
+    t.text "other_examples"
+    t.string "code", null: false
+    t.string "slug", null: false
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "ancestry"
+    t.integer "ancestry_depth", default: 0
+    t.index ["ancestry"], name: "index_occupation_categories_on_ancestry"
+    t.index ["slug", "type"], name: "index_occupation_categories_on_slug_and_type", unique: true
+  end
+
   create_table "occupation_posts", force: :cascade do |t|
     t.integer "post_id"
     t.integer "occupation_id"
@@ -110,13 +171,15 @@ ActiveRecord::Schema.define(version: 2020_12_10_181419) do
   create_table "occupations", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "code", null: false
+    t.string "code", null: false
+    t.text "illustrative_examples"
+    t.text "other_examples"
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category_id", null: false
-    t.index ["category_id"], name: "index_occupations_on_category_id"
+    t.integer "occupation_category_id", null: false
     t.index ["code"], name: "index_occupations_on_code", unique: true
+    t.index ["occupation_category_id"], name: "index_occupations_on_occupation_category_id"
     t.index ["slug"], name: "index_occupations_on_slug", unique: true
   end
 
@@ -128,6 +191,8 @@ ActiveRecord::Schema.define(version: 2020_12_10_181419) do
     t.integer "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "gallery_id"
+    t.index ["gallery_id"], name: "index_posts_on_gallery_id"
     t.index ["product_id"], name: "index_posts_on_product_id"
   end
 
@@ -138,9 +203,13 @@ ActiveRecord::Schema.define(version: 2020_12_10_181419) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
+  add_foreign_key "commontator_comments", "commontator_threads", column: "thread_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "commontator_subscriptions", "commontator_threads", column: "thread_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "galleries", "posts"
-  add_foreign_key "industries", "categories"
+  add_foreign_key "industries", "industry_categories"
   add_foreign_key "media_urls", "galleries"
-  add_foreign_key "occupations", "categories"
+  add_foreign_key "occupations", "occupation_categories"
+  add_foreign_key "posts", "galleries"
   add_foreign_key "posts", "products"
 end

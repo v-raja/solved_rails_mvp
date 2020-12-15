@@ -64,7 +64,7 @@ class OccupationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_occupation
-      @occupation = Industry.friendly.find params[:id]
+      @occupation = Occupation.friendly.find params[:id]
 
       # If an old id or a numeric id was used to find the record, then
       # the request path will not match the post_path, and we should do

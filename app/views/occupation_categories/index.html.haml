@@ -1,25 +1,48 @@
-%h1 Listing occupation_categories
+%p#notice= notice
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Code
-      %th Slug
-      %th
-      %th
-      %th
+= render 'shared/explore/header'
+-# Nav bar
+-# Header
+-# Main: Children
+-# Side-bar: popular industries, new requests, new solutions
+:css
+  .container-overflow {
+   -webkit-column-count: 2;
+      -moz-column-count: 2;
+           column-count: 2;
 
-  %tbody
-    - @occupation_categories.each do |occupation_category|
-      %tr
-        %td= occupation_category.title
-        %td= occupation_category.code
-        %td= occupation_category.slug
-        %td= link_to 'Show', occupation_category
-        %td= link_to 'Edit', edit_occupation_category_path(occupation_category)
-        %td= link_to 'Destroy', occupation_category, method: :delete, data: { confirm: 'Are you sure?' }
+   -webkit-column-gap: 20px;
+      -moz-column-gap: 20px;
+           column-gap: 20px;
+  }
 
-%br
+%div{class: "flex flex-wrap justify-center pb-10"}
+  %div{class: "mt-4 max-w-screen-lg w-full text-3xl font-bold tracking-wide"}
+    Explore by Occupations
+  -# %div{c: "max-w-screen-lg w-full text-gray-700 tracking-wider"}
+  -#   - letter = (params[:type] == "IndustryCategory" ? 'i' : 'o')
+  -#   = "#{letter}/#{@category.slug}"
+  %div{class: "mt-4 max-w-screen-lg w-full text-base flex items-center"}
+    %div{class: "font-source font-bold text-primary text-lg"}
+      solved
+    %div{class: "ml-1 text-base"}
+      uses the International Standard Classification of Occupations (ISCO) to categorise
+      industries. There are four levels of classification,
+  %div{class: "text-base max-w-screen-lg w-full"}
+    and solutions and requests are posted to the fourth level.
+  %div{class: "mt-8 max-w-screen-lg w-full relative flex"}
+    -# %div{class: "w-1/2 flex-shrink-0 flex flex-wrap"}
+    #container
+      = render "occupation_categories/expand_group", group: @occupation_categories.first
+    -# %div{class: "w-full font-sans mr-20"}
+    -#   = render "occupation_categories/expand_group", group: @occupation_categories.first
 
-= link_to 'New Occupation category', new_occupation_category_path
+:javascript
+  var container_elem = document.getElementById("container");
+  var height = container_elem.scrollHeight;
+  if (height > window.innerHeight) {
+    console.log("here");
+    container_elem.classList.add("container-overflow")
+  } else {
+    console.log("here1");
+  }

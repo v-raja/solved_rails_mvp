@@ -1,148 +1,121 @@
 require 'csv'
 
-### INDUSTRIES
+industries  = true
+occupations = true
 
-def find_industry_category_parent(code)
-  p code
-  parent = nil
-  while parent.nil?
-    if code.in?(%w"31 32 33")
-      code = "31-33"
-    elsif code.in?(%w"44 45")
-      code = "44-45"
-    elsif code.in?(%w"48 49")
-      code = "48-49"
-    end
-    parent = IndustryCategory.find_by(code: code)
-    code.chop!
-  end
-  parent
+INDUSTRIES_CSV = Rails.root.join('db', 'seeds', '001_industries.rb')
+OCCUPATIONS_CSV = Rails.root.join('db', 'seeds', '002_na_soc_occupations.rb')
+if industries then
+  puts "Processing #{INDUSTRIES_CSV}"
+  require INDUSTRIES_CSV
 end
-
-# csv_path = Rails.root.join('db', 'industry_categories/sector.csv')
-# File.open(csv_path, 'r') do |file|
-#   csv = CSV.new(file, headers: true, liberal_parsing: true)
-#   while row = csv.shift
-#     # code = row['Code']
-#     # if code.length > 2
-#     #   code = code[0..1]
-#     # end
-
-#     IndustryCategory.create!(
-#       title: row['Title'],
-#       description: row['Description'],
-#       code: row['Code']
-#     )
-#   end
-# end
-
-# industry_categories_csvs = %w"subsector industry_group industry"
-# industry_categories_csvs.each do |csv|
-#   p csv
-#   csv_path = Rails.root.join('db', "industry_categories/#{csv}.csv")
-#   File.open(csv_path, 'r') do |file|
-#     csv = CSV.new(file, headers: true)
-#     while row = csv.shift
-#       parent = find_industry_category_parent(row['Code'].chop)
-#       if parent.nil?
-#         p row['Code']
-#       end
-
-#       IndustryCategory.create!(
-#         title: row['Title'],
-#         description: row['Description'],
-#         code: row['Code'],
-#         parent: parent
-#       )
-#     end
-#   end
-# end
-
-
-# csv_path = Rails.root.join('db', 'industry_categories/industries.csv')
-# File.open(csv_path, 'r') do |file|
-#   csv = CSV.new(file, headers: true)
-#   while row = csv.shift
-#     parent = find_industry_category_parent(row['Code'].chop)
-#     if parent.nil?
-#       p row['Code']
-#     end
-
-#     p parent
-
-#     industry = Industry.new(
-#       title: row['Title'],
-#       description: row['Description'],
-#       industry_category: parent
-#     )
-#     industry.id = row['Code'].to_i
-#     industry.save!
-#   end
-# end
-
-# ### OCCUPATIONS
-
-def find_occupation_category_parent(code)
-  p code
-  parent = nil
-  while parent.nil?
-    parent = OccupationCategory.find_by(code: code)
-    code.chop!
-  end
-  parent
+if occupations then
+  puts "Processing #{OCCUPATIONS_CSV}"
+  require OCCUPATIONS_CSV
 end
 
 
-# csv_path = Rails.root.join('db', 'occupations/level1.csv')
-# File.open(csv_path, 'r') do |file|
-#   csv = CSV.new(file, headers: true)
 
-#   while row = csv.shift
-#     p row
-#     OccupationCategory.create!(
-#       title: row['Title'],
-#       code: row['Code'],
-#     )
-#   end
-# end
+key = "1TojymXVXDJozEVyzy4qkkFk56n2wsryX6C1WpOEr5hk"
+link = "https://docs.google.com/spreadsheets/d/#{key}/gviz/tq?tqx=out:csv&sheet="
 
-# occupation_categories_csvs = %w"level2 level3"
-# occupation_categories_csvs.each do |csv|
-#   csv_path = Rails.root.join('db', "occupations/#{csv}.csv")
-#   File.open(csv_path, 'r') do |file|
-#     csv = CSV.new(file, headers: true)
-
-#     while row = csv.shift
-#       parent = find_occupation_category_parent(row['Code'].chop)
-#       if parent.nil?
-#         p row['Code']
-#       end
-
-#       OccupationCategory.create!(
-#         title: row['Title'],
-#         code: row['Code'],
-#         parent: parent
-#       )
-#     end
-#   end
-# end
+sheet = "media_urls"
+media_urls_path = Rails.root.join("db", "data", sheet + ".csv")
+`wget -O "#{media_urls_path}" "#{link + sheet}"`
 
 
-
-csv_path = Rails.root.join('db', 'occupations/occupations.csv')
-File.open(csv_path, 'r') do |file|
-  csv = CSV.new(file, headers: true)
-
-  while row = csv.shift
-    parent = find_occupation_category_parent(row['Code'].chop)
-    if parent.nil?
-      p row['Code']
+def get_media_urls_where_gallery_id(id, media_urls_path)
+  rows = []
+  CSV.foreach(media_urls_path, headers: true) do |row|
+    if row["gallery_id"] == id then
+      rows << row
     end
+  end
+  rows
+end
 
-    Occupation.create!(
-      title: row['Title'],
-      code: row['Code'],
-      occupation_category: parent
-    ).update_column(:id, row['Code'].to_i)
+def get_industries(code)
+  industries = []
+  if code.length == 5 then
+    industries = IndustryCategory.find_by(code: code).industries
+  elsif code.length < 5 then
+    # The depth of the leaf industry category nodes
+    ancestry_depth = 5 - code.length
+    industry_categories = IndustryCategory.find_by(code: code).descendants(at_depth: ancestry_depth)
+    industry_categories.each do |ic|
+      industries << ic.industries
+    end
+  else
+    industries = Industry.where(id: code)
+  end
+  industries
+end
+
+def get_occupations(code)
+  occupations = []
+  if code[-1] == '0' then
+    occupations = OccupationCategory.find_by(code: code).descendants(at_depth: 3)
+  else
+    occupations = Occupation.where(code: code)
+  end
+  occupations
+end
+
+sheets = %w"products posts"
+sheets.each do |sheet|
+  csv_path = Rails.root.join("db", "data", sheet + ".csv")
+  # `wget -O "#{csv_path}" "#{link + sheet}"`
+  if sheet == "products" then
+    CSV.foreach(csv_path, headers: true) do |row|
+      p "product"
+      p row
+      Product.find_or_create_by(
+        name: row["name"],
+        image_url: row["image_url"]
+      ).update_column(:id, row["id"])
+    end
+  elsif sheet == "posts" then
+    CSV.foreach(csv_path, headers: true) do |row|
+      p row
+      post = Post.find_or_create_by(
+        product_id: row["product_id"],
+        product_url: row["product_url"],
+        description: row["description"],
+        problem_title: row["problem_title"],
+      )
+      gallery = post.build_gallery
+      # gallery.save!
+      media_urls = []
+      media_urls_rows = get_media_urls_where_gallery_id(row["id"], media_urls_path)
+      media_urls_rows.each do |media_url_row|
+        # media_url = MediaUrl
+        media_url = gallery.media_urls.build(
+          gallery_position: media_url_row["gallery_position"],
+          url: media_url_row["url"]
+        )
+        media_urls << media_url
+      end
+      p post
+      post.save!
+      gallery.save!
+      media_urls.each do |m|
+        m.save!
+      end
+
+      row["industry_ids"].split(", ").each do |id|
+        industries = get_industries(id)
+        p industries
+        industries.each do |industry|
+          post.post_to_industry(industry)
+        end
+      end
+
+      row["occupation_ids"].split(", ").each do |id|
+        occupations = get_occupations(id)
+        occupations.each do |occupation|
+          post.post_to_occupation(occupation)
+        end
+      end
+    end
   end
 end
