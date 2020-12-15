@@ -10,7 +10,6 @@
 #  product_id    :integer          not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  gallery_id    :integer
 #
 class Post < ApplicationRecord
   has_many :industry_posts, dependent: :destroy
@@ -19,7 +18,7 @@ class Post < ApplicationRecord
   has_many :occupation_posts, dependent: :destroy
   has_many :occupations, through: :occupation_posts
 
-  has_many :media_urls, dependent: :destroy
+  has_many :youtube_urls, dependent: :destroy
   belongs_to  :product
 
   scope :today,      -> { where('DATE(posts.created_at) = ?', Date.today) }

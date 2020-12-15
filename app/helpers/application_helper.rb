@@ -13,25 +13,6 @@ module ApplicationHelper
     request.path.start_with?(path) ? class_to_add : ""
   end
 
-  # Get YouTube ID from various YouTube URL
-  # https://gist.github.com/eduardinni/ff0011ba8c411fa06253c1d5850373cf
-  def get_youtube_id(url)
-    var re = /\/\/(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=|embed\/)?([a-z0-9_\-]+)/i;
-    var matches = re.exec(str);
-    return matches && matches[1];
-    id = ''
-    url = url.gsub(/(>|<)/i,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/)
-    if url[2] != nil
-      id = url[2].split(/[^0-9a-z_\-]/i)
-      id = id[0];
-    else
-      id = url;
-    end
-    id
-  end
-
-
-
 end
 
 module Haml

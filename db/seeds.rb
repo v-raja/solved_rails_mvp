@@ -19,20 +19,29 @@ end
 key = "1TojymXVXDJozEVyzy4qkkFk56n2wsryX6C1WpOEr5hk"
 link = "https://docs.google.com/spreadsheets/d/#{key}/gviz/tq?tqx=out:csv&sheet="
 
-sheet = "media_urls"
-media_urls_path = Rails.root.join("db", "data", sheet + ".csv")
-`wget -O "#{media_urls_path}" "#{link + sheet}"`
+sheet = "youtube_urls"
+youtube_urls_path = Rails.root.join("db", "data", sheet + ".csv")
+`wget -O "#{youtube_urls_path}" "#{link + sheet}"`
 
-
-def get_media_urls_where_gallery_id(id, media_urls_path)
+def get_youtube_urls_where_product_id(id, youtube_urls_path)
   rows = []
-  CSV.foreach(media_urls_path, headers: true) do |row|
-    if row["gallery_id"] == id then
+  CSV.foreach(youtube_urls_path, headers: true) do |row|
+    if row["product_id"] == id then
       rows << row
     end
   end
   rows
 end
+
+# def get_media_urls_where_gallery_id(id, media_urls_path)
+#   rows = []
+#   CSV.foreach(media_urls_path, headers: true) do |row|
+#     if row["gallery_id"] == id then
+#       rows << row
+#     end
+#   end
+#   rows
+# end
 
 def get_industries(code)
   industries = []
@@ -64,14 +73,14 @@ end
 sheets = %w"products posts"
 sheets.each do |sheet|
   csv_path = Rails.root.join("db", "data", sheet + ".csv")
-  # `wget -O "#{csv_path}" "#{link + sheet}"`
+  `wget -O "#{csv_path}" "#{link + sheet}"`
   if sheet == "products" then
     CSV.foreach(csv_path, headers: true) do |row|
       p "product"
       p row
       Product.find_or_create_by(
         name: row["name"],
-        image_url: row["image_url"]
+        logo_url: row["logo_url"]
       ).update_column(:id, row["id"])
     end
   elsif sheet == "posts" then
@@ -83,23 +92,15 @@ sheets.each do |sheet|
         description: row["description"],
         problem_title: row["problem_title"],
       )
-      gallery = post.build_gallery
-      # gallery.save!
-      media_urls = []
-      media_urls_rows = get_media_urls_where_gallery_id(row["id"], media_urls_path)
-      media_urls_rows.each do |media_url_row|
-        # media_url = MediaUrl
-        media_url = gallery.media_urls.build(
-          gallery_position: media_url_row["gallery_position"],
-          url: media_url_row["url"]
-        )
-        media_urls << media_url
-      end
-      p post
       post.save!
-      gallery.save!
-      media_urls.each do |m|
-        m.save!
+
+      youtube_urls_rows = get_youtube_urls_where_product_id(row["id"],
+                                                            youtube_urls_path)
+
+      youtube_urls_rows.each do |row|
+        post.youtube_urls.create!(
+          url: row["url"]
+        )
       end
 
       row["industry_ids"].split(", ").each do |id|

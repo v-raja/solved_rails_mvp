@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :industries, type: "Industry", path: "/i" do
     member do
       get 'search'

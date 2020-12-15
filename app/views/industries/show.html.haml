@@ -7,7 +7,7 @@
       - if @industry.posts.today.any?
         %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
           Today
-        %div{class: "divide-y divide-gray-300 divide-solid rounded"}
+        %div{class: "divide-y divide-gray-300 divide-solid rounded-sm"}
           = render @industry.posts.today
           = render @industry.posts.today
       - if @industry.posts.past_week.any?

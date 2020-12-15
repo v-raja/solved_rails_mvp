@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_164530) do
+ActiveRecord::Schema.define(version: 2020_12_15_104842) do
 
   create_table "commontator_comments", force: :cascade do |t|
     t.integer "thread_id", null: false
@@ -66,14 +66,6 @@ ActiveRecord::Schema.define(version: 2020_12_14_164530) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "galleries", force: :cascade do |t|
-    t.string "thumbnail_url"
-    t.integer "post_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_galleries_on_post_id"
-  end
-
   create_table "industries", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -108,16 +100,6 @@ ActiveRecord::Schema.define(version: 2020_12_14_164530) do
     t.index ["industry_id"], name: "index_industry_posts_on_industry_id"
     t.index ["post_id", "industry_id"], name: "index_industry_posts_on_post_id_and_industry_id", unique: true
     t.index ["post_id"], name: "index_industry_posts_on_post_id"
-  end
-
-  create_table "media_urls", force: :cascade do |t|
-    t.text "url"
-    t.integer "gallery_position"
-    t.integer "gallery_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["gallery_id", "gallery_position"], name: "index_media_urls_on_gallery_id_and_gallery_position"
-    t.index ["gallery_id"], name: "index_media_urls_on_gallery_id"
   end
 
   create_table "niche_posts", force: :cascade do |t|
@@ -191,25 +173,48 @@ ActiveRecord::Schema.define(version: 2020_12_14_164530) do
     t.integer "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "gallery_id"
-    t.index ["gallery_id"], name: "index_posts_on_gallery_id"
     t.index ["product_id"], name: "index_posts_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.text "image_url"
+    t.text "logo_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "pseudonym"
+    t.string "role"
+    t.string "company"
+    t.string "fake_company"
+    t.boolean "admin", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "youtube_urls", force: :cascade do |t|
+    t.text "url"
+    t.integer "post_id", null: false
+    t.string "youtube_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_youtube_urls_on_post_id"
   end
 
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
   add_foreign_key "commontator_comments", "commontator_threads", column: "thread_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "commontator_subscriptions", "commontator_threads", column: "thread_id", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "galleries", "posts"
   add_foreign_key "industries", "industry_categories"
-  add_foreign_key "media_urls", "galleries"
   add_foreign_key "occupations", "occupation_categories"
-  add_foreign_key "posts", "galleries"
   add_foreign_key "posts", "products"
+  add_foreign_key "youtube_urls", "posts"
 end
