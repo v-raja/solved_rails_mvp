@@ -17,6 +17,7 @@ class Occupation < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
+  acts_as_taggable
   validates :title,       presence: true
 
   belongs_to :category, class_name: "OccupationCategory", foreign_key: "occupation_category_id"
@@ -27,7 +28,6 @@ class Occupation < ApplicationRecord
   has_many :posts, through: :occupation_posts
 
   def titleize_title
-    # title.capitalize!  # capitalize the first word in case it is part of the no words array
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "n.e.c.", "n.e.c", "as"]
     words_all_cap = ["It", "Hr", "r&d", "(r&d)"]
     phrase = title.titleize.split(" ").map {|word|
@@ -38,8 +38,8 @@ class Occupation < ApplicationRecord
         else
             word
         end
-    }.join(" ") # I replaced the "end" in "end.join(" ") with "}" because it wasn't working in Ruby 2.1.1
-    self.title = phrase  # returns the phrase with all the excluded words
+    }.join(" ")
+    self.title = phrase
   end
 
   def should_generate_new_friendly_id?

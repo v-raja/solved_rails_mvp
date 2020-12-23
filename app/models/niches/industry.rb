@@ -21,23 +21,15 @@ class Industry < ApplicationRecord
   has_many :industry_posts, dependent: :destroy
   has_many :posts, through: :industry_posts
 
+  acts_as_taggable
+
   before_save :titleize_title
 
   belongs_to :category, class_name: "IndustryCategory", foreign_key: "industry_category_id"
-  # has_many :niche_posts, dependent: :destroy
-  # has_many :posts,       through: :niche_posts
 
   def titleize_title
-    title.capitalize!  # capitalize the first word in case it is part of the no words array
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of"]
-    phrase = title.split(" ").map {|word|
-        if words_no_cap.include?(word)
-            word
-        else
-            word.capitalize
-        end
-    }.join(" ") # I replaced the "end" in "end.join(" ") with "}" because it wasn't working in Ruby 2.1.1
-    self.title = phrase  # returns the phrase with all the excluded words
+    self.title = title.titleize(exclusions: words_no_cap)
   end
 
   def should_generate_new_friendly_id?

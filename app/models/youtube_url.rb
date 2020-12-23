@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 class YoutubeUrl < ApplicationRecord
-  belongs_to :post
+  belongs_to :post, optional: true
   validate :valid_url
   after_validation :set_youtube_id
 

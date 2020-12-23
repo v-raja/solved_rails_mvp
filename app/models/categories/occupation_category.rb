@@ -18,23 +18,31 @@
 class OccupationCategory < ApplicationRecord
   has_ancestry cache_depth: true
 
-  extend FriendlyId
-  friendly_id :code, use: :scoped, scope: :type
-
   validates :title,       presence: true
   has_many :occupations
 
   before_save :titleize_title
 
+  extend FriendlyId
+  friendly_id :code, use: :scoped, scope: :type
+
+  # gets all leaf occupation categories (including self)
+  def get_leaf_children
+    subtree.where(ancestry_depth: 3)
+  end
+
+  def self.get_occupations(code)
+    OccupationCategory.find_by(code: code).get_leaf_children.map(&:occupations).flatten
+  end
+
   private
 
     def should_generate_new_friendly_id?
-      title_changed? || super || true
+      code_changed? || super
     end
 
 
   def titleize_title
-    # title.capitalize!  # capitalize the first word in case it is part of the no words array
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "n.e.c.", "n.e.c", "as"]
     words_all_cap = ["It", "Hr", "r&d", "(r&d)"]
     phrase = title.titleize.split(" ").map {|word|
@@ -45,7 +53,7 @@ class OccupationCategory < ApplicationRecord
         else
             word
         end
-    }.join(" ") # I replaced the "end" in "end.join(" ") with "}" because it wasn't working in Ruby 2.1.1
-    self.title = phrase  # returns the phrase with all the excluded words
+    }.join(" ")
+    self.title = phrase
   end
 end

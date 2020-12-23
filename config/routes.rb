@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :requests, only: [:index]
   end
 
+  root to: 'industry_categories#index'
+
   resources :occupations, type: "Occupation", path: "/o" do
     member do
       get 'search'
@@ -16,12 +18,26 @@ Rails.application.routes.draw do
     resources :requests, only: [:index]
   end
 
-  mount Commontator::Engine => '/commontator'
-
   resources :categories
   resources :products
   resources :galleries
-  resources :posts
+  resources :posts do
+    collection do
+      get 'preview_industries'
+      get 'preview_occupations'
+    end
+
+    member do
+      get 'upvote'
+      get 'remove_upvote'
+      resources :comments, except: :new do
+        member do
+          get 'upvote'
+          get 'remove_upvote'
+        end
+      end
+    end
+  end
   get 'requests/index'
 
   # resources :industries, path: '/i' do

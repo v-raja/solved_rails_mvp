@@ -12,7 +12,7 @@
           %div{class: "w-full text-lg font-medium"}
             About this Occupation
           %div{class: "py-1 w-full rounded-lg text-sm"}
-            = simple_format @occupation.description
+            = simple_format @occupation.description.gsub(/\n/, '<br/>').html_safe
         -# %div{class: "w-full"}
         -#   = "Notify me weekly about products posted to #{niche.title}"
         -# %div{c: "flex items-center py-2"}

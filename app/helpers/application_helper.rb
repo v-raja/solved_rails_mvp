@@ -13,6 +13,19 @@ module ApplicationHelper
     request.path.start_with?(path) ? class_to_add : ""
   end
 
+  def upvote_count(votable)
+    votable.votes_for.up.by_type(User).size
+  end
+
+  def link_to_add_field(name, f, association, **args)
+    new_object = f.object.send(association).klass.new
+    id = new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: id) do |builder|
+      render(association.to_s.singularize, f: builder)
+    end
+    # byebug
+    link_to(name, 'javascript:;', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n", "")}, id: args[:id])
+  end
 end
 
 module Haml

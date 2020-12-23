@@ -1,0 +1,24 @@
+%div{class: "w-full py-3"}
+  -# Person thumbnail
+  %div{data: { controller: "toggle" }}
+    %div{class: "w-full flex"}
+      %div{class: "w-8 h-8 flex-shrink-0"}
+        = image_tag comment.user.thumbnail_url, class: "rounded-full object-fill"
+      %div{class: "ml-2 flex flex-wrap justify-between"}
+        %div{class: "w-full text-xs text-black font-medium flex items-center"}
+          = comment.user.name
+          %div{class: "ml-2 font-regular cursor-pointer text-gray-600 hover:underline", data: { action: "click->toggle#toggle touch->toggle#toggle" }}
+            %div{data: { toggle: { target: 'toggleable' } } }
+              [-]
+            %div{class: "hidden", data: { toggle: { target: 'toggleable' } } }
+              [+]
+
+        %div{class: "text-xs text-gray-600"}
+          = "#{comment.user.role} @ #{comment.user.company}"
+    %div{class: "ml-10 text-sm mt-1 text-gray-900 mr-4", data: { toggle: { target: 'toggleable' } }}
+      - if user_signed_in?
+        = render 'comments/signed_in_body', comment: comment, new_comment: new_comment
+      - else
+        = render 'comments/signed_out_body', comment: comment
+      - comment.children.each do |child_comment|
+        = render 'comments/comment', comment: child_comment, new_comment: new_comment

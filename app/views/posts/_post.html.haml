@@ -7,8 +7,10 @@
         = post.problem_title.titleize
       %div{class: "text-gray-700 text-sm leading-none"}
         = "with #{post.product.name}"
+
     %div{class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none"}
+      -# = link_to upvote_post_path(post), class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none" do
       %div{class: "text-sm leading-none"}
         ▲
       %div{class: "mt-1 font-semibold"}
-        12
+        = upvote_count(post)

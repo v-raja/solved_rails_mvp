@@ -1,0 +1,27 @@
+%div{data: { controller: "toggle" }}
+  = comment.body.gsub(/\n/, '<br/>').html_safe
+  %div{class: "mt-1 flex text-xs text-gray-600 flex items-center space-x-2"}
+    %div{id: "upvote_comment_#{comment.id}"}
+      - if current_user.voted_up_on? comment
+        = render 'comments/upvoted', comment: comment
+      - else
+        = render 'comments/upvote', comment: comment
+    %button{class: "p-1 -ml-1 transition font-semibold hover:text-black hover:bg-gray-100 rounded-sm", data: { action: "click->toggle#toggle touch->toggle#toggle" }}
+      Reply
+    %div{class: "ml-2"}
+      = time_ago_in_words(comment.created_at)
+  %div{class: "mt-2 hidden", data: { toggle: { target: 'toggleable' } }}
+
+    = form_for new_comment, html: { class: "w-full flex items-end"} do |f|
+      - if new_comment.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(new_comment.errors.count, "error")} prohibited this comment from being saved:"
+          %ul
+            - new_comment.errors.full_messages.each do |message|
+              %li= message
+      = f.hidden_field :commentable_id, value: new_comment.commentable_id
+      = f.hidden_field :commentable_type, value: new_comment.commentable_type
+      = f.hidden_field :comment_id, value: comment.id
+      %textarea{rows: "1", name: "comment[body]",
+        class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"}
+      = f.submit "Reply", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase", remote: true

@@ -30,7 +30,7 @@
           %div{class: "w-full text-lg font-medium"}
             About this Industry
           %div{class: "py-1 w-full rounded-lg text-sm "}
-            = simple_format @industry.description
+            = simple_format @industry.description.gsub(/\n/, '<br/>').html_safe
         -# %div{class: "w-full"}
         -#   = "Notify me weekly about products posted to #{niche.title}"
         -# %div{c: "flex items-center py-2"}

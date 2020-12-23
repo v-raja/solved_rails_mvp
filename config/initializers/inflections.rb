@@ -30,3 +30,5 @@ class String
     self.underscore.humanize.gsub(/\b(['’`]?(?!(#{exclusions.join('|')})\b)[a-z])/) { $&.capitalize }
   end
 end
+
+ActsAsTaggableOn.force_lowercase = true
