@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     # , to: 'search#index'
     # resources :search, only: [:index] # to generate the view helpers
     resources :requests, only: [:index]
-    root to: 'posts#index'
+    resources :posts, only: [:index], path: "/"
   end
 
   root to: 'industry_categories#index'
