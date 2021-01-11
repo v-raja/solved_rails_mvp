@@ -7009,7 +7009,14 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-stimulus@^2.0.0:
+stimulus-data-bindings@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/stimulus-data-bindings/-/stimulus-data-bindings-1.3.0.tgz#01c8cb4c68ff0528efc60093ae6174d51d98b181"
+  integrity sha512-6gHKW1wYnWjxO2X2CrPFOvnyZk7QI78GL/rufZHXACxqqUR3izvAlrJBDGOMo3RV8zbcZMBW6wYCGuU3sQvkjQ==
+  dependencies:
+    stimulus "~1.1.1||~2.0"
+
+stimulus@^2.0.0, stimulus@~1.1.1||~2.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/stimulus/-/stimulus-2.0.0.tgz#713c8b91a72ef90914b90955f0e705f004403047"
   integrity sha512-xipy7BS5TVpg4fX6S8LhrYZp7cmHGjmk09WSAiVx1gF5S5g43IWsuetfUhIk8HfHUG+4MQ9nY0FQz4dRFLs/8w==

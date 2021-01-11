@@ -31,23 +31,9 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/new
-  def new
-    @post = Post.new
-    @post.youtube_urls.build
-  end
-
   def preview_industries
     niches_str = params[:niches]
-    @niches = []
-    niches_str.split(", ").each do |niche_code|
-      if niche_code.length == 6 then
-        @niches.concat Industry.where(id: niche_code)
-      else
-        @niches.concat IndustryCategory.get_industries(niche_code)
-      end
-    end
-    @niches.uniq!
+    @niches = IndustryCategory.get_industries_from_string(niches_str)
     respond_to do |format|
       format.js
     end
@@ -55,17 +41,7 @@ class PostsController < ApplicationController
 
   def preview_occupations
     niches_str = params[:niches]
-    @niches = []
-    niches_str.split(", ").each do |niche_code|
-      p niche_code
-      if niche_code[-1] != '0' then
-        @niches.concat Occupation.where(code: niche_code)
-      else
-        @niches.concat OccupationCategory.get_occupations(niche_code)
-      end
-    end
-    @niches.uniq!
-    # p @niches
+    @niches = OccupationCategory.get_occupations_from_string(niches_str)
     respond_to do |format|
       format.js
     end
@@ -76,13 +52,40 @@ class PostsController < ApplicationController
   def edit
   end
 
+  # GET /posts/new
+  def new
+    @post = Post.new
+
+    @post.youtube_urls.build
+    @post.build_product
+  end
+
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    # byebug
+    # p tags_string_param
+    @post = current_user.posts.build(post_params)
+
+    if post_params[:product_id].blank?
+      @post.build_product(product_params)
+    end
 
     respond_to do |format|
       if @post.save
+        industries = IndustryCategory.get_industries_from_string(params[:post][:industries_string])
+        industries.each do |industry|
+          @post.post_to_industry(industry)
+        end
+
+        occupations = OccupationCategory.get_occupations_from_string(params[:post][:occupations_string])
+        occupations.each do |occupation|
+          @post.post_to_occupation(occupation)
+        end
+
+        # first_comment = Comment.build_from(@post, current_user, params[:comment_text])
+        # first_comment.create
+
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -124,6 +127,14 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:problem_title, :tagline, :description, :youtube_url, :product_url)
+      params.require(:post).permit(:problem_title, :description, :product_id, :product_url, product_attributes: [:name, :logo_url], youtube_urls_attributes: [:_destroy, :id, :url])
+    end
+
+    def extra_params
+      params.require(:post).permit(:tags_string, :industries_string, :occupations_string, :comment_text)
+    end
+
+    def product_params
+      params.require(:post).require(:product_attributes).permit(:name, :logo_url)
     end
 end

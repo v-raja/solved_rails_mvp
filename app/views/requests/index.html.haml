@@ -1,5 +1,65 @@
+%h1 Listing requests
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @requests.each do |request|
+      %tr
+        %td= request.title
+        %td= request.description
+        %td= link_to 'Show', request
+        %td= link_to 'Edit', edit_request_path(request)
+        %td= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Request', new_request_path
+
+
 = render 'layouts/header'
-= render 'niches/header'
+= render 'shared/niches/header', niche: @niche
+
+%div{class: "mt-10 flex justify-center"}
+  %div{class: "max-w-screen-lg w-full relative flex"}
+    %div{class: "w-full mr-12"}
+      - if @niche.requests.today.any?
+        %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+          Today
+        %div{class: "divide-y divide-gray-300 divide-solid rounded-sm"}
+          = render @niche.requests.today
+          = render @niche.requests.today
+      - if @niche.requests.past_week.any?
+        %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+          Past Week
+        %div{class: "divide-y divide-gray-300 divide-solid"}
+          = render @niche.requests.past_week
+      - if @niche.requests.past_month.any?
+        %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+          Past Month
+        %div{class: "divide-y divide-gray-300 divide-solid"}
+          = render @niche.requests.past_month
 
 
-This is the index action of the requests controller
+
+
+    %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
+      %div{class: "w-full flex flex-wrap bg-white rounded-sm"}
+        %div{class: "py-3 px-4"}
+          %div{class: "w-full text-lg font-medium"}
+            About this Industry
+          %div{class: "py-1 w-full rounded-lg text-sm "}
+            = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe
+        -# %div{class: "w-full"}
+        -#   = "Notify me weekly about products posted to #{niche.title}"
+        -# %div{c: "flex items-center py-2"}
+        -#   %input{c: "mt-0 block bg-transparent w-full px-0.5 border-0 border-b border-primary focus:ring-0 focus:border-primary",
+        -#               "aria-label": "Email", placeholder: "jane@doe.com", type: "text"}
+        -#   %button.flex-shrink-0.ml-4.bg-primary.hover:bg-black.border-primary.hover:border-black.text-sm.border-4.text-white.py-1.px-2.rounded{:type => "button"}
+        -#     Notify Me!

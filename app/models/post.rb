@@ -13,6 +13,8 @@
 #  user_id       :integer          not null
 #
 class Post < ApplicationRecord
+  validates_presence_of :problem_title, :description, :youtube_urls, :product
+
   has_many :industry_posts, dependent: :destroy
   has_many :industries, through: :industry_posts
 
@@ -22,8 +24,16 @@ class Post < ApplicationRecord
   has_many :youtube_urls, dependent: :destroy
   accepts_nested_attributes_for :youtube_urls, allow_destroy: true, reject_if: proc { |att| att['url'].blank? }
 
-  belongs_to  :product
-  belongs_to  :user
+  belongs_to :product
+  accepts_nested_attributes_for :product, :reject_if => :check_if_product_exists
+
+  # validates_presence_of :product_id, :unless => "product.present?"
+  validates_associated :product
+  # , :unless => product_id.present?
+  # , :unless => "product_id.present?"
+  validates :product_url, url: { no_local: true }
+
+  belongs_to :user
 
   acts_as_commentable
   acts_as_votable
@@ -33,6 +43,7 @@ class Post < ApplicationRecord
   scope :past_week,  -> { where("posts.created_at >= :start_date AND posts.created_at < :end_date", {:start_date => 1.week.ago, :end_date => Date.today }) }
   scope :past_month, -> { where("posts.created_at >= :start_date AND posts.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }) }
 
+
   def post_to_industry(industry)
     industries << industry
   end
@@ -40,4 +51,34 @@ class Post < ApplicationRecord
   def post_to_occupation(occupation)
     occupations << occupation
   end
+
+  private
+
+  def check_if_product_exists(product_attr)
+    # User has selected an existing product so both fields are blank
+    if product_attr['name'].blank? && product_attr['thumbnail_url'].blank? && !product_attr['id'].blank?
+      if _product = Product.find(product_attr['id'])
+        self.product = _product
+        return true
+      else
+        return false
+      end
+    end
+
+    # One field blank means user hasn't filled out form properly (user error)
+    if product_attr['name'].blank? || product_attr['thumbnail_url'].blank?
+      return true
+    end
+
+    return false
+  end
+
+  # def check_if_product_exists(product_attr)
+  #   if _product = Product.find(product_attr['id'])
+  #     self.product = _product
+  #     return true
+  #   end
+  #   return false
+  # end
+
 end

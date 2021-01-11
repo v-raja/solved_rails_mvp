@@ -27,6 +27,9 @@ class Occupation < ApplicationRecord
   has_many :occupation_posts, dependent: :destroy
   has_many :posts, through: :occupation_posts
 
+  has_many :occupation_requests, dependent: :destroy
+  has_many :requests, through: :occupation_requests
+
   def titleize_title
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "n.e.c.", "n.e.c", "as"]
     words_all_cap = ["It", "Hr", "r&d", "(r&d)"]

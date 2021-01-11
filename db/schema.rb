@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_083731) do
+ActiveRecord::Schema.define(version: 2021_01_08_175803) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "commentable_id"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 2020_12_17_083731) do
     t.index ["post_id"], name: "index_industry_posts_on_post_id"
   end
 
+  create_table "industry_requests", force: :cascade do |t|
+    t.integer "request_id"
+    t.integer "industry_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["industry_id"], name: "index_industry_requests_on_industry_id"
+    t.index ["request_id", "industry_id"], name: "index_industry_requests_on_request_id_and_industry_id", unique: true
+    t.index ["request_id"], name: "index_industry_requests_on_request_id"
+  end
+
   create_table "niche_posts", force: :cascade do |t|
     t.integer "post_id"
     t.integer "niche_id"
@@ -123,6 +133,16 @@ ActiveRecord::Schema.define(version: 2020_12_17_083731) do
     t.index ["post_id"], name: "index_occupation_posts_on_post_id"
   end
 
+  create_table "occupation_requests", force: :cascade do |t|
+    t.integer "request_id"
+    t.integer "occupation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["occupation_id"], name: "index_occupation_requests_on_occupation_id"
+    t.index ["request_id", "occupation_id"], name: "index_occupation_requests_on_request_id_and_occupation_id", unique: true
+    t.index ["request_id"], name: "index_occupation_requests_on_request_id"
+  end
+
   create_table "occupations", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -156,6 +176,15 @@ ActiveRecord::Schema.define(version: 2020_12_17_083731) do
     t.text "logo_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -238,6 +267,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_083731) do
   add_foreign_key "occupations", "occupation_categories"
   add_foreign_key "posts", "products"
   add_foreign_key "posts", "users"
+  add_foreign_key "requests", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "youtube_urls", "posts"
 end

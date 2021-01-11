@@ -13,6 +13,7 @@
     "jquery": "^3.5.1",
     "postcss": "^7",
     "stimulus": "^2.0.0",
+    "stimulus-data-bindings": "^1.3.0",
     "tailwindcss": "yarn:@tailwindcss/postcss7-compat",
     "tailwindcss-stimulus-components": "^2.0.12",
     "turbolinks": "^5.2.0"

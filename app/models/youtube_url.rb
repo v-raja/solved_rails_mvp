@@ -14,10 +14,17 @@ class YoutubeUrl < ApplicationRecord
   validate :valid_url
   after_validation :set_youtube_id
 
+  # def self.
+
+
   private
 
     def valid_url
-      errors.add(:youtube_url, "must be a valid youtube url") unless /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/ === url
+      errors.add(:youtube_url, "must be a valid youtube url") unless is_valid(url)
+    end
+
+    def is_valid(yt_url)
+      /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/ === yt_url
     end
 
     # Get YouTube ID from various YouTube URL

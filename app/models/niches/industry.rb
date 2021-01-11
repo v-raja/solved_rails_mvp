@@ -21,6 +21,9 @@ class Industry < ApplicationRecord
   has_many :industry_posts, dependent: :destroy
   has_many :posts, through: :industry_posts
 
+  has_many :industry_requests, dependent: :destroy
+  has_many :requests, through: :industry_requests
+
   acts_as_taggable
 
   before_save :titleize_title

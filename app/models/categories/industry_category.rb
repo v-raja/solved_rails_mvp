@@ -31,6 +31,19 @@ class IndustryCategory < ApplicationRecord
     IndustryCategory.find_by(code: code).get_leaf_children.map(&:industries).flatten
   end
 
+  def self.get_industries_from_string(code_string)
+    industries = []
+    code_string.split(", ").each do |niche_code|
+      if niche_code.length == 6 then
+        industries.concat Industry.where(id: niche_code)
+      else
+        industries.concat IndustryCategory.get_industries(niche_code)
+      end
+    end
+    industries.uniq!
+    return industries
+  end
+
 
   private
 

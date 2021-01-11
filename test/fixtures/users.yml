@@ -18,6 +18,7 @@
 #  company                :string
 #  fake_company           :string
 #  admin                  :boolean          default(FALSE)
+#  thumbnail_url          :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

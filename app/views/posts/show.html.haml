@@ -1,51 +1,50 @@
 = render 'layouts/header', render_shadow: false
-%div{class: "mt-10 flex flex-wrap justify-center pb-20"}
+%div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
 
   -# Logo, problem, product, and posted_to banner
   %div{class: "max-w-screen-lg w-full relative flex overflow-hidden"}
-    %div{class: "w-full"}
-      %div{class: "w-full flex"}
-        %div{class: "w-28 h-28 flex-shrink-0"}
-          = image_tag @post.product.logo_url
-        %div{class: "ml-4 w-full flex flex-col justify-between"}
-          %div
-            - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
-            %div{class: "w-full font-medium"}
-              = @post.problem_title.titleize(exclude: exclude)
-            %div{class: "mt-1 text-gray-700 text-sm leading-none"}
-              = link_to "with #{@post.product.name}", @post.product, class: "hover:text-black"
-          -# %div
-          %div{class: "overflow-auto disable-scrollbars"}
-            - unless @post.tag_list.empty?
-              %div{class: "flex-shrink-0 mt-1 w-max text-xs text-gray-600 flex flex-wrap items-center"}
-                Tags
-                - @post.tag_list.each do |tag|
-                  %div{class: "ml-1 text-gray-600 text-xs border border-gray-400 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                    = tag
-            -# - if @post.industries.any?
-              -# %div{class: "flex-shrink-0 mt-1 flex items-center w-max text-xs text-gray-600"}
-              -#   %div{class: ""}
-              -#     Industries
-              -#   - @post.industries.each do |industry|
-              -#     = link_to industry do
-              -#       %div{class: "ml-1 text-gray-600 text-xs border border-gray-400 px-1 py-0.5 bg-white rounded-sm hover:text-gray-900 hover:border-gray-700"}
-              -#         = industry.title
-            -# - if @post.occupations.any?
-            -#   %div{class: "mt-1 flex items-center w-max text-xs text-gray-600 pr-4"}
-            -#     %div{class: ""}
-            -#       Occupations
-            -#     - @post.occupations.each do |occupation|
-            -#       = link_to occupation do
-            -#         %div{class: "flex-shrink-0 ml-1 text-gray-600 text-xs border border-gray-400 px-1 py-0.5 bg-white rounded-sm hover:text-gray-900 hover:border-gray-700"}
-            -#           = occupation.title
+    %div{class: "w-full flex"}
+      %div{class: "w-28 h-28 flex-shrink-0"}
+        = image_tag @post.product.logo_url
+      %div{class: "ml-4 w-full flex flex-col justify-between"}
+        %div
+          - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
+          %div{class: "w-full font-medium"}
+            = @post.problem_title.titleize(exclude: exclude)
+          %div{class: "mt-1 text-gray-700 text-sm leading-none"}
+            = link_to "with #{@post.product.name}", @post.product, class: "hover:text-black"
+        -# %div
+        %div{class: "overflow-auto disable-scrollbars"}
+          - unless @post.tag_list.empty?
+            %div{class: "flex-shrink-0 mt-1 w-max text-xs text-gray-600 flex flex-wrap items-center"}
+              Tags
+              - @post.tag_list.each do |tag|
+                %div{class: "ml-1 text-gray-600 text-xs border border-gray-400 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+                  = tag
+          -# - if @post.industries.any?
+            -# %div{class: "flex-shrink-0 mt-1 flex items-center w-max text-xs text-gray-600"}
+            -#   %div{class: ""}
+            -#     Industries
+            -#   - @post.industries.each do |industry|
+            -#     = link_to industry do
+            -#       %div{class: "ml-1 text-gray-600 text-xs border border-gray-400 px-1 py-0.5 bg-white rounded-sm hover:text-gray-900 hover:border-gray-700"}
+            -#         = industry.title
+          -# - if @post.occupations.any?
+          -#   %div{class: "mt-1 flex items-center w-max text-xs text-gray-600 pr-4"}
+          -#     %div{class: ""}
+          -#       Occupations
+          -#     - @post.occupations.each do |occupation|
+          -#       = link_to occupation do
+          -#         %div{class: "flex-shrink-0 ml-1 text-gray-600 text-xs border border-gray-400 px-1 py-0.5 bg-white rounded-sm hover:text-gray-900 hover:border-gray-700"}
+          -#           = occupation.title
 
     %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
 
   -# 2 Column, Left Column
-  %div{class: "mt-8 max-w-screen-lg w-full relative flex flex-nowrap",
-        md: "flex flex-wrap"}
-    %div{class: "w-full mr-12",
-          md: "mx-4"}
+  %div{class: "mt-8 max-w-screen-lg w-full relative flex flex-wrap",
+      md: "flex flex-nowrap"}
+    %div{class: "w-full",
+         md: "mr-8"}
       -# Gallery
       %div{class: "bg-white p-4 block"}
         %div{class: "aspect-w-7 aspect-h-4"}
@@ -63,56 +62,9 @@
 
 
 
-      -# Discussion header
-      %div{class: "mt-10 flex justify-between"}
-        %div{class: "uppercase font-medium text-gray-600 text-xs"}
-          Discussion
-        %div{class: "uppercase font-medium text-blue-600 text-xs"}
-          Follow Discussion
-      -# Discussion section
-      %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full"}
-        %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
-          - if user_signed_in?
-            %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-              = image_tag @post.user.thumbnail_url, class: "rounded-full object-fill"
-            %div{class: "ml-2 text-xs text-gray-600 w-full"}
-              = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
-                %textarea{rows: "1", name: "comment[body]",
-                class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                placeholder: "What would you like more clarification on?"}
-                = f.hidden_field :commentable_id, value: @new_comment.commentable_id
-                = f.hidden_field :commentable_type, value: @new_comment.commentable_type
-                = f.submit "Comment", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
-          - else
-            %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
-              %div{class: "text-base text-gray-600 font-medium"}
-                Log in or sign up to join the discussion
-              %div{class: "flex items-center"}
-                = link_to new_user_session_path do
-                  %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
-                    Log In
-                = link_to new_user_registration_path do
-                  %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
-                    Sign Up
-        - if @post.root_comments.any?
-          - @post.root_comments.each do |comment|
-            = render 'comments/comment', comment: comment, new_comment: @new_comment
-
-        - else
-          %div{class: "w-full flex flex-wrap justify-between text-center py-10"}
-            %div{class: "text-3xl w-full"}
-              💬
-            %div{class: "mt-1 text-base font-medium w-full"}
-              Be the first to comment
-
-            -# %div{class: "border border-gray-400"}
-            -#   What did you like about the solution? What would you like more clarification on?
-
-
-
-
-    %div{class: "w-1/3 flex-shrink-0 flex flex-col"}
-      %div{class: "flex"}
+    %div{class: "flex-shrink-0 flex flex-col w-full",
+          md: "w-1/3"}
+      %div{class: "mt-3 flex", md: "mt-0"}
         %div{class: "w-2/5 flex-shrink-0"}
           = link_to @post.product_url do
             %div{class: "uppercase py-4 bg-white text-gray-900 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
@@ -177,3 +129,56 @@
         -#     %div{class: "w-full text-sm text-black leading-none"}
         -#       = @post.product.name
 
+  -# 2 Column, Left Column
+  %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap",
+       md: "flex flex-nowrap"}
+    -# md: "flex flex-wrap"}
+    %div{class: "w-full",
+         md: "mr-8"}
+      -# Discussion header
+      %div{class: "flex justify-between"}
+        %div{class: "uppercase font-medium text-gray-600 text-xs"}
+          Discussion
+        %div{class: "uppercase font-medium text-blue-600 text-xs"}
+          Follow Discussion
+      -# Discussion section
+      %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full"}
+        %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
+          - if user_signed_in?
+            %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
+              = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+            %div{class: "ml-2 text-xs text-gray-600 w-full"}
+              = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
+                %textarea{rows: "1", name: "comment[body]",
+                class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                placeholder: "What would you like more clarification on?"}
+                = f.hidden_field :commentable_id, value: @new_comment.commentable_id
+                = f.hidden_field :commentable_type, value: @new_comment.commentable_type
+                = f.submit "Comment", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
+          - else
+            %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
+              %div{class: "text-base text-gray-600 font-medium pr-4"}
+                Log in or sign up to join the discussion
+              %div{class: "flex-shrink-0 flex items-center"}
+                = link_to new_user_session_path do
+                  %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
+                    Log In
+                = link_to new_user_registration_path do
+                  %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
+                    Sign Up
+        - if @post.root_comments.any?
+          - @post.root_comments.each do |comment|
+            = render 'comments/comment', comment: comment, new_comment: @new_comment
+
+        - else
+          %div{class: "w-full flex flex-wrap justify-between text-center py-10"}
+            %div{class: "text-3xl w-full"}
+              💬
+            %div{class: "mt-1 text-base font-medium w-full"}
+              Be the first to comment
+
+            -# %div{class: "border border-gray-400"}
+            -#   What did you like about the solution? What would you like more clarification on?
+
+
+    %div{class: "w-1/3 flex-shrink-0 flex flex-col"}

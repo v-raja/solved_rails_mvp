@@ -18,6 +18,7 @@
 #  company                :string
 #  fake_company           :string
 #  admin                  :boolean          default(FALSE)
+#  thumbnail_url          :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -27,7 +28,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  has_many :posts, dependent: :destroy
+  has_many :posts
+  has_many :requests
+  # , dependent: :destroy
 
   acts_as_voter
 

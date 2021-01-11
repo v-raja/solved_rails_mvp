@@ -28,3 +28,7 @@ application.register('tabs', Tabs)
 application.register('popover', Popover)
 application.register('toggle', Toggle)
 application.register('slideover', Slideover)
+
+import { DataBindingController } from "stimulus-data-bindings";
+application.register("data-binding", DataBindingController);
+

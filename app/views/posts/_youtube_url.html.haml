@@ -1,7 +1,5 @@
 %div{class: "flex w-full items-center mt-3"}
-  %input{type: "text",
-        class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-        hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
-        placeholder: "Video of the solution"}
+  = f.text_field :url, class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50", placeholder: "Video of the solution"
   = f.hidden_field :_destroy
-  = link_to 'Remove', 'javascript:;', class: 'remove_url bg-red-600 p-2 rounded-lg shadow-xs ml-2 text-white font-bold'
+  = link_to 'Remove', 'javascript:;', class: 'remove_url text-xs p-1 rounded-lg shadow-xs ml-2 text-red-600 bg-white font-bold hover:underline cursor-pointer'
+

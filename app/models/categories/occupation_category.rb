@@ -35,6 +35,20 @@ class OccupationCategory < ApplicationRecord
     OccupationCategory.find_by(code: code).get_leaf_children.map(&:occupations).flatten
   end
 
+
+  def self.get_occupations_from_string(code_string)
+    occupations = []
+    code_string.split(", ").each do |niche_code|
+      if niche_code[-1] != '0' then
+        occupations.concat Occupation.where(code: niche_code)
+      else
+        occupations.concat OccupationCategory.get_occupations(niche_code)
+      end
+    end
+    occupations.uniq!
+    return occupations
+  end
+
   private
 
     def should_generate_new_friendly_id?

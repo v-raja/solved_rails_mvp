@@ -5,7 +5,7 @@
 -# - render_shadow = false
 -# ---- HEADER ----
 %div{class: "bg-white"}
-  %div{class: "flex justify-center border-0 #{render_shadow ? "shadow-md" : nil}"}
+  %div{class: "flex justify-center border-0 px-4 #{render_shadow ? "shadow-md" : nil}", md: "px-0"}
     %div{data: { controller: "toggle"},
         class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
       %div{class: "flex justify-between items-center"}
