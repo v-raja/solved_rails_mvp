@@ -1,5 +1,113 @@
-%h1 New request
+= render 'layouts/header', render_shadow: false
+%div{class: "flex flex-wrap justify-center px-4", data: { controller: "data-binding"} }
+  = form_for @request, url: new_request_path, html: {class: ""} do |f|
+    %div{class: "font-medium mt-6"}
+      Create a request for a solution to your problem
+    -# 2 Column
+    %div{class: "max-w-screen-lg w-full relative flex items-start"}
+      -# Left Column
+      %div{class: "w-full mr-6 pr-6 "}
+        %div{class: "mt-6"}
+        - if @request.errors.any?
+          %ul{class: "mb-2 list-inside list-disc text-red-500"}
+            - @request.errors.full_messages.each do |msg|
+              = content_tag(:li, msg)
+        -# %div{class: "text-2xl font-bold"}
+        -#   🌄 Solution overview
 
-= render 'form'
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          %div{class: "flex items-center"}
+            %div{class: "font-medium"}
+              Title
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          = f.text_field :title,
+            placeholder: "Try to concisely state your problem here",
+            class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
+          %div{class: "mt-6 flex items-center"}
+            %div{class: "font-medium"}
+              Description
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          = f.text_area :description,
+              class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+              placeholder: "",
+              data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:post, :description).blank? ? "false" : "true"}",
+              rows: "7"
 
-= link_to 'Back', requests_path
+
+        %div{class: "mt-10 text-2xl font-bold"}
+          👨‍🔬 👨‍🌾 Who is your solution relevant to?
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          -# %div{class: "text-lg font-medium"}
+          -#   Choose niches to post your solution to
+          %div{class: " font-medium"}
+            Industry niches
+          - val = params[:industries]
+          - val = params[:code] unless params[:type] != "Industry"
+          %input{id: "industry_input",
+                type: "text",
+                name: "industries",
+                value: "#{val}",
+                onfocusout: "updateIndustries()",
+                class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+                placeholder: "Ex: 611110, 611210, 611310"}
+
+          %div{class: "mt-3 font-medium"}
+            Occupation niches
+          - val = params[:occupations]
+          - val = params[:code] unless params[:type] != "Occupation"
+          %input{id: "occupation_input",
+                type: "text",
+                name: "occupations",
+                onfocusout: "updateOccupations()",
+                class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+                placeholder: "Ex: 25-2031, 25-2021, 25-2022"}
+          %div{class: "text-xs text-gray-600 mt-3"}
+            Unsure of what niche to post to?
+            = link_to 'Explore', industry_categories_path, class: "mx-0.5 underline hover:text-black"
+            or search to find relevant niches.
+
+        %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+          %div{class: "w-full uppercase text-gray-600 text-xs"}
+            Posted To
+          %div{class: "mt-3"}
+            #industry_niches
+            #occupation_niches
+        = f.submit "Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-2 uppercase"
+
+      -# Right Column
+      %div{class: "w-1/3 flex-shrink-0 flex flex-wrap bg-white text-sm px-4 rounded border border-gray-200 pb-4 mt-6 leading-relaxed"}
+        %div{class: "mt-4 font-semibold"}
+          👋 Be kind and respectful
+        %div{class: "text-gray-600 mt-2"}
+          Our community exists to support and encourage people to learn and build things. Keep in mind that your fellow community members might have more or less experience than you but deserve just as much respect. Do not troll or harass people.
+        %div{class: "mt-3 font-semibold"}
+          🚫 No advertisement or self-promotion
+        %div{class: "text-gray-600 mt-2"}
+          While it is encouraged to discuss your projects and share links to collect feedback, it is not okay to use the discussions and comments to advertise your products or force-feed them to other people.
+        %div{class: "mt-3 font-semibold"}
+          🔗 Links in discussions and comments
+        %div{class: "text-gray-600 mt-2"}
+          It is acceptable to share links to your projects to collect feedback or share an article you wrote that might benefit the community. Spamming the community by sharing the same links in discussions and comments will not be tolerated.
+
+
+
+:javascript
+  function updateIndustries() {
+    $.ajax({
+      method: "GET",
+      url: "preview_industries",
+      data: { niches: document.getElementById("industry_input").value }
+    })
+  }
+
+  function updateOccupations() {
+    $.ajax({
+      method: "GET",
+      url: "preview_occupations",
+      data: { niches: document.getElementById("occupation_input").value }
+    })
+  }

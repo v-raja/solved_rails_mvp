@@ -2,12 +2,31 @@ class RequestsController < ApplicationController
   before_action :authenticate_user!, only: [:upvote, :remove_upvote]
   before_action :set_request, only: [:show, :edit, :update, :destroy, :upvote,
                                   :remove_upvote]
-  before_action :set_niche, only: [:index]
+  before_action :set_niche, only: [:niche_index]
 
   # GET /requests
   # GET /requests.json
   def index
     @requests = Request.all
+  end
+
+  def niche_index
+  end
+
+  def preview_industries
+    niches_str = params[:niches]
+    @niches = IndustryCategory.get_industries_from_string(niches_str)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def preview_occupations
+    niches_str = params[:niches]
+    @niches = OccupationCategory.get_occupations_from_string(niches_str)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def upvote
@@ -50,12 +69,12 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        industries = IndustryCategory.get_industries_from_string(params[:request][:industries_string])
+        industries = IndustryCategory.get_industries_from_string(params[:industries])
         industries.each do |industry|
           @request.post_to_industry(industry)
         end
 
-        occupations = OccupationCategory.get_occupations_from_string(params[:request][:occupations_string])
+        occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
         occupations.each do |occupation|
           @request.post_to_occupation(occupation)
         end

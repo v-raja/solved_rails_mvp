@@ -3,10 +3,15 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote,
                                   :remove_upvote]
 
+  before_action :set_niche, only: [:niche_index]
+
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+  end
+
+  def niche_index
   end
 
   def upvote
@@ -136,5 +141,20 @@ class PostsController < ApplicationController
 
     def product_params
       params.require(:post).require(:product_attributes).permit(:name, :logo_url)
+    end
+
+    def set_niche
+      if params[:industry_id]
+        @niche = Industry.friendly.find params[:industry_id]
+      else
+        @niche = Occupation.friendly.find params[:occupation_id]
+      end
+
+      # If an old id or a numeric id was used to find the record, then
+      # the request path will not match the post_path, and we should do
+      # a 301 redirect that uses the current friendly id.
+      # if params[:id] != @niche.slug
+      #   return redirect_to @industry, :status => :moved_permanently
+      # end
     end
 end
