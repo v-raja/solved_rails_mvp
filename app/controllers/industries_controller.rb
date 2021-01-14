@@ -1,6 +1,7 @@
 class IndustriesController < ApplicationController
   before_action :set_industry, only: [:show, :edit, :update, :destroy]
 
+
   # GET /industries
   # GET /industries.json
   def index

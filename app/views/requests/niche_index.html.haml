@@ -5,22 +5,26 @@
   %div{class: "max-w-screen-lg w-full relative flex"}
     %div{class: "w-full"}
       -# mr-12
-      - if @niche.requests.today.any?
-        %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
-          Today
-        %div{class: "divide-y divide-gray-300 divide-solid rounded-sm"}
-          = render @niche.requests.today
-          = render @niche.requests.today
-      - if @niche.requests.past_week.any?
-        %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
-          Past Week
-        %div{class: "divide-y divide-gray-300 divide-solid"}
-          = render @niche.requests.past_week
-      - if @niche.requests.past_month.any?
-        %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
-          Past Month
-        %div{class: "divide-y-4 divide-gray-300 divide-solid"}
-          = render @niche.requests.past_month
+      - if @niche.requests.any?
+        - if @niche.requests.today.any?
+          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            Today
+          %div{class: "divide-y divide-gray-300 divide-solid rounded-sm"}
+            = render @niche.requests.today
+            = render @niche.requests.today
+        - if @niche.requests.past_week.any?
+          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            Past Week
+          %div{class: "divide-y divide-gray-300 divide-solid"}
+            = render @niche.requests.past_week
+        - if @niche.requests.past_month.any?
+          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            Past Month
+          %div{class: "divide-y-4 divide-gray-300 divide-solid"}
+            = render @niche.requests.past_month
+      - else
+        %div{class: "w-full font-semibold text-2xl leading-none text-center"}
+          No requests yet 😞
 
 
 

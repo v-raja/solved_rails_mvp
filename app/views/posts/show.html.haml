@@ -79,9 +79,14 @@
           - else
             = link_to new_user_session_path do
               %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
+                - vote_count = upvote_count(@post)
+                = "#{vote_count > 0 ? " #{vote_count}" : ""}"
                 ▲
-                %div{class: "ml-2"}
+                %div{class: "ml-2 flex items-center"}
                   upvote
+                  -# %div{class: "ml-2"}
+                  -#   = "#{vote_count > 0 ? " #{vote_count}" : ""}"
+
 
       -# Maker / Hunter
       %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}

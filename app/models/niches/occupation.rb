@@ -30,6 +30,24 @@ class Occupation < ApplicationRecord
   has_many :occupation_requests, dependent: :destroy
   has_many :requests, through: :occupation_requests
 
+
+  include AlgoliaSearch
+
+  algoliasearch index_name: 'niches', id: :code, raise_on_failure: Rails.env.development?, sanitize: true, per_environment: true do
+    attribute :created_at, :title, :description
+
+    add_attribute :url, :code_with_suffix, :type
+
+    # integer version of the created_at datetime field, to use numerical filtering
+    attribute :created_at_i do
+      created_at.to_i
+    end
+
+    # tags self.tag_list
+
+    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)']
+  end
+
   def titleize_title
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "n.e.c.", "n.e.c", "as"]
     words_all_cap = ["It", "Hr", "r&d", "(r&d)"]
@@ -46,12 +64,9 @@ class Occupation < ApplicationRecord
   end
 
   def should_generate_new_friendly_id?
-    title_changed? || super || true
+    title_changed? || super
   end
 
-  def capitalcase_title
-
-  end
   # Try building a slug based on the following fields in
   # increasing order of specificity.
   def slug_candidates
@@ -59,5 +74,19 @@ class Occupation < ApplicationRecord
       :title,
       [:title, :code]
     ]
+  end
+
+  private
+
+  def code_with_suffix
+    "o/#{code}"
+  end
+
+  def url
+    Rails.application.routes.url_helpers.occupation_path(id)
+  end
+
+  def type
+    "Occupation"
   end
 end

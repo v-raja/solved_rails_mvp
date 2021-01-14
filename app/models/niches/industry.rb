@@ -11,7 +11,9 @@
 #  updated_at           :datetime         not null
 #  industry_category_id :integer          not null
 #
+
 class Industry < ApplicationRecord
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -30,13 +32,28 @@ class Industry < ApplicationRecord
 
   belongs_to :category, class_name: "IndustryCategory", foreign_key: "industry_category_id"
 
+  include AlgoliaSearch
+
+  algoliasearch index_name: 'niches', id: :code, sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
+    attribute :created_at, :title, :description
+
+    # integer version of the created_at datetime field, to use numerical filtering
+    attribute :created_at_i do
+      created_at.to_i
+    end
+
+    add_attribute :url, :code_with_suffix, :type
+    # tags tag_list
+    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)']
+  end
+
   def titleize_title
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of"]
     self.title = title.titleize(exclusions: words_no_cap)
   end
 
   def should_generate_new_friendly_id?
-    title_changed? || super || true
+    title_changed? || super
   end
 
   # Try building a slug based on the following fields in
@@ -46,5 +63,19 @@ class Industry < ApplicationRecord
       :title,
       [:title, :id]
     ]
+  end
+
+  private
+
+  def url
+    Rails.application.routes.url_helpers.industry_path(id)
+  end
+
+  def code_with_suffix
+    "i/#{code}"
+  end
+
+  def type
+    "Industry"
   end
 end

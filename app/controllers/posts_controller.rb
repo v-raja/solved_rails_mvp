@@ -81,11 +81,13 @@ class PostsController < ApplicationController
         industries = IndustryCategory.get_industries_from_string(params[:post][:industries_string])
         industries.each do |industry|
           @post.post_to_industry(industry)
+          industry.tag_list.add(params[:post][:tags_string], parse: true)
         end
 
         occupations = OccupationCategory.get_occupations_from_string(params[:post][:occupations_string])
         occupations.each do |occupation|
           @post.post_to_occupation(occupation)
+          occupation.tag_list.add(params[:post][:tags_string], parse: true)
         end
 
         # first_comment = Comment.build_from(@post, current_user, params[:comment_text])
