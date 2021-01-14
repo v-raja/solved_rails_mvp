@@ -44,7 +44,7 @@ class Industry < ApplicationRecord
 
     add_attribute :url, :code_with_suffix, :type
     # tags tag_list
-    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)']
+    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)', 'type']
   end
 
   def titleize_title

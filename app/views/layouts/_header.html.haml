@@ -1,11 +1,11 @@
-- render_shadow = true
-- if local_assigns.has_key? :render_shadow
-  - render_shadow = local_assigns[:render_shadow]
+- @render_shadow = true unless !@render_shadow.nil?
+-# - if local_assigns.has_key? :render_shadow
+-#   - render_shadow = local_assigns[:render_shadow]
 -# - render_shadow = (render_shadow.nil? ? true : render_shadow)
 -# - render_shadow = false
 -# ---- HEADER ----
 %div{class: "bg-white"}
-  %div{class: "flex justify-center border-0 px-4 #{render_shadow ? "shadow-md" : nil}", md: "px-0"}
+  %div{class: "flex justify-center border-0 px-4 #{@render_shadow ? "shadow-md" : nil}", md: "px-0"}
     %div{data: { controller: "toggle"},
         class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
       %div{class: "flex justify-between items-center"}
@@ -35,23 +35,36 @@
         -#     <path data-target="toggle.toggleable" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         -#     <path data-target="toggle.toggleable" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         -#     </svg>
+      -# = form_with url: '/search', method: "get", local: true, class: "w-full flex flex-col items-center", id: "search-form" do
+      -#     %div{c: "mt-8 w-1/2"}
+      -#       = render 'shared/search'
+      -#     %div{c: "mt-6"}
+      -#       %button{class: "px-4 py-2 bg-gray-100 rounded-md text-gray-800 ring-2 ring-transparent ring-inset",
+      -#               hover: "ring-gray-700 shadow-lg",
+      -#               focus: "ring-gray-700 shadow-lg"}
+      -#         Search
+
       %div{c: "justify-self-center w-full ml-4"}
-        %div{c: "block relative w-full"}
-          %div{c: "absolute inset-y-0 left-0 flex items-center pl-3 z-50"}
-            <svg class="h-6 w-6 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-          %input{c: "bg-gray-200 text-gray-900 pl-10 pr-4 rounded-lg w-full block border-2 border-gray-200",
-                  h: "bg-white outline-none border-gray-200 shadow-xs",
-                  f: "bg-white outline-none border-gray-400 shadow-xs",
-                  id: "search-box",
-                  name: "q",
-                  type: "text",
-                  autocomplete: "off",
-                  autocorrect: "off",
-                  autocapitalize: "none",
-                  placeholder: "Search for your industry or occupation, or for a product",
-                  spellcheck: "false"}
+        #searchbox
+
+        -# #q
+        -# = form_with url: '/niches', method: "get", local: true, class: "w-full flex flex-col items-center", id: "search-form" do
+        -#   %div{c: "block relative w-full"}
+        -#     %div{c: "absolute inset-y-0 left-0 flex items-center pl-3 z-50"}
+        -#       <svg class="h-6 w-6 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        -#       <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+        -#       </svg>
+        -# %input{c: "bg-gray-200 text-gray-900 pl-10 pr-4 rounded-lg w-full block border-2 border-gray-200",
+        -#         h: "bg-white outline-none border-gray-200 shadow-xs",
+        -#         f: "bg-white outline-none border-gray-400 shadow-xs",
+        -#         name: "query",
+        -#         type: "text",
+        -#         id: "q",
+        -#         autocomplete: "off",
+        -#         autocorrect: "off",
+        -#         autocapitalize: "none",
+        -#         placeholder: "Search for your industry or occupation, or for a product",
+        -#         spellcheck: "false"}
 
       %nav{data: { target: "toggle.toggleable" },
             c: "hidden",
@@ -83,4 +96,4 @@
         %div{c: "py-2 block bg-white"}
     -# ---- HEADER END ----
 
-  %div{class: "#{render_shadow ? "h-2" : nil}"}
+  %div{class: "#{@render_shadow ? "h-2" : nil}"}

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  get 'search/niches', to: 'search#niches'
+  root to: 'search#home'
+
   resources :industries, type: "Industry", path: "/i" do
     member do
       get 'search'
@@ -11,7 +15,7 @@ Rails.application.routes.draw do
     get "/requests", to: "requests#niche_index"
   end
 
-  root to: 'industry_categories#index'
+  # root to: 'industry_categories#index'
 
   resources :occupations, type: "Occupation", path: "/o" do
     member do

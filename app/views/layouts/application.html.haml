@@ -7,10 +7,22 @@
     %title PhApp
     = render 'layouts/rails_default'
     = render 'layouts/shim'
+    -# %script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@1/dist/instantsearch.min.js")
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
+    = javascript_pack_tag 'basic_instant_search'
     = yield :head
   %body
+    = debug(params) if Rails.env.development?
     #app{class: "min-h-screen bg-gray-fb bg-opacity-60 antialiased font-sans"}
-      = debug(params) if Rails.env.development?
-      - flash.each do |msg_type, msg|
-        = content_tag(:div, msg, class: "alert alert-#{msg_type}")
-      = yield
+      = render 'layouts/header'
+      #app_body
+        - flash.each do |msg_type, msg|
+          = content_tag(:div, msg, class: "alert alert-#{msg_type}")
+        = yield
+      #results
+        - @render_shadow = false
+        #hits{class: "max-w-6xl w-full"}
+
+

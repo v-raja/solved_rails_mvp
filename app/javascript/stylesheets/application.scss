@@ -14,6 +14,17 @@
   }
 }
 
+.two-lines-only {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 1.25;        /* fallback */
+  max-height: 2.5;       /* fallback */
+}
+
+
 b {
   font-weight: 500;
 }
@@ -86,6 +97,7 @@ b {
       font-weight: bold;
       color: #FFF;
     }
+
 
     .name {
     	margin: 2px 9px 2px 0;
