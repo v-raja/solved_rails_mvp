@@ -33,13 +33,19 @@ class Post < ApplicationRecord
 
   belongs_to :user
 
+  # default_scope { order(created_at: :desc) }
+
   acts_as_commentable
-  acts_as_votable
+  acts_as_votable cacheable_strategy: :update_columns
   acts_as_taggable
 
   scope :today,      -> { where('DATE(posts.created_at) = ?', Date.today) }
   scope :past_week,  -> { where("posts.created_at >= :start_date AND posts.created_at < :end_date", {:start_date => 1.week.ago, :end_date => Date.today }) }
   scope :past_month, -> { where("posts.created_at >= :start_date AND posts.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }) }
+
+  scope :today_ordered_by_votes, -> { where('DATE(posts.created_at) = ?', Date.today).order(cached_votes_score: :desc) }
+  scope :past_week_ordered_by_votes,  -> { where("posts.created_at >= :start_date AND posts.created_at < :end_date", {:start_date => 1.week.ago, :end_date => Date.today }).order(cached_votes_score: :desc) }
+  scope :past_month_ordered_by_votes, -> { where("posts.created_at >= :start_date AND posts.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }).order(cached_votes_score: :desc) }
 
   include AlgoliaSearch
 

@@ -1,142 +1,73 @@
-%div{class: "h-40"}
-%div{class: "flex flex-col items-center"}
-  %div{class: "fill-current h-12 w-40"}
-    -# Logo
-    = svg_tag "logo"
-  %div{class: ""}
-    The specialised knowledge marketplace of the Internet
-  -# %div{class: "mt-5 px-72 text-center font-medium text-2xl text-gray-900"}
-  -#   Find proven solutions to the specific problem you're facing, or
-  -#   %br
-  -#   find specialised knowledge on how a specific industry works
+-# = render 'layouts/header'
+- @render_shadow = false
 
-  = form_with url: '/niches', method: "get", local: true, class: "w-full flex flex-col items-center", id: "search-form" do
-    %div{c: "mt-8 w-1/2"}
-      = render 'shared/search_bar'
-    %div{c: "mt-6"}
-      %button{class: "px-4 py-2 bg-gray-100 rounded-md text-gray-800 ring-2 ring-transparent ring-inset",
-              hover: "ring-gray-700 shadow-lg",
-              focus: "ring-gray-700 shadow-lg"}
-        Search
-
-
-- content_for :head do
-  <script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
-  -# <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+%div{class: "mt-10 flex justify-center pb-10"}
+  %div{class: "max-w-screen-lg w-full flex"}
+    %div{class: "w-full mr-12"}
+      - active   = "text-secondary bg-gray-100 px-2 py-2 font-medium rounded"
+      - inactive = "text-gray-600 px-2 py-2 font-medium rounded hover:bg-gray-200"
+      %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between"}
+        - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
+          %div
+            = link_to 'Solutions', root_path, class: "#{active}"
+            = link_to 'Requests', requests_path, class: "#{inactive}"
+          %div
+            = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
+            = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
+        - else
+          %div
+            = link_to 'Solutions', root_path, class: "#{inactive}"
+            = link_to 'Requests', requests_path, class: "#{active}"
+          %div
+            = link_to_unless_current("Top", [:requests], class: "#{inactive}") do link_to 'Top', [:requests], class: "#{active}" end
+            = link_to_unless_current("Most Recent", [:requests, :recent], class: "#{inactive}") do link_to 'Most Recent', [:requests, :recent], class: "#{active}" end
 
 
-:css
-  .algolia-autocomplete {
-    width: 100%;
-  }
-  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
-    width: 100%;
-  }
-  .algolia-autocomplete .aa-hint {
-    color: #999;
-  }
-  .algolia-autocomplete .aa-dropdown-menu {
-    width: 100%;
-    background-color: #fff;
-    border: 1px solid #999;
-    border-top: none;
-  }
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-    cursor: pointer;
-    padding: 5px 4px;
-  }
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-    background-color: #B2D7FF;
-  }
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-    font-weight: bold;
-    font-style: normal;
-  }
-
-:javascript
-
-  const searchBar = document.querySelector('#search-box');
-
-  const DELAY_AFTER_ANIMATION = 1500;
-  const MIN_ANIMATION_DELAY = 30;
-  const MAX_ANIMATION_DELAY = 30;
-  const PLACEHOLDERS = [
-    'Culinary Schools',
-    'Dentists',
-    'Contact-less Ordering Solution',
-    'Basecamp',
-    'monday.com'
-  ];
-
-  const getRandomDelayBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
-
-  const setPlaceholder = (inputNode, placeholder) => {
-    inputNode.setAttribute("placeholder", placeholder);
-  };
-
-  const animateLetters = (currentLetters, remainingLetters, inputNode) => {
-    if (!remainingLetters.length) {
-      return (
-        typeof onAnimationEnd === 'function' &&
-        onAnimationEnd(currentLetters.join(''), inputNode)
-      );
-    }
-
-    currentLetters.push(remainingLetters.shift());
-
-    setTimeout(() => {
-      setPlaceholder(inputNode, currentLetters.join(''));
-      animateLetters(currentLetters, remainingLetters, inputNode);
-    }, getRandomDelayBetween(MIN_ANIMATION_DELAY, MAX_ANIMATION_DELAY));
-  };
-
-  const animatePlaceholder = (inputNode, placeholder) => {
-    animateLetters([], placeholder.split(''), inputNode);
-  };
-
-  const onAnimationEnd = (placeholder, inputNode) => {
-    setTimeout(() => {
-      let newPlaceholder = '';
-
-      do {
-        newPlaceholder =
-          PLACEHOLDERS[Math.floor(Math.random() * PLACEHOLDERS.length)];
-      } while (placeholder === newPlaceholder);
-
-      animatePlaceholder(inputNode, newPlaceholder, onAnimationEnd);
-    }, DELAY_AFTER_ANIMATION);
-  };
-
-  window.addEventListener('load', () => {
-    animatePlaceholder(searchBar, PLACEHOLDERS[0], onAnimationEnd);
-  });
+      %div{class: "mt-8"}
+        - if @posts.today.any?
+          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            Today
+          %div{class: "divide-y divide-gray-300 divide-solid rounded-sm border border-gray-300"}
+            = render @posts.today
+          %div{class: "mt-6"}
+        - if @posts.past_week.any?
+          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            Past Week
+          %div{class: "divide-y divide-gray-300 divide-solid"}
+            = render @posts.past_week
+          %div{class: "mt-6"}
+        - if @posts.past_month.any?
+          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            Past Month
+          %div{class: "divide-y divide-gray-300 divide-solid"}
+            = render @posts.past_month
 
 
-  var client = algoliasearch('U9L5TDQXIN', '1f741c451c7cb0ffe440766809f77cf5')
-  var index = client.initIndex('niches_development');
 
-  // AUTOCOMPLETE
-  /*
-  $('#search-box').autocomplete({ hint: false }, [
-    {
-      source: $.fn.autocomplete.sources.hits(index, { hitsPerPage: 8 }),
-      displayKey: 'title',
-      templates: {
-        header: '<div class="w-full mt-2 ml-2 text-gray-600 text-xs font-medium">'+
-                  'Popular search queries',
-        suggestion: function(suggestion) {
-          return suggestion._highlightResult.title.value;
-        },
-        footer: '<div class="w-full flex justify-center mt-6 mb-4">' +
-                    '<button type="submit" form="search-form" class=" px-4 py-2 bg-gray-100 rounded-md text-gray-800 ring-2 ring-transparent ring-inset hover:ring-gray-700 hover:shadow-lg focus:ring-gray-700 focus:shadow-lg">'+
-                      'Search'+
-                '</button>' +
-                '</div>'
-      }
-    }
-  ]).on('autocomplete:selected', function(event, suggestion, dataset, context) {
-    console.log(event, suggestion, dataset, context);
-  });
-  */
+
+    %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
+      %div{class: "w-full flex flex-wrap rounded-sm"}
+        %div{class: ""}
+          %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
+            %div{class: "w-full text-base font-bold text-sm text-"}
+              Hey! 👋
+              -# = "About #{niche_type}"
+            %div{class: "py-1 w-full rounded-lg text-lg "}
+              %div{class: "font-source font-bold text-base -mb-1 text-primary float-left inline-flex mr-1"}
+                solved
+              %div{class: "text-base"}
+                is a community of problem solvers and indie hackers helping you find (or build!) better solutions to problems you face.
+                <br/><br/>
+                🤔 Know that there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
+                <br/>
+              = link_to "Make a request to your niche.", new_request_path, class: "text-base underline"
+              %div{class: "text-base"}
+                <br/>
+                👆 Find your industry / occupation niche by using the search bar above.
+                <br/><br/>
+                💫 Subscribe to your niche to get a weekly newsletter with the top solutions and requests of the week.
+
+
+                -# Knew there was a tech solution, but didn't know how to?
+              -# = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe
+

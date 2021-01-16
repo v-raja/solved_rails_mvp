@@ -42,6 +42,12 @@ class Industry < ApplicationRecord
       created_at.to_i
     end
 
+    # attribute :posts do
+    #   posts.map do |p|
+    #     { title: p.problem_title, url: Rails.application.routes.url_helpers.post_path(p), description: p.description, product: { name: p.product.name, thumbnail_url: p.product.thumbnail_url } }
+    #   end
+    # end
+
     add_attribute :url, :code_with_suffix, :type
     # tags tag_list
     searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)', 'type']

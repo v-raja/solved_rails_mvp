@@ -38,9 +38,7 @@
 :javascript
   var container_elem = document.getElementById("container");
   var height = container_elem.scrollHeight;
+  // overflow into second column
   if (height > window.innerHeight) {
-    console.log("here");
     container_elem.classList.add("container-overflow")
-  } else {
-    console.log("here1");
   }

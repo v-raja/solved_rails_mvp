@@ -21,8 +21,14 @@
         - flash.each do |msg_type, msg|
           = content_tag(:div, msg, class: "alert alert-#{msg_type}")
         = yield
-      #results
+      #results{class: "w-full flex justify-center"}
         - @render_shadow = false
-        #hits{class: "max-w-6xl w-full"}
+        %div{class: "mt-8 max-w-6xl w-full"}
+          %div{class: "font-bold text-3xl"}
+            Niches
+          #hits{class: "mt-4"}
+          %div{class: "mt-8 font-bold text-3xl"}
+            Products
+          #hits-product{class: "mt-4"}
 
 

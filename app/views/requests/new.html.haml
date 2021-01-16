@@ -1,8 +1,8 @@
-= render 'layouts/header', render_shadow: false
+- @render_shadow = false
 %div{class: "flex flex-wrap justify-center px-4", data: { controller: "data-binding"} }
   = form_for @request, url: new_request_path, html: {class: ""} do |f|
     %div{class: "font-medium mt-6"}
-      Create a request for a solution to your problem
+      Request for a solution to your problem
     -# 2 Column
     %div{class: "max-w-screen-lg w-full relative flex items-start"}
       -# Left Column

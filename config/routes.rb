@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
 
+
   get 'search/niches', to: 'search#niches'
+
   root to: 'search#home'
+  get 'recent', to: 'search#recent'
+  get 'requests', to: 'search#requests'
+  get 'requests/recent', to: 'search#requests_recent'
+
 
   resources :industries, type: "Industry", path: "/i" do
     member do
