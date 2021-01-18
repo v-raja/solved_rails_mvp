@@ -45,7 +45,7 @@ class Occupation < ApplicationRecord
 
     # tags self.tag_list
 
-    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)']
+    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)', 'type']
   end
 
   def titleize_title
@@ -83,7 +83,7 @@ class Occupation < ApplicationRecord
   end
 
   def url
-    Rails.application.routes.url_helpers.occupation_path(id)
+    Rails.application.routes.url_helpers.occupation_path(slug)
   end
 
   def type

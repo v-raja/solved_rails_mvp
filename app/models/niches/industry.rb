@@ -75,7 +75,7 @@ class Industry < ApplicationRecord
   private
 
   def url
-    Rails.application.routes.url_helpers.industry_path(id)
+    Rails.application.routes.url_helpers.industry_path(slug)
   end
 
   def code_with_suffix
