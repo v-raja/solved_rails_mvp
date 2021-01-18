@@ -46,14 +46,15 @@
       %div{class: "mt-2 pl-3 text-xs text-gray-600 flex flex-wrap"}
         - niche = request.industries.first || request.occupations.first
         .hover:text-black.flex-shrink.truncate.font-medium.text-black.hover:underline
-          = link_to "#{niche.title}", niche
-          -# = niche.title
+          -# = link_to "#{niche.title}", niche
+          = niche.title
         .mx-1
           &middot;
         .hover:text-black.flex-shrink-0
           = request.user.name
         .ml-2.flex-shrink-0.hover:underline.hover:text-black
-          = link_to "#{time_ago_in_words(request.created_at)} ago", request
+          -# = link_to "#{time_ago_in_words(request.created_at)} ago", request
+          = "#{time_ago_in_words(request.created_at)} ago"
 
       %div{class: "pl-3 pr-9 font-semibold mt-2 w-full two-lines-only"}
         = request.title.titleize

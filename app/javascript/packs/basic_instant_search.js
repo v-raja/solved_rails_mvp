@@ -36,7 +36,7 @@ $(document).on('turbolinks:load', function() {
     }),
     instantsearch.widgets.searchBox({
       container: '#searchbox',
-      placeholder: "Search for an industry or occupation",
+      placeholder: "Search for your niche",
       searchAsYouType: true
     }),
 

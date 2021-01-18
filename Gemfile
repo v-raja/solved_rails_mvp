@@ -42,6 +42,7 @@ gem 'rails-html-sanitizer'
 gem "figaro"
 gem 'devise_invitable', '~> 2.0.0'
 gem 'postmark-rails'
+gem "view_component", require: "view_component/engine"
 
 
 group :development, :test do

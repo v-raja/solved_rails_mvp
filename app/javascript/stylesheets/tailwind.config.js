@@ -33,8 +33,8 @@ module.exports = {
       },
     },
     colors: {
-      primary: '#1fd58f',
-      secondary: '#FF4365',
+      primary: '#00d684',
+      secondary: '#ff0f3b',
 
       transparent: 'transparent',
       current: 'currentColor',
@@ -110,6 +110,7 @@ module.exports = {
         900: '#234e52',
       },
       blue: {
+        'fb': '#1977F2',
         100: '#ebf8ff',
         200: '#bee3f8',
         300: '#90cdf4',

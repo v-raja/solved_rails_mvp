@@ -4,8 +4,8 @@
 %div{class: "mt-10 flex justify-center pb-10"}
   %div{class: "max-w-screen-lg flex overflow-hidden"}
     %div{class: "w-2/3 pr-12"}
-      - active   = "text-secondary bg-gray-200 px-2 py-2 font-semibold rounded"
-      - inactive = "text-gray-900 px-2 py-2 font-semibold rounded hover:bg-gray-200"
+      - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-semibold rounded"
+      - inactive = "text-gray-900 px-2 py-2 font-semibold rounded hover:bg-gray-fb hover:bg-opacity-50"
       -# - active = "px-2 py-2 rounded bg-secondary text-white font-semibold"
       -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-semibold text-gray-900"
       %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between text-sm"}
@@ -15,14 +15,14 @@
             = link_to 'Requests', requests_path, class: "#{inactive}"
           %div
             = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
-            = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
+            = link_to_unless_current("New", [:recent], class: "#{inactive}") do link_to 'New', [:recent], class: "#{active}" end
         - else
           %div
             = link_to 'Solutions', root_path, class: "#{inactive}"
             = link_to 'Requests', requests_path, class: "#{active}"
           %div
             = link_to_unless_current("Top", [:requests], class: "#{inactive}") do link_to 'Top', [:requests], class: "#{active}" end
-            = link_to_unless_current("Most Recent", [:requests, :recent], class: "#{inactive}") do link_to 'Most Recent', [:requests, :recent], class: "#{active}" end
+            = link_to_unless_current("New", [:requests, :recent], class: "#{inactive}") do link_to 'New', [:requests, :recent], class: "#{active}" end
 
 
       %div{class: "mt-8"}
@@ -55,7 +55,7 @@
               %div{class: "font-source font-bold text-base -mb-1 text-primary float-left inline-flex mr-1"}
                 solved
               %div{class: ""}
-                is a community of problem solvers and indie hackers helping you find (or build!) better solutions to problems you face.
+                is a community of problem solvers helping you find (or build!) better solutions to problems you face.
                 <br/><br/>
                 🤔 Know that there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
                 <br/>

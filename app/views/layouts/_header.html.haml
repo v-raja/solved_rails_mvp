@@ -5,7 +5,7 @@
 -# - render_shadow = (render_shadow.nil? ? true : render_shadow)
 -# - render_shadow = false
 -# ---- HEADER ----
-%div{class: "bg-white sticky top-0 z-50"}
+%div{class: "bg-white sticky top-0 z-40"}
   %div{class: "flex justify-center border-0 px-4 shadow-sm", md: "px-0"}
     %div{data: { controller: "toggle"},
         class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
@@ -70,20 +70,23 @@
       %nav{data: { target: "toggle.toggleable" },
             c: "hidden",
             sm: "flex items-center pl-4 justify-self-end flex-shrink-0" }
-        %div{class: "px-2 pt-2 pb-5 border-b border-gray-500",
-            sm: "flex border-b-0 text-sm py-0 px-0",}
-          = link_to "New Solution" , new_post_path, class: "px-3 py-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 sm:ml-2"
+        - if user_signed_in?
+          %div{class: "px-2 pt-2 pb-5 border-b border-gray-500",
+              sm: "flex border-b-0 text-sm py-0 px-0",}
+            = link_to "New Request" , new_request_path, class: "leading-none px-3 py-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 sm:ml-2"
           -# = link_to "Become an affiliate" , '#', class: "px-3 py-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 sm:ml-2"
           -# = link_to "Why sell on solved?" , '#', class: "px-3 py-1 mt-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:mt-0 sm:px-2 sm:ml-2"
           -# = link_to "Your purchases"      , '#', class: "px-3 py-1 mt-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:mt-0 sm:px-2 sm:ml-2"
         %div{class: "px-0 py-0"}
-          %div{class: "flex items-center ml-4"}
+          %div{class: "flex items-center ml-4 space-x-3 text-sm"}
             - if user_signed_in?
               = link_to destroy_user_session_path, method: :delete do
                 = image_tag current_user.thumbnail_url, class: "rounded-full border-2 border-gray-600 w-8 h-8"
             - else
-              = link_to new_user_session_path do
-                = svg_tag 'login', class: "text-gray-500 w-8 h-8 hover:text-gray-900"
+              = link_to "Log In", new_user_session_path, class: "text-gray-600 font-semibold py-1 px-2 hover:text-black"
+              = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-1 px-2 bg-secondary hover:bg-opacity-90"
+              -# = link_to new_user_session_path do
+                -# = svg_tag 'login', class: "text-gray-500 w-8 h-8 hover:text-gray-900"
                 -# %div{class: "text-gray-600 hover:text-gray-900 text-sm"}
                 -#   Log In / Sign Up
             -# = image_tag 'https://avatar.oxro.io/avatar.svg?name=IS', class: "rounded-full w-10 h-10 border-2 border-gray-600 sm:w-8 sm:h-8"

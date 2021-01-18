@@ -21,10 +21,18 @@
   %body
     -# = debug(params) if Rails.env.development?
     #app{class: "min-h-screen bg-gray-fb bg-opacity-60 antialiased font-sans"}
+      %div{class: "fixed inset-0 px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50"}
+        %div{class: "flex flex-col items-end justify-center"}
+          - flash.each do |type, data|
+            = render NotificationComponent.new(type: type, data: data)
+            -# - case data
+            -# - when Hash
+            -#   = render NotificationComponent.new(type: type, data: data)
+            -# - else
+            -#   = render NotificationComponent.new(type: type, data: { title: data })
+
       = render 'layouts/header'
       #app_body
-        - flash.each do |msg_type, msg|
-          = content_tag(:div, msg, class: "alert alert-#{msg_type}")
         = yield
       #results{class: "w-full flex justify-center"}
         - @render_shadow = false
