@@ -7,9 +7,10 @@
           = link_to (image_tag post.product.logo_url), post.product
           -# = image_tag post.product.logo_url
         %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
-          %div{class: "font-semibold text-sm two-lines-only "}
-            - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
-            = link_to post.problem_title.titleize(exclude: exclude), post
+          = link_to post do
+            %div{class: "font-semibold text-sm two-lines-only "}
+              - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
+              = post.problem_title.titleize(exclude: exclude)
           -# %div{class: "text-gray-700 flex text-sm leading-none"}
           -#   with
           -#   .ml-1.hover:text-black

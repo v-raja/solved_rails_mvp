@@ -15,14 +15,14 @@
             = link_to 'Requests', requests_path, class: "#{inactive}"
           %div
             = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
-            = link_to_unless_current("New", [:recent], class: "#{inactive}") do link_to 'New', [:recent], class: "#{active}" end
+            = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
         - else
           %div
             = link_to 'Solutions', root_path, class: "#{inactive}"
             = link_to 'Requests', requests_path, class: "#{active}"
           %div
             = link_to_unless_current("Top", [:requests], class: "#{inactive}") do link_to 'Top', [:requests], class: "#{active}" end
-            = link_to_unless_current("New", [:requests, :recent], class: "#{inactive}") do link_to 'New', [:requests, :recent], class: "#{active}" end
+            = link_to_unless_current("Most Recent", [:requests, :recent], class: "#{inactive}") do link_to 'Most Recent', [:requests, :recent], class: "#{active}" end
 
 
       %div{class: "mt-8"}
@@ -57,7 +57,7 @@
               %div{class: ""}
                 is a community of problem solvers helping you find (or build!) better solutions to problems you face.
                 <br/><br/>
-                🤔 Know that there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
+                🤔 Know there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
                 <br/>
               = link_to "Make a request to your niche.", new_request_path, class: "text-base underline"
               %div{class: ""}
