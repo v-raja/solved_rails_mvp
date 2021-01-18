@@ -32,7 +32,7 @@
           = f.text_area :description,
               class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
               placeholder: "",
-              data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:post, :description).blank? ? "false" : "true"}",
+              data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:solution, :description).blank? ? "false" : "true"}",
               rows: "7"
 
 

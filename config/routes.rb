@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     # , to: 'search#index'
     # resources :search, only: [:index] # to generate the view helpers
     # resources :requests, only: [:index]
-    get "/", to: "posts#niche_index"
+    get "/", to: "solutions#niche_index"
     get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
   end
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # root to: 'industry_categories#index'
 
   resources :occupations, type: "Occupation", path: "/o" do
-    get "/", to: "posts#niche_index"
+    get "/", to: "solutions#niche_index"
     get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
   end
@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   resources :products
 
 
-  post 'posts/new', to: 'posts#create'
-  resources :posts do
+  post 'solutions/new', to: 'solutions#create'
+  resources :solutions do
     collection do
       get 'preview_industries'
       get 'preview_occupations'

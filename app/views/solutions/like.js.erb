@@ -1,0 +1,3 @@
+<%# $(“#like_<%= @solution.id %>”).removeClass(‘glyphicon-heart-empty’).addClass(‘glyphicon-heart’); %>
+$("#like_<%= @solution.id %>").attr("href", '/solutions/<%= @solution.id %>/remove_upvote');
+$(“#likes_<%= @solution.id %>”).html(“<%= j (render partial: 'solutions/likes', locals: { solution: @solution } )”); %>

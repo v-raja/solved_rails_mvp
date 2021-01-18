@@ -26,20 +26,20 @@
 
 
       %div{class: "mt-8"}
-        - if @posts.today.any?
+        - if @solutions.today.any?
           %div{class: "w-full font-bold text-xl mb-6 leading-none"}
             Today
-          = render @posts.today
+          = render @solutions.today
           %div{class: "mt-8"}
-        - if @posts.past_week.any?
+        - if @solutions.past_week.any?
           %div{class: "w-full font-bold text-xl mb-6 leading-none"}
             Past Week
-          = render @posts.past_week
+          = render @solutions.past_week
           %div{class: "mt-8"}
-        - if @posts.past_month.any?
+        - if @solutions.past_month.any?
           %div{class: "w-full font-bold text-xl mb-6 leading-none"}
             Past Month
-          = render @posts.past_month
+          = render @solutions.past_month
 
 
 

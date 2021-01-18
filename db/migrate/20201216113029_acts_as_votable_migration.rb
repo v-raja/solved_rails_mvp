@@ -6,7 +6,7 @@ class ActsAsVotableMigration < ActiveRecord::Migration[6.0]
       t.references :voter, :polymorphic => true
 
       t.boolean :vote_flag
-      t.string :vote_scope
+      t.text :vote_scope
       t.integer :vote_weight
 
       t.timestamps

@@ -1,16 +1,16 @@
 # == Schema Information
 #
-# Table name: niche_posts
+# Table name: niche_solutions
 #
 #  id         :integer          not null, primary key
-#  post_id    :integer
+#  solution_id    :integer
 #  niche_id   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 require 'test_helper'
 
-class NichePostTest < ActiveSupport::TestCase
+class NicheSolutionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

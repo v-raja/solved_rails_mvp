@@ -1,12 +1,12 @@
 # == Schema Information
 #
-# Table name: posts
+# Table name: solutions
 #
 #  id            :integer          not null, primary key
-#  problem_title :string
+#  title :string
 #  tagline       :string
 #  description   :text
-#  product_url   :string
+#  get_it_url   :string
 #  product_id    :integer          not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -14,7 +14,7 @@
 #
 require 'test_helper'
 
-class PostTest < ActiveSupport::TestCase
+class SolutionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

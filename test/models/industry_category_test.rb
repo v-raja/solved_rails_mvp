@@ -2,12 +2,12 @@
 #
 # Table name: industry_categories
 #
-#  id             :integer          not null, primary key
-#  title          :string
+#  id             :bigint           not null, primary key
+#  title          :text
 #  description    :text
-#  code           :string           not null
-#  slug           :string           not null
-#  type           :string
+#  code           :text
+#  slug           :text
+#  type           :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  ancestry       :string

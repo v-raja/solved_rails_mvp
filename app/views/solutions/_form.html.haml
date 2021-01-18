@@ -1,0 +1,25 @@
+= form_for @solution do |f|
+  - if @solution.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@solution.errors.count, "error")} prohibited this solution from being saved:"
+      %ul
+        - @solution.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :tagline
+    = f.text_field :tagline
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    -# = f.label :youtube_url
+    -# = f.text_field :youtube_url
+  .field
+    = f.label :get_it_url
+    = f.text_field :get_it_url
+  .actions
+    = f.submit 'Save'

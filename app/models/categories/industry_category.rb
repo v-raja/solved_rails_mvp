@@ -2,25 +2,25 @@
 #
 # Table name: industry_categories
 #
-#  id             :integer          not null, primary key
-#  title          :string
+#  id             :bigint           not null, primary key
+#  title          :text
 #  description    :text
-#  code           :string           not null
-#  slug           :string           not null
-#  type           :string
+#  code           :text
+#  slug           :text
+#  type           :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  ancestry       :string
 #  ancestry_depth :integer          default(0)
 #
 class IndustryCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   has_ancestry cache_depth: true
 
   validates :title,        presence: true
   has_many  :industries
-
-  extend FriendlyId
-  friendly_id :code, use: :scoped, scope: :type
 
   # gets all leaf industry categories (including self)
   def get_leaf_children
@@ -39,7 +39,7 @@ class IndustryCategory < ApplicationRecord
     industries = []
     code_string.split(", ").each do |niche_code|
       if niche_code.length == 6 then
-        industries.concat Industry.where(id: niche_code)
+        industries.concat Industry.where(code: niche_code)
       else
         industries.concat IndustryCategory.get_industries(niche_code)
       end
@@ -51,7 +51,7 @@ class IndustryCategory < ApplicationRecord
 
   private
 
-    def should_generate_new_friendly_id?
-      code_changed? || super
-    end
+  def should_generate_new_friendly_id?
+    code_changed? || super
+  end
 end

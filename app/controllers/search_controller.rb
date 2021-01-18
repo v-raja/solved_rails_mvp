@@ -6,21 +6,21 @@ class SearchController < ApplicationController
   end
 
   def home
-    @posts = Post.all.order(cached_votes_score: :desc).order(created_at: :desc)
+    @solutions = Solution.all.order(cached_votes_score: :desc).order(created_at: :desc)
   end
 
   def recent
-    @posts = Post.all.order(created_at: :desc)
+    @solutions = Solution.all.order(created_at: :desc)
     render 'home'
   end
 
   def requests
-    @posts = Request.all.order(cached_votes_score: :desc).order(created_at: :desc)
+    @solutions = Request.all.order(cached_votes_score: :desc).order(created_at: :desc)
     render 'home'
   end
 
   def requests_recent
-    @posts = Request.all.order(created_at: :desc)
+    @solutions = Request.all.order(created_at: :desc)
     render 'home'
   end
 
@@ -34,7 +34,7 @@ class SearchController < ApplicationController
     end
 
     # If an old id or a numeric id was used to find the record, then
-    # the request path will not match the post_path, and we should do
+    # the request path will not match the solution_path, and we should do
     # a 301 redirect that uses the current friendly id.
     id = params[:industry_id] || params[:occupation_id]
     if id != @niche.slug

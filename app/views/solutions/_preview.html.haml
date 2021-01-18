@@ -1,0 +1,144 @@
+
+%div{class: "flex flex-wrap justify-center pb-20"}
+  -# Logo, problem, product, and posted_to banner
+  %div{class: "max-w-screen-lg w-full relative flex overflow-hidden"}
+    %div{class: "w-full flex"}
+      %div{class: "w-28 h-28 flex-shrink-0 rounded-sm"}
+        = image_tag "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png", id: "product_logo"
+      %div{class: "ml-4 w-full flex flex-col justify-between"}
+        %div
+          - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
+          %div{class: "w-full font-medium"}
+            %div{data: { binding: { ref: "problem-title"} } }
+              %div{class: "italic"}
+                Manage / Organise / Increase / Improve / Simplify ...
+          %div{class: "mt-1 text-gray-700 text-sm leading-none flex items-center"}
+            with
+            %div{id: "product_name", class: "ml-1", data: { binding: { ref: "product-name"} } }
+              %div{class: "italic"}
+                Product name
+
+        -# %div
+        %div{class: "overflow-auto disable-scrollbars"}
+          %div{class: "mt-1 text-xs text-gray-600 flex flex-wrap items-center"}
+            Tags
+            %div{class: "ml-2 text-gray-600 text-xs"}
+              %div{data: { binding: { ref: "tags"} }}
+                %div{class: "italic"}
+                  remote management, sales, design request management
+  -# 2 Column, Left Column
+  %div{class: "mt-8 max-w-screen-lg w-full relative flex flex-wrap"}
+    %div{class: "w-full"}
+      -# Gallery
+      %div{class: "bg-white p-4 block"}
+        %div{class: "aspect-w-7 aspect-h-4"}
+          %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+            %div{class: "aspect-w-16 aspect-h-9 w-full flex-shrink-0"}
+              %div{class: "bg-green-200 flex items-center justify-center text-gray-700"}
+                %div{class: "italic"}
+                  Video preview not available
+            -# = render solution.youtube_urls
+
+        %div{class: "mt-2 flex space-x-2"}
+          %div{class: "bg-green-200 w-24 h-14"}
+        -#   - solution.youtube_urls.each_with_index do |yt_utl, idx|
+        -#     = image_tag "http://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
+        %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
+          %div{data: { binding: { ref: "description"} } }
+            %div{class: "italic"}
+              Details of the solution
+        %div{class: "mt-3 text-sm"}
+          Have a question about this solution? Discuss below.
+
+
+    %div{class: "flex-shrink-0 flex flex-col w-full"}
+      %div{class: "mt-3 flex"}
+        %div{class: "w-2/5 flex-shrink-0"}
+          %div{class: "uppercase py-4 bg-white text-gray-900 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
+            GET IT
+
+        %div{class: "ml-4 w-full", id: "upvote_button"}
+          %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
+            ▲
+            %div{class: "ml-2"}
+              upvote
+
+      -# Maker / Hunter
+      %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+        %div{class: "w-full uppercase text-gray-600 text-xs"}
+          Solver
+        %div{class: "mt-4 w-full flex"}
+          %div{class: "w-8 h-8 flex-shrink-0"}
+            = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+          %div{class: "ml-2 flex flex-wrap justify-between"}
+            %div{class: "w-full text-xs text-black font-medium"}
+              = current_user.name
+            %div{class: "text-xs text-gray-600"}
+              = current_user.bio
+
+
+      %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+        %div{class: "w-full uppercase text-gray-600 text-xs"}
+          Posted To
+        %div{class: "mt-3"}
+          #industry_niches
+          #occupation_niches
+
+
+  -# 2 Column, Left Column
+  %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap"}
+    -# md: "flex flex-wrap"}
+    %div{class: "w-full"}
+      -# Discussion header
+      %div{class: "flex justify-between"}
+        %div{class: "uppercase font-medium text-gray-600 text-xs"}
+          Discussion
+        %div{class: "uppercase font-medium text-blue-600 text-xs"}
+          Follow Discussion
+      -# Discussion section
+      %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full"}
+        %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
+          %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
+            = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+          %div{class: "ml-2 text-xs text-gray-600 w-full flex items-end"}
+            %textarea{rows: "1",
+              class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+              placeholder: "What would you like more clarification on?"}
+            %div{class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"}
+              Comment
+
+
+        %div{class: "w-full flex flex-wrap justify-between text-center py-10"}
+          %div{class: "text-3xl w-full"}
+            💬
+          %div{class: "mt-1 text-base font-medium w-full"}
+            Be the first to comment
+        -# %div{class: "w-full py-3"}
+        -#   %div{data: { controller: "toggle" }}
+        -#     %div{class: "w-full flex"}
+        -#       %div{class: "w-8 h-8 flex-shrink-0"}
+        -#         = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+        -#       %div{class: "ml-2 flex flex-wrap justify-between"}
+        -#         %div{class: "w-full text-xs text-black font-medium flex items-center"}
+        -#           = current_user.name
+        -#           %div{class: "ml-2 font-regular cursor-pointer text-gray-600 hover:underline", data: { action: "click->toggle#toggle touch->toggle#toggle" }}
+        -#             %div{data: { toggle: { target: 'toggleable' } } }
+        -#               [-]
+        -#             %div{class: "hidden", data: { toggle: { target: 'toggleable' } } }
+        -#               [+]
+
+        -#         %div{class: "text-xs text-gray-600"}
+        -#           = "#{current_user.role} @ #{current_user.company}"
+        -#     %div{class: "ml-10 text-sm mt-1 text-gray-900 mr-4", data: { toggle: { target: 'toggleable' } }}
+        -#       %div{data: { binding: { ref: "first-comment"} } }
+        -#         %div
+        -#           %div{class: "italic"}
+        -#             Hello 👋 ...
+        -#       %div{class: "mt-1 flex text-xs text-gray-600 flex items-center space-x-2"}
+        -#         %div
+        -#           %div{class: "p-1 -ml-1 transition font-semibold hover:text-black hover:bg-gray-100 rounded-sm"}
+        -#             = "Upvote"
+        -#         %div{class: "p-1 -ml-1 transition font-semibold hover:text-black hover:bg-gray-100 rounded-sm"}
+        -#           Reply
+        -#         %div{class: "ml-2"}
+        -#           Just now

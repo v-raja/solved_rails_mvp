@@ -2,16 +2,15 @@
 #
 # Table name: occupations
 #
-#  id                     :integer          not null, primary key
-#  title                  :string
+#  id                     :bigint           not null, primary key
+#  title                  :text
 #  description            :text
-#  code                   :string           not null
-#  illustrative_examples  :text
-#  other_examples         :text
-#  slug                   :string           not null
+#  code                   :text
+#  slug                   :text
+#  common_keywords        :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  occupation_category_id :integer          not null
+#  occupation_category_id :bigint           not null
 #
 require 'test_helper'
 

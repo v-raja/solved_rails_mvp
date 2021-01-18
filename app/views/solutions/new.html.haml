@@ -1,0 +1,297 @@
+-# = render 'layouts/header', render_shadow: false
+- @render_shadow = false
+%div{class: "flex flex-wrap justify-center px-4", data: { controller: "data-binding"} }
+  = form_for @solution, url: new_solution_path, html: {class: ""} do |f|
+    -# 2 Column
+    %div{class: "max-w-screen-lg w-full relative flex items-start"}
+      -# Left Column
+      %div{class: "w-full mr-6 pr-6 border-r-2 border-gray-500 border-dashed"}
+        %div{class: "mt-10"}
+        - if @solution.errors.any?
+          %ul{class: "mb-2 list-inside list-disc text-red-500"}
+            - @solution.errors.full_messages.each do |msg|
+              = content_tag(:li, msg)
+        %div{class: "text-2xl font-bold"}
+          🌄 Solution overview
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          %div{class: "text-sm font-medium"}
+            What product does your solution use?
+          %div{class: "mt-1 w-full"}
+            = f.select :product_id, Product.all.order('LOWER(name) ASC').collect {|a| [a.name, a.id]}, {prompt: "Add a new product"}, {class: "w-full"}
+            #product_builder
+              = f.fields_for :product do |builder|
+                %div{class: "mt-4 flex items-center"}
+                  %div{class: "font-medium"}
+                    Product name
+                  %div{class: "ml-2 text-gray-600"}
+                    = "- Required"
+                = builder.text_field :name,
+                  data: {action: "change->data-binding#update"}, "data-binding-target": "product-name", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-initial": "#{params.dig(:solution, :product_attributes, :name).blank? ? "false" : "true"}",
+                  class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                  id: "product-name"
+                %div{class: "mt-4 flex items-center"}
+                  %div{class: "font-medium"}
+                    Thumbnail url
+                  %div{class: "ml-2 text-gray-600"}
+                    = "- Required"
+                = builder.text_field :thumbnail_url,
+                  data: {action: "change->data-binding#update"}, "data-binding-target": "product-logo", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "false",
+                  class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                  id: "thumbnail-url",
+                  placeholder: "https://"
+                %div{class: "text-gray-600 text-xs mt-1"}
+                  Preview not available
+
+              -# %div{class: "mt-4 flex items-center"}
+              -#   %div{class: "font-medium"}
+              -#     Product name
+              -#   %div{class: "ml-2 text-gray-600"}
+              -#     = "- Required"
+              -# %input{id: "product-name",
+              -#     data: {action: "change->data-binding#update", binding: {target: "product-name", property: "textContent", value: "$source.value", debug: "true", initial: "false"}},
+              -#     type: "text",
+              -#     name: "solution[product_attributes][name]",
+              -#     class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+              -#     hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+              -#     placeholder: ""}
+
+              -# %div{class: "mt-4 flex items-center"}
+              -#   %div{class: "font-medium"}
+              -#     Thumbnail url
+              -#   %div{class: "ml-2 text-gray-600"}
+              -#     = "- Required"
+              -# %input{id: "thumbnail-url",
+              -#     data: {action: "change->data-binding#update", binding: {target: "product-logo", property: "textContent", value: "$source.value", debug: "true", initial: "false"}},
+              -#     type: "text",
+              -#     name: "solution[product_attributes][thumbnail_url]",
+              -#     class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+              -#     hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+              -#     placeholder: ""}
+              -# %div{class: "text-gray-600 text-xs mt-1"}
+              -#   Preview not available
+          :javascript
+            $('#solution_product_id').on('change',function(){
+              if ($(this).val()){
+                $("#product_builder").hide();
+                document.getElementById('product-name').value = '';
+                document.getElementById('thumbnail-url').value = '';
+                var id = $(this).val();
+                $.getJSON(`/products/${id}.json`, function(data) {
+                  document.getElementById("product_logo").src = data.thumbnail_url;
+                  document.getElementById("product_name").textContent = data.name;
+                  // JSON result in `data` variable
+                });
+              } else  {
+                $("#product_builder").show()
+                document.getElementById("product_logo").src = "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png";
+                document.getElementById("product_name").textContent = "Product name";
+              }
+            });
+
+
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          %div{class: "flex items-center"}
+            %div{class: "font-medium"}
+              Problem title
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          = f.text_field :title,
+              class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+              placeholder: "Manage / Organise / Increase / Improve / Simplify ...",
+              data: {action: "change->data-binding#update"}, "data-binding-target": "problem-title", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-initial": "#{params.dig(:solution, :title).blank? ? "false" : "true"}"
+          -# %input{id: "title",
+          -#     data: {action: "change->data-binding#update", binding: {target: "problem-title", property: "textContent", value: "$source.value", debug: "true", initial: "false"}},
+          -#     type: "text",
+          -#     name: "solution[title]",
+          -#     class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+          -#     hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+          -#     placeholder: "Manage / Organise / Increase / Improve / Simplify ..."}
+          -# value: "#{params[:solution].nil? ? "" : params[:solution][:title]}"  }
+          %div{class: "text-gray-600 text-xs mt-1"}
+            Try to skip words like "How to" and concisely state the problem you're solving.
+
+          %div{class: "mt-4 flex items-center"}
+            %div{class: "font-medium"}
+              Tags
+            -# %div{class: "ml-2 text-gray-600"}
+            -#   = ""
+          %input{id: "tags",
+              data: {action: "change->data-binding#update", binding: { initial: "#{params.dig(:solution, :tags_string).blank? ? 'false' : 'true'}", target: "tags", property: "textContent", value: "$source.value", debug: "true"}},
+              type: "text",
+              name: "solution[tags_string]",
+              value: "#{params[:solution] ? params[:solution][:tags_string] : nil}",
+              class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+              hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+              placeholder: "Ex: remote management, sales, design request management"}
+          %div{class: "text-gray-600 text-xs mt-1"}
+            Tags make it easier for people to find your solution through search. Use niche-specific words that your target audience will understand at a glance.
+
+        %div{class: "mt-10 text-2xl font-bold"}
+          🤓 Tell us about your solution
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          %div{class: "flex items-center"}
+            %div{class: "font-medium"}
+              YouTube video
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          #videos
+            = f.fields_for :youtube_urls do |builder|
+              -# = builder.text_field :url, class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50", placeholder: "Video of the solution"
+              -# %input{id: "youtube_url",
+              -#     type: "text",
+              -#     name: "solution[youtube_urls_attributes][5][url]",
+              -#     class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+              -#     hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+              -#     placeholder: "Video of the solution"}
+              = render 'solutions/youtube_url', f: builder
+          %div{class: "text-blue-500 hover:underline mt-1 text-xs"}
+            = link_to_add_field('Add video', f, :youtube_urls, class: "", id: "add_video")
+          %div{class: "text-gray-600 text-xs mt-1"}
+            Preview not available
+
+
+
+          %div{class: "mt-6 flex items-center"}
+            %div{class: "font-medium"}
+              Description
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          = f.text_area :description,
+              class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+              placeholder: "Manage / Organise / Increase / Improve / Simplify ...",
+              data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:solution, :description).blank? ? "false" : "true"}",
+              rows: "3"
+
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          %div{class: "flex items-center"}
+            %div{class: "font-medium"}
+              Product url
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          = f.text_field :get_it_url,
+              class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+              placeholder: "https://"
+          %div{class: "text-gray-600 text-xs mt-1"}
+            A link to learn more or purchase the product. This can be an affiliate link.
+
+
+        %div{class: "mt-10 text-2xl font-bold"}
+          👨‍🔬 👨‍🌾 Who is your solution relevant to?
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+          -# %div{class: "text-lg font-medium"}
+          -#   Choose niches to solution your solution to
+          %div{class: " font-medium"}
+            Industry niches
+          - val = params[:industries]
+          - val = params[:code] unless params[:type] != "Industry" || val
+          %input{id: "industry_input",
+                type: "text",
+                name: "industries",
+                value: "#{val}",
+                onfocusout: "updateIndustries()",
+                class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+                placeholder: "Ex: 611110, 611210, 611310"}
+
+          %div{class: "mt-3 font-medium"}
+            Occupation niches
+          - val = params[:occupations]
+          - val = params[:code] unless params[:type] != "Occupation" || val
+          %input{id: "occupation_input",
+                type: "text",
+                name: "occupations",
+                value: "#{val}",
+                onfocusout: "updateOccupations()",
+                class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+                placeholder: "Ex: 25-2031, 25-2021, 25-2022"}
+          %div{class: "text-xs text-gray-600 mt-3"}
+            Unsure of what niche to solution to?
+            = link_to 'Explore', industry_categories_path, class: "mx-0.5 underline hover:text-black"
+            or search to find relevant niches.
+          -# %div{class: "mt-3 text-xs text-gray-600"}
+          -#   Only solution to relevant niches. You can make a new solution
+          -#   with the same product which highlights different use-cases for different niches.
+
+
+        -# %div{class: "mt-10 text-2xl font-bold"}
+        -#   💬 Get the conversation started
+
+        -# %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
+        -#   %div{class: "flex items-center"}
+        -#     %div{class: "font-medium"}
+        -#       First comment
+        -#     %div{class: "ml-2 text-gray-600"}
+        -#       = "- Required"
+        -#   %textarea{id: "first-comment",
+        -#       data: {action: "change->data-binding#update", binding: {target: "first-comment", property: "textContent", value: "$source.value", debug: "true", initial: "#{params.dig(:comment_text).blank? ? "false" : "true"}"}},
+        -#       class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+        -#       hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
+        -#       placeholder: "Hello 👋 ...",
+        -#       rows: "2",
+        -#       name: "comment_text"}
+        -#     = params[:comment_text]
+
+
+        = f.submit "Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-2 uppercase"
+
+
+      -# Right Column
+      %div{class: "w-1/2 flex-shrink-0 flex flex-wrap "}
+        %div{class: "mt-10 text-2xl font-bold w-full"}
+          Preview 👇
+        %div{class: "mt-6"}
+          = render 'solutions/preview'
+
+
+:javascript
+  function updateIndustries() {
+    $.ajax({
+      method: "GET",
+      url: "preview_industries",
+      data: { niches: document.getElementById("industry_input").value }
+    })
+  }
+
+  function updateOccupations() {
+    $.ajax({
+      method: "GET",
+      url: "preview_occupations",
+      data: { niches: document.getElementById("occupation_input").value }
+    })
+  }
+
+  function sendVideosPreviewRequest() {
+    var video_url_inputs = document.getElementsByClassName("video_url");
+    var video_urls = "";
+    document.querySelectorAll('.video_url').forEach(function(input) {
+      var input_text = input.value;
+      if (input_text.length == 0 ) {
+
+      } else {
+        video_urls += `, ${input_text}`;
+      }
+    });
+    $.ajax({
+      method: "POST",
+      url: "preview_videos",
+      data: { videos: video_urls }
+    })
+  }
+
+  $( document ).on('turbolinks:load', function() {
+
+    $("#add_video").on('click', function() {
+      var regexp, time;
+      time = new Date().getTime();
+      regexp = new RegExp($(this).data('id'), 'g');
+      $('#videos').append($(this).data('fields').replace(regexp, time));
+      return event.preventDefault();
+    })
+
+    $("#videos").on('click', '.remove_url', function(event) {
+      $(this).prev('input[type=hidden]').val('1');
+      $(this).closest('div').hide();
+      return event.preventDefault();
+    });
+  })

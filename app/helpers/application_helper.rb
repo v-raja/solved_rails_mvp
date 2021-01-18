@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def upvote_count(votable)
-    if votable.class.name == "Post" || votable.class.name == "Requests"
+    if votable.class.name == "Solution" || votable.class.name == "Requests"
       votable.cached_votes_score
     else
       votable.votes_for.up.by_type(User).size
@@ -30,18 +30,6 @@ module ApplicationHelper
     # byebug
     link_to(name, 'javascript:;', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n", "")}, id: args[:id])
   end
-end
-
-def feed_today
-  Post.today.to_a.concat(Request.today.to_a)
-end
-
-def feed_past_week
-  Post.past_week.to_a.concat(Request.past_week.to_a)
-end
-
-def feed_past_month
-  Post.past_month.to_a.concat(Request.past_month.to_a)
 end
 
 

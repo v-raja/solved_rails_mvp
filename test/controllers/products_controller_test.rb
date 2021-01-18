@@ -11,7 +11,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_product_url
+    get new_get_it_url
     assert_response :success
   end
 
@@ -20,27 +20,27 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       post products_url, params: { product: { image_url: @product.image_url, name: @product.name } }
     end
 
-    assert_redirected_to product_url(Product.last)
+    assert_redirected_to get_it_url(Product.last)
   end
 
   test "should show product" do
-    get product_url(@product)
+    get get_it_url(@product)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_product_url(@product)
+    get edit_get_it_url(@product)
     assert_response :success
   end
 
   test "should update product" do
-    patch product_url(@product), params: { product: { image_url: @product.image_url, name: @product.name } }
-    assert_redirected_to product_url(@product)
+    patch get_it_url(@product), params: { product: { image_url: @product.image_url, name: @product.name } }
+    assert_redirected_to get_it_url(@product)
   end
 
   test "should destroy product" do
     assert_difference('Product.count', -1) do
-      delete product_url(@product)
+      delete get_it_url(@product)
     end
 
     assert_redirected_to products_url

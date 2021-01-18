@@ -1,0 +1,67 @@
+= link_to solution do
+  %div{class: "mt-2 bg-white px-5 border border-gray-400 w-full",
+       hover: "border-gray-900"}
+    %div{class: "flex flex-col rounded-sm py-5"}
+      %div{class: "w-full flex items-stretch"}
+        %div{class: "w-16 h-16 flex-shrink-0"}
+          = link_to (image_tag solution.product.thumbnail_url), solution.product
+          -# = image_tag solution.product.thumbnail_url
+        %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
+          = link_to solution do
+            %div{class: "font-semibold text-sm two-lines-only "}
+              -# - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
+              = solution.title
+              -# .titleize(exclude: exclude)
+          -# %div{class: "text-gray-700 flex text-sm leading-none"}
+          -#   with
+          -#   .ml-1.hover:text-black
+          -#     = link_to solution.product.name, solution.product
+          %div{class: "text-xs text-gray-600 flex flex-wrap"}
+            - niche = solution.industries.first || solution.occupations.first
+            .hover:text-black.flex-shrink.truncate.font-medium.text-black.hover:underline
+              = link_to "#{niche.title}", niche
+              -# = niche.title
+            .mx-1
+              &middot;
+            .hover:text-black.flex-shrink-0
+              = solution.user.name
+            .ml-2.flex-shrink-0.hover:underline.hover:text-black
+              = link_to "#{time_ago_in_words(solution.created_at)} ago", solution
+
+
+            -# - if niche = solution.industries.first
+            -#   .w-full.hover:text-black
+            -#     = link_to "#{niche.title}", niche
+              -# - if niche = solution.occupations.first
+              -#   .w-full.hover:text-black
+              -#     = link_to "#{niche.title} (#{niche.class.name})", niche
+              -# - elsif niche = solution.industries.second
+              -#   .w-full.hover:text-black
+              -#     = link_to "#{niche.title} (#{niche.class.name})", niche
+            -# - elsif niche = solution.occupations.first
+            -#   .w-full.hover:text-black
+            -#     = link_to "#{niche.title}", niche
+              -# - if niche = solution.occupations.second
+              -#   .w-full.hover:text-black
+              -#     = link_to "#{niche.title} (#{niche.class.name})", niche
+              -#     -# = link_to "#{niche.title} (#{niche.class.name})", niche
+        = link_to solution do
+          %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none transition hover:text-primary"}
+            -# = link_to upvote_solution_path(solution), class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none" do
+            %div{class: "text-sm leading-none"}
+              ▲
+            %div{class: "mt-1 font-semibold"}
+              = upvote_count(solution)
+
+      -# %div{class: "mt-2 pt-2 text-xs inline-flex items-center text-gray-600"}
+      -#   .text-gray-600.flex-shrink-0
+      -#     Posted to
+      -#   .ml-2.space-x-2.overflow-auto.inline-flex.disable-scrollbars
+      -#     - solution.industries.each do |i|
+      -#       .hover:text-black.flex-shrink-0.font-medium
+      -#         -# = "#{i.title} (Industry)"
+      -#         = link_to "#{i.title} (Industry)", i
+      -#     - solution.occupations.each do |o|
+      -#       .hover:text-black.flex-shrink-0.font-medium
+      -#         -# = "#{o.title} (Occupation)"
+      -#         = link_to "#{o.title} (Occupation)", o

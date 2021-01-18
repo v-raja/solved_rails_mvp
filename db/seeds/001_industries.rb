@@ -11,7 +11,7 @@ def find_industry_category_parent(code)
     elsif code.in?(%w"48 49")
       code = "48-49"
     end
-    parent = IndustryCategory.find_by(id: code)
+    parent = IndustryCategory.find_by(code: code)
     code.chop!
   end
   parent
@@ -24,7 +24,7 @@ File.open(csv_path, 'r') do |file|
     IndustryCategory.create!(
       title: row['Title'],
       code: row['Code']
-    ).update_column(:id, row['Code'].to_i)
+    )
   end
 end
 
@@ -32,12 +32,12 @@ csv_path = Rails.root.join('db', 'industry_categories/supersector.csv')
 File.open(csv_path, 'r') do |file|
   csv = CSV.new(file, headers: true, liberal_parsing: true)
   while row = csv.shift
-
+    p row['Code']
     IndustryCategory.create!(
       title: row['Title'],
       code: row['Code'],
       parent: IndustryCategory.find(row['Parent'])
-    ).update_column(:id, row['Code'].to_i)
+    )
   end
 end
 
@@ -51,7 +51,7 @@ File.open(csv_path, 'r') do |file|
       description: row['Description'],
       code: row['Code'],
       parent: IndustryCategory.find(row['Parent'])
-    ).update_column(:id, row['Code'].to_i)
+    )
   end
 end
 
@@ -72,7 +72,7 @@ industry_categories_csvs.each do |csv|
         description: row['Description'],
         code: row['Code'],
         parent: parent
-      ).update_column(:id, row['Code'].to_i)
+      )
     end
   end
 end
@@ -95,7 +95,7 @@ File.open(csv_path, 'r') do |file|
       code: row['Code'],
       category: parent
     )
-    industry.id = row['Code'].to_i
+    # industry.id = row['Code'].to_i
     industry.save!
   end
 end

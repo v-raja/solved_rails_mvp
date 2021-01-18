@@ -1,48 +1,48 @@
 require 'test_helper'
 
-class PostsControllerTest < ActionDispatch::IntegrationTest
+class SolutionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @post = posts(:one)
+    @solution = solutions(:one)
   end
 
   test "should get index" do
-    get posts_url
+    get solutions_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_post_url
+    get new_solution_url
     assert_response :success
   end
 
-  test "should create post" do
-    assert_difference('Post.count') do
-      post posts_url, params: { post: { description: @post.description, problem_title: @post.problem_title, product_url: @post.product_url, tagline: @post.tagline, youtube_url: @post.youtube_url } }
+  test "should create solution" do
+    assert_difference('Solution.count') do
+      post solutions_url, params: { solution: { description: @solution.description, title: @solution.title, get_it_url: @solution.get_it_url, tagline: @solution.tagline, youtube_url: @solution.youtube_url } }
     end
 
-    assert_redirected_to post_url(Post.last)
+    assert_redirected_to solution_url(Solution.last)
   end
 
-  test "should show post" do
-    get post_url(@post)
+  test "should show solution" do
+    get solution_url(@solution)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_post_url(@post)
+    get edit_solution_url(@solution)
     assert_response :success
   end
 
-  test "should update post" do
-    patch post_url(@post), params: { post: { description: @post.description, problem_title: @post.problem_title, product_url: @post.product_url, tagline: @post.tagline, youtube_url: @post.youtube_url } }
-    assert_redirected_to post_url(@post)
+  test "should update solution" do
+    patch solution_url(@solution), params: { solution: { description: @solution.description, title: @solution.title, get_it_url: @solution.get_it_url, tagline: @solution.tagline, youtube_url: @solution.youtube_url } }
+    assert_redirected_to solution_url(@solution)
   end
 
-  test "should destroy post" do
-    assert_difference('Post.count', -1) do
-      delete post_url(@post)
+  test "should destroy solution" do
+    assert_difference('Solution.count', -1) do
+      delete solution_url(@solution)
     end
 
-    assert_redirected_to posts_url
+    assert_redirected_to solutions_url
   end
 end

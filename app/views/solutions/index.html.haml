@@ -1,0 +1,29 @@
+%h1 Listing solutions
+
+%table
+  %thead
+    %tr
+      %th Problem title
+      %th Tagline
+      %th Description
+      %th Product url
+      %th Product id
+      %th
+      %th
+      %th
+
+  %tbody
+    - @solutions.each do |solution|
+      %tr
+        %td= solution.title
+        %td= solution.tagline
+        %td= solution.description
+        %td= solution.get_it_url
+        %td= solution.product_id
+        %td= link_to 'Show', solution
+        %td= link_to 'Edit', edit_solution_path(solution)
+        %td= link_to 'Destroy', solution, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Solution', new_solution_path

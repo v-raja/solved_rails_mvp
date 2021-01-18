@@ -2,15 +2,15 @@
 #
 # Table name: youtube_urls
 #
-#  id         :integer          not null, primary key
-#  url        :text
-#  post_id    :integer          not null
-#  youtube_id :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :bigint           not null, primary key
+#  url         :text
+#  solution_id :bigint           not null
+#  youtube_id  :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class YoutubeUrl < ApplicationRecord
-  belongs_to :post, optional: true
+  belongs_to :solution, optional: true
   validate :valid_url
   after_validation :set_youtube_id
 

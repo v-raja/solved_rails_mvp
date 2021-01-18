@@ -2,14 +2,15 @@
 #
 # Table name: industries
 #
-#  id                   :integer          not null, primary key
-#  title                :string
+#  id                   :bigint           not null, primary key
+#  title                :text
 #  description          :text
-#  code                 :string
-#  slug                 :string           not null
+#  code                 :text
+#  slug                 :text
+#  common_keywords      :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  industry_category_id :integer          not null
+#  industry_category_id :bigint           not null
 #
 
 class Industry < ApplicationRecord
@@ -20,8 +21,8 @@ class Industry < ApplicationRecord
   validates :title,       presence: true
   validates :description, presence: true
 
-  has_many :industry_posts, dependent: :destroy
-  has_many :posts, through: :industry_posts
+  has_many :industry_solutions, dependent: :destroy
+  has_many :solutions, through: :industry_solutions
 
   has_many :industry_requests, dependent: :destroy
   has_many :requests, through: :industry_requests
@@ -42,9 +43,9 @@ class Industry < ApplicationRecord
       created_at.to_i
     end
 
-    # attribute :posts do
-    #   posts.map do |p|
-    #     { title: p.problem_title, url: Rails.application.routes.url_helpers.post_path(p), description: p.description, product: { name: p.product.name, thumbnail_url: p.product.thumbnail_url } }
+    # attribute :solutions do
+    #   solutions.map do |p|
+    #     { title: p.title, url: Rails.application.routes.url_helpers.solution_path(p), description: p.description, product: { name: p.product.name, thumbnail_url: p.product.thumbnail_url } }
     #   end
     # end
 

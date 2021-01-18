@@ -2,29 +2,26 @@
 #
 # Table name: occupation_categories
 #
-#  id                    :integer          not null, primary key
-#  title                 :string
-#  description           :text
-#  illustrative_examples :text
-#  other_examples        :text
-#  code                  :string           not null
-#  slug                  :string           not null
-#  type                  :string
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  ancestry              :string
-#  ancestry_depth        :integer          default(0)
+#  id             :bigint           not null, primary key
+#  title          :text
+#  description    :text
+#  code           :text
+#  slug           :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  ancestry       :string
+#  ancestry_depth :integer          default(0)
 #
 class OccupationCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   has_ancestry cache_depth: true
 
   validates :title,       presence: true
   has_many :occupations
 
   before_save :titleize_title
-
-  extend FriendlyId
-  friendly_id :code, use: :scoped, scope: :type
 
   # gets all leaf occupation categories (including self)
   def get_leaf_children

@@ -2,16 +2,15 @@
 #
 # Table name: occupations
 #
-#  id                     :integer          not null, primary key
-#  title                  :string
+#  id                     :bigint           not null, primary key
+#  title                  :text
 #  description            :text
-#  code                   :string           not null
-#  illustrative_examples  :text
-#  other_examples         :text
-#  slug                   :string           not null
+#  code                   :text
+#  slug                   :text
+#  common_keywords        :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  occupation_category_id :integer          not null
+#  occupation_category_id :bigint           not null
 #
 class Occupation < ApplicationRecord
   extend FriendlyId
@@ -19,13 +18,14 @@ class Occupation < ApplicationRecord
 
   acts_as_taggable
   validates :title,       presence: true
+  validates :description, presence: true
 
   belongs_to :category, class_name: "OccupationCategory", foreign_key: "occupation_category_id"
 
   before_save :titleize_title
 
-  has_many :occupation_posts, dependent: :destroy
-  has_many :posts, through: :occupation_posts
+  has_many :occupation_solutions, dependent: :destroy
+  has_many :solutions, through: :occupation_solutions
 
   has_many :occupation_requests, dependent: :destroy
   has_many :requests, through: :occupation_requests

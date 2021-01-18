@@ -1,0 +1,6 @@
+= link_to upvote_solution_path(solution), remote: true do
+  %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
+    ▲
+    %div{class: "ml-2"}
+      - vote_count = upvote_count(solution)
+      = "upvote#{vote_count > 0 ? " #{vote_count}" : ""}"

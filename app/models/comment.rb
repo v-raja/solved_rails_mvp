@@ -2,12 +2,12 @@
 #
 # Table name: comments
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  commentable_id   :integer
-#  commentable_type :string
-#  title            :string
+#  commentable_type :text
+#  title            :text
 #  body             :text
-#  subject          :string
+#  subject          :text
 #  user_id          :integer          not null
 #  parent_id        :integer
 #  lft              :integer

@@ -1,14 +1,15 @@
 class CreateIndustries < ActiveRecord::Migration[6.0]
   def change
     create_table :industries do |t|
-      t.string :title
+      t.text :title
       t.text :description
-      t.string :code
-      t.string :slug
+      t.text :code
+      t.text :slug
+      t.text :common_keywords
 
       t.timestamps
     end
     add_index :industries, :slug, unique: true
-    change_column_null :industries, :slug, false
+    add_index :industries, :code, unique: true
   end
 end
