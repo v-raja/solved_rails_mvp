@@ -1,11 +1,12 @@
-- @render_shadow = true unless !@render_shadow.nil?
+-# - @render_shadow = true unless !@render_shadow.nil?
+
 -# - if local_assigns.has_key? :render_shadow
 -#   - render_shadow = local_assigns[:render_shadow]
 -# - render_shadow = (render_shadow.nil? ? true : render_shadow)
 -# - render_shadow = false
 -# ---- HEADER ----
-%div{class: "bg-white"}
-  %div{class: "flex justify-center border-0 px-4 #{@render_shadow ? "shadow-md" : nil}", md: "px-0"}
+%div{class: "bg-white sticky top-0 z-50"}
+  %div{class: "flex justify-center border-0 px-4 shadow-sm", md: "px-0"}
     %div{data: { controller: "toggle"},
         class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
       %div{class: "flex justify-between items-center"}
@@ -68,7 +69,7 @@
 
       %nav{data: { target: "toggle.toggleable" },
             c: "hidden",
-            sm: "flex items-center px-4 justify-self-end flex-shrink-0" }
+            sm: "flex items-center pl-4 justify-self-end flex-shrink-0" }
         %div{class: "px-2 pt-2 pb-5 border-b border-gray-500",
             sm: "flex border-b-0 text-sm py-0 px-0",}
           = link_to "New Solution" , new_post_path, class: "px-3 py-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 sm:ml-2"
@@ -96,4 +97,4 @@
         %div{c: "py-2 block bg-white"}
     -# ---- HEADER END ----
 
-  %div{class: "#{@render_shadow ? "h-2" : nil}"}
+  -# %div{class: "#{@render_shadow ? "h-2 bg-gray-fb" : nil}"}

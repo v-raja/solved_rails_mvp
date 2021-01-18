@@ -44,7 +44,7 @@
           %div{class: " font-medium"}
             Industry niches
           - val = params[:industries]
-          - val = params[:code] unless params[:type] != "Industry"
+          - val = params[:code] unless params[:type] != "Industry" || val
           %input{id: "industry_input",
                 type: "text",
                 name: "industries",
@@ -57,11 +57,12 @@
           %div{class: "mt-3 font-medium"}
             Occupation niches
           - val = params[:occupations]
-          - val = params[:code] unless params[:type] != "Occupation"
+          - val = params[:code] unless params[:type] != "Occupation" || val
           %input{id: "occupation_input",
                 type: "text",
                 name: "occupations",
                 onfocusout: "updateOccupations()",
+                value: "#{val}",
                 class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
                 hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
                 placeholder: "Ex: 25-2031, 25-2021, 25-2022"}

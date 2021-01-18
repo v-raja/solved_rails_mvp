@@ -32,7 +32,11 @@ class OccupationCategory < ApplicationRecord
   end
 
   def self.get_occupations(code)
-    OccupationCategory.find_by(code: code).get_leaf_children.map(&:occupations).flatten
+    if oc = OccupationCategory.find_by(code: code)
+      return oc.get_leaf_children.map(&:occupations).flatten
+    else
+      return []
+    end
   end
 
 

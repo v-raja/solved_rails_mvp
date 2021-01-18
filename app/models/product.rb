@@ -9,6 +9,9 @@
 #  updated_at :datetime         not null
 #
 class Product < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   validates_presence_of :name, :logo_url
   validates :logo_url, url: { no_local: true }
   has_many :posts
@@ -42,5 +45,14 @@ class Product < ApplicationRecord
 
   def nb_solutions
     posts.count
+  end
+
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
+  def slug_candidates
+    [
+      :name,
+      [:name, :id]
+    ]
   end
 end

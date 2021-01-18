@@ -15,6 +15,13 @@ module PhApp
     config.autoload_paths += %W(#{config.root}/app/models/categories)
     config.autoload_paths += %W(#{config.root}/app/models/media_urls)
 
+    config.action_mailer.delivery_method = :postmark
+    # config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.postmark_settings = {
+      api_token: "b80fff89-18fe-4840-8384-36c655b4900d"
+      # Rails.application.credentials.postmark_api_token
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

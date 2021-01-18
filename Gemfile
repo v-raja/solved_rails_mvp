@@ -40,6 +40,9 @@ gem "validate_url"
 gem "algoliasearch-rails"
 gem 'rails-html-sanitizer'
 gem "figaro"
+gem 'devise_invitable', '~> 2.0.0'
+gem 'postmark-rails'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

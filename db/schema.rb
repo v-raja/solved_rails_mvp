@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_084132) do
+ActiveRecord::Schema.define(version: 2021_01_17_084814) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "commentable_id"
@@ -42,11 +42,12 @@ ActiveRecord::Schema.define(version: 2021_01_15_084132) do
   create_table "industries", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "code"
+    t.string "code", null: false
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "industry_category_id", null: false
+    t.index ["code"], name: "index_industries_on_code", unique: true
     t.index ["industry_category_id"], name: "index_industries_on_industry_category_id"
     t.index ["slug"], name: "index_industries_on_slug", unique: true
   end
@@ -174,7 +175,10 @@ ActiveRecord::Schema.define(version: 2021_01_15_084132) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
+    t.boolean "is_creator", default: false
+    t.string "slug"
     t.index ["product_id"], name: "index_posts_on_product_id"
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -183,6 +187,8 @@ ActiveRecord::Schema.define(version: 2021_01_15_084132) do
     t.text "logo_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
   create_table "requests", force: :cascade do |t|
@@ -191,6 +197,15 @@ ActiveRecord::Schema.define(version: 2021_01_15_084132) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "cached_votes_total", default: 0
+    t.integer "cached_votes_score", default: 0
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
+    t.integer "cached_weighted_score", default: 0
+    t.integer "cached_weighted_total", default: 0
+    t.float "cached_weighted_average", default: 0.0
+    t.string "slug"
+    t.index ["slug"], name: "index_requests_on_slug", unique: true
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -233,15 +248,24 @@ ActiveRecord::Schema.define(version: 2021_01_15_084132) do
     t.string "unconfirmed_email"
     t.string "name"
     t.string "pseudonym"
-    t.string "role"
-    t.string "company"
-    t.string "fake_company"
     t.boolean "admin", default: false
     t.text "thumbnail_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "bio"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.integer "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

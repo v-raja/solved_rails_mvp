@@ -10,8 +10,14 @@
 #  updated_at  :datetime         not null
 #
 class Request < ApplicationRecord
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   belongs_to :user
   validates_presence_of :title, :description
+
+  validate :atleast_one_niche
 
   acts_as_commentable
   acts_as_votable cacheable_strategy: :update_columns
@@ -38,6 +44,21 @@ class Request < ApplicationRecord
 
   def post_to_occupation(occupation)
     occupations << occupation
+  end
+
+  private
+
+  def atleast_one_niche
+    if industries.empty? && occupations.empty?
+      errors.add(:niches, "can't be empty")
+    end
+  end
+
+  def slug_candidates
+    [
+      :title,
+      [:title, :id]
+    ]
   end
 
 end

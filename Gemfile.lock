@@ -101,6 +101,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_invitable (2.0.3)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     erubi (1.10.0)
     erubis (2.7.0)
     faker (2.11.0)
@@ -152,6 +155,11 @@ GEM
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
+    postmark (1.21.3)
+      json
+    postmark-rails (0.20.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.15)
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
@@ -272,12 +280,14 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   devise (~> 4.7)
+  devise_invitable (~> 2.0.0)
   faker (= 2.11.0)
   figaro
   friendly_id (~> 5.4.0)
   haml-rails (~> 2.0)
   jbuilder (~> 2.7)
   listen (~> 3.2)
+  postmark-rails
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   rails-html-sanitizer

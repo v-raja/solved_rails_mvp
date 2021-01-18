@@ -28,7 +28,11 @@ class IndustryCategory < ApplicationRecord
   end
 
   def self.get_industries(code)
-    IndustryCategory.find_by(code: code).get_leaf_children.map(&:industries).flatten
+    if ic = IndustryCategory.find_by(code: code)
+      return ic.get_leaf_children.map(&:industries).flatten
+    else
+      return []
+    end
   end
 
   def self.get_industries_from_string(code_string)

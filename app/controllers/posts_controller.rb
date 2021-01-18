@@ -76,19 +76,20 @@ class PostsController < ApplicationController
       @post.build_product(product_params)
     end
 
+    industries = IndustryCategory.get_industries_from_string(params[:industries])
+    industries.each do |industry|
+      @post.post_to_industry(industry)
+      industry.tag_list.add(params[:post][:tags_string], parse: true)
+    end
+
+    occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
+    occupations.each do |occupation|
+      @post.post_to_occupation(occupation)
+      occupation.tag_list.add(params[:post][:tags_string], parse: true)
+    end
+
     respond_to do |format|
       if @post.save
-        industries = IndustryCategory.get_industries_from_string(params[:post][:industries_string])
-        industries.each do |industry|
-          @post.post_to_industry(industry)
-          industry.tag_list.add(params[:post][:tags_string], parse: true)
-        end
-
-        occupations = OccupationCategory.get_occupations_from_string(params[:post][:occupations_string])
-        occupations.each do |occupation|
-          @post.post_to_occupation(occupation)
-          occupation.tag_list.add(params[:post][:tags_string], parse: true)
-        end
 
         # first_comment = Comment.build_from(@post, current_user, params[:comment_text])
         # first_comment.create
@@ -129,16 +130,12 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:problem_title, :description, :product_id, :product_url, product_attributes: [:name, :logo_url], youtube_urls_attributes: [:_destroy, :id, :url])
-    end
-
-    def extra_params
-      params.require(:post).permit(:tags_string, :industries_string, :occupations_string, :comment_text)
     end
 
     def product_params

@@ -13,7 +13,12 @@
 #  user_id       :integer          not null
 #
 class Post < ApplicationRecord
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   validates_presence_of :problem_title, :description, :youtube_urls, :product
+  validate :atleast_one_niche
 
   has_many :industry_posts, dependent: :destroy
   has_many :industries, through: :industry_posts
@@ -80,6 +85,28 @@ class Post < ApplicationRecord
     # tags tag_list
 
     searchableAttributes ['unordered(problem_title)', 'unordered(description)']
+
+    # industries.each do |i|
+    #   add_index i.code_with_suffix do
+    #     attribute :created_at, :problem_title, :description, :url
+
+    #     # integer version of the created_at datetime field, to use numerical filtering
+    #     attribute :created_at_i do
+    #       created_at.to_i
+    #     end
+
+    #     attribute :user do
+    #       { name: user.name }
+    #     end
+
+    #     attribute :product do
+    #       { name: product.name, thumbnail_url: product.logo_url, url: Rails.application.routes.url_helpers.product_path(product) }
+    #     end
+
+
+    #     searchableAttributes ['unordered(problem_title)', 'unordered(description)']
+    #   end
+    # end
   end
 
   def post_to_industry(industry)
@@ -91,6 +118,10 @@ class Post < ApplicationRecord
   end
 
   private
+
+  def url
+    Rails.application.routes.url_helpers.post_path(id)
+  end
 
   def check_if_product_exists(product_attr)
     # User has selected an existing product so both fields are blank
@@ -109,6 +140,21 @@ class Post < ApplicationRecord
     end
 
     return false
+  end
+
+  def atleast_one_niche
+    if industries.empty? && occupations.empty?
+      errors.add(:niches, "can't be empty")
+    end
+  end
+
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
+  def slug_candidates
+    [
+      :problem_title,
+      [:problem_title, :id]
+    ]
   end
 
   # def check_if_product_exists(product_attr)

@@ -67,18 +67,18 @@ class RequestsController < ApplicationController
     # byebug
     @request = current_user.requests.build(request_params)
 
+    industries = IndustryCategory.get_industries_from_string(params[:industries])
+    industries.each do |industry|
+      @request.post_to_industry(industry)
+    end
+
+    occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
+    occupations.each do |occupation|
+      @request.post_to_occupation(occupation)
+    end
+
     respond_to do |format|
       if @request.save
-        industries = IndustryCategory.get_industries_from_string(params[:industries])
-        industries.each do |industry|
-          @request.post_to_industry(industry)
-        end
-
-        occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
-        occupations.each do |occupation|
-          @request.post_to_occupation(occupation)
-        end
-
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }
       else
@@ -115,7 +115,7 @@ class RequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
-      @request = Request.find(params[:id])
+      @request = Request.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

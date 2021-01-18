@@ -1,12 +1,14 @@
 -# = render 'layouts/header'
-- @render_shadow = false
+-# - @render_shadow = false
 
 %div{class: "mt-10 flex justify-center pb-10"}
-  %div{class: "max-w-screen-lg w-full flex"}
-    %div{class: "w-full mr-12"}
-      - active   = "text-secondary bg-gray-100 px-2 py-2 font-medium rounded"
-      - inactive = "text-gray-600 px-2 py-2 font-medium rounded hover:bg-gray-200"
-      %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between"}
+  %div{class: "max-w-screen-lg flex overflow-hidden"}
+    %div{class: "w-2/3 pr-12"}
+      - active   = "text-secondary bg-gray-200 px-2 py-2 font-semibold rounded"
+      - inactive = "text-gray-900 px-2 py-2 font-semibold rounded hover:bg-gray-200"
+      -# - active = "px-2 py-2 rounded bg-secondary text-white font-semibold"
+      -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-semibold text-gray-900"
+      %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between text-sm"}
         - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
           %div
             = link_to 'Solutions', root_path, class: "#{active}"
@@ -25,22 +27,19 @@
 
       %div{class: "mt-8"}
         - if @posts.today.any?
-          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+          %div{class: "w-full font-bold text-xl mb-6 leading-none"}
             Today
-          %div{class: "divide-y divide-gray-300 divide-solid rounded-sm border border-gray-300"}
-            = render @posts.today
-          %div{class: "mt-6"}
+          = render @posts.today
+          %div{class: "mt-8"}
         - if @posts.past_week.any?
-          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+          %div{class: "w-full font-bold text-xl mb-6 leading-none"}
             Past Week
-          %div{class: "divide-y divide-gray-300 divide-solid"}
-            = render @posts.past_week
-          %div{class: "mt-6"}
+          = render @posts.past_week
+          %div{class: "mt-8"}
         - if @posts.past_month.any?
-          %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+          %div{class: "w-full font-bold text-xl mb-6 leading-none"}
             Past Month
-          %div{class: "divide-y divide-gray-300 divide-solid"}
-            = render @posts.past_month
+          = render @posts.past_month
 
 
 
@@ -52,16 +51,16 @@
             %div{class: "w-full text-base font-bold text-sm text-"}
               Hey! 👋
               -# = "About #{niche_type}"
-            %div{class: "py-1 w-full rounded-lg text-lg "}
+            %div{class: "py-1 w-full rounded-lg "}
               %div{class: "font-source font-bold text-base -mb-1 text-primary float-left inline-flex mr-1"}
                 solved
-              %div{class: "text-base"}
+              %div{class: ""}
                 is a community of problem solvers and indie hackers helping you find (or build!) better solutions to problems you face.
                 <br/><br/>
                 🤔 Know that there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
                 <br/>
               = link_to "Make a request to your niche.", new_request_path, class: "text-base underline"
-              %div{class: "text-base"}
+              %div{class: ""}
                 <br/>
                 👆 Find your industry / occupation niche by using the search bar above.
                 <br/><br/>

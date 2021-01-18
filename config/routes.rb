@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
 
 
-  get 'search/niches', to: 'search#niches'
-
   root to: 'search#home'
   get 'recent', to: 'search#recent'
   get 'requests', to: 'search#requests'
@@ -11,29 +9,25 @@ Rails.application.routes.draw do
 
 
   resources :industries, type: "Industry", path: "/i" do
-    member do
-      get 'search'
-    end
     # , to: 'search#index'
     # resources :search, only: [:index] # to generate the view helpers
     # resources :requests, only: [:index]
     get "/", to: "posts#niche_index"
     get "/requests", to: "requests#niche_index"
+    get "/search", to: "search#niche_index"
   end
 
   # root to: 'industry_categories#index'
 
   resources :occupations, type: "Occupation", path: "/o" do
-    member do
-      get 'search'
-    end
     get "/", to: "posts#niche_index"
     get "/requests", to: "requests#niche_index"
+    get "/search", to: "search#niche_index"
   end
 
   resources :categories
   resources :products
-  resources :galleries
+
 
   post 'posts/new', to: 'posts#create'
   resources :posts do

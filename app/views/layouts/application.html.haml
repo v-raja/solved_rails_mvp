@@ -10,11 +10,16 @@
     -# %script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@1/dist/instantsearch.min.js")
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
+    -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
+    <!-- Include only the reset -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css" integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8=" crossorigin="anonymous">
+    <!-- or include the full Algolia theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css" integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8=" crossorigin="anonymous">
+
     = javascript_pack_tag 'basic_instant_search'
     = yield :head
   %body
-    = debug(params) if Rails.env.development?
+    -# = debug(params) if Rails.env.development?
     #app{class: "min-h-screen bg-gray-fb bg-opacity-60 antialiased font-sans"}
       = render 'layouts/header'
       #app_body
@@ -27,8 +32,8 @@
           %div{class: "font-bold text-3xl"}
             Niches
           #hits{class: "mt-4"}
-          %div{class: "mt-8 font-bold text-3xl"}
-            Products
-          #hits-product{class: "mt-4"}
+          -# %div{class: "mt-8 font-bold text-3xl"}
+          -#   Products
+          -# #hits-product{class: "mt-4"}
 
 

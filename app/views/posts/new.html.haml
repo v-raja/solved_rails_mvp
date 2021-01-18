@@ -108,7 +108,7 @@
           -#     placeholder: "Manage / Organise / Increase / Improve / Simplify ..."}
           -# value: "#{params[:post].nil? ? "" : params[:post][:problem_title]}"  }
           %div{class: "text-gray-600 text-xs mt-1"}
-            Skip words like "How to" and concisely state the problem you're solving.
+            Try to skip words like "How to" and concisely state the problem you're solving.
 
           %div{class: "mt-4 flex items-center"}
             %div{class: "font-medium"}
@@ -182,10 +182,12 @@
           -#   Choose niches to post your solution to
           %div{class: " font-medium"}
             Industry niches
+          - val = params[:industries]
+          - val = params[:code] unless params[:type] != "Industry" || val
           %input{id: "industry_input",
                 type: "text",
-                name: "post[industries_string]",
-                value: "#{params[:post] ? params[:post][:industries_string] : nil}",
+                name: "industries",
+                value: "#{val}",
                 onfocusout: "updateIndustries()",
                 class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
                 hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
@@ -193,9 +195,12 @@
 
           %div{class: "mt-3 font-medium"}
             Occupation niches
+          - val = params[:occupations]
+          - val = params[:code] unless params[:type] != "Occupation" || val
           %input{id: "occupation_input",
                 type: "text",
-                name: "post[occupations_string]",
+                name: "occupations",
+                value: "#{val}",
                 onfocusout: "updateOccupations()",
                 class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
                 hover: "border-indigo-300 ring ring-indigo-200 ring-opacity-50",
@@ -204,9 +209,9 @@
             Unsure of what niche to post to?
             = link_to 'Explore', industry_categories_path, class: "mx-0.5 underline hover:text-black"
             or search to find relevant niches.
-          %div{class: "mt-3 text-xs text-gray-600"}
-            Only post to relevant niches. You can make a new post
-            with the same product which highlights different use-cases for different niches.
+          -# %div{class: "mt-3 text-xs text-gray-600"}
+          -#   Only post to relevant niches. You can make a new post
+          -#   with the same product which highlights different use-cases for different niches.
 
 
         -# %div{class: "mt-10 text-2xl font-bold"}

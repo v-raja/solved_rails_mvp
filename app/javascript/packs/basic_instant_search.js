@@ -11,6 +11,7 @@ $(document).on('turbolinks:load', function() {
     urlSync: true,
     routing: true,
     searchFunction(helper) {
+      console.log(helper);
       if (helper.state.query.length < 2) {
         document.querySelector('#app_body').style.display = '';
         document.querySelector('#results').style.display = 'none';
@@ -30,11 +31,12 @@ $(document).on('turbolinks:load', function() {
   search.addWidgets([
     instantsearch.widgets.configure({
       attributesToSnippet: ['description'],
-      hitsPerPage: 8,
+      hitsPerPage: 12,
+      // filters: 'NOT categories:"Cell Phones"'
     }),
     instantsearch.widgets.searchBox({
       container: '#searchbox',
-      placeholder: "Search for an indsutry or occupation",
+      placeholder: "Search for an industry or occupation",
       searchAsYouType: true
     }),
 
@@ -61,9 +63,12 @@ $(document).on('turbolinks:load', function() {
                   //   '{{{type}}}'+
                   // '</div>' +
                   '<div class="w-full text-black leading-tight text-sm font-medium mt-1">' +
-                    '{{{_highlightResult.title.value}}} ({{{type}}})'+
+                    '{{{_highlightResult.title.value}}}'+
                   '</div>' +
-                  '<div class="w-full text-xs mt-3 text-gray-600">' +
+                  '<div class="w-full text-xs mt-0.5 text-gray-800">' +
+                    '{{{type}}}' +
+                  '</div>' +
+                  '<div class="w-full text-xs mt-2 text-gray-600">' +
                     'Description' +
                   '</div>' +
                   '<div class="w-full text-sm">' +
@@ -79,26 +84,26 @@ $(document).on('turbolinks:load', function() {
       },
     }),
 
-    instantsearch.widgets
-      .index({ indexName: 'products_development' })
-      .addWidgets([
-        instantsearch.widgets.hits({
-          container: '#hits-product',
-          templates: {
-            empty: 'No products have been found for "{{ query }}"',
-            item: '<a href={{{url}}}>' +
-                    '<div class="flex flex-wrap items-end">' +
-                      '<div class="w-20 h-20 object-cover">' +
-                        '<img src="{{{thumbnail_url}}}"/>' +
-                      '</div>' +
-                      '<div class="ml-4 text-center font-semibold text-black leading-tight text-2xl">' +
-                        '{{{_highlightResult.name.value}}}'+
-                      '</div>' +
-                    '</div>' +
-                  '</a>'
-          },
-        }),
-      ]),
+    // instantsearch.widgets
+    //   .index({ indexName: 'products_development' })
+    //   .addWidgets([
+    //     instantsearch.widgets.hits({
+    //       container: '#hits-product',
+    //       templates: {
+    //         empty: 'No products have been found for "{{ query }}"',
+    //         item: '<a href={{{url}}}>' +
+    //                 '<div class="flex flex-wrap items-end">' +
+    //                   '<div class="w-20 h-20 object-cover">' +
+    //                     '<img src="{{{thumbnail_url}}}"/>' +
+    //                   '</div>' +
+    //                   '<div class="ml-4 text-center font-semibold text-black leading-tight text-2xl">' +
+    //                     '{{{_highlightResult.name.value}}}'+
+    //                   '</div>' +
+    //                 '</div>' +
+    //               '</a>'
+    //       },
+    //     }),
+    //   ]),
 
   ]);
 
