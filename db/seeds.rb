@@ -3,7 +3,7 @@ require 'csv'
 key = "1TojymXVXDJozEVyzy4qkkFk56n2wsryX6C1WpOEr5hk"
 link = "https://docs.google.com/spreadsheets/d/#{key}/gviz/tq?tqx=out:csv&sheet="
 
-all = false
+all = true
 industries  = all
 occupations = all
 create_vivek = all
@@ -61,8 +61,8 @@ end
 
 
 
-# sheets = %w"products solutions requests"
-sheets = %w"requests"
+sheets = %w"products solutions requests"
+# sheets = %w"requests"
 sheets.each do |sheet|
   csv_path = Rails.root.join("db", "data", sheet + ".csv")
   `wget -O "#{csv_path}" "#{link + sheet}"`

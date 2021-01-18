@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
   const searchClient = algoliasearch(
-    'U9L5TDQXIN',
-    '1f741c451c7cb0ffe440766809f77cf5'
+    process.env.ALGOLIA_APP_ID,
+    process.env.ALGOLIA_ADMIN_API_KEY
   );
 
   const search = instantsearch({
@@ -11,7 +11,6 @@ $(document).on('turbolinks:load', function() {
     urlSync: true,
     routing: true,
     searchFunction(helper) {
-      console.log(helper);
       if (helper.state.query.length < 2) {
         document.querySelector('#app_body').style.display = '';
         document.querySelector('#results').style.display = 'none';
