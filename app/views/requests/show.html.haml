@@ -3,11 +3,9 @@
 %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
 
   -# 2 Column
-  %div{class: "mt- max-w-screen-lg w-full relative flex flex-wrap",
-      md: "flex flex-nowrap"}
+  %div{class: "mt- max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
     -# Left Column
-    %div{class: "w-full",
-         md: "mr-8"}
+    %div{class: "w-full md:mr-8"}
       -# Gallery
       -# %div{class: "font-bold text-xl"}
       -#   = @request.title
@@ -20,9 +18,8 @@
 
 
     -# Right Column
-    %div{class: "flex-shrink-0 flex flex-col w-full",
-          md: "w-1/3"}
-      %div{class: "mt-4 flex", md: "mt-0"}
+    %div{class: "flex-shrink-0 flex flex-col w-full md:w-1/3"}
+      %div{class: "mt-4 flex md:mt-0"}
         %div{class: "w-full", id: "upvote_button"}
           - if user_signed_in?
             - if current_user.voted_up_on? @request
@@ -66,11 +63,9 @@
 
 
   -# 2 Column, Left Column
-  %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap",
-       md: "flex flex-nowrap"}
+  %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
     -# md: "flex flex-wrap"}
-    %div{class: "w-full",
-         md: "mr-8"}
+    %div{class: "w-full md:mr-8"}
       -# Discussion header
       %div{class: "flex justify-between"}
         %div{class: "uppercase font-medium text-gray-600 text-xs"}
