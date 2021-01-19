@@ -8,20 +8,20 @@
 
 
 %div{class: "flex flex-wrap justify-center pb-10"}
-  %div{class: "mt-4 max-w-screen-lg w-full text-3xl font-bold tracking-wide"}
+  %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
     Explore by Industries
   -# %div{c: "max-w-screen-lg w-full text-gray-700 tracking-wider"}
   -#   - letter = (params[:type] == "IndustryCategory" ? 'i' : 'o')
   -#   = "#{letter}/#{@category.slug}"
-  %div{class: "mt-4 max-w-screen-lg w-full text-base flex items-center"}
-    %div{class: "font-source font-bold text-primary text-lg"}
-      solved
-    %div{class: "ml-1 text-base"}
-      uses the North American Industry Classifcation System (NAICS) to categorise
-      industries. There are six levels of classification,
-  %div{class: "text-base max-w-screen-lg w-full"}
-    and solutions and requests are posted to the sixth level.
-  %div{class: "mt-8 max-w-screen-lg w-full relative flex"}
+  -# %div{class: "mt-4 max-w-screen-lg w-full text-base flex items-center"}
+  -#   %div{class: "font-source font-bold text-primary text-lg"}
+  -#     solved
+  -#   %div{class: "ml-1 text-base"}
+  -#     uses the North American Industry Classifcation System (NAICS) to categorise
+  -#     industries. There are six levels of classification,
+  -# %div{class: "text-base max-w-screen-lg w-full"}
+  -#   and solutions and requests are posted to the sixth level.
+  %div{class: "mt-6 max-w-screen-lg w-full relative flex"}
     %div{class: "w-1/2 flex-shrink-0 flex flex-wrap"}
       = render "industry_categories/expand_group", group: @industry_categories.second
     %div{class: "w-full font-sans mr-20"}

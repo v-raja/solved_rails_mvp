@@ -27,17 +27,17 @@
 
       %div{class: "mt-8"}
         - if @solutions.today.any?
-          %div{class: "w-full font-bold text-xl mb-6 leading-none"}
+          %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
             Today
           = render @solutions.today
           %div{class: "mt-8"}
         - if @solutions.past_week.any?
-          %div{class: "w-full font-bold text-xl mb-6 leading-none"}
+          %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
             Past Week
           = render @solutions.past_week
           %div{class: "mt-8"}
         - if @solutions.past_month.any?
-          %div{class: "w-full font-bold text-xl mb-6 leading-none"}
+          %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
             Past Month
           = render @solutions.past_month
 
@@ -55,7 +55,7 @@
               %div{class: "font-source font-bold text-base -mb-1 text-primary float-left inline-flex mr-1"}
                 solved
               %div{class: ""}
-                is a community of problem solvers helping you find (or build!) better solutions to problems you face.
+                is a community of problem solvers and makers helping you find (or build!) better solutions to problems you face.
                 <br/><br/>
                 🤔 Know there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
                 <br/>

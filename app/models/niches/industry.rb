@@ -16,7 +16,7 @@
 class Industry < ApplicationRecord
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: :slugged
 
   validates :title,       presence: true
   validates :description, presence: true

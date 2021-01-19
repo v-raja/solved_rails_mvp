@@ -6,7 +6,7 @@
   %div{class: "max-w-screen-lg w-full relative flex overflow-hidden"}
     %div{class: "w-full flex"}
       %div{class: "w-28 h-28 flex-shrink-0"}
-        = image_tag @solution.product.thumbnail_url
+        = image_tag @solution.product.thumbnail_url, class: "object-cover"
       %div{class: "ml-4 w-full flex flex-col justify-between"}
         %div
           - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
@@ -54,7 +54,7 @@
 
         %div{class: "mt-2 flex space-x-2"}
           - @solution.youtube_urls.each_with_index do |yt_utl, idx|
-            = image_tag "http://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
+            = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
         %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
           = @solution.description.gsub(/\n/, '<br/>').html_safe
         %div{class: "mt-3 text-sm"}
@@ -96,7 +96,7 @@
         %div{class: "mt-4 w-full flex"}
           -# = link_to @solution.user do
           %div{class: "w-8 h-8 flex-shrink-0"}
-            = image_tag @solution.user.thumbnail_url, class: "rounded-full object-fill"
+            = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
           %div{class: "ml-2 flex flex-wrap justify-between"}
             %div{class: "w-full text-xs text-black font-medium"}
               = @solution.user.name
@@ -152,7 +152,7 @@
         %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
           - if user_signed_in?
             %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-              = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+              = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
             %div{class: "ml-2 text-xs text-gray-600 w-full"}
               = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
                 %textarea{rows: "1", name: "comment[body]",

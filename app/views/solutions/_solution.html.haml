@@ -4,7 +4,7 @@
     %div{class: "flex flex-col rounded-sm py-5"}
       %div{class: "w-full flex items-stretch"}
         %div{class: "w-16 h-16 flex-shrink-0"}
-          = link_to (image_tag solution.product.thumbnail_url), solution.product
+          = link_to (image_tag solution.product.thumbnail_url, class: "object-cover"), solution.product
           -# = image_tag solution.product.thumbnail_url
         %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
           = link_to solution do

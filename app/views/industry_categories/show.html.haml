@@ -23,16 +23,16 @@
         - @industry_category.children.each do |industry_group|
           %li{class: ""}
             %div{class: "font-sans text-base font-medium"}
-              = "#{industry_group.title} (i/#{industry_group.code})"
+              = "#{industry_group.title}"
             %ul{class: "ml-6 list-disc space-y-2"}
               - industry_group.children.each do |industry|
                 %li
                   %div{class: "font-sans text-base"}
-                    = "#{industry.title} (i/#{industry.code})"
+                    = "#{industry.title}"
                   %ul{class: "ml-6 list-disc"}
                     - industry.industries.each do |national_industry|
                       %li
-                        = link_to "#{national_industry.title} (i/#{national_industry.code})", national_industry, class: "font-sans text-sm underline"
+                        = link_to "#{national_industry.title}", national_industry, class: "font-sans text-sm underline"
 
 
 :javascript

@@ -43,7 +43,7 @@
         %div{class: "w-full flex"}
           -# = link_to @solution.user do
           %div{class: "w-8 h-8 flex-shrink-0"}
-            = image_tag @request.user.thumbnail_url, class: "rounded-full object-fill"
+            = image_tag @request.user.thumbnail_url, class: "rounded-full object-cover"
           %div{class: "ml-2 flex flex-wrap justify-between"}
             %div{class: "w-full text-xs text-black font-medium"}
               = @request.user.name
@@ -82,7 +82,7 @@
         %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
           - if user_signed_in?
             %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-              = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+              = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
             %div{class: "ml-2 text-xs text-gray-600 w-full"}
               = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
                 %textarea{rows: "1", name: "comment[body]",

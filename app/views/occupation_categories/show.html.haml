@@ -15,7 +15,7 @@
 
 %div{class: "flex flex-wrap justify-center pb-10"}
   %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
-    = "#{@occupation_category.title} (o/#{@occupation_category.code})"
+    = "#{@occupation_category.title}"
 
   %div{class: "mt-4 max-w-screen-lg w-full relative flex"}
     #container
@@ -23,11 +23,11 @@
         - @occupation_category.children.each do |minor_group|
           %li{class: ""}
             %div{class: "font-sans text-base font-medium"}
-              = "#{minor_group.title} (o/#{minor_group.code})"
+              = "#{minor_group.title}"
             %ul{class: "ml-6 list-disc"}
               - minor_group.occupations.each do |unit|
                 %li
-                  = link_to "#{unit.title} (o/#{unit.code})", unit, class: "font-sans text-sm underline"
+                  = link_to "#{unit.title}", unit, class: "font-sans text-sm underline"
 
 
 :javascript

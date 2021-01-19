@@ -52,9 +52,13 @@ class Solution < ApplicationRecord
   acts_as_votable cacheable_strategy: :update_columns
   acts_as_taggable
 
-  scope :today,      -> { where('DATE(solutions.created_at) = ?', Date.today) }
-  scope :past_week,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => Date.today }) }
+  default_scope { order(created_at: :desc) }
+
+  scope :today,      -> { where('solutions.created_at >= ?', 1.day.ago) }
+  scope :past_week,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => 1.day.ago }) }
   scope :past_month, -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }) }
+
+  scope :top,        -> { unscoped.order(cached_votes_score: :desc).order(created_at: :desc) }
 
   scope :today_ordered_by_votes, -> { where('DATE(solutions.created_at) = ?', Date.today).order(cached_votes_score: :desc) }
   scope :past_week_ordered_by_votes,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => Date.today }).order(cached_votes_score: :desc) }

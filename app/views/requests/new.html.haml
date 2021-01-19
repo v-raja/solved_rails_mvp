@@ -1,7 +1,7 @@
 - @render_shadow = false
 %div{class: "flex flex-wrap justify-center px-4", data: { controller: "data-binding"} }
   = form_for @request, url: new_request_path, html: {class: ""} do |f|
-    %div{class: "font-medium mt-6"}
+    %div{class: "font-medium mt-6 text-xl"}
       Request for a solution to your problem
     -# 2 Column
     %div{class: "max-w-screen-lg w-full relative flex items-start"}
@@ -33,10 +33,10 @@
               class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
               placeholder: "",
               data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:solution, :description).blank? ? "false" : "true"}",
-              rows: "7"
+              rows: "15"
 
 
-        %div{class: "mt-10 text-2xl font-bold"}
+        %div{class: "mt-10 text-xl font-medium"}
           👨‍🔬 👨‍🌾 Who is your solution relevant to?
         %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm"}
           -# %div{class: "text-lg font-medium"}

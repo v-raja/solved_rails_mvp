@@ -69,7 +69,7 @@
           Solver
         %div{class: "mt-4 w-full flex"}
           %div{class: "w-8 h-8 flex-shrink-0"}
-            = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+            = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
           %div{class: "ml-2 flex flex-wrap justify-between"}
             %div{class: "w-full text-xs text-black font-medium"}
               = current_user.name
@@ -99,7 +99,7 @@
       %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full"}
         %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
           %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-            = image_tag current_user.thumbnail_url, class: "rounded-full object-fill"
+            = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
           %div{class: "ml-2 text-xs text-gray-600 w-full flex items-end"}
             %textarea{rows: "1",
               class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",

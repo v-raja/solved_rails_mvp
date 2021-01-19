@@ -6,21 +6,22 @@ class SearchController < ApplicationController
   end
 
   def home
-    @solutions = Solution.all.order(cached_votes_score: :desc).order(created_at: :desc)
+    @solutions = Solution.all.top
+    # order(cached_votes_score: :desc).order(created_at: :desc)
   end
 
   def recent
-    @solutions = Solution.all.order(created_at: :desc)
+    @solutions = Solution.all
     render 'home'
   end
 
   def requests
-    @solutions = Request.all.order(cached_votes_score: :desc).order(created_at: :desc)
+    @solutions = Request.all.top
     render 'home'
   end
 
   def requests_recent
-    @solutions = Request.all.order(created_at: :desc)
+    @solutions = Request.all
     render 'home'
   end
 

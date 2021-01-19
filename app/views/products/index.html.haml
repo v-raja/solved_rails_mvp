@@ -1,24 +1,5 @@
-- @render_shadow = false
-%h1 Listing products
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Image url
-      %th
-      %th
-      %th
-
-  %tbody
-    - @products.each do |product|
-      %tr
-        %td= product.name
-        %td= product.thumbnail_url
-        %td= link_to 'Show', product
-        %td= link_to 'Edit', edit_product_path(product)
-        %td= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Product', new_product_path
+= render 'shared/explore/header'
+%div{class: "mt-10 flex justify-center pb-10"}
+  %div{class: "max-w-screen-lg flex overflow-hidden"}
+    %div{class: "grid grid-cols-5 gap-4 grid-flow-row"}
+      = render Product.all

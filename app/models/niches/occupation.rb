@@ -14,7 +14,7 @@
 #
 class Occupation < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: :slugged
 
   acts_as_taggable
   validates :title,       presence: true

@@ -1,8 +1,10 @@
 -# = render 'layouts/header', render_shadow: false
-- @render_shadow = false
-%div{class: "flex flex-wrap justify-center bg-white shadow-md pb-4 mb-4"}
+
+%div{class: "pt-2 flex flex-wrap justify-center bg-white shadow-sm pb-4 mb-4"}
   %nav{class: "mt-2 flex justify-between max-w-screen-md w-full"}
-    - inactive = "text-gray-900 px-3 py-2 rounded-lg text-base font-semibold hover:bg-gray-100 hover:text-gray-900"
-    = link_to "Industries", industry_categories_path, class: "#{inactive} #{add_class_if_path_is_base(industry_categories_path, "bg-gray-100 shadow-md")}"
-    = link_to "Occupations", occupation_categories_path, class: "#{inactive} #{add_class_if_path_is_base(occupation_categories_path, "bg-gray-100 shadow-md")}"
-    = link_to "Products", products_path, class: "#{inactive} #{add_class_if_path_is_base(products_path, "bg-gray-100 shadow-md")}"
+    -# - inactive = "text-gray-900 px-3 py-2 rounded-lg text-base font-semibold hover:bg-gray-100 hover:text-gray-900"
+    - active = "text-secondary px-3 py-2 rounded-lg text-base font-semibold bg-gray-fb bg-opacity-50"
+    - inactive = "text-gray-900 px-3 py-2 rounded-lg text-base font-semibold hover:bg-gray-fb hover:text-gray-900"
+    = link_to "Industries", industry_categories_path, class: "#{request.path.starts_with?(industry_categories_path) ? "#{active}" : "#{inactive}"}"
+    = link_to "Occupations", occupation_categories_path, class: "#{request.path.starts_with?(occupation_categories_path) ? "#{active}" : "#{inactive}"}"
+    = link_to "Products", products_path, class: "#{request.path.starts_with?(products_path) ? "#{active}" : "#{inactive}"}"
