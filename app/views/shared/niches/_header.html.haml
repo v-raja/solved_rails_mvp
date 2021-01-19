@@ -5,7 +5,8 @@
       = link_to(niche_type.pluralize, [niche_type.downcase.to_sym, :categories], class: breadcrumb_class)
       %div{class: "mx-1"}
         = " > "
-      - subsector = niche.category.parent.parent
+      - subsector = niche.category.parent
+      - subsector = subsector.parent unless niche_type == "Occupation"
       -# - subsector_code = (niche_type == "Industry" ? (niche.code.to_i / 100) : niche.code[0] = '0')
       -# - subsector = (niche_type + "Category").constantize.find_by(code: subsector_code).parent
       = link_to(subsector.title, subsector, class: breadcrumb_class)
@@ -27,7 +28,7 @@
         = link_to_unless_current("Solutions", niche, class: "#{inactive}") do link_to 'Solutions', niche, class: "#{active}" end
         = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
         = link_to_unless_current("Search", [niche, :search], class: "#{inactive}") do link_to("Search", [niche, :search], class: "#{active}") end
-      %nav{class: "space-x-1 flex items-center"}
+      %nav{class: "space-x-2 flex items-center text-sm"}
         -# = link_to_unless_current("Requests", [niche, :requests], class: "hidden") do link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded") end
         -# = link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded")
         = link_to new_solution_path(type: niche_type, code: niche.code) do
