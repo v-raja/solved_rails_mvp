@@ -22,22 +22,6 @@
               - @solution.tag_list.each do |tag|
                 %div{class: "ml-1 text-gray-600 text-xs border border-gray-400 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
                   = tag
-          -# - if @solution.industries.any?
-            -# %div{class: "flex-shrink-0 mt-1 flex items-center w-max text-xs text-gray-600"}
-            -#   %div{class: ""}
-            -#     Industries
-            -#   - @solution.industries.each do |industry|
-            -#     = link_to industry do
-            -#       %div{class: "ml-1 text-gray-600 text-xs border border-gray-400 px-1 py-0.5 bg-white rounded-sm hover:text-gray-900 hover:border-gray-700"}
-            -#         = industry.title
-          -# - if @solution.occupations.any?
-          -#   %div{class: "mt-1 flex items-center w-max text-xs text-gray-600 pr-4"}
-          -#     %div{class: ""}
-          -#       Occupations
-          -#     - @solution.occupations.each do |occupation|
-          -#       = link_to occupation do
-          -#         %div{class: "flex-shrink-0 ml-1 text-gray-600 text-xs border border-gray-400 px-1 py-0.5 bg-white rounded-sm hover:text-gray-900 hover:border-gray-700"}
-          -#           = occupation.title
 
     %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
 
@@ -53,8 +37,15 @@
         %div{class: "mt-2 flex space-x-2"}
           - @solution.youtube_urls.each_with_index do |yt_utl, idx|
             = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
-        %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
-          = @solution.description.gsub(/\n/, '<br/>').html_safe
+        %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm flex items-start justify-between"}
+          %div
+            = @solution.description_safe_html.html_safe
+          - if policy(@solution).update?
+            %div{class: "flex-shrink-0 flex"}
+              = link_to "Edit", edit_solution_path(@solution), class: "text-blue-600 hover:text-blue-700 hover:underline"
+              - if policy(@solution).destroy?
+                %div{class: "ml-2"}
+                  = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
         %div{class: "mt-3 text-sm"}
           Have a question about this solution? Discuss below.
         -# = <iframe width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{video_id}"       frameborder="0"></iframe>
@@ -88,17 +79,34 @@
 
       -# Maker / Hunter
       %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
-        %div{class: "w-full uppercase text-gray-600 text-xs"}
-          Solver
-        %div{class: "mt-4 w-full flex"}
+        %div{class: "w-full text-gray-600 text-xs uppercase"}
+          Solved by
+        %div{class: "mt-2 w-full flex"}
           -# = link_to @solution.user do
-          %div{class: "w-8 h-8 flex-shrink-0"}
-            = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
-          %div{class: "ml-2 flex flex-wrap justify-between"}
-            %div{class: "w-full text-xs text-black font-medium"}
-              = @solution.user.name
-            %div{class: "text-xs text-gray-600"}
-              = @solution.user.bio
+          - if @solution.user.bio.blank?
+            %div{class: " flex items-center"}
+              -# = link_to @solution.user do
+              %div{class: "w-8 h-8 flex-shrink-0"}
+                = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
+              %div{class: "ml-2 w-full text-md text-black font-medium"}
+                = @solution.user.name
+          - else
+            %div{class: " flex"}
+              %div{class: "w-8 h-8 flex-shrink-0"}
+                = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
+              %div{class: "ml-2 flex flex-wrap justify-between"}
+                %div{class: "w-full text-sm text-black font-medium"}
+                  = @solution.user.name
+                %div{class: "text-xs text-gray-600"}
+                  = @solution.user.bio
+
+          -# %div{class: "w-8 h-8 flex-shrink-0"}
+          -#   = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
+          -# %div{class: "ml-2 flex flex-wrap justify-between"}
+          -#   %div{class: "w-full text-xs text-black font-medium"}
+          -#     = @solution.user.name
+          -#   %div{class: "text-xs text-gray-600"}
+          -#     = @solution.user.bio
 
 
       %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}

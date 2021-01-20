@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_084814) do
+ActiveRecord::Schema.define(version: 2021_01_19_221335) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_084814) do
     t.integer "rgt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "body_safe_html"
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -90,6 +92,35 @@ ActiveRecord::Schema.define(version: 2021_01_17_084814) do
     t.index ["solution_id"], name: "index_industry_solutions_on_solution_id"
   end
 
+  create_table "notable_jobs", force: :cascade do |t|
+    t.string "note_type"
+    t.text "note"
+    t.text "job"
+    t.string "job_id"
+    t.string "queue"
+    t.float "runtime"
+    t.float "queued_time"
+    t.datetime "created_at"
+  end
+
+  create_table "notable_requests", force: :cascade do |t|
+    t.string "note_type"
+    t.text "note"
+    t.string "user_type"
+    t.bigint "user_id"
+    t.text "action"
+    t.integer "status"
+    t.text "url"
+    t.string "request_id"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.text "params"
+    t.float "request_time"
+    t.datetime "created_at"
+    t.index ["user_type", "user_id"], name: "index_notable_requests_on_user_type_and_user_id"
+  end
+
   create_table "occupation_categories", force: :cascade do |t|
     t.text "title"
     t.text "description"
@@ -137,6 +168,17 @@ ActiveRecord::Schema.define(version: 2021_01_17_084814) do
     t.index ["slug"], name: "index_occupations_on_slug", unique: true
   end
 
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
   create_table "products", force: :cascade do |t|
     t.text "name"
     t.text "thumbnail_url"
@@ -160,6 +202,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_084814) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
+    t.text "description_safe_html"
     t.index ["slug"], name: "index_requests_on_slug", unique: true
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -181,6 +224,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_084814) do
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
     t.boolean "is_creator", default: false
+    t.text "description_safe_html"
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
     t.index ["user_id"], name: "index_solutions_on_user_id"

@@ -28,7 +28,7 @@
       %div{class: "font-bold pt-1"}
         = request.title
       %div{class: "pt-3"}
-        = request.description.gsub(/\n/, '<br/>').html_safe
+        = request.description_safe_html.html_safe
       %div{class: "flex items-center text-xs px-2 py-1 text-gray-700 font-semibold w-min rounded-lg",
            hover: "bg-gray-100"}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">

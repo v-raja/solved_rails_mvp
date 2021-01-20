@@ -30,3 +30,5 @@ production:
   database: solved_production
   username: vivek
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  variables:
+    statement_timeout: <%= ENV["STATEMENT_TIMEOUT"] || "5s" %>

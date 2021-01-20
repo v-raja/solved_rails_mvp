@@ -34,4 +34,4 @@
       -#     %div{class: "w-full text-lg font-medium"}
       -#       About this Industry
       -#     %div{class: "py-1 w-full rounded-lg text-sm "}
-      -#       = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe
+      -#       = simple_format @niche.description_safe_html.html_safe

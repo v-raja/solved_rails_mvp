@@ -1,105 +1,33 @@
--# - @render_shadow = true unless !@render_shadow.nil?
-
--# - if local_assigns.has_key? :render_shadow
--#   - render_shadow = local_assigns[:render_shadow]
--# - render_shadow = (render_shadow.nil? ? true : render_shadow)
--# - render_shadow = false
--# ---- HEADER ----
 %div{class: "bg-white sticky top-0 z-40"}
   %div{class: "flex justify-center border-0 px-4 shadow-sm md:px-0"}
     %div{data: { controller: "toggle"},
         class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
-      %div{class: "flex justify-between items-center"}
-        %div{class: "fill-current h-8 w-28"}
-          -# Logo
+      %div{class: "fill-current h-8 w-28"}
+        -# Logo
+        = link_to (svg_tag "logo"), root_path
 
-          = link_to (svg_tag "logo"), "/"
-          -# <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 81"><path d="M23.40 80.90C36.20 80.90 43.20 73.60 43.20 64.80C43.20 54.50 34.50 51.30 26.60 48.30C20.50 46.00 14.90 44.10 14.90 38.90C14.90 34.70 18.10 31.10 25 31.10C29.80 31.10 33.60 33.10 37.30 35.90L41.70 30.00C37.50 26.70 31.60 23.90 24.90 23.90C13.10 23.90 6.10 30.70 6.10 39.30C6.10 48.50 14.40 52.20 22 55.00C28 57.30 34.40 59.70 34.40 65.30C34.40 70 30.90 73.80 23.70 73.80C17.20 73.80 12.30 71.20 7.60 67.40L3.10 73.40C8.30 77.70 15.70 80.90 23.40 80.90ZM77.10 80.90C90.40 80.90 102.30 70.50 102.30 52.50C102.30 34.40 90.40 23.90 77.10 23.90C63.80 23.90 51.90 34.40 51.90 52.50C51.90 70.50 63.80 80.90 77.10 80.90ZM77.10 73.30C67.70 73.30 61.40 65 61.40 52.50C61.40 40.00 67.70 31.50 77.10 31.50C86.50 31.50 92.90 40.00 92.90 52.50C92.90 65 86.50 73.30 77.10 73.30ZM126.20 80.90C128.70 80.90 130.20 80.60 131.50 80.10L130.20 73.10C129.20 73.30 128.80 73.30 128.30 73.30C126.90 73.30 125.70 72.20 125.70 69.40L125.70 0L116.60 0L116.60 68.80C116.60 76.50 119.40 80.90 126.20 80.90ZM156.80 79.60L167.40 79.60L186.70 25.30L177.70 25.30L167.40 56.20C165.80 61.50 164.10 67.10 162.40 72.20L162 72.20C160.30 67.10 158.60 61.50 156.90 56.20L146.70 25.30L137.20 25.30ZM218.70 80.90C226.10 80.90 231.90 78.40 236.70 75.30L233.40 69.30C229.40 72.00 225.10 73.60 219.80 73.60C209.50 73.60 202.40 66.20 201.80 54.60L238.40 54.60C238.60 53.30 238.80 51.40 238.80 49.40C238.80 33.90 231 23.90 217.20 23.90C204.60 23.90 192.70 34.90 192.70 52.50C192.70 70.40 204.30 80.90 218.70 80.90ZM201.70 48.00C202.80 37.40 209.60 31.20 217.30 31.20C225.80 31.20 230.80 37.10 230.80 48.00ZM270.70 80.90C277.20 80.90 282.90 77.40 287.20 73.20L287.50 73.20L288.30 79.60L295.70 79.60L295.70 0L286.70 0L286.70 20.90L287.10 30.30C282.30 26.30 278.20 23.90 271.80 23.90C259.40 23.90 248.30 34.90 248.30 52.50C248.30 70.60 257.10 80.90 270.70 80.90ZM272.70 73.30C263.10 73.30 257.70 65.50 257.70 52.40C257.70 40.00 264.60 31.60 273.40 31.60C277.90 31.60 282 33.20 286.70 37.30L286.70 65.80C282.10 70.80 277.70 73.30 272.70 73.30Z"></path></svg>
-          -# fill="#1fd58f"
-          -# <svg xmlns="http://www.w3.org/2000/svg"><path d="M6.008 25.155c1.625.758 3.239 1.137 4.842 1.137 2.08 0 3.532-.39 4.355-1.17.845-.801 1.268-1.69 1.268-2.665 0-.801-.228-1.462-.683-1.982a4.372 4.372 0 00-1.592-1.203c-.607-.281-1.387-.563-2.34-.845-.867-.26-1.506-.498-1.918-.715-.39-.216-.585-.498-.585-.845 0-.325.163-.574.488-.747.325-.173.964-.26 1.917-.26.867 0 1.972.195 3.315.585l.78-2.405a17.731 17.731 0 00-1.982-.487 10.956 10.956 0 00-2.146-.228c-2.101 0-3.51.357-4.224 1.073-.715.693-1.073 1.473-1.073 2.34 0 .888.238 1.625.715 2.21.477.563 1.04.996 1.69 1.3.65.281 1.452.563 2.405.845.802.26 1.376.476 1.723.65.346.173.52.4.52.682 0 .412-.185.715-.553.91-.368.195-1.008.293-1.918.293-.498 0-1.126-.087-1.884-.26a20.363 20.363 0 01-2.243-.65l-.877 2.437zM24.768 26.293c1.279 0 2.405-.271 3.38-.813a5.743 5.743 0 002.243-2.308c.541-.974.812-2.101.812-3.38 0-1.971-.585-3.542-1.755-4.712-1.148-1.17-2.697-1.755-4.647-1.755-1.95 0-3.51.585-4.68 1.755-1.17 1.148-1.755 2.73-1.755 4.745 0 1.257.26 2.373.78 3.348a6.038 6.038 0 002.242 2.307c.975.542 2.102.813 3.38.813zm0-10.53c.91 0 1.668.357 2.275 1.072.629.693.943 1.69.943 2.99 0 1.278-.304 2.264-.91 2.957-.585.694-1.355 1.04-2.308 1.04-.91 0-1.668-.346-2.275-1.04-.606-.715-.91-1.7-.91-2.957 0-1.278.304-2.275.91-2.99.629-.715 1.387-1.073 2.275-1.073zM38.376 23.855c-.542 0-.921-.163-1.138-.488-.195-.346-.292-.845-.292-1.495V8.125H33.89v14.657c0 2.34 1.061 3.51 3.184 3.51a6.57 6.57 0 002.795-.617v-2.047c-.563.151-1.061.227-1.494.227zM49.807 13.52l-2.925 9.198-2.957-9.198h-3.478L45.257 26h3.153l4.647-12.48h-3.25zM60.3 13.325c-1.019 0-1.972.27-2.86.813-.867.52-1.571 1.278-2.113 2.275-.541.974-.812 2.112-.812 3.412 0 1.95.563 3.52 1.69 4.713 1.126 1.191 2.762 1.787 4.907 1.787 1.539 0 3.012-.25 4.42-.747l-.552-2.113c-1.04.26-2.189.39-3.445.39-1.192 0-2.113-.206-2.763-.617-.65-.412-1.018-1.149-1.105-2.21h8.483v-1.203c0-2.015-.51-3.597-1.528-4.745-.996-1.17-2.437-1.755-4.322-1.755zm.065 2.438c.801 0 1.451.27 1.95.812.498.52.747 1.278.747 2.275h-5.33c.044-.975.325-1.733.845-2.275.542-.542 1.138-.813 1.788-.813zM77.09 13.845c-.78-.347-1.766-.52-2.957-.52-.932 0-1.864.217-2.795.65-.932.433-1.723 1.138-2.373 2.112-.628.976-.942 2.21-.942 3.706 0 1.993.563 3.575 1.69 4.745 1.148 1.17 2.708 1.755 4.68 1.755 1.126 0 2.242-.325 3.347-.976l.228.683h2.242V8.125h-3.12v5.72zm-2.242 1.917c.845 0 1.592.141 2.242.423v7.053c-.628.411-1.343.617-2.145.617-1.127 0-2.026-.303-2.697-.91-.672-.607-1.008-1.603-1.008-2.99 0-2.795 1.203-4.192 3.608-4.192z"/></svg>
-        -# %button{c: "inline-flex text-black bg-gray-100 border-0 border-black rounded-full shadow px-3 items-center ",
-        -#         f: "shadow-outline outline-none",
-        -#         h: "scale-110 shadow-lg",
-        -#         data: { action: "click->toggle#toggle touch->toggle#toggle" }}
-        %div{class: "ml-4"}
-          = link_to "Explore", industry_categories_path, class: "text-sm leading-none px-2 py-2 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 "
-          -# "text-base text-gray-600 px-2 hover:text-black hover:bg-white #{add_class_if_path_is_base("/explore", "text-black")}"
-
-        -# %div{c: "flex",
-        -#     sm: "hidden"}
-        -#   -# Burger Button
-        -#   %button{class: "px-3 text-black transition duration-100 ease-in-out transform", type: "button",
-        -#     f: "outline-none",
-        -#     h: "scale-110",
-        -#     sm: "hidden",
-        -#     data: { action: "click->toggle#toggle touch->toggle#toggle" }}
-        -#     <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        -#     <path data-target="toggle.toggleable" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        -#     <path data-target="toggle.toggleable" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        -#     </svg>
-      -# = form_with url: '/search', method: "get", local: true, class: "w-full flex flex-col items-center", id: "search-form" do
-      -#     %div{c: "mt-8 w-1/2"}
-      -#       = render 'shared/search'
-      -#     %div{c: "mt-6"}
-      -#       %button{class: "px-4 py-2 bg-gray-100 rounded-md text-gray-800 ring-2 ring-transparent ring-inset",
-      -#               hover: "ring-gray-700 shadow-lg",
-      -#               focus: "ring-gray-700 shadow-lg"}
-      -#         Search
-
-      %div{c: "justify-self-center w-full ml-4"}
+      %div{c: "justify-self-center w-1/2 ml-4"}
         #searchbox
 
-        -# #q
-        -# = form_with url: '/niches', method: "get", local: true, class: "w-full flex flex-col items-center", id: "search-form" do
-        -#   %div{c: "block relative w-full"}
-        -#     %div{c: "absolute inset-y-0 left-0 flex items-center pl-3 z-50"}
-        -#       <svg class="w-6 h-6 text-gray-600 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-        -#       <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-        -#       </svg>
-        -# %input{c: "bg-gray-200 text-gray-900 pl-10 pr-4 rounded-lg w-full block border-2 border-gray-200",
-        -#         h: "bg-white outline-none border-gray-200 shadow-xs",
-        -#         f: "bg-white outline-none border-gray-400 shadow-xs",
-        -#         name: "query",
-        -#         type: "text",
-        -#         id: "q",
-        -#         autocomplete: "off",
-        -#         autocorrect: "off",
-        -#         autocapitalize: "none",
-        -#         placeholder: "Search for your industry or occupation, or for a product",
-        -#         spellcheck: "false"}
+      %nav{class: "flex items-center space-x-2"}
+        = link_to "Explore", industry_categories_path, class: "text-sm leading-none px-2 py-2 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 "
 
-      %nav{data: { target: "toggle.toggleable" },
-            class: "hidden sm:block sm:flex sm:items-center sm:pl-4 sm:justify-self-end sm:flex-shrink-0" }
-        -# c: "hidden",
-        -# sm: "hidden sm:block sm:flex sm:items-center sm:pl-4 sm:justify-self-end sm:flex-shrink-0" }
-        - if user_signed_in?
-          %div{class: "px-2 pt-2 pb-5 border-b border-gray-500 sm:flex sm:border-b-0 sm:text-sm sm:py-0 sm:px-0"}
-            -# sm: "flex border-b-0 text-sm py-0 px-0",}
-            = link_to "New Request" , new_request_path, class: "leading-none px-2 py-2 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2"
-          -# = link_to "Become an affiliate" , '#', class: "px-3 py-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 sm:ml-2"
-          -# = link_to "Why sell on solved?" , '#', class: "px-3 py-1 mt-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:mt-0 sm:px-2 sm:ml-2"
-          -# = link_to "Your purchases"      , '#', class: "px-3 py-1 mt-1 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:mt-0 sm:px-2 sm:ml-2"
-        %div{class: "px-0 py-0"}
-          %div{class: "flex items-center ml-4 space-x-3 text-sm"}
-            - if user_signed_in?
-              = link_to destroy_user_session_path, method: :delete do
-                = image_tag current_user.thumbnail_url, class: "object-cover rounded-full border-2 border-gray-600 w-8 h-8"
-            - else
-              = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
-              = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-1 px-2 bg-secondary hover:bg-opacity-90"
-              -# = link_to new_user_session_path do
-                -# = svg_tag 'login', class: "text-gray-500 w-8 h-8 hover:text-gray-900"
-                -# %div{class: "text-gray-600 hover:text-gray-900 text-sm"}
-                -#   Log In / Sign Up
-            -# = image_tag 'https://avatar.oxro.io/avatar.svg?name=IS', class: "rounded-full w-10 h-10 border-2 border-gray-600 sm:w-8 sm:h-8"
-            -# %span{class: "ml-4  text-gray-900 font-semibold", sm: "hidden"}
-            -#   Isla Schoger
-          %div{class: "mt-5  text-gray-900 sm:hidden"}
-            -# sm: "hidden"}
-            = link_to "Account settings", '#', class: "block hover:text-secondary"
-            = link_to "Support"         , '#', class: "mt-3 block hover:text-secondary"
-            = link_to "Sign out"        , '#', class: "mt-3 block hover:text-secondary"
-        %div{c: "py-2 block bg-white"}
-    -# ---- HEADER END ----
+        -if user_signed_in?
+          = link_to "New Request" , new_request_path, class: "text-sm leading-none px-1 py-2  block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2"
+          = link_to "New Solution" , new_solution_path, class: "text-sm leading-none px-1 py-2  block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2"
 
-  -# %div{class: "#{@render_shadow ? "h-2 bg-gray-fb" : nil}"}
+          %div{class: "relative", "data-controller": "dropdown"}
+            %div{"data-action": "mouseover->dropdown#show click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
+              %span{class: "flex items-center inline-block text-gray-700"}
+                - if current_user
+                  = image_tag current_user.thumbnail_url, class: "object-cover rounded-full w-8 h-8 ring ring-white hover:ring-gray-400 hover:ring-opacity-70"
+
+            %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2"}
+              %div{class: "overflow-hidden bg-white border rounded shadow"}
+                = link_to 'Profile',  edit_user_registration_path, class: 'no-underline block pl-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+                = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'no-underline block px-8 py-3 border-t text-gray-900 bg-white  hover:bg-gray-300 whitespace-no-wrap'
+        - else
+          %div{class: "ml-2"}
+          = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
+          = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-1 px-2 bg-secondary hover:bg-opacity-90"
+

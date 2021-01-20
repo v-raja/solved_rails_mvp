@@ -157,7 +157,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      ringColor: ['hover'],
+      ringOpacity: ['hover']
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

@@ -30,6 +30,14 @@ module ApplicationHelper
     # byebug
     link_to(name, 'javascript:;', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n", "")}, id: args[:id])
   end
+
+  def niche_types
+    ["Industry", "Occupation"]
+  end
+
+  def niche_type
+    params[:type] if params[:type].in? niche_types
+  end
 end
 
 

@@ -31,3 +31,23 @@
 
 en:
   hello: "Hello world"
+
+en:
+  pundit:
+    default:
+      title: 'You cannot perform this action.'
+      body: 'Please contact us if you think this is a mistake.'
+    solution_policy:
+      edit?:
+        title: 'You cannot edit this solution!'
+        body: 'You must be the creator of the solution to edit it.'
+      update?:
+        title: 'You cannot edit this solution!'
+        body: 'You must be the creator of the solution to edit it.'
+      new?:
+        title: 'You cannot create solutions!'
+        body: 'Please log in or sign up to continue.'
+      create?:
+        title: 'You cannot create solutions!'
+        body: 'Please log in or sign up to continue.'
+

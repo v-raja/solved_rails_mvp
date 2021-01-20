@@ -43,7 +43,13 @@ gem "figaro"
 gem 'devise_invitable', '~> 2.0.0'
 gem 'postmark-rails'
 gem "view_component", require: "view_component/engine"
-
+gem 'strong_migrations'
+gem 'pghero'
+gem 'pg_query', '>= 0.9.0'
+gem 'redcarpet'
+gem 'goldiloader'
+gem 'notable'
+gem 'pundit'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -58,6 +64,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate'
+  gem 'letter_opener'
+  gem 'brakeman'
+  gem 'rails_real_favicon'
 end
 
 group :test do

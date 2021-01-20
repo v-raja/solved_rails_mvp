@@ -22,6 +22,14 @@ class Request < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
+  class << self
+    def markdown
+      Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(no_images: true, no_styles: true, safe_links_only: true, hard_wrap: true, filter_html: true), auto_link: true, no_intra_emphasis: true, strikethrough: true)
+    end
+  end
+
+  before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
+
   belongs_to :user
   validates_presence_of :title, :description
 
@@ -65,6 +73,12 @@ class Request < ApplicationRecord
       :title,
       [:title, :id]
     ]
+  end
+
+  def assign_description_safe_html
+    assign_attributes({
+      description_safe_html: self.class.markdown.render(description.gsub(/\n/, '&nbsp;'))
+    })
   end
 
 end

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-
+  authenticate :user, -> (user) { user.admin? } do
+    mount PgHero::Engine, at: "pghero"
+  end
 
   root to: 'search#home'
   get 'recent', to: 'search#recent'
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   get 'requests/recent', to: 'search#requests_recent'
 
 
-  resources :industries, type: "Industry", path: "/i" do
+  resources :industries, only: [], type: "Industry", path: "/i" do
     # , to: 'search#index'
     # resources :search, only: [:index] # to generate the view helpers
     # resources :requests, only: [:index]
@@ -19,18 +21,17 @@ Rails.application.routes.draw do
 
   # root to: 'industry_categories#index'
 
-  resources :occupations, type: "Occupation", path: "/o" do
+  resources :occupations, only: [], type: "Occupation", path: "/o" do
     get "/", to: "solutions#niche_index"
     get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
   end
 
-  resources :categories
-  resources :products
+  resources :products, only: [:index, :show]
 
 
   post 'solutions/new', to: 'solutions#create'
-  resources :solutions do
+  resources :solutions, except: [:index] do
     collection do
       get 'preview_industries'
       get 'preview_occupations'

@@ -1,4 +1,4 @@
 %div{data: { controller: "toggle" }}
-  = comment.body.gsub(/\n/, '<br/>').html_safe
+  = comment.body_safe_html.html_safe
   %div{class: "mt-1 flex text-xs text-gray-600 flex items-center space-x-2"}
     = time_ago_in_words(comment.created_at)

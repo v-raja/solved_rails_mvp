@@ -16,6 +16,14 @@
 #  updated_at       :datetime         not null
 #
 class Comment < ActiveRecord::Base
+  class << self
+    def markdown
+      Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(no_images: true, no_styles: true, safe_links_only: true, hard_wrap: true, filter_html: true), auto_link: true, no_intra_emphasis: true, strikethrough: true)
+    end
+  end
+
+  before_save :assign_body_safe_html , if: -> { body_changed? || body_safe_html.nil? }
+
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 
   validates :body, :presence => true
@@ -59,5 +67,13 @@ class Comment < ActiveRecord::Base
   # given the commentable class name and id
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
+  end
+
+  private
+
+  def assign_body_safe_html
+    assign_attributes({
+      body_safe_html: self.class.markdown.render(body.gsub(/\n/, '&nbsp;'))
+    })
   end
 end

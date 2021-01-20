@@ -22,7 +22,7 @@ application.load(definitionsFromContext(context))
 
 // Import and register all TailwindCSS Components
 import { Dropdown, Modal, Tabs, Popover, Toggle, Slideover } from "tailwindcss-stimulus-components"
-application.register('dropdown', Dropdown)
+// application.register('dropdown', Dropdown)
 application.register('modal', Modal)
 application.register('tabs', Tabs)
 application.register('popover', Popover)

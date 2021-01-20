@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def random_thumbnail_bg_color
-    colors = ["#E284B3", "#FFED8B",  "#681313", "#F3C1C6",  "#735372",  "#009975", "#FFBD39", "#B1E8ED", "#52437B", "#F76262", "#216583", "#293462", "#DD9D52", "#936B93", "#6DD38D", "#888888", "#6F8190", "#BCA0F0", "#AAF4DD", "#96C2ED", "#3593CE", "#5EE2CD", "#96366E", "#E38080"]
+    colors = ["E284B3", "FFED8B",  "681313", "F3C1C6",  "735372",  "009975", "FFBD39", "B1E8ED", "52437B", "F76262", "216583", "293462", "DD9D52", "936B93", "6DD38D", "888888", "6F8190", "BCA0F0", "AAF4DD", "96C2ED", "3593CE", "5EE2CD", "96366E", "E38080"]
     colors.sample
   end
 end

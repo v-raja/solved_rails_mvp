@@ -1,20 +1,14 @@
 class SolutionsController < ApplicationController
-  before_action :authenticate_user!, only: [:upvote, :remove_upvote]
   before_action :set_solution, only: [:show, :edit, :update, :destroy, :upvote,
                                   :remove_upvote]
 
   before_action :set_niche, only: [:niche_index]
 
-  # GET /solutions
-  # GET /solutions.json
-  def index
-    @solutions = Solution.all
-  end
-
   def niche_index
   end
 
   def upvote
+    authorize @solution
     @solution.liked_by current_user
     respond_to do |format|
       format.js
@@ -22,6 +16,7 @@ class SolutionsController < ApplicationController
   end
 
   def remove_upvote
+    authorize @solution
     @solution.unliked_by current_user
     respond_to do |format|
       format.js
@@ -55,11 +50,13 @@ class SolutionsController < ApplicationController
 
   # GET /solutions/1/edit
   def edit
+    authorize @solution
   end
 
   # GET /solutions/new
   def new
     @solution = Solution.new
+    authorize @solution
 
     @solution.youtube_urls.build
     @solution.build_product
@@ -68,24 +65,25 @@ class SolutionsController < ApplicationController
   # POST /solutions
   # POST /solutions.json
   def create
-    # byebug
-    # p tags_string_param
+    authorize Solution
     @solution = current_user.solutions.build(solution_params)
 
     if solution_params[:product_id].blank?
       @solution.build_product(product_params)
     end
 
+    @solution.tag_list.add(params[:tags_string], parse: true)
+
     industries = IndustryCategory.get_industries_from_string(params[:industries])
     industries.each do |industry|
       @solution.post_to_industry(industry)
-      industry.tag_list.add(params[:solution][:tags_string], parse: true)
+      industry.tag_list.add(params[:tags_string], parse: true)
     end
 
     occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
     occupations.each do |occupation|
       @solution.post_to_occupation(occupation)
-      occupation.tag_list.add(params[:solution][:tags_string], parse: true)
+      occupation.tag_list.add(params[:tags_string], parse: true)
     end
 
     respond_to do |format|
@@ -106,6 +104,7 @@ class SolutionsController < ApplicationController
   # PATCH/PUT /solutions/1
   # PATCH/PUT /solutions/1.json
   def update
+    authorize @solution
     respond_to do |format|
       if @solution.update(solution_params)
         format.html { redirect_to @solution, notice: 'Solution was successfully updated.' }
@@ -120,9 +119,10 @@ class SolutionsController < ApplicationController
   # DELETE /solutions/1
   # DELETE /solutions/1.json
   def destroy
+    authorize @solution
     @solution.destroy
     respond_to do |format|
-      format.html { redirect_to solutions_url, notice: 'Solution was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Solution was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -135,7 +135,7 @@ class SolutionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solution_params
-      params.require(:solution).permit(:title, :description, :product_id, :get_it_url, product_attributes: [:name, :thumbnail_url], youtube_urls_attributes: [:_destroy, :id, :url])
+      params.require(:solution).permit(:title, :description, :product_id, :get_it_url, niche_list: [], product_attributes: [:name, :thumbnail_url], youtube_urls_attributes: [:_destroy, :id, :url])
     end
 
     def product_params

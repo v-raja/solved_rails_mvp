@@ -22,6 +22,14 @@
 #
 class Solution < ApplicationRecord
 
+  class << self
+    def markdown
+      Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(no_images: true, no_styles: true, safe_links_only: true, hard_wrap: true), auto_link: true, no_intra_emphasis: true, strikethrough: true)
+    end
+  end
+
+  before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -121,6 +129,26 @@ class Solution < ApplicationRecord
     # end
   end
 
+  def niche_list
+    # self.industries.map(&:code).join(', ')
+    self.industries + self.occupations
+    # + ', ' + self.occupations.map(&:code).join(', ')
+  end
+
+  def niche_list=(codes)
+    industries = []
+    occupations = []
+    codes.reject!(&:blank?).map do |code|
+      if industry = Industry.where(code: code).first
+        industries << industry
+      elsif occupation = Occupation.where(code: code).first
+        occupations << occupation
+      end
+    end
+    self.industries = industries
+    self.occupations = occupations
+  end
+
   def post_to_industry(industry)
     industries << industry
   end
@@ -167,6 +195,13 @@ class Solution < ApplicationRecord
       :title,
       [:title, :id]
     ]
+  end
+
+
+  def assign_description_safe_html
+    assign_attributes({
+      description_safe_html: self.class.markdown.render(description.gsub(/\n/, "&nbsp;\n"))
+    })
   end
 
   # def check_if_product_exists(product_attr)

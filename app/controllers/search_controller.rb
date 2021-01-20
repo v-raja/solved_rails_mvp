@@ -1,5 +1,7 @@
 class SearchController < ApplicationController
   before_action :set_niche, only: [:niche_index]
+  skip_after_action :verify_authorized
+
 
   def niche_index
 

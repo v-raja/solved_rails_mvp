@@ -44,7 +44,7 @@
           %div{class: "pl-3 pr-9 font-semibold mt-2 w-full two-lines-only"}
             = request.title
           %div{class: "pl-3 pr-9 mt-1 read-more w-full"}
-            = request.description.gsub(/\n/, '<br/>').html_safe
+            = request.description_safe_html.html_safe
           %div{class: "ml-3 mr-9 px-1 mt-2 mb-2 w-full flex items-center text-xs px-1 text-gray-700 font-semibold w-min rounded-lg",
               hover: "bg-gray-300"}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">

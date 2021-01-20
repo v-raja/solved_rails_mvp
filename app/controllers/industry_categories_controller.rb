@@ -1,5 +1,6 @@
 class IndustryCategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  skip_after_action :verify_authorized
 
   # GET /categories
   # GET /categories.json

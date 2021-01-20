@@ -12,6 +12,7 @@
     "autoprefixer": "^9",
     "jquery": "^3.5.1",
     "postcss": "^7",
+    "select2": "^4.0.13",
     "stimulus": "^2.0.0",
     "stimulus-data-bindings": "^1.3.0",
     "tailwindcss": "yarn:@tailwindcss/postcss7-compat",

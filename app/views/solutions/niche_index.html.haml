@@ -36,4 +36,4 @@
             %div{class: "w-full text-base font-bold text-sm text-secondary"}
               = "About #{niche_type}"
             %div{class: "py-1 w-full rounded-lg text-sm"}
-              = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe
+              = simple_format @niche.description

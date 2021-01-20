@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+  after_action :verify_authorized, except: [:show, :niche_index], unless: :devise_controller?
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?
 
@@ -24,6 +30,16 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || super
+    before_sign_in_path = stored_location_for(resource_or_scope)
+    before_sign_in_path.nil? ? super : before_sign_in_path
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    # flash[:notice] = {title: "Hello", body: "Hi"}
+    title = t "#{policy_name}.#{exception.query}.title", scope: "pundit", default: (t "default.title", scope: "pundit")
+    body = t "#{policy_name}.#{exception.query}.body", scope: "pundit", default: (t "default.body", scope: "pundit")
+    flash[:error] = {title: title, body: body}
+    redirect_to(request.referrer || root_path)
   end
 end
