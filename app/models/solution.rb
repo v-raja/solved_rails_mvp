@@ -48,13 +48,12 @@ class Solution < ApplicationRecord
   belongs_to :product
   accepts_nested_attributes_for :product, :reject_if => :check_if_product_exists
 
-  # validates_presence_of :product_id, :unless => "product.present?"
   validates_associated :product
   validates :get_it_url, url: { no_local: true }
 
   belongs_to :user
 
-  # default_scope { order(created_at: :desc) }
+  default_scope { order(created_at: :desc) }
 
   acts_as_commentable
   acts_as_votable cacheable_strategy: :update_columns
@@ -68,9 +67,6 @@ class Solution < ApplicationRecord
 
   scope :top,        -> { unscoped.order(cached_votes_score: :desc).order(created_at: :desc) }
 
-  scope :today_ordered_by_votes, -> { where('DATE(solutions.created_at) = ?', Date.today).order(cached_votes_score: :desc) }
-  scope :past_week_ordered_by_votes,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => Date.today }).order(cached_votes_score: :desc) }
-  scope :past_month_ordered_by_votes, -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }).order(cached_votes_score: :desc) }
 
   include AlgoliaSearch
 
@@ -129,10 +125,12 @@ class Solution < ApplicationRecord
     # end
   end
 
+  def normalize_friendly_id(string)
+    super[0..50]
+  end
+
   def niche_list
-    # self.industries.map(&:code).join(', ')
     self.industries + self.occupations
-    # + ', ' + self.occupations.map(&:code).join(', ')
   end
 
   def niche_list=(codes)
@@ -203,13 +201,5 @@ class Solution < ApplicationRecord
       description_safe_html: self.class.markdown.render(description.gsub(/\n/, "&nbsp;\n"))
     })
   end
-
-  # def check_if_product_exists(product_attr)
-  #   if _product = Product.find(product_attr['id'])
-  #     self.product = _product
-  #     return true
-  #   end
-  #   return false
-  # end
 
 end

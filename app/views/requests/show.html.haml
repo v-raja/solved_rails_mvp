@@ -1,5 +1,4 @@
--# = render 'layouts/header', render_shadow: false
-- @render_shadow = false
+
 %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
 
   -# 2 Column
@@ -15,6 +14,12 @@
         -# %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
         %div{class: "mt-4 text-sm"}
           = @request.description_safe_html.html_safe
+        - if policy(@request).update?
+          %div{class: "flex mt-4 items-center"}
+            = link_to "Edit", edit_request_path(@request), class: "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
+            - if policy(@request).destroy?
+              %div{class: "ml-2"}
+                = link_to "Delete", request_path(@request), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
 
 
     -# Right Column
@@ -35,17 +40,17 @@
 
       -# Maker / Hunter
       %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
-        -# %div{class: "text-gray-600 text-xs"}
-        -#   Posted by
+        %div{class: "text-gray-600 text-xs uppercase w-full"}
+          Posted by
         - if @request.user.bio.blank?
-          %div{class: " flex items-center"}
+          %div{class: "mt-3 flex items-center"}
             -# = link_to @solution.user do
             %div{class: "w-8 h-8 flex-shrink-0"}
               = image_tag @request.user.thumbnail_url, class: "rounded-full object-cover"
             %div{class: "ml-2 w-full text-md text-black font-medium"}
               = @request.user.name
         - else
-          %div{class: " flex"}
+          %div{class: "mt-3 flex"}
             %div{class: "w-8 h-8 flex-shrink-0"}
               = image_tag @request.user.thumbnail_url, class: "rounded-full object-cover"
             %div{class: "ml-2 flex flex-wrap justify-between"}
@@ -62,11 +67,11 @@
           - if @request.industries.any?
             - @request.industries.each do |industry|
               -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-400 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
-              = link_to industry.title, industry, class: "text-gray-700 text-xs mt-1 hover:text-black"
+              = link_to "#{industry.title} (Industry)", industry, class: "text-gray-700 text-xs mt-1 hover:text-black"
           - if @request.occupations.any?
             - @request.occupations.each do |occupation|
               -# %div{class: "text-gray-600 text-center text-xs border border-gray-400 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-              = link_to occupation.title, occupation, class: "text-gray-700 text-xs mt-1 hover:text-black"
+              = link_to "#{occupation.title} (Occupation)", occupation, class: "text-gray-700 text-xs mt-1 hover:text-black"
 
 
   -# 2 Column, Left Column

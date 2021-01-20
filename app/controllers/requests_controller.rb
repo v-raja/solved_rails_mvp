@@ -1,45 +1,35 @@
 class RequestsController < ApplicationController
-  before_action :authenticate_user!, only: [:upvote, :remove_upvote]
   before_action :set_request, only: [:show, :edit, :update, :destroy, :upvote,
-                                  :remove_upvote]
-  before_action :set_niche, only: [:niche_index]
+                                     :remove_upvote]
+  before_action :set_niche,   only: [:niche_index]
 
-  # GET /requests
-  # GET /requests.json
-  def index
-    @requests = Request.all
-  end
 
   def niche_index
   end
 
-  def preview_industries
-    niches_str = params[:niches]
-    @niches = IndustryCategory.get_industries_from_string(niches_str)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def preview_occupations
-    niches_str = params[:niches]
-    @niches = OccupationCategory.get_occupations_from_string(niches_str)
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def upvote
-    @request.liked_by current_user
+    authorize @request
     respond_to do |format|
-      format.js
+      if !current_user.voted_for? @request
+        @request.liked_by current_user
+        format.html { redirect_to @solution }
+        format.js
+      else
+        format.html { redirect_to @request, notice: "You've already upvoted the request." }
+      end
     end
   end
 
   def remove_upvote
-    @request.unliked_by current_user
+    authorize @request
     respond_to do |format|
-      format.js
+      if current_user.voted_for? @request
+        @request.unliked_by current_user
+        format.html { redirect_to @solution }
+        format.js
+      else
+        format.html { redirect_to @request, notice: "You haven't voted for the request." }
+      end
     end
   end
 
@@ -54,28 +44,20 @@ class RequestsController < ApplicationController
 
   # GET /requests/1/edit
   def edit
+    authorize @request
   end
 
   # GET /requests/new
   def new
     @request = Request.new
+    authorize @request
   end
 
   # POST /requests
   # POST /requests.json
   def create
-    # byebug
+    authorize Request
     @request = current_user.requests.build(request_params)
-
-    industries = IndustryCategory.get_industries_from_string(params[:industries])
-    industries.each do |industry|
-      @request.post_to_industry(industry)
-    end
-
-    occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
-    occupations.each do |occupation|
-      @request.post_to_occupation(occupation)
-    end
 
     respond_to do |format|
       if @request.save
@@ -91,6 +73,7 @@ class RequestsController < ApplicationController
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
+    authorize @request
     respond_to do |format|
       if @request.update(request_params)
         format.html { redirect_to @request, notice: 'Request was successfully updated.' }
@@ -105,6 +88,7 @@ class RequestsController < ApplicationController
   # DELETE /requests/1
   # DELETE /requests/1.json
   def destroy
+    authorize @request
     @request.destroy
     respond_to do |format|
       format.html { redirect_to requests_url, notice: 'Request was successfully destroyed.' }
@@ -120,7 +104,7 @@ class RequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def request_params
-      params.require(:request).permit(:title, :description)
+      params.require(:request).permit(:title, :description, niche_list: [])
     end
 
     def set_niche

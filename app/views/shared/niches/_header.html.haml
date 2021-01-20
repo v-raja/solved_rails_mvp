@@ -16,14 +16,14 @@
         = niche.title
     %div{class: "mt-2 text-gray-900 font-bold text-2xl"}
       = niche.title
-    %div{c: "text-gray-700 text-xs"}
-      - letter = (niche_type == "Industry" ? 'i' : 'o')
-      = "#{letter}/#{niche.code}"
+    -# %div{c: "text-gray-700 text-xs"}
+    -#   - letter = (niche_type == "Industry" ? 'i' : 'o')
+    -#   = "#{letter}/#{niche.code}"
     -# - active   = "py-1 border-b-2 border-primary font-medium text-gray-900 hover:bg-white hover:text-gray-900"
     -# - inactive = "py-1 text-gray-600 border-b-2 border-gray-300 hover:text-gray-900 hover:bg-white hover:border-gray-500"
     - active   = "text-secondary bg-gray-100 px-2 py-2 font-medium rounded"
     - inactive = "text-gray-700 px-2 py-2 font-medium rounded hover:bg-gray-200"
-    %div{class: "flex justify-between items-center mb-3 mt-4"}
+    %div{class: "flex justify-between items-center mb-3 mt-6"}
       %nav{class: "h-full text-base space-x-4"}
         = link_to_unless_current("Solutions", niche, class: "#{inactive}") do link_to 'Solutions', niche, class: "#{active}" end
         = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
@@ -31,7 +31,7 @@
       %nav{class: "space-x-2 flex items-center text-sm"}
         -# = link_to_unless_current("Requests", [niche, :requests], class: "hidden") do link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded") end
         -# = link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded")
-        = link_to new_solution_path(type: niche_type, code: niche.code) do
+        = link_to new_solution_path(code: niche.code) do
           -# %div{class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded leading-none"}
           %div{class: "text-gray-700 hover:text-white hover:bg-secondary px-2 py-1 font-medium rounded flex items-center"}
             New Solution
@@ -40,7 +40,7 @@
             -# </svg>
             -# %div{class: "-ml-0.5 leading-none"}
             -#   Solution
-        = link_to new_request_path(type: niche_type, code: niche.code) do
+        = link_to new_request_path(code: niche.code) do
           -# %div{class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded leading-none"}
           %div{class: "text-gray-700 hover:text-white hover:bg-secondary px-2 py-1 font-medium rounded flex items-center"}
             New Request

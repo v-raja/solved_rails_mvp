@@ -50,4 +50,17 @@ en:
       create?:
         title: 'You cannot create solutions!'
         body: 'Please log in or sign up to continue.'
+    request_policy:
+      edit?:
+        title: 'You cannot edit this request!'
+        body: 'You must be the creator of the request to edit it.'
+      update?:
+        title: 'You cannot edit this request!'
+        body: 'You must be the creator of the request to edit it.'
+      new?:
+        title: 'You cannot create requests!'
+        body: 'Please log in or sign up to continue.'
+      create?:
+        title: 'You cannot create requests!'
+        body: 'Please log in or sign up to continue.'
 

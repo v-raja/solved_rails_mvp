@@ -60,12 +60,39 @@ class Request < ApplicationRecord
     occupations << occupation
   end
 
+  def niche_list
+    self.industries + self.occupations
+  end
+
+  def normalize_friendly_id(string)
+    super[0..50]
+  end
+
+  def niche_list=(codes)
+    industries = []
+    occupations = []
+    codes.reject!(&:blank?).map do |code|
+      if industry = Industry.where(code: code).first
+        industries << industry
+      elsif occupation = Occupation.where(code: code).first
+        occupations << occupation
+      end
+    end
+    self.industries = industries
+    self.occupations = occupations
+  end
+
   private
+
 
   def atleast_one_niche
     if industries.empty? && occupations.empty?
       errors.add(:niches, "can't be empty")
     end
+  end
+
+  def should_generate_new_friendly_id?
+    title_changed? || super
   end
 
   def slug_candidates

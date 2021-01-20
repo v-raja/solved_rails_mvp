@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized(exception)
     policy_name = exception.policy.class.to_s.underscore
-    # flash[:notice] = {title: "Hello", body: "Hi"}
+
     title = t "#{policy_name}.#{exception.query}.title", scope: "pundit", default: (t "default.title", scope: "pundit")
     body = t "#{policy_name}.#{exception.query}.body", scope: "pundit", default: (t "default.body", scope: "pundit")
     flash[:error] = {title: title, body: body}

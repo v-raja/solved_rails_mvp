@@ -1,25 +1,35 @@
 class SolutionsController < ApplicationController
   before_action :set_solution, only: [:show, :edit, :update, :destroy, :upvote,
-                                  :remove_upvote]
+                                      :remove_upvote]
 
-  before_action :set_niche, only: [:niche_index]
+  before_action :set_niche,    only: [:niche_index]
 
   def niche_index
   end
 
   def upvote
     authorize @solution
-    @solution.liked_by current_user
     respond_to do |format|
-      format.js
+      if !current_user.voted_for? @solution
+        @solution.liked_by current_user
+        format.html { redirect_to @solution }
+        format.js
+      else
+        format.html { redirect_to @solution, notice: "You've already upvoted the solution." }
+      end
     end
   end
 
   def remove_upvote
     authorize @solution
-    @solution.unliked_by current_user
     respond_to do |format|
-      format.js
+      if current_user.voted_for? @solution
+        @solution.unliked_by current_user
+        format.html { redirect_to @solution }
+        format.js
+      else
+        format.html { redirect_to @solution, notice: "You haven't voted for the solution." }
+      end
     end
   end
 
@@ -28,22 +38,6 @@ class SolutionsController < ApplicationController
   def show
     if user_signed_in?
       @new_comment = Comment.build_from(@solution, current_user, "")
-    end
-  end
-
-  def preview_industries
-    niches_str = params[:niches]
-    @niches = IndustryCategory.get_industries_from_string(niches_str)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def preview_occupations
-    niches_str = params[:niches]
-    @niches = OccupationCategory.get_occupations_from_string(niches_str)
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -73,18 +67,6 @@ class SolutionsController < ApplicationController
     end
 
     @solution.tag_list.add(params[:tags_string], parse: true)
-
-    industries = IndustryCategory.get_industries_from_string(params[:industries])
-    industries.each do |industry|
-      @solution.post_to_industry(industry)
-      industry.tag_list.add(params[:tags_string], parse: true)
-    end
-
-    occupations = OccupationCategory.get_occupations_from_string(params[:occupations])
-    occupations.each do |occupation|
-      @solution.post_to_occupation(occupation)
-      occupation.tag_list.add(params[:tags_string], parse: true)
-    end
 
     respond_to do |format|
       if @solution.save

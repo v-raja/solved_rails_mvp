@@ -7,30 +7,30 @@ class SolutionPolicy
   end
 
   def upvote?
-    !user.nil?
+    @user
   end
 
   def remove_upvote?
-    !user.nil?
+    @user
   end
 
   def edit?
-    user && (solution.user == user || user.admin?)
+    update?
   end
 
   def new?
-    user
+    create?
   end
 
   def update?
-    (solution.user == user) || user.admin?
+    @user && @solution && (@solution.user == @user || @user.admin?)
   end
 
   def create?
-    user
+    @user
   end
 
   def destroy?
-    user.admin?
+    @user.admin?
   end
 end

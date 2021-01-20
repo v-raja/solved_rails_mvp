@@ -61,17 +61,17 @@ $(document).on('turbolinks:load', function() {
                   // '<div class="w-full text-sm font-bold text-black">' +
                   //   '{{{type}}}'+
                   // '</div>' +
-                  '<div class="w-full text-black leading-tight text-sm font-medium mt-1">' +
+                  '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
                     '{{{_highlightResult.title.value}}}'+
                   '</div>' +
-                  '<div class="w-full text-xs mt-0.5 text-gray-800">' +
+                  '<div class="w-full text-sm mt-0.5 text-gray-800">' +
                     '{{{type}}}' +
                   '</div>' +
                   '<div class="w-full text-xs mt-2 text-gray-600">' +
                     'Description' +
                   '</div>' +
-                  '<div class="w-full text-sm">' +
-                    '{{#helpers.snippet}}{ "attribute": "description", "highlightedTagName": "mark" }{{/helpers.snippet}}' +
+                  '<div class="w-full text-base">' +
+                    '{{#helpers.snippet}}{ "attribute": "description", "highlightedTagName": "strong" }{{/helpers.snippet}}' +
                   '</div>' +
                   '{{#display_code}}' +
                     '<div class="w-full text-sm mt-1">' +

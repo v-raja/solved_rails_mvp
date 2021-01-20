@@ -37,17 +37,23 @@
         %div{class: "mt-2 flex space-x-2"}
           - @solution.youtube_urls.each_with_index do |yt_utl, idx|
             = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
-        %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm flex items-start justify-between"}
-          %div
-            = @solution.description_safe_html.html_safe
-          - if policy(@solution).update?
-            %div{class: "flex-shrink-0 flex"}
-              = link_to "Edit", edit_solution_path(@solution), class: "text-blue-600 hover:text-blue-700 hover:underline"
-              - if policy(@solution).destroy?
-                %div{class: "ml-2"}
-                  = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
-        %div{class: "mt-3 text-sm"}
-          Have a question about this solution? Discuss below.
+        %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
+          -# - if policy(@solution).update?
+          -#   %div{class: "flex float-right"}
+          -#     = link_to "Edit", edit_solution_path(@solution), class: "text-blue-600 hover:text-blue-700 hover:underline"
+          -#     - if policy(@solution).destroy?
+          -#       %div{class: "ml-2"}
+          -#         = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
+          = @solution.description_safe_html.html_safe
+          %div{class: "mt-3 text-sm"}
+            Have a question about this solution? Discuss below.
+        - if policy(@solution).update?
+          %div{class: "flex mt-4 items-center"}
+            = link_to "Edit", edit_solution_path(@solution), class: "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
+            - if policy(@solution).destroy?
+              %div{class: "ml-2"}
+                = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
+
         -# = <iframe width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{video_id}"       frameborder="0"></iframe>
 
 
@@ -55,7 +61,7 @@
     %div{class: "flex-shrink-0 flex flex-col w-full md:w-1/3"}
       %div{class: "mt-3 flex md:mt-0"}
         %div{class: "w-2/5 flex-shrink-0"}
-          = link_to @solution.get_it_url, rel: "noopener noreferrer", target: :_blank do
+          = link_to "#{@solution.get_it_url.strip}?ref=solvedapp", target: :_blank do
             %div{class: "uppercase py-4 bg-white text-gray-900 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
               GET IT
 

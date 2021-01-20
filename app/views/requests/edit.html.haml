@@ -1,7 +1,70 @@
-%h1 Editing request
+%div{class: "flex flex-wrap justify-center px-4", data: { controller: "data-binding"} }
+  = form_with model: @request, local: true, html: {class: ""} do |f|
+    %div{class: "font-medium mt-6 text-xl"}
+      Request for a solution to your problem
+    -# 2 Column
+    %div{class: "max-w-screen-lg w-full grid grid-cols-8 gap-x-16"}
+      -# Left Column
+      %div{class: "col-span-5"}
+        %div{class: "mt-6"}
+        - if @request.errors.any?
+          %ul{class: "mb-2 list-inside list-disc text-red-500"}
+            - @request.errors.full_messages.each do |msg|
+              = content_tag(:li, msg)
 
-= render 'form'
+        %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
+          = f.text_field :title,
+            placeholder: "The title of your request...",
+            class: "mt-1 block text-lg px-2 py-2 text-gray-900 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
+          -# class: "mt-1 block font-semibold text-lg px-2 py-2 ring ring-white w-full border-white  border focus:border-white focus:ring-white"
 
-= link_to 'Show', @request
-\|
-= link_to 'Back', requests_path
+          = f.text_area :description,
+              class: "mt-4 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+              placeholder: "Describe of your problem / explain your request...",
+              rows: "15"
+          %div{class: "mt-1 text-xs"}
+            Formatting: *<strong>bold</strong>*, **<em>italic</em>**, [this will be a link](https://www.example.com)
+
+          %div{class: "mt-6 flex items-center"}
+            %div{class: ""}
+              Who is your solution relevant to?
+            %div{class: "ml-2 text-gray-600"}
+              = "- Required"
+          %div{class: "w-full mt-2"}
+            - options = options_for_select (@request.niche_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
+            = f.select :niche_list,  options, {}, {multiple: true, id: "test", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
+          %div{class: "text-gray-600 text-xs mt-1"}
+            Please refresh the page if the box above looks funky 🤪
+
+        = f.submit "Update Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-2 uppercase cursor-pointer hover:bg-opacity-90"
+
+      -# Right Column
+      %div{class: "flex flex-col text-sm col-span-3"}
+        %div{class: "bg-white w-full px-4 pb-4 mt-6 leading-relaxed text-gray-800 rounded border border-gray-400"}
+          %div{class: "mt-4 font-medium text-lg"}
+            Tips! 👇
+          %div{class: "mt-3 font-medium uppercase"}
+            Title
+          %ul{class: "mt-2 list-disc list-inside"}
+            %li= "Try to concisely state your problem."
+            -# = Our community exists to support and encourage people to learn and build things. Keep in mind that your fellow community members might have more or less experience than you but deserve just as much respect. Do not troll or harass people.
+          %div{class: "mt-4 font-medium uppercase"}
+            Description
+          -# %div{class: "mt-1 space-y-1 leading-tight pl-2"}
+          %ul.mt-2.list-disc.list-inside.space-y-1
+            Try to include details about:
+            %li= "your problem and the context around it."
+            %li= "the last time you faced the problem (the more about the where / when / why, the better!)."
+            %li= "why was [what you did to solve the problem] hard."
+            %li= "what, if anything, have you done to try and solve the problem?"
+            %li= "what don't you love about the solutions you've tried?"
+          .mt-4
+            If you don't have ideas for a request, ask yourself, "What is hardest (most painful / frustrating / dreadful) part of my job?", and then answer the questions above.
+          %div{class: "mt-4 font-semibold"}
+            Sharing
+          %ul{class: "mt-2"}
+            %li= "Use the search bar to find relevant niches to post to."
+
+
+= content_for :head do
+  = javascript_pack_tag "select2"
