@@ -33,7 +33,13 @@
       %div{class: "w-full flex flex-wrap rounded-sm"}
         %div{class: ""}
           %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
-            %div{class: "w-full text-base font-bold text-sm text-secondary"}
-              = "About #{niche_type}"
+            %div{class: "flex justify-between"}
+              %div{class: "w-full text-base font-bold text-sm text-secondary"}
+                = "About #{niche_type}"
+              - if user_signed_in?
+                - if current_user.following?(@niche)
+                  = link_to "Following", unfollow_industry_path(@niche), class: "text-sm flex-shrink-0 text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
+                - else
+                  = link_to "Follow Niche", follow_industry_path(@niche), class: "text-sm flex-shrink-0 text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
             %div{class: "py-1 w-full rounded-lg text-sm"}
-              = simple_format @niche.description
+              = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe

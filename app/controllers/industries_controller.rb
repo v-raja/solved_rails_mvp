@@ -1,6 +1,5 @@
 class IndustriesController < ApplicationController
-  before_action :set_industry, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_industry, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
 
   # GET /industries
   # GET /industries.json
@@ -8,34 +7,20 @@ class IndustriesController < ApplicationController
     @industries = Industry.all
   end
 
-  # GET /industries/1
-  # GET /industries/1.json
-  def show
-  end
-
-  # GET /industries/new
-  def new
-    @industry = Industry.new
-  end
-
   # GET /industries/1/edit
   def edit
   end
 
-  # POST /industries
-  # POST /industries.json
-  def create
-    @industry = Industry.new(industry_params)
+  def follow
+    authorize @industry
+    current_user.follow(@industry)
+    redirect_to industry_path(@industry)
+  end
 
-    respond_to do |format|
-      if @industry.save
-        format.html { redirect_to @industry, notice: 'Industry was successfully created.' }
-        format.json { render :show, status: :created, location: @industry }
-      else
-        format.html { render :new }
-        format.json { render json: @industry.errors, status: :unprocessable_entity }
-      end
-    end
+  def unfollow
+    authorize @industry
+    current_user.stop_following(@industry)
+    redirect_to industry_path(@industry)
   end
 
   # PATCH/PUT /industries/1
@@ -49,16 +34,6 @@ class IndustriesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @industry.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /industries/1
-  # DELETE /industries/1.json
-  def destroy
-    @industry.destroy
-    respond_to do |format|
-      format.html { redirect_to industries_url, notice: 'Industry was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

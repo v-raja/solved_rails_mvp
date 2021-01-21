@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { confirmations: 'confirmations' }
+  resources :users
 
   authenticate :user, -> (user) { user.admin? } do
     mount PgHero::Engine, at: "pghero"
   end
+
+  # get 'welcome', to: 'users#welcome', as: :user_welcome
+  resources :after_signup, path: "/welcome"
+
 
   root to: 'search#home'
   get 'recent', to: 'search#recent'
@@ -15,6 +20,10 @@ Rails.application.routes.draw do
     get "/", to: "solutions#niche_index"
     get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
+    member do
+      get 'follow'
+      get 'unfollow'
+    end
   end
 
   resources :occupations, only: [], type: "Occupation", path: "/o" do

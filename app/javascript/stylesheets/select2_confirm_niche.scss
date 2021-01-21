@@ -1,0 +1,87 @@
+.select2-container--default .select2-search--inline .select2-search__field {
+	@apply p-2 text-3xl border-none bg-transparent shadow-none focus:outline-none;
+}
+
+
+.select2-container--open .select2-dropdown--above {
+	/* The left and right borders of the option rows */
+	@apply border-none  ;
+}
+
+.select2-container--open .select2-dropdown--below {
+	/* The left and right borders of the option rows */
+	@apply border-none ;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+	/* Not really the border of the search textbox */
+	@apply border-none focus:outline-none;
+}
+
+.select2-container--default .select2-selection--multiple {
+	// Controls the border
+	@apply bg-transparent border-gray-600;
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+	@apply bg-transparent border-none;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+	@apply border-none ;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	// The selected boxes
+	@apply bg-white text-black text-2xl font-normal p-3;
+}
+
+.select2-results .select2-results__options .select2-results__option .select2-results__message {
+	@apply bg-transparent;
+}
+
+// .select2-results__options {
+// 	@apply grid grid-cols-4 h-screen;
+// }
+
+.select2-dropdown .select2-dropdown--below {
+	// @apply bg-gray-fb border-0;
+}
+
+#select2-select-niches-results {
+	// background for everything!
+	@apply grid grid-cols-3 gap-4 bg-gray-fb bg-opacity-60;
+}
+
+.select2-results {
+	@apply max-h-full bg-transparent;
+}
+
+.select2-choices {
+	@apply h-96 overflow-y-auto bg-transparent;
+}
+
+.select2-container--default .select2-results>.select2-results__options{
+	// max-height: 1000px !important;
+	@apply max-h-screen
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+	/* Selection bar - Color of the placeholder text before selection - If this property is enabled */
+	@apply text-gray-700;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	/* Selection bar - Text color of the item you selected from the results */
+	@apply text-gray-700;
+}
+
+.select2-container--default .select2-results__option {
+	@apply bg-white;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	/* Background color and text color of the options rows when select is open */
+	@apply text-black bg-blue-100;
+}

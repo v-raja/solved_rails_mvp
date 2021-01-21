@@ -1,7 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "tailwindcss/utilities";
 
+// @import 'select2';
 @import 'comments';
 
 .ais-Snippet-highlighted {
@@ -181,3 +181,6 @@ b {
     margin: 10px 0;
   }
 }
+
+
+@import "tailwindcss/utilities";

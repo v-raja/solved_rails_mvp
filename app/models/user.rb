@@ -48,7 +48,23 @@ class User < ApplicationRecord
   # , dependent: :destroy
 
   acts_as_voter
+  acts_as_follower
 
+  def niche_list
+    following_industries + following_occupations
+  end
+
+  def niche_list=(codes)
+    self.follows_by_type('Industry').find_each(&:destroy)
+    self.follows_by_type('Occupation').find_each(&:destroy)
+    codes.reject!(&:blank?).map do |code|
+      if industry = Industry.where(code: code).first
+        self.follow(industry)
+      elsif occupation = Occupation.where(code: code).first
+        self.follow(occupation)
+      end
+    end
+  end
 
   private
 

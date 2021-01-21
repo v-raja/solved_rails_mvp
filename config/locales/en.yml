@@ -64,3 +64,6 @@ en:
         title: 'You cannot create requests!'
         body: 'Please log in or sign up to continue.'
 
+  wicked:
+    confirm_niche: ":)"
+    confirm_bio: "almost_there"

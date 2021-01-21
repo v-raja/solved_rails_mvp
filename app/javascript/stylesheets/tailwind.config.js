@@ -14,6 +14,40 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      transitionDuration: {
+        '1100': '1100ms',
+        '1200': '1200ms',
+        '1300': '1300ms',
+        '1400': '1400ms',
+        '1500': '1500ms',
+        '1600': '1600ms',
+        '1700': '1700ms',
+        '1800': '1800ms',
+        '1900': '1900ms',
+        '2000': '2000ms',
+        '3000': '3000ms',
+        '4000': '4000ms',
+        '5000': '5000ms',
+        '8000': '8000ms',
+        '13000': '13000ms',
+       },
+       transitionDelay: {
+        '1100': '1100ms',
+        '1200': '1200ms',
+        '1300': '1300ms',
+        '1400': '1400ms',
+        '1500': '1500ms',
+        '1600': '1600ms',
+        '1700': '1700ms',
+        '1800': '1800ms',
+        '1900': '1900ms',
+        '2000': '2000ms',
+        '3000': '3000ms',
+        '4000': '4000ms',
+        '5000': '5000ms',
+        '8000': '8000ms',
+        '13000': '13000ms',
+       },
       fontFamily: {
         source: ['"Source Sans Pro"',
                   'ui-sans-serif',
@@ -159,7 +193,8 @@ module.exports = {
   variants: {
     extend: {
       ringColor: ['hover'],
-      ringOpacity: ['hover']
+      ringOpacity: ['hover'],
+      textColor: ['active']
     },
   },
   plugins: [

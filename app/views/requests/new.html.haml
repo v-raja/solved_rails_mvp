@@ -36,8 +36,12 @@
             = f.select :niche_list,  options, {}, {multiple: true, id: "test", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
           %div{class: "text-gray-600 text-xs mt-1"}
             Please refresh the page if the box above looks funky 🤪
+        %div{class: "w-full mt-6 font-medium text-lg"}
+          Looks like you aren't logged in...
+        %div{class: "mt-1 text-gray-700 text-sm"}
+          Fill in your details below to make an account and post.
 
-        = f.submit "Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-2 uppercase cursor-pointer hover:bg-opacity-90"
+        = f.submit "#{user_signed_in? ? nil : "Sign Up & "}Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-2 uppercase cursor-pointer hover:bg-opacity-90"
 
       -# Right Column
       %div{class: "flex flex-col text-sm col-span-3"}

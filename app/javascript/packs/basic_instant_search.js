@@ -58,9 +58,6 @@ $(document).on('turbolinks:load', function() {
         // item: '<strong>Hit {{objectID}}</strong>: {{{_highlightResult.title.value}}}',
         item: '<a href={{{url}}}>' +
                 '<div class="flex flex-wrap">' +
-                  // '<div class="w-full text-sm font-bold text-black">' +
-                  //   '{{{type}}}'+
-                  // '</div>' +
                   '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
                     '{{{_highlightResult.title.value}}}'+
                   '</div>' +

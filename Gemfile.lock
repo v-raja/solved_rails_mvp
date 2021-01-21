@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/tcocca/acts_as_follower.git
+  revision: c5ac7b9601c4af01eb4d9112330b27be4d694ecc
+  branch: master
+  specs:
+    acts_as_follower (0.2.1)
+      activerecord (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -289,6 +297,8 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked (1.3.4)
+      railties (>= 3.0.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.2)
@@ -299,6 +309,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (~> 6.0)
   acts_as_commentable_with_threading
+  acts_as_follower!
   acts_as_votable
   algoliasearch-rails
   ancestry
@@ -342,6 +353,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
+  wicked
 
 RUBY VERSION
    ruby 2.6.6p146

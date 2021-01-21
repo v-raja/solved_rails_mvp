@@ -6,28 +6,55 @@
         -# Logo
         = link_to (svg_tag "logo"), root_path
 
-      %div{c: "justify-self-center w-1/2 ml-4"}
+      %div{c: "justify-self-center flex-shrink ml-4"}
         #searchbox
 
-      %nav{class: "flex items-center space-x-2"}
-        = link_to "Explore", industry_categories_path, class: "text-sm leading-none px-2 py-2 block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2 "
+      %nav{class: "flex items-center"}
+        %div{class: "flex items-center space-x-2 pr-4 border-r border-gray-400"}
+          %div{class: "relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "text-white bg-secondary", "data-dropdown-active-target": '#activeTarget'}
+            %div{"data-action": "mouseenter->dropdown#show mouseleave->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
+              %span{class: "text-sm leading-none px-2 py-2  block rounded font-semibold", id: "activeTarget"}
+                My Niches
 
-        -if user_signed_in?
-          = link_to "New Request" , new_request_path, class: "text-sm leading-none px-1 py-2  block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2"
-          = link_to "New Solution" , new_solution_path, class: "text-sm leading-none px-1 py-2  block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2"
+            %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-56"}
+              %div{class: "overflow-hidden w-full bg-white border rounded shadow divide-y divide-gray-300"}
+                - if user_signed_in?
+                  - if current_user.niche_list.present?
+                    - current_user.niche_list.each do |n|
+                      = link_to n.title,  n, class: 'text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+                - else
+                  = link_to "Sign In to save a niche.", new_user_session_path, class: 'text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+                -# = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'no-underline block px-8 py-3 border-t text-gray-900 bg-white  hover:bg-gray-300 whitespace-no-wrap'
+          = link_to "Explore", industry_categories_path, class: "text-sm leading-none px-2 py-2 block rounded hover:bg-gray-300 font-semibold text-gray-900 hover:border-gray-400 border border-white"
+          %div{class: "relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "text-white bg-secondary", "data-dropdown-active-target": '#activeTarget2'}
+            %div{"data-action": "mouseenter->dropdown#show mouseleave->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
+              %span{class: "text-sm leading-none px-2 py-2  block rounded font-semibold", id: "activeTarget2"}
+                New
 
-          %div{class: "relative", "data-controller": "dropdown"}
-            %div{"data-action": "mouseover->dropdown#show click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
-              %span{class: "flex items-center inline-block text-gray-700"}
-                - if current_user
-                  = image_tag current_user.thumbnail_url, class: "object-cover rounded-full w-8 h-8 ring ring-white hover:ring-gray-400 hover:ring-opacity-70"
+            %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-24"}
+              %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300"}
+                = link_to "Request" , new_request_path, class: 'text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+                -# "text-sm text-center leading-none p-4  block hover:bg-gray-200 font-medium text-gray-900"
+                - if user_signed_in?
+                  = link_to "Solution" , new_solution_path, class: 'text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+                  -# "text-sm text-center leading-none p-4  block hover:bg-gray-200 font-medium text-gray-900"
+        %div{class: "flex-shrink-0 ml-4 flex items-center"}
+          - if user_signed_in?
+            -# = link_to "New Solution" , new_solution_path, class: "text-sm leading-none px-1 py-2  block rounded hover:bg-secondary hover:text-white font-semibold text-gray-900 sm:px-2"
 
-            %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2"}
-              %div{class: "overflow-hidden bg-white border rounded shadow"}
-                = link_to 'Profile',  edit_user_registration_path, class: 'no-underline block pl-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
-                = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'no-underline block px-8 py-3 border-t text-gray-900 bg-white  hover:bg-gray-300 whitespace-no-wrap'
-        - else
-          %div{class: "ml-2"}
-          = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
-          = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-1 px-2 bg-secondary hover:bg-opacity-90"
+            %div{class: "relative", "data-controller": "dropdown", "data-dropdown-active-class": "border-gray-400 bg-gray-200", "data-dropdown-active-target": '#activeTarget3'}
+              %div{id: "activeTarget3", "data-action": "mouseover->dropdown#show onmouseout->dropdown#hide click@window->dropdown#hide", role: "button", class: "flex select-none items-center border border-white  rounded px-2 py-0.5"}
+                %div{class: "flex items-center inline-block text-gray-700"}
+                  = image_tag current_user.thumbnail_url, class: "object-cover rounded-full w-7 h-7 ring-0.5 ring-white hover:ring-gray-400 hover:ring-opacity-70"
+                %div{class: "text-sm font-medium ml-2"}
+                  = current_user.name
+
+              %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2 w-full"}
+                %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300 text-sm"}
+                  = link_to 'Profile',  edit_user_registration_path, class: 'text-left block p-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+                  = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'text-left no-underline block p-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+          - else
+            %div{class: "space-x-2"}
+              = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-2 px-2 hover:bg-gray-200 rounded"
+              = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-2 px-2 bg-secondary hover:bg-opacity-90"
 

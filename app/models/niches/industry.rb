@@ -28,6 +28,7 @@ class Industry < ApplicationRecord
   has_many :requests, through: :industry_requests
 
   acts_as_taggable
+  acts_as_followable
 
   before_save :titleize_title
 

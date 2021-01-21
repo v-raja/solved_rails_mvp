@@ -5,12 +5,14 @@
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
     %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
     %title solved - Find better solutions to your problems
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"></script>
+
     = render 'layouts/rails_default'
     = render 'layouts/shim'
     = yield :head
   %body
-    -# = debug(params) if Rails.env.development?
     #app{class: "min-h-screen bg-gray-fb bg-opacity-60 antialiased font-sans"}
+      -# = debug(params) if Rails.env.development?
       %div{class: "fixed inset-0 px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50"}
         %div{class: "flex flex-col items-end justify-center"}
           - flash.each do |type, data|

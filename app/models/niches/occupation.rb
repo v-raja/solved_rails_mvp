@@ -17,6 +17,7 @@ class Occupation < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   acts_as_taggable
+  acts_as_followable
   validates :title,       presence: true
   validates :description, presence: true
 
