@@ -8,7 +8,7 @@
       - inactive = "text-gray-900 px-2 py-2 font-semibold rounded hover:bg-gray-fb hover:bg-opacity-50"
       -# - active = "px-2 py-2 rounded bg-secondary text-white font-semibold"
       -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-semibold text-gray-900"
-      %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between text-sm"}
+      %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between"}
         - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
           %div
             = link_to 'Solutions', root_path, class: "#{active}"
@@ -48,7 +48,7 @@
       %div{class: "w-full flex flex-wrap rounded-sm"}
         %div{class: ""}
           %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
-            %div{class: "w-full text-base font-bold text-sm text-"}
+            %div{class: "w-full text-base font-semibold"}
               Hey! 👋
               -# = "About #{niche_type}"
             %div{class: "py-1 w-full rounded-lg "}

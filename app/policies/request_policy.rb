@@ -6,12 +6,20 @@ class RequestPolicy
     @request = request
   end
 
+  def follow?
+    @user.present?
+  end
+
+  def unfollow?
+    @user.present?
+  end
+
   def upvote?
-    @user
+    @user.present?
   end
 
   def remove_upvote?
-    @user
+    @user.present?
   end
 
   def edit?
@@ -23,7 +31,7 @@ class RequestPolicy
   end
 
   def update?
-    @user && @request && (@request.user == @user || @user.admin?)
+    @user.present? && @request && (@request.user == @user || @user.admin?)
   end
 
   def create?
@@ -31,6 +39,6 @@ class RequestPolicy
   end
 
   def destroy?
-    @user.admin?
+    @user.present? && @user.admin?
   end
 end

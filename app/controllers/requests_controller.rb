@@ -1,10 +1,22 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy, :upvote,
-                                     :remove_upvote]
+                                     :remove_upvote, :follow, :unfollow]
   before_action :set_niche,   only: [:niche_index]
 
 
   def niche_index
+  end
+
+  def follow
+    authorize @request
+    current_user.follow(@request)
+    redirect_to @request
+  end
+
+  def unfollow
+    authorize @request
+    current_user.stop_following(@request)
+    redirect_to @request
   end
 
   def upvote
@@ -61,7 +73,13 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to @request, notice: 'Request was successfully created.' }
+
+        current_user.follow(@request)
+        @request.niche_list.each do |n|
+          current_user.follow(n)
+        end
+
+        format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You're now following the niches you posted to." }}
         format.json { render :show, status: :created, location: @request }
       else
         format.html { render :new }
@@ -76,6 +94,12 @@ class RequestsController < ApplicationController
     authorize @request
     respond_to do |format|
       if @request.update(request_params)
+
+        current_user.follow(@request)
+        @request.niche_list.each do |n|
+          current_user.follow(n)
+        end
+
         format.html { redirect_to @request, notice: 'Request was successfully updated.' }
         format.json { render :show, status: :ok, location: @request }
       else

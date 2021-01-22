@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     get "/", to: "solutions#niche_index"
     get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
+    member do
+      get 'follow'
+      get 'unfollow'
+    end
   end
 
   resources :products, only: [:index, :show]
@@ -38,6 +42,8 @@ Rails.application.routes.draw do
   post 'solutions/new', to: 'solutions#create'
   resources :solutions, except: [:index] do
     member do
+      get 'follow'
+      get 'unfollow'
       get 'upvote'
       get 'remove_upvote'
       resources :comments, except: :new do
@@ -54,6 +60,8 @@ Rails.application.routes.draw do
     member do
       get 'upvote'
       get 'remove_upvote'
+      get 'follow'
+      get 'unfollow'
       resources :comments, except: :new do
         member do
           get 'upvote'

@@ -8,20 +8,41 @@
         - if @niche.solutions.today.any?
           %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
             Today
-          = render @niche.solutions.today
+          = render partial: "solutions/niche_preview", collection: @niche.solutions.today, as: :solution
           %div{class: "mt-6"}
         - if @niche.solutions.past_week.any?
           %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
             Past Week
-          = render @niche.solutions.past_week
+          = render partial: "solutions/niche_preview", collection: @niche.solutions.past_week, as: :solution
           %div{class: "mt-6"}
         - if @niche.solutions.past_month.any?
           %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
             Past Month
-          = render @niche.solutions.past_month
+          = render partial: "solutions/niche_preview", collection: @niche.solutions.past_month, as: :solution
       - else
-        %div{class: "w-full font-semibold text-2xl leading-none text-center"}
-          No solutions yet 😞
+        %div{class: "w-full flex flex-col items-center"}
+          - if user_signed_in?
+            %div{"data-controller": 'toggle'}
+              %div{"data-toggle-target": 'toggleable', class: "mb-4"}
+                = image_tag "https://media.giphy.com/media/dy4swYs1dp430jChRa/giphy.gif", class: "h-64 w-80 object-cover"
+              %div{"data-toggle-target": 'toggleable', class: "mb-4 hidden"}
+                -# = image_tag "https://media.giphy.com/media/b5LTssxCLpvVe/giphy.gif"
+                = image_tag "https://media.giphy.com/media/bTzFnjHPuVvva/giphy.gif", class: "h-64 w-80 object-cover"
+              %div{class: "mt-4 w-full font-semibold text-xl leading-none text-center"}
+                No solutions yet 😔
+
+                %div{class: "w-full text-center mt-3 cursor-pointer", "data-action": 'mouseover->toggle#toggle mouseout->toggle#hide'}
+                  = link_to "Have a solution to share?", new_solution_path(code: @niche.code),  class: "flex-shrink-0 border-b-4 border-secondary px-1 text-xl font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+          - else
+            %div{class: "mt-4 w-full font-semibold text-2xl leading-none text-center"}
+              No solutions yet 😔
+            -# %div{class: "mt-8 w-full text-lg text-center mt-3 cursor-pointer"}
+            -#   = "Get notified when solutions are posted to this #{niche_type.downcase} 👇"
+            -# %div{class: "flex w-1/4"}
+            -#   %input{class: "border-b border-secondary mt-2 w-full px-2 bg-transparent text-gray-900 focus:outline-none py-0.5",
+            -#         placeholder: "something@example.com"}
+            -#   %button{class: "flex-shrink-0 px-2 py-1 bg-secondary text-white"}
+          -#   Notify me!
         -# %div{class: "mt-1"}
         -# = link_to "Create a new solution", new_solution_path, class: "text-blue-500 hover:underline"
 
@@ -34,12 +55,12 @@
         %div{class: ""}
           %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
             %div{class: "flex justify-between"}
-              %div{class: "w-full text-base font-bold text-sm text-secondary"}
+              %div{class: "w-full text-base font-bold text-sm text-gray-900"}
                 = "About #{niche_type}"
               - if user_signed_in?
                 - if current_user.following?(@niche)
-                  = link_to "Following", unfollow_industry_path(@niche), class: "text-sm flex-shrink-0 text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
+                  = link_to "Following", [:unfollow, @niche], class: "flex-shrink-0 border-b-4 border-secondary px-1 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
                 - else
-                  = link_to "Follow Niche", follow_industry_path(@niche), class: "text-sm flex-shrink-0 text-gray-900 font-semibold py-1 px-2 hover:bg-gray-200 rounded"
-            %div{class: "py-1 w-full rounded-lg text-sm"}
+                  = link_to "Follow Niche", [:follow, @niche], class: "flex-shrink-0 border-b-4 border-secondary px-1 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            %div{class: "mt-1 py-3 w-full rounded-lg text-sm"}
               = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe

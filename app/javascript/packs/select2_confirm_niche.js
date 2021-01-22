@@ -15,6 +15,11 @@ $(document).on('turbolinks:load', function() {
     document.getElementById("select-niches").focus();
     // $('#select-niches').select2('focus');
     $('#select-niches').select2({
+      language: {
+        inputTooShort: function() {
+          return 'Please enter 3 or more character to search';
+        },
+      },
       placeholder: 'Select two niches to continue',
       multiple: true,
       maximumSelectionLength: 8,

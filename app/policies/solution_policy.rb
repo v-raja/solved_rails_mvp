@@ -6,12 +6,20 @@ class SolutionPolicy
     @solution = solution
   end
 
+  def follow?
+    @user.present?
+  end
+
+  def unfollow?
+    @user.present?
+  end
+
   def upvote?
-    @user
+    @user.present?
   end
 
   def remove_upvote?
-    @user
+    @user.present?
   end
 
   def edit?
@@ -23,14 +31,14 @@ class SolutionPolicy
   end
 
   def update?
-    @user && @solution && (@solution.user == @user || @user.admin?)
+    @user.present? && @solution && (@solution.user == @user || @user.admin?)
   end
 
   def create?
-    @user
+    @user.present?
   end
 
   def destroy?
-    @user.admin?
+    @user.present? && @user.admin?
   end
 end

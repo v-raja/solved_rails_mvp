@@ -12,6 +12,12 @@ var index = algolia.initIndex('niches_development');
 
 $(document).on('turbolinks:load', function() {
     $('#test').select2({
+      language: {
+        inputTooShort: function() {
+          return 'Please enter 3 or more character to search';
+        },
+      },
+      closeOnSelect: false,
       placeholder: 'Search for an industry / occupation',
       multiple: true,
       maximumSelectionLength: 8,
@@ -43,7 +49,7 @@ $(document).on('turbolinks:load', function() {
         }
       },
       escapeMarkup: function (markup) { return markup; },
-      minimumInputLength: 2,
+      minimumInputLength: 3,
       cache: false,
       templateSelection: function(contact) {
         if (contact.text == 'Choose a contact'){

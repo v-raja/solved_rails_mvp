@@ -13,7 +13,19 @@ module.exports = {
 
   darkMode: false, // or 'media' or 'class'
   theme: {
+    borderWidth: {
+      DEFAULT: '1px',
+      '0': '0',
+      '2': '2px',
+      '3': '3px',
+      '4': '4px',
+      '6': '6px',
+      '8': '8px',
+    },
     extend: {
+      lineHeight: {
+        '2': '0.5rem',
+      },
       transitionDuration: {
         '1100': '1100ms',
         '1200': '1200ms',
@@ -194,7 +206,9 @@ module.exports = {
     extend: {
       ringColor: ['hover'],
       ringOpacity: ['hover'],
-      textColor: ['active']
+      textColor: ['active'],
+      fontWeight: ['hover', 'focus'],
+      animation: ['hover', 'group-hover']
     },
   },
   plugins: [

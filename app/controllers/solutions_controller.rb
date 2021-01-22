@@ -1,10 +1,22 @@
 class SolutionsController < ApplicationController
   before_action :set_solution, only: [:show, :edit, :update, :destroy, :upvote,
-                                      :remove_upvote]
+                                      :remove_upvote, :follow, :unfollow]
 
   before_action :set_niche,    only: [:niche_index]
 
   def niche_index
+  end
+
+  def follow
+    authorize @solution
+    current_user.follow(@solution)
+    redirect_to @solution
+  end
+
+  def unfollow
+    authorize @solution
+    current_user.stop_following(@solution)
+    redirect_to @solution
   end
 
   def upvote
@@ -71,10 +83,12 @@ class SolutionsController < ApplicationController
     respond_to do |format|
       if @solution.save
 
-        # first_comment = Comment.build_from(@solution, current_user, params[:comment_text])
-        # first_comment.create
+        current_user.follow(@solution)
+        @solution.niche_list.each do |n|
+          current_user.follow(n)
+        end
 
-        format.html { redirect_to @solution, notice: 'Solution was successfully created.' }
+        format.html { redirect_to @solution, notice: {title: 'Solution was successfully created.', body: "You're now following the niches you posted to." }}
         format.json { render :show, status: :created, location: @solution }
       else
         format.html { render :new }
@@ -89,6 +103,11 @@ class SolutionsController < ApplicationController
     authorize @solution
     respond_to do |format|
       if @solution.update(solution_params)
+
+        current_user.follow(@solution)
+        @solution.niche_list.each do |n|
+          current_user.follow(n)
+        end
         format.html { redirect_to @solution, notice: 'Solution was successfully updated.' }
         format.json { render :show, status: :ok, location: @solution }
       else

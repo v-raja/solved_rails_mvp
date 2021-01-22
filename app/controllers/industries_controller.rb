@@ -1,40 +1,16 @@
 class IndustriesController < ApplicationController
-  before_action :set_industry, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
-
-  # GET /industries
-  # GET /industries.json
-  def index
-    @industries = Industry.all
-  end
-
-  # GET /industries/1/edit
-  def edit
-  end
+  before_action :set_industry, only: [:follow, :unfollow]
 
   def follow
     authorize @industry
     current_user.follow(@industry)
-    redirect_to industry_path(@industry)
+    redirect_to @industry
   end
 
   def unfollow
     authorize @industry
     current_user.stop_following(@industry)
-    redirect_to industry_path(@industry)
-  end
-
-  # PATCH/PUT /industries/1
-  # PATCH/PUT /industries/1.json
-  def update
-    respond_to do |format|
-      if @industry.update(industry_params)
-        format.html { redirect_to @industry, notice: 'Industry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @industry }
-      else
-        format.html { render :edit }
-        format.json { render json: @industry.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to @industry
   end
 
   private

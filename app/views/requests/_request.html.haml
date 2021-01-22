@@ -29,7 +29,7 @@
         -#   &middot; by
       %div{class: "mt-2 pl-3 text-xs text-gray-600 flex flex-wrap"}
         - niche = request.industries.first || request.occupations.first
-        .hover:text-black.flex-shrink.truncate.font-medium.text-black.hover:underline
+        %div{class: "hover:text-black flex-shrink-1 truncate font-medium text-black hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
           = link_to "#{niche.title}", niche
           -# = niche.title
         .mx-1
@@ -41,7 +41,7 @@
           -# = "#{time_ago_in_words(request.created_at)} ago"
       = link_to request do
         %div{class: "flex flex-wrap w-full"}
-          %div{class: "pl-3 pr-9 font-semibold mt-2 w-full two-lines-only"}
+          %div{class: "ml-2 mr-8 -my-1 p-1 font-semibold mt-2 two-lines-only hover:bg-gray-200"}
             = request.title
           %div{class: "pl-3 pr-9 mt-3 read-more w-full"}
             = request.description_safe_html.html_safe

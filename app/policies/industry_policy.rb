@@ -1,5 +1,5 @@
 class IndustryPolicy
-  attr_reader :user, :request
+  attr_reader :user, :industry
 
   def initialize(user, industry)
     @user = user

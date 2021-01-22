@@ -28,6 +28,8 @@ class Solution < ApplicationRecord
     end
   end
 
+  acts_as_followable
+
   before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
 
   extend FriendlyId

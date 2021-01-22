@@ -5,21 +5,65 @@
   %div{class: "mt- max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
     -# Left Column
     %div{class: "w-full md:mr-8"}
-      -# Gallery
-      -# %div{class: "font-bold text-xl"}
-      -#   = @request.title
-      %div{class: "bg-white p-4 block"}
+      %div{class: "bg-white p-4 block border border-gray-300"}
         %div{class: "font-semibold text-lg"}
           = @request.title
-        -# %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
         %div{class: "mt-4 text-sm"}
           = @request.description_safe_html.html_safe
         - if policy(@request).update?
           %div{class: "flex mt-4 items-center"}
-            = link_to "Edit", edit_request_path(@request), class: "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
+            = link_to "Edit", edit_request_path(@request), class: "border-b-4 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
             - if policy(@request).destroy?
               %div{class: "ml-2"}
                 = link_to "Delete", request_path(@request), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
+
+      %div{class: "mt-10 w-full md:mr-8"}
+        -# Discussion header
+        %div{class: "flex justify-between"}
+          %div{class: "uppercase font-medium text-gray-700 text-xs"}
+            Discussion
+          -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
+          - if user_signed_in?
+            - if current_user.following?(@request)
+              = link_to "Unfollow Discussion", unfollow_request_path(@request), class: "border-b-4 border-secondary px-1 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            - else
+              = link_to "Follow Discussion", follow_request_path(@request), class: "border-b-4 border-secondary px-1 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+
+        -# Discussion section
+        %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full border border-gray-300"}
+          %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
+            - if user_signed_in?
+              %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
+                = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
+              %div{class: "ml-2 text-xs text-gray-600 w-full"}
+                = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
+                  %textarea{rows: "1", name: "comment[body]",
+                  class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                  placeholder: "What would you like more clarification on?"}
+                  = f.hidden_field :commentable_id, value: @new_comment.commentable_id
+                  = f.hidden_field :commentable_type, value: @new_comment.commentable_type
+                  = f.submit "Comment", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
+            - else
+              %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
+                %div{class: "text-base text-gray-600 font-medium pr-4"}
+                  Log in or sign up to join the discussion
+                %div{class: "flex-shrink-0 flex items-center"}
+                  = link_to new_user_session_path do
+                    %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
+                      Log In
+                  = link_to new_user_registration_path do
+                    %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
+                      Sign Up
+          - if @request.root_comments.any?
+            - @request.root_comments.each do |comment|
+              = render 'comments/comment', comment: comment, new_comment: @new_comment
+
+          - else
+            %div{class: "w-full flex flex-wrap justify-between text-center py-10"}
+              %div{class: "text-3xl w-full"}
+                💬
+              %div{class: "mt-1 text-base font-medium w-full"}
+                Be the first to comment
 
 
     -# Right Column
@@ -33,13 +77,16 @@
               = render partial: 'requests/upvote', locals: { request: @request }
           - else
             = link_to new_user_session_path do
-              %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm"}
-                ▲
-                %div{class: "ml-2"}
+              %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm group"}
+                - vote_count = upvote_count(@request)
+                = "#{vote_count > 0 ? " #{vote_count}" : ""}"
+                %div{class: "ml-1 group-hover:animate-bounce"}
+                  ▲
+                %div{class: "ml-2 flex items-center"}
                   upvote
 
       -# Maker / Hunter
-      %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+      %div{class: "mt-4 px-4 pt-4 pb-6 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
         %div{class: "text-gray-600 text-xs uppercase w-full"}
           Posted by
         - if @request.user.bio.blank?
@@ -60,68 +107,26 @@
                 = @request.user.bio
 
 
-      %div{class: "mt-4 p-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+      %div{class: "mt-4 px-4 pt-4 pb-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
         %div{class: "w-full uppercase text-gray-600 text-xs"}
           Posted To
-        %div{class: "mt-3 w-full flex flex-col"}
+        %div{class: "mt-3 flex flex-col space-y-2"}
           - if @request.industries.any?
             - @request.industries.each do |industry|
-              -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-400 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
-              = link_to "#{industry.title} (Industry)", industry, class: "text-gray-700 text-xs mt-1 hover:text-black"
+              -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
+              = link_to "#{industry.title} (Industry)", industry, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
           - if @request.occupations.any?
             - @request.occupations.each do |occupation|
-              -# %div{class: "text-gray-600 text-center text-xs border border-gray-400 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-              = link_to "#{occupation.title} (Occupation)", occupation, class: "text-gray-700 text-xs mt-1 hover:text-black"
+              -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+              = link_to "#{occupation.title} (Occupation)", occupation, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
 
 
   -# 2 Column, Left Column
-  %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
-    -# md: "flex flex-wrap"}
-    %div{class: "w-full md:mr-8"}
-      -# Discussion header
-      %div{class: "flex justify-between"}
-        %div{class: "uppercase font-medium text-gray-600 text-xs"}
-          Discussion
-        %div{class: "uppercase font-medium text-blue-600 text-xs"}
-          Follow Discussion
-      -# Discussion section
-      %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full"}
-        %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
-          - if user_signed_in?
-            %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-              = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
-            %div{class: "ml-2 text-xs text-gray-600 w-full"}
-              = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
-                %textarea{rows: "1", name: "comment[body]",
-                class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                placeholder: "What would you like more clarification on?"}
-                = f.hidden_field :commentable_id, value: @new_comment.commentable_id
-                = f.hidden_field :commentable_type, value: @new_comment.commentable_type
-                = f.submit "Comment", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
-          - else
-            %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
-              %div{class: "text-base text-gray-600 font-medium pr-4"}
-                Log in or sign up to join the discussion
-              %div{class: "flex-shrink-0 flex items-center"}
-                = link_to new_user_session_path do
-                  %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
-                    Log In
-                = link_to new_user_registration_path do
-                  %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
-                    Sign Up
-        - if @request.root_comments.any?
-          - @request.root_comments.each do |comment|
-            = render 'comments/comment', comment: comment, new_comment: @new_comment
+  -# %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
+  -#   -# md: "flex flex-wrap"}
 
-        - else
-          %div{class: "w-full flex flex-wrap justify-between text-center py-10"}
-            %div{class: "text-3xl w-full"}
-              💬
-            %div{class: "mt-1 text-base font-medium w-full"}
-              Be the first to comment
-
-            -# %div{class: "border border-gray-400"}
-            -#   What did you like about the solution? What would you like more clarification on?
+  -#           -# %div{class: "border border-gray-400"}
+  -#           -#   What did you like about the solution? What would you like more clarification on?
 
 
-    %div{class: "w-1/3 flex-shrink-0 flex flex-col"}
+  -#   %div{class: "w-1/3 flex-shrink-0 flex flex-col"}

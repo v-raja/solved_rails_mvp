@@ -1,3 +1,4 @@
+
 = link_to solution do
   %div{class: "mt-2 bg-white overflow-auto px-5 border border-gray-400 w-full",
        hover: "border-gray-900"}
@@ -15,11 +16,17 @@
           -#   with
           -#   .ml-1.hover:text-black
           -#     = link_to solution.product.name, solution.product
-          %div{class: "text-xs text-gray-600 flex flex-wrap"}
-            - niche = solution.industries.first || solution.occupations.first
-            %div{class: "hover:text-black flex-shrink-1 truncate font-medium text-black hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
-              = link_to "#{niche.title}", niche
-              -# = niche.title
+          %div{class: "text-xs text-gray-600 flex flex-wrap items-center"}
+            -# - niche = solution.industries.first || solution.occupations.first
+            -# %div{class: "hover:text-black flex-shrink-1 truncate font-medium text-black hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
+            -#   = link_to "#{niche.title}", niche
+            -#   -# = niche.title
+            -# - if solution.tag_list.present?
+            -#   - solution.tag_list.each do |tag|
+            -#     %div{class: "ml-1 text-gray-600 text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+            -#       = tag
+            %div{class: "hover:text-black flex-shrink-1 text-gray-600 hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
+              = link_to "with #{solution.product.name}", solution.product
             .mx-1
               &middot;
             .hover:text-black.flex-shrink-0
@@ -51,16 +58,10 @@
               ▲
             %div{class: "mt-1 font-semibold"}
               = upvote_count(solution)
+      - if solution.youtube_urls.present?
+        %div{class: "aspect-w-7 aspect-h-4 mt-6"}
+          %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+            = render solution.youtube_urls
 
-      -# %div{class: "mt-2 pt-2 text-xs inline-flex items-center text-gray-600"}
-      -#   .text-gray-600.flex-shrink-0
-      -#     Posted to
-      -#   .ml-2.space-x-2.overflow-auto.inline-flex.disable-scrollbars
-      -#     - solution.industries.each do |i|
-      -#       .hover:text-black.flex-shrink-0.font-medium
-      -#         -# = "#{i.title} (Industry)"
-      -#         = link_to "#{i.title} (Industry)", i
-      -#     - solution.occupations.each do |o|
-      -#       .hover:text-black.flex-shrink-0.font-medium
-      -#         -# = "#{o.title} (Occupation)"
-      -#         = link_to "#{o.title} (Occupation)", o
+      -# %div{class: "w-full"}
+      -#   Hello

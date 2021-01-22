@@ -35,6 +35,7 @@ class Request < ApplicationRecord
 
   validate :atleast_one_niche
 
+  acts_as_followable
   acts_as_commentable
   acts_as_votable cacheable_strategy: :update_columns
 
