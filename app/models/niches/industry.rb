@@ -27,7 +27,6 @@ class Industry < ApplicationRecord
   has_many :industry_requests, dependent: :destroy
   has_many :requests, through: :industry_requests
 
-  acts_as_taggable
   acts_as_followable
 
   before_save :titleize_title
@@ -73,6 +72,10 @@ class Industry < ApplicationRecord
     ]
   end
 
+  def tags
+    self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)
+  end
+
   private
 
   def url
@@ -86,4 +89,5 @@ class Industry < ApplicationRecord
   def type
     "Industry"
   end
+
 end

@@ -16,7 +16,6 @@ class Occupation < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
-  acts_as_taggable
   acts_as_followable
   validates :title,       presence: true
   validates :description, presence: true
@@ -66,6 +65,10 @@ class Occupation < ApplicationRecord
 
   def should_generate_new_friendly_id?
     title_changed? || super
+  end
+
+  def tags
+    self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)
   end
 
   # Try building a slug based on the following fields in

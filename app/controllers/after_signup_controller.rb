@@ -20,7 +20,7 @@ class AfterSignupController < ApplicationController
     @user = current_user
     case wizard_value(step)
     when "confirm_niche"
-      @user.update_attributes(confirm_niche_params)
+      @user.update(confirm_niche_params)
       if @user.niche_list.blank? || @user.niche_list.size < 2
         return render_wizard
       end

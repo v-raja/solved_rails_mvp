@@ -8,7 +8,11 @@ class SearchController < ApplicationController
   end
 
   def home
-    @solutions = Solution.all.top
+    if params[:tag]
+      @solutions = Solution.tagged_with(params[:tag], on: :general_tags)
+    else
+      @solutions = Solution.all.top
+    end
     # order(cached_votes_score: :desc).order(created_at: :desc)
   end
 

@@ -59,7 +59,7 @@ class Solution < ApplicationRecord
 
   acts_as_commentable
   acts_as_votable cacheable_strategy: :update_columns
-  acts_as_taggable
+  acts_as_taggable_on :general_tags, :niche_specific_tags
 
   default_scope { order(created_at: :desc) }
 
@@ -125,6 +125,10 @@ class Solution < ApplicationRecord
     #     searchableAttributes ['unordered(title)', 'unordered(description)']
     #   end
     # end
+  end
+
+  def tags
+    self.niche_specific_tag_list + self.general_tag_list
   end
 
   def normalize_friendly_id(string)

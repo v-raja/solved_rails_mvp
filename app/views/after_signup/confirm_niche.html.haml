@@ -23,7 +23,7 @@
               -# #{@user.name ? @user.name : @user.email} 👋 "
             %div{class: "mt-2 duration-5000 transform transition transition-all opacity-0 translate-y-12 ease-in-out flex justify-between",
                       "data-replace": '{ "translate-y-12": "translate-y-0", "opacity-0" : "opacity-100" }'}
-              Let's find your niches. Use the search bar above. 👆
+              Let's find your niches. Search for an industry or occupation above. 👆
               %div{class: "flex-shrink-0 bottom-0", id: "next-button"}
                 = f.submit "Go to last step", class: "cursor-pointer rounded font-bold delay-8000 text-white px-3 py-2 bg-gradient-to-r from-primary transition opacity-0 via-purple-500 to-blue-400", "data-replace": '{ "opacity-0" : "opacity-100" }'
             -# = link_to next_wizard_path do

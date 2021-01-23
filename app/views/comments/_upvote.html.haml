@@ -1,4 +1,4 @@
 = link_to upvote_comment_path(comment), remote: true do
-  %div{class: "p-1 -ml-1 transition font-semibold hover:text-black hover:bg-gray-100 rounded-sm"}
+  %div{class: "p-1 -ml-1 mt-1 transition font-semibold hover:text-black hover:bg-gray-100 rounded-sm border border-gray-200"}
     - vote_count = upvote_count(comment)
     = "Upvote#{vote_count > 0 ? " (#{vote_count})" : ""}"

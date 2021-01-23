@@ -11,6 +11,23 @@ var algolia = algoliasearch(
 var index = algolia.initIndex('niches_development');
 
 $(document).on('turbolinks:load', function() {
+    $('#general_tags').select2({
+      placeholder: 'marketing, sales, crm, team management, engineering, human resources',
+      multiple: true,
+      tags: true
+    });
+
+    $('#niche_specific_tags').select2({
+      placeholder: 'design request management, classroom management, online learning',
+      multiple: true,
+      tags: true,
+      language: {
+        noResults: function() {
+          return 'No tags yet';
+        },
+      },
+    });
+
     $('#test').select2({
       language: {
         inputTooShort: function() {

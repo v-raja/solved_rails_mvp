@@ -3,27 +3,33 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:upvote, :remove_upvote]
 
   def upvote
+    authorize @comment
     @comment.liked_by current_user
     respond_to do |format|
       format.js
+      format.html { redirect_to @comment.commentable }
     end
   end
 
   def remove_upvote
+    authorize @comment
     @comment.unliked_by current_user
     respond_to do |format|
       format.js
+      format.html { redirect_to @comment.commentable }
     end
   end
 
   def create
+    authorize Comment
     commentable = commentable_type.constantize.find(commentable_id)
     @comment = Comment.build_from(commentable, current_user.id, body)
 
     respond_to do |format|
       if @comment.save
+        current_user.follow(commentable)
         make_child_comment
-        format.html  { redirect_back(fallback_location: root_path, :notice => 'Comment was successfully added.') }
+        format.html  { redirect_back(fallback_location: root_path, :notice => {title: 'Comment was successfully added.', data: "You're now following this discussion."}) }
       else
         format.html  { redirect_back(fallback_location: root_path, :notice => 'Comment not added.') }
       end
@@ -60,7 +66,6 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    # @comment = Comment.find(comment_id)
     @comment = Comment.find(params[:id])
   end
 

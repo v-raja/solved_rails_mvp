@@ -5,6 +5,15 @@ class SolutionsController < ApplicationController
   before_action :set_niche,    only: [:niche_index]
 
   def niche_index
+    if params[:tag]
+      # NOTE: the adding below changes @solutions to an array and so scopes like .today
+      # don't work. Currently, we just check if param is used, and if so, don't use logic
+      # that uses scopes like today in the view.
+      @solutions = @niche.solutions.tagged_with(params[:tag], on: :general_tags) + @niche.solutions.tagged_with(params[:tag], on: :niche_specific_tags)
+      @solutions.uniq!
+    else
+      @solutions = @niche.solutions
+    end
   end
 
   def follow
@@ -63,7 +72,6 @@ class SolutionsController < ApplicationController
   def new
     @solution = Solution.new
     authorize @solution
-
     @solution.youtube_urls.build
     @solution.build_product
   end
@@ -77,8 +85,6 @@ class SolutionsController < ApplicationController
     if solution_params[:product_id].blank?
       @solution.build_product(product_params)
     end
-
-    @solution.tag_list.add(params[:tags_string], parse: true)
 
     respond_to do |format|
       if @solution.save
@@ -136,7 +142,8 @@ class SolutionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solution_params
-      params.require(:solution).permit(:title, :description, :product_id, :get_it_url, niche_list: [], product_attributes: [:name, :thumbnail_url], youtube_urls_attributes: [:_destroy, :id, :url])
+      params.require(:solution).permit(:title, :description, :product_id, :get_it_url,
+            general_tag_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], youtube_urls_attributes: [:_destroy, :id, :url])
     end
 
     def product_params

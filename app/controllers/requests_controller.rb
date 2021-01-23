@@ -63,27 +63,46 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
     authorize @request
+    @user = User.new
   end
 
   # POST /requests
   # POST /requests.json
   def create
     authorize Request
-    @request = current_user.requests.build(request_params)
-
+    @request = Request.new(request_params)
+    @user = current_user || User.new(user_params)
     respond_to do |format|
-      if @request.save
+      if @user.save
+        @request.user = @user
+        if @request.save
 
-        current_user.follow(@request)
-        @request.niche_list.each do |n|
-          current_user.follow(n)
+          @user.follow(@request)
+          @request.niche_list.each do |n|
+            @user.follow(n)
+          end
+
+          if current_user
+            format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You're now following the niches you posted to." }}
+            format.json { render :show, status: :created, location: @request }
+          else
+            format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You'll recieve an email with a link to confirm you account shortly." }}
+          end
+        else
+          if user_signed_in?
+            format.html { render :new }
+            format.json { render json: @request.errors, status: :unprocessable_entity }
+          else
+            # User was just created, let him know he has to confirm his account
+            sign_in @user
+            flash.now[:notice] = "You have successfully signed up. Please confirm your account within the next 2 hours."
+            #  {title: 'You have successfully signed up. Please confirm your account within 2 hours.', data: "An email with a confirmation link will be sent to you shortly."}
+            format.html { render :new }
+          end
         end
 
-        format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You're now following the niches you posted to." }}
-        format.json { render :show, status: :created, location: @request }
       else
         format.html { render :new }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -129,6 +148,10 @@ class RequestsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def request_params
       params.require(:request).permit(:title, :description, niche_list: [])
+    end
+
+    def user_params
+      params.require(:user).permit(:name, :email, :password)
     end
 
     def set_niche

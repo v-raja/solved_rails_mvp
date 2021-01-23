@@ -1,35 +1,16 @@
 = link_to request do
-  %div{class: "mt-2 flex bg-white rounded-sm border border-gray-400",
+  %div{class: "mt-2 flex bg-white rounded-sm border border-gray-400 group",
        hover: "border-gray-900"}
     = link_to request do
       %div{class: "py-2 w-12 flex-shrink-0 flex flex-col place-items-center bg-gray-100 h-full"}
-        %div{class: "text-sm leading-none px-1 py-1 rounded",
-            hover: "bg-gray-400 text-primary"}
+        %div{class: "text-sm leading-none px-1 py-1 rounded group-hover:text-primary group-hover:animate-bounce"}
           ▲
-        %div{class: "font-semibold leading-none"}
+        %div{class: "font-semibold leading-none group-hover:text-primary"}
           = upvote_count(request)
-    %div{class: "flex flex-wrap w-full"}
-      -# %div{class: "pl-3 pr-9 mt-1 inline-flex text-xs text-gray-500"}
-        -# - if niche = request.industries.first
-        -#   .hover:text-black
-        -#     = "#{niche.title} (#{niche.class.name})"
-        -#   - if niche = request.occupations.first
-        -#     .hover:text-black
-        -#       = "#{niche.title} (#{niche.class.name})"
-        -#   - elsif niche = request.industries.second
-        -#     .hover:text-black
-        -#       = "#{niche.title} (#{niche.class.name})"
-        -# - elsif niche = request.occupations.first
-        -#   .hover:text-black
-        -#     = "#{niche.title} (#{niche.class.name})"
-        -#   - if niche = request.occupations.second
-        -#     .hover:text-black
-        -#       = "#{niche.title} (#{niche.class.name})"
-        -# .mx-1
-        -#   &middot; by
+    %div{class: "flex flex-col"}
       %div{class: "mt-2 pl-3 text-xs text-gray-600 flex flex-wrap"}
         - niche = request.industries.first || request.occupations.first
-        %div{class: "hover:text-black flex-shrink-1 truncate font-medium text-black hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
+        %div{class: "hover:text-black font-medium text-black hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
           = link_to "#{niche.title}", niche
           -# = niche.title
         .mx-1

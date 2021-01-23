@@ -12,7 +12,7 @@
           = @request.description_safe_html.html_safe
         - if policy(@request).update?
           %div{class: "flex mt-4 items-center"}
-            = link_to "Edit", edit_request_path(@request), class: "border-b-4 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            = link_to "Edit", edit_request_path(@request), class: "border-b-3 border-secondary text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
             - if policy(@request).destroy?
               %div{class: "ml-2"}
                 = link_to "Delete", request_path(@request), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
@@ -25,9 +25,9 @@
           -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
           - if user_signed_in?
             - if current_user.following?(@request)
-              = link_to "Unfollow Discussion", unfollow_request_path(@request), class: "border-b-4 border-secondary px-1 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+              = link_to "Following", unfollow_request_path(@request), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
             - else
-              = link_to "Follow Discussion", follow_request_path(@request), class: "border-b-4 border-secondary px-1 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+              = link_to "Follow Discussion", follow_request_path(@request), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
 
         -# Discussion section
         %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full border border-gray-300"}
@@ -42,7 +42,7 @@
                   placeholder: "What would you like more clarification on?"}
                   = f.hidden_field :commentable_id, value: @new_comment.commentable_id
                   = f.hidden_field :commentable_type, value: @new_comment.commentable_type
-                  = f.submit "Comment", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
+                  = f.submit "Comment", class: "cursor-pointer ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
             - else
               %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
                 %div{class: "text-base text-gray-600 font-medium pr-4"}

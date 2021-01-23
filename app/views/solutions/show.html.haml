@@ -16,10 +16,10 @@
             = link_to "with #{@solution.product.name}", @solution.product, class: "hover:text-black"
         -# %div
         %div{class: "overflow-auto disable-scrollbars"}
-          - if @solution.tag_list.present?
+          - if @solution.tags.present?
             %div{class: "flex-shrink-0 mt-1 w-max text-xs text-gray-600 flex flex-wrap items-center"}
               Tags
-              - @solution.tag_list.each do |tag|
+              - @solution.tags.each do |tag|
                 %div{class: "ml-1 text-gray-600 text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
                   = tag
 
@@ -49,7 +49,7 @@
             Have a question about this solution? Discuss below.
         - if policy(@solution).update?
           %div{class: "flex mt-4 items-center"}
-            = link_to "Edit", edit_solution_path(@solution), class: "border-b-4 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            = link_to "Edit", edit_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
             -# "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
             - if policy(@solution).destroy?
               %div{class: "ml-2"}
@@ -159,9 +159,9 @@
         -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
         - if user_signed_in?
           - if current_user.following?(@solution)
-            = link_to "Unfollow Discussion", unfollow_solution_path(@solution), class: "border-b-4 border-secondary px-1 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            = link_to "Following", unfollow_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
           - else
-            = link_to "Follow Discussion", follow_solution_path(@solution), class: "border-b-4 border-secondary px-1 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            = link_to "Follow Discussion", follow_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
 
       -# Discussion section
       %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full border border-gray-300"}
@@ -176,7 +176,7 @@
                 placeholder: "What would you like more clarification on?"}
                 = f.hidden_field :commentable_id, value: @new_comment.commentable_id
                 = f.hidden_field :commentable_type, value: @new_comment.commentable_type
-                = f.submit "Comment", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
+                = f.submit "Comment", class: "cursor-pointer ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
           - else
             %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
               %div{class: "text-base text-gray-600 font-medium pr-4"}

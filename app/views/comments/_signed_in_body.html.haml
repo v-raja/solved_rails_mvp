@@ -9,7 +9,7 @@
     %button{class: "p-1 -ml-1 transition font-semibold hover:text-black hover:bg-gray-100 rounded-sm", data: { action: "click->toggle#toggle touch->toggle#toggle" }}
       Reply
     %div{class: "ml-2"}
-      = time_ago_in_words(comment.created_at)
+      = "#{time_ago_in_words(comment.created_at)} ago"
   %div{class: "mt-2 hidden", data: { toggle: { target: 'toggleable' } }}
 
     = form_for new_comment, html: { class: "w-full flex items-end"} do |f|
@@ -24,4 +24,4 @@
       = f.hidden_field :comment_id, value: comment.id
       %textarea{rows: "1", name: "comment[body]",
         class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"}
-      = f.submit "Reply", class: "ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase", remote: true
+      = f.submit "Reply", class: "cursor-pointer ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase", remote: true
