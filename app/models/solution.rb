@@ -65,6 +65,7 @@ class Solution < ApplicationRecord
 
   acts_as_votable cacheable_strategy: :update_columns
   acts_as_taggable_on :general_tags, :niche_specific_tags
+  acts_as_taggable_on :tags
 
   scope :today,      -> { where('solutions.created_at >= ?', 1.day.ago) }
   scope :past_week,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => 1.day.ago }) }
