@@ -1,12 +1,12 @@
 !!!
 %html
   %head
+    = display_meta_tags
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
     %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
     %title solved - Find better solutions to your problems
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"></script>
-
     = render 'layouts/rails_default'
     = render 'layouts/shim'
     = yield :head

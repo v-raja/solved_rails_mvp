@@ -59,6 +59,9 @@ class SolutionsController < ApplicationController
   # GET /solutions/1.json
   def show
     set_meta_tags title: @solution.title, description: @solution.description, reverse: true
+    if params[:r]
+      set_meta_tags canonical: params[:r]
+    end
     if user_signed_in?
       @new_comment = Comment.build_from(@solution, current_user, "")
     end
