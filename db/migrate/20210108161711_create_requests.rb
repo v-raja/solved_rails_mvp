@@ -10,6 +10,5 @@ class CreateRequests < ActiveRecord::Migration[6.0]
     end
 
     add_index :requests, :slug, unique: true
-    change_column_null :requests, :slug, false
   end
 end

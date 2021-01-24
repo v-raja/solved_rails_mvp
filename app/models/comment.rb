@@ -14,6 +14,8 @@
 #  rgt              :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  body_safe_html   :text
+#  discarded_at     :datetime
 #
 class Comment < ActiveRecord::Base
   class << self
@@ -21,6 +23,8 @@ class Comment < ActiveRecord::Base
       Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(no_images: true, no_styles: true, safe_links_only: true, hard_wrap: true, filter_html: true), auto_link: true, no_intra_emphasis: true, strikethrough: true)
     end
   end
+
+  include Discard::Model
 
   before_save :assign_body_safe_html , if: -> { body_changed? || body_safe_html.nil? }
 
@@ -35,6 +39,7 @@ class Comment < ActiveRecord::Base
 
   # NOTE: Comments belong to a user
   belongs_to :user
+
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text

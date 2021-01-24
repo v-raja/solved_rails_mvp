@@ -23,7 +23,7 @@
               = link_to "#{time_ago_in_words(solution.created_at)} ago", solution
 
         = link_to solution do
-          %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none transition hover:text-primary group"}
+          %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded border border-gray-300 leading-none transition hover:text-primary group"}
             -# = link_to upvote_solution_path(solution), class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none" do
             %div{class: "text-sm leading-none group-hover:animate-bounce"}
               ▲

@@ -19,6 +19,7 @@
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
 #  is_creator              :boolean          default(FALSE)
+#  description_safe_html   :text
 #
 class Solution < ApplicationRecord
 
@@ -33,7 +34,7 @@ class Solution < ApplicationRecord
   before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :slug_candidates, use: [:slugged, :history]
 
   validates_presence_of :title, :description, :youtube_urls, :product
   validate :atleast_one_niche
@@ -55,13 +56,15 @@ class Solution < ApplicationRecord
 
   belongs_to :user
 
+  after_create :remake_slug
+
   default_scope { order(created_at: :desc) }
 
   acts_as_commentable
+  accepts_nested_attributes_for :comment_threads, reject_if: proc { |att| att['body'].blank? }, limit: 1
+
   acts_as_votable cacheable_strategy: :update_columns
   acts_as_taggable_on :general_tags, :niche_specific_tags
-
-  default_scope { order(created_at: :desc) }
 
   scope :today,      -> { where('solutions.created_at >= ?', 1.day.ago) }
   scope :past_week,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => 1.day.ago }) }
@@ -132,7 +135,7 @@ class Solution < ApplicationRecord
   end
 
   def normalize_friendly_id(string)
-    super[0..50]
+    super[0..49]
   end
 
   def niche_list
@@ -162,6 +165,14 @@ class Solution < ApplicationRecord
   end
 
   private
+
+  def remake_slug
+    base_slug = normalize_friendly_id(self.title)
+    if self.slug != base_slug
+      self.slug = "#{base_slug}-#{self.id}"
+      self.save
+    end
+  end
 
   def url
     Rails.application.routes.url_helpers.solution_path(id)

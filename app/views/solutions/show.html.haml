@@ -1,5 +1,4 @@
 -# = render 'layouts/header', render_shadow: false
-- @render_shadow = false
 %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
 
   -# Logo, problem, product, and posted_to banner
@@ -9,9 +8,8 @@
         = image_tag @solution.product.thumbnail_url, class: "object-cover"
       %div{class: "ml-4 w-full flex flex-col justify-between"}
         %div
-          - exclude = ["and", "or", "the", "over", "to", "the", "a", "but", "of", "as", "for"]
           %div{class: "w-full font-medium"}
-            = @solution.title
+            %h1= @solution.title
           %div{class: "mt-1 text-gray-700 text-sm leading-none"}
             = link_to "with #{@solution.product.name}", @solution.product, class: "hover:text-black"
         -# %div
@@ -189,7 +187,7 @@
                   %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
                     Sign Up
         - if @solution.root_comments.any?
-          - @solution.root_comments.each do |comment|
+          - @solution.root_comments.includes(:user).each do |comment|
             = render 'comments/comment', comment: comment, new_comment: @new_comment
 
         - else

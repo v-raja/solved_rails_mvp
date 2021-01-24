@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
 
 
   def niche_index
+    set_meta_tags title: "Problems that need to be solved for #{@niche.title}", description: "Requests for solutions for #{@niche.keywords.join(", ")}", reverse: true
   end
 
   def follow
@@ -48,6 +49,7 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
+    set_meta_tags title: @request.title, description: @request.description, reverse: true
     if user_signed_in?
       @new_comment = Comment.build_from(@request, current_user, "")
     end
@@ -143,6 +145,10 @@ class RequestsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_request
       @request = Request.friendly.find(params[:id])
+
+      if params[:id] != @request.slug
+        return redirect_to @request, :status => :moved_permanently
+      end
     end
 
     # Only allow a list of trusted parameters through.
@@ -155,17 +161,10 @@ class RequestsController < ApplicationController
     end
 
     def set_niche
-      if params[:industry_id]
+      if id = params[:industry_id]
         @niche = Industry.friendly.find params[:industry_id]
-      else
+      elsif id = params[:occupation_id]
         @niche = Occupation.friendly.find params[:occupation_id]
       end
-
-      # If an old id or a numeric id was used to find the record, then
-      # the request path will not match the solution_path, and we should do
-      # a 301 redirect that uses the current friendly id.
-      # if params[:id] != @niche.slug
-      #   return redirect_to @industry, :status => :moved_permanently
-      # end
     end
 end

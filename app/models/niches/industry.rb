@@ -7,7 +7,6 @@
 #  description          :text
 #  code                 :text
 #  slug                 :text
-#  common_keywords      :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  industry_category_id :bigint           not null
@@ -27,6 +26,8 @@ class Industry < ApplicationRecord
   has_many :industry_requests, dependent: :destroy
   has_many :requests, through: :industry_requests
 
+  has_many :keywordz, primary_key: :code, foreign_key: :code, class_name: "Keyword"
+
   acts_as_followable
 
   before_save :titleize_title
@@ -36,22 +37,10 @@ class Industry < ApplicationRecord
   include AlgoliaSearch
 
   algoliasearch index_name: 'niches', id: :code, sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
-    attribute :created_at, :title, :description
+    attribute :title, :description
+    add_attribute :url, :type, :keywords
 
-    # integer version of the created_at datetime field, to use numerical filtering
-    attribute :created_at_i do
-      created_at.to_i
-    end
-
-    # attribute :solutions do
-    #   solutions.map do |p|
-    #     { title: p.title, url: Rails.application.routes.url_helpers.solution_path(p), description: p.description, product: { name: p.product.name, thumbnail_url: p.product.thumbnail_url } }
-    #   end
-    # end
-
-    add_attribute :url, :code_with_suffix, :type
-    # tags tag_list
-    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)', 'type']
+    searchableAttributes [ 'unordered(title)', 'unordered(keywords)', 'unordered(description)']
   end
 
   def titleize_title
@@ -68,12 +57,16 @@ class Industry < ApplicationRecord
   def slug_candidates
     [
       :title,
-      [:title, :id]
+      [:title, :code]
     ]
   end
 
   def tags
     self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)
+  end
+
+  def keywords
+    self.keywordz.pluck(:keyword)
   end
 
   private

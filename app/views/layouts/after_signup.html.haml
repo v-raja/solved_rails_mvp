@@ -11,6 +11,7 @@
     = render 'layouts/shim'
     = yield :head
   %body
+    %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}
     #app{class: "min-h-screen bg-gray-fb bg-opacity-60 antialiased font-sans"}
       -# = debug(params) if Rails.env.development?
       %div{class: "fixed inset-0 px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50"}

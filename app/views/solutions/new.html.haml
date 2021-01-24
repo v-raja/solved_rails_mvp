@@ -204,20 +204,66 @@
 
 
         %div{class: "w-full"}
-          %div{class: "px-4 py-8 bg-white rounded-sm text-sm border border-gray-400 flex flex-wrap"}
+          %div{class: "px-4 py-8 bg-white rounded-sm text-sm border border-gray-400"}
             %div{class: "w-full text-lg font-medium"}
               Tips! 👇
-              %ul{class: "mt-1 pl-2 text-sm font-normal text-gray-800 list-disc list-inside"}
+            %ul{class: "mt-3 list-disc list-inside leading-relaxed"}
+              %li
+                Try to include a video.
+                %div.pl-5
+                  Videos make it easier for others to understand what you're trying to convey. They also help people visualize how they could apply your solution in their daily life.
+            %div{class: "text-sm font-normal"}
+              %div{class: "mt-4 font-medium uppercase"}
+                Description
+              -# %div{class: "mt-1 leading-tight pl-2"}
+              %ul.mt-2.list-disc.list-inside.space-y-1.leading-relaxed
+                Keep it short. Try to only include details about:
+                .mt-1.space-y-1
+                  %li= "What problem does your solution solved?"
+                  %li= "Who is it for?"
+              %div{class: "mt-4 font-medium uppercase"}
+                Video & First Comment
+              %ul{class: "mt-2 list-disc list-inside space-y-2 leading-relaxed"}
                 %li
-                  Try to include a video.
-                  %div.pl-5
-                    ="Videos make it easier for others to understand what you're trying to convey. They also help others visulise how they could apply your solution."
-                <br/>
+                  Show, don't tell.
+                  %div{class: "ml-5"}
+                    Give a visual example of how you use the product to solve your problem. Use a real life scenario instead of a hypothetical one, if possible.
                 %li
-                  ="Put yourself in the shoes of the people you want to help."
-                  %div.pl-5
-                    ="Understand their concerns of investing time and money on your solution, only for it to not work out for them. What could you tell or show to convince them that it's worth giving your solution a shot?"
+                  If you're the maker of the product:
+                  %div{class: "ml-5"}
+                    Put yourself in the shoes of the people you want to help. Understand their concerns of investing their time and money on your solution, only for it to not work out for them.
+                    <br/>
+                    What could you tell or show to convince them that it's worth giving your solution a shot?
+                %li
+                  If you're not the maker of the product:
+                  %div{class: "ml-5"}
+                    What convinced you to use this product?
+                    <br/>
+                    Has the product saved you time / money, helped you earn more money, or made you happier? Putting a figure / percentage helps people understand impact better.
 
+                %li
+                  Use the first comment to include details missed in your video / description, and to get the conversation started.
+
+      %div{class: "mt-20 text-2xl font-bold"}
+        💬 Get the discussion going
+      %div{class: "mt-6 w-full gap-x-10 grid grid-cols-2"}
+        %div{class: "w-full"}
+          %div{class: "p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
+            %div{class: "mt-4 flex items-center"}
+              %div{class: "font-medium"}
+                First comment
+              %div{class: "ml-2 text-gray-600"}
+                = "- Optional, but recommended"
+            = f.fields_for :comment_threads do |builder|
+              = builder.hidden_field :user_id, value: @solution.user.id
+              = builder.text_area :body,
+                  class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                  placeholder: "Hi there 👋...",
+                  rows: "6"
+            %div{class: "mt-1 text-xs"}
+              Formatting: [this will be a link](https://www.example.com), **<strong>bold</strong>**, *<em>italic</em>*
+
+        %div{class: "w-full"}
 
       = f.submit "Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-4 uppercase cursor-pointer hover:bg-opacity-90"
 

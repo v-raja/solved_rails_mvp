@@ -9,6 +9,10 @@ module ApplicationHelper
     doc.to_html.html_safe
   end
 
+  def canonical(url)
+    content_for(:canonical, tag(:link, rel: :canonical, href: url)) if url
+  end
+
   def add_class_if_path_is_base(path, class_to_add)
     request.path.start_with?(path) ? class_to_add : ""
   end

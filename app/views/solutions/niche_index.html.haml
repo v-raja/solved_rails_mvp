@@ -6,7 +6,7 @@
     %div{class: "w-2/3 pr-12"}
       - if @niche.tags.present?
         %div{class: "flex items-center #{params[:tag].present? ? "text-base" : "text-xs pb-4"}"}
-          %div{class: "font-semibold pb-4 flex-shrink-0"}
+          %h2{class: "font-semibold pb-4 flex-shrink-0"}
             Tags:
           - if params[:tag]
             %div{class: "flex-shrink-0 text-black mr-1 ml-3 pb-4 font-medium"}
@@ -19,17 +19,17 @@
       - else
         - if @solutions.any?
           - if @solutions.today.any?
-            %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Today
             = render partial: "solutions/niche_preview", collection: @solutions.today, as: :solution
             %div{class: "mt-6"}
           - if @solutions.past_week.any?
-            %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Past Week
             = render partial: "solutions/niche_preview", collection: @solutions.past_week, as: :solution
             %div{class: "mt-6"}
           - if @solutions.past_month.any?
-            %div{class: "w-full font-bold text-2xl mb-6 leading-none"}
+            %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Past Month
             = render partial: "solutions/niche_preview", collection: @solutions.past_month, as: :solution
         - else
@@ -68,7 +68,7 @@
         %div{class: ""}
           %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
             %div{class: "flex justify-between"}
-              %div{class: "w-full text-base font-bold text-sm text-gray-900"}
+              %h2{class: "w-full text-base font-bold text-sm text-gray-900"}
                 = "About #{niche_type}"
               - if user_signed_in?
                 - if current_user.following?(@niche)

@@ -52,6 +52,8 @@ gem 'notable'
 gem 'pundit'
 gem 'wicked'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
+gem 'discard', '~> 1.2'
+gem 'meta-tags'
 
 
 group :development, :test do
@@ -70,7 +72,10 @@ group :development do
   gem 'letter_opener'
   gem 'brakeman'
   gem 'rails_real_favicon'
+  gem 'gindex'
+  gem 'bullet'
 end
+
 
 group :test do
   # Adds support for Capybara system testing and selenium driver

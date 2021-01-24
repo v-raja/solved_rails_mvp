@@ -8,10 +8,25 @@
   @apply text-xs;
 }
 
-// ul {
-//   @apply list-disc list-inside;
-// }
+mark {
+  @apply font-extrabold bg-transparent;
+}
 
+.ais-Hits-list {
+  @apply grid grid-cols-3 gap-4 mt-4;
+}
+
+.ais-Hits-item {
+  @apply bg-white w-full mt-0 border border-gray-400 shadow-none;
+}
+
+.ais-SearchBox-input {
+  @apply text-black rounded pl-7;
+}
+
+.ais-SearchBox-reset {
+  @apply p-2;
+}
 
 .disable-scrollbars {
   scrollbar-width: none; /* Firefox */

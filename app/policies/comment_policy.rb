@@ -18,4 +18,15 @@ class CommentPolicy
     @user.present?
   end
 
+  def destroy?
+    @user.present?
+  end
+
+  def restore?
+    @user.present? && @user.admin?
+  end
+
+  def really_destroy?
+    @user.present? && @user.admin?
+  end
 end

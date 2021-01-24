@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+  get 'errors/unacceptable'
+  get 'errors/internal_server_error'
   devise_for :users, controllers: { confirmations: 'confirmations' }
   resources :users
 
@@ -38,6 +41,14 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show]
 
+  # Force www redirect
+  # Start server with rails s -p 3000 -b lvh.me
+  # Then go to http://www.lvh.me:3000
+  # constraints(host: /^(?!www\.)/i) do
+  #   get "controller#action" => redirect { |params, request|
+  #     URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
+  #   }
+  # end
 
   post 'solutions/new', to: 'solutions#create'
   resources :solutions, except: [:index] do
@@ -50,6 +61,8 @@ Rails.application.routes.draw do
         member do
           get 'upvote'
           get 'remove_upvote'
+          delete 'really_destroy'
+          post 'restore'
         end
       end
     end
@@ -66,6 +79,8 @@ Rails.application.routes.draw do
         member do
           get 'upvote'
           get 'remove_upvote'
+          delete 'really_destroy'
+          post 'restore'
         end
       end
     end

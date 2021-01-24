@@ -3,14 +3,22 @@ import 'select2';                       // globally assign select2 fn to $ eleme
 import 'select2/dist/css/select2.css'
 
 
-var algolia = algoliasearch(
-  process.env.ALGOLIA_APP_ID,
-  process.env.ALGOLIA_ADMIN_API_KEY
-);
-
-var index = algolia.initIndex('niches_development');
 
 $(document).on('turbolinks:load', function() {
+  var loginEl = document.getElementById('turbolinkz');
+  var userId = loginEl.dataset.turbolinkzId;
+
+  const algolia = algoliasearch(
+    process.env.ALGOLIA_APP_ID,
+    process.env.ALGOLIA_ADMIN_API_KEY, {
+      headers: {
+        'X-Algolia-UserToken': userId
+      }
+    }
+  );
+
+  var index = algolia.initIndex('niches_development');
+
     $('#general_tags').select2({
       placeholder: 'marketing, sales, crm, team management, engineering, human resources',
       multiple: true,

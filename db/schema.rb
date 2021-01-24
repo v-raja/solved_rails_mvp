@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_151612) do
+ActiveRecord::Schema.define(version: 2021_01_24_042512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -29,7 +29,9 @@ ActiveRecord::Schema.define(version: 2021_01_21_151612) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "body_safe_html"
+    t.datetime "discarded_at"
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["discarded_at"], name: "index_comments_on_discarded_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -63,7 +65,6 @@ ActiveRecord::Schema.define(version: 2021_01_21_151612) do
     t.text "description"
     t.text "code"
     t.text "slug"
-    t.text "common_keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "industry_category_id", null: false
@@ -104,6 +105,15 @@ ActiveRecord::Schema.define(version: 2021_01_21_151612) do
     t.index ["industry_id"], name: "index_industry_solutions_on_industry_id"
     t.index ["solution_id", "industry_id"], name: "index_industry_solutions_on_solution_id_and_industry_id", unique: true
     t.index ["solution_id"], name: "index_industry_solutions_on_solution_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.text "code"
+    t.text "keyword"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code", "keyword"], name: "index_keywords_on_code_and_keyword", unique: true
+    t.index ["code"], name: "index_keywords_on_code"
   end
 
   create_table "notable_jobs", force: :cascade do |t|
@@ -173,7 +183,6 @@ ActiveRecord::Schema.define(version: 2021_01_21_151612) do
     t.text "description"
     t.text "code"
     t.text "slug"
-    t.text "common_keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "occupation_category_id", null: false
@@ -206,7 +215,7 @@ ActiveRecord::Schema.define(version: 2021_01_21_151612) do
     t.text "title"
     t.text "description"
     t.bigint "user_id", null: false
-    t.text "slug", null: false
+    t.text "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "cached_votes_total", default: 0

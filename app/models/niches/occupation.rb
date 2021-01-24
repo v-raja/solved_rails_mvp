@@ -7,7 +7,6 @@
 #  description            :text
 #  code                   :text
 #  slug                   :text
-#  common_keywords        :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  occupation_category_id :bigint           not null
@@ -30,22 +29,15 @@ class Occupation < ApplicationRecord
   has_many :occupation_requests, dependent: :destroy
   has_many :requests, through: :occupation_requests
 
+  has_many :keywordz, primary_key: :code, foreign_key: :code, class_name: "Keyword"
 
   include AlgoliaSearch
 
   algoliasearch index_name: 'niches', id: :code, raise_on_failure: Rails.env.development?, sanitize: true, per_environment: true do
-    attribute :created_at, :title, :description
+    attribute :title, :description
+    add_attribute :url, :type, :keywords
 
-    add_attribute :url, :code_with_suffix, :type
-
-    # integer version of the created_at datetime field, to use numerical filtering
-    attribute :created_at_i do
-      created_at.to_i
-    end
-
-    # tags self.tag_list
-
-    searchableAttributes ['unordered(code_with_suffix)', 'unordered(title)', 'unordered(description)', 'type']
+    searchableAttributes [ 'unordered(title)', 'unordered(keywords)', 'unordered(description)']
   end
 
   def titleize_title
@@ -78,6 +70,10 @@ class Occupation < ApplicationRecord
       :title,
       [:title, :code]
     ]
+  end
+
+  def keywords
+    self.keywordz.pluck(:keyword)
   end
 
   private

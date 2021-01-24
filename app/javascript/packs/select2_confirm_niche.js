@@ -4,14 +4,35 @@ import 'select2/dist/css/select2.css'
 
 import '../stylesheets/select2_confirm_niche.scss';  // optional if you have css loader
 
-var algolia = algoliasearch(
-  process.env.ALGOLIA_APP_ID,
-  process.env.ALGOLIA_ADMIN_API_KEY
-);
-
-var index = algolia.initIndex('niches_development');
 
 $(document).on('turbolinks:load', function() {
+  var loginEl = document.getElementById('turbolinkz');
+  var userId = loginEl.dataset.turbolinkzId;
+
+  const algolia = algoliasearch(
+    process.env.ALGOLIA_APP_ID,
+    process.env.ALGOLIA_ADMIN_API_KEY, {
+      headers: {
+        'X-Algolia-UserToken': userId
+      }
+    }
+  );
+
+  var index = algolia.initIndex('niches_development');
+
+
+    function handleKeywords(keywordsArr) {
+      var returnString = "";
+      var i;
+      for (i = 0; i < keywordsArr.length; i++) {
+        var keywordObj = keywordsArr[i];
+        if (keywordObj.matchLevel !== "none") {
+          returnString += keywordObj.value + '<br/>';
+        }
+      }
+      return returnString;
+    };
+
     document.getElementById("select-niches").focus();
     // $('#select-niches').select2('focus');
     $('#select-niches').select2({
@@ -33,7 +54,7 @@ $(document).on('turbolinks:load', function() {
         },
         // build Algolia's query parameters (with page starting at 0)
         data: function(params) {
-          return { query: params.term, hitsPerPage: 8, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>', attributesToSnippet: ['description:40'], snippetEllipsisText: '...' };
+          return { query: params.term, hitsPerPage: 6, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>', attributesToSnippet: ['description:30'], snippetEllipsisText: '...', attributesToHighlight: ['title', 'keywords']};
         },
 
         // return Algolia's results
@@ -74,10 +95,16 @@ $(document).on('turbolinks:load', function() {
                     niche_res._highlightResult.title.value +
                   '</div>' +
                   '<div class="w-full text-xs mt-2 text-gray-600">' +
-                    'Description' +
+                    'Common keywords' +
                   '</div>' +
                   '<div class="w-full text-sm">' +
-                     niche_res._snippetResult.description.value +
+                    handleKeywords(niche_res._highlightResult.keywords) +
+                  '</div>' +
+                  '<div class="w-full text-xs mt-2 text-gray-600">' +
+                    'Description' +
+                  '</div>' +
+                  '<div class="w-full text-sm pb-2">' +
+                    niche_res._snippetResult.description.value +
                   '</div>' +
                 '</div>'
         }

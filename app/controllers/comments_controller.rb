@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment, only: [:upvote, :remove_upvote]
+  before_action :set_comment, only: [:upvote, :remove_upvote, :destroy, :really_destroy, :restore]
 
   def upvote
     authorize @comment
@@ -33,6 +33,33 @@ class CommentsController < ApplicationController
       else
         format.html  { redirect_back(fallback_location: root_path, :notice => 'Comment not added.') }
       end
+    end
+  end
+
+  def destroy
+    authorize @comment
+    @comment.discard
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path, :notice => 'Comment deleted.') }
+      format.json { head :no_content }
+    end
+  end
+
+  def really_destroy
+    authorize @comment
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path, :notice => 'Comment was REALLY deleted.') }
+      format.json { head :no_content }
+    end
+  end
+
+  def restore
+    authorize @comment
+    @comment.undiscard
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path, :notice => 'Comment was restored.') }
+      format.json { head :no_content }
     end
   end
 

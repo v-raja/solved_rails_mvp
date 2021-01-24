@@ -16,11 +16,12 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  description_safe_html   :text
 #
 class Request < ApplicationRecord
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :slug_candidates, use: [:slugged, :history]
 
   class << self
     def markdown
@@ -53,6 +54,8 @@ class Request < ApplicationRecord
   has_many :occupation_requests, dependent: :destroy
   has_many :occupations, through: :occupation_requests
 
+  after_create :remake_slug
+
   def post_to_industry(industry)
     industries << industry
   end
@@ -66,7 +69,7 @@ class Request < ApplicationRecord
   end
 
   def normalize_friendly_id(string)
-    super[0..50]
+    super[0..49]
   end
 
   def niche_list=(codes)
@@ -85,6 +88,24 @@ class Request < ApplicationRecord
 
   private
 
+  def slug_candidates
+    [
+      :title,
+      [:title, :id]
+    ]
+  end
+
+  def remake_slug
+    base_slug = normalize_friendly_id(self.title)
+    if self.slug != base_slug
+      new_slug = "#{base_slug}-#{self.id}"
+      # if FriendlyId::Slug.where(sluggable_type: self.class.to_s).where('lower(slug) = ?', new_slug).exists?
+      #   self.slug = nil
+      # else
+      self.slug = new_slug
+      self.save
+    end
+  end
 
   def atleast_one_niche
     if industries.empty? && occupations.empty?
@@ -93,14 +114,7 @@ class Request < ApplicationRecord
   end
 
   def should_generate_new_friendly_id?
-    title_changed? || super
-  end
-
-  def slug_candidates
-    [
-      :title,
-      [:title, :id]
-    ]
+    self.slug.blank? || title_changed? || super
   end
 
   def assign_description_safe_html

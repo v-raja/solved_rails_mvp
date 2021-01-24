@@ -5,6 +5,7 @@ class SolutionsController < ApplicationController
   before_action :set_niche,    only: [:niche_index]
 
   def niche_index
+    set_meta_tags title: "The best new solutions for #{@niche.title}", description: "The best new solutions for #{@niche.keywords.join(", ")}", keywords: @niche.keywords, reverse: true
     if params[:tag]
       # NOTE: the adding below changes @solutions to an array and so scopes like .today
       # don't work. Currently, we just check if param is used, and if so, don't use logic
@@ -57,6 +58,7 @@ class SolutionsController < ApplicationController
   # GET /solutions/1
   # GET /solutions/1.json
   def show
+    set_meta_tags title: @solution.title, description: @solution.description, reverse: true
     if user_signed_in?
       @new_comment = Comment.build_from(@solution, current_user, "")
     end
@@ -74,6 +76,7 @@ class SolutionsController < ApplicationController
     authorize @solution
     @solution.youtube_urls.build
     @solution.build_product
+    @solution.comment_threads.build
   end
 
   # POST /solutions
@@ -138,11 +141,15 @@ class SolutionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_solution
       @solution = Solution.friendly.find(params[:id])
+
+      if params[:id] != @solution.slug
+        return redirect_to @solution, :status => :moved_permanently
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def solution_params
-      params.require(:solution).permit(:title, :description, :product_id, :get_it_url,
+      params.require(:solution).permit(:title, :description, :product_id, :get_it_url, comment_threads_attributes: [:user_id, :body],
             general_tag_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], youtube_urls_attributes: [:_destroy, :id, :url])
     end
 

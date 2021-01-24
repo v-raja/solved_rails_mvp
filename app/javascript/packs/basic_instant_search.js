@@ -1,7 +1,27 @@
 $(document).on('turbolinks:load', function() {
+  function handleKeywords(keywordsArr) {
+    var returnString = "";
+    var i;
+    for (i = 0; i < keywordsArr.length; i++) {
+      var keywordObj = keywordsArr[i];
+      if (keywordObj.matchLevel !== "none") {
+        returnString += keywordObj.value + '<br/>';
+      }
+    }
+    return returnString;
+  };
+
+
+  var loginEl = document.getElementById('turbolinkz');
+  var userId = loginEl.dataset.turbolinkzId;
+
   const searchClient = algoliasearch(
     process.env.ALGOLIA_APP_ID,
-    process.env.ALGOLIA_ADMIN_API_KEY
+    process.env.ALGOLIA_ADMIN_API_KEY, {
+      headers: {
+        'X-Algolia-UserToken': userId
+      }
+    }
   );
 
   const search = instantsearch({
@@ -29,8 +49,8 @@ $(document).on('turbolinks:load', function() {
 
   search.addWidgets([
     instantsearch.widgets.configure({
-      attributesToSnippet: ['description'],
-      hitsPerPage: 12,
+      attributesToSnippet: ['description:30'],
+      hitsPerPage: 9,
       // filters: 'NOT categories:"Cell Phones"'
     }),
     instantsearch.widgets.searchBox({
@@ -47,7 +67,7 @@ $(document).on('turbolinks:load', function() {
       transformItems(items) {
         var itemz = items.map(item => ({
           ...item,
-          display_code: item._highlightResult.code_with_suffix.matchLevel !== 'none'
+          keywords: handleKeywords(item._highlightResult.keywords)
         }));
         console.log(itemz);
         return itemz;
@@ -55,28 +75,49 @@ $(document).on('turbolinks:load', function() {
       container: '#hits',
       templates: {
         empty: 'No niches have been found for "{{ query }}"',
-        // item: '<strong>Hit {{objectID}}</strong>: {{{_highlightResult.title.value}}}',
-        item: '<a href={{{url}}}>' +
-                '<div class="flex flex-wrap">' +
-                  '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
-                    '{{{_highlightResult.title.value}}}'+
-                  '</div>' +
-                  '<div class="w-full text-sm mt-0.5 text-gray-800">' +
+        item: '<a href={{{url}}}>'+
+                '<div class="flex flex-wrap text-black">' +
+                  '<div class="w-full text-sm uppercase mt-1 text-gray-900">' +
                     '{{{type}}}' +
                   '</div>' +
-                  '<div class="w-full text-xs mt-2 text-gray-600">' +
+                  '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
+                    '{{{_highlightResult.title.value}}}' +
+                  '</div>' +
+                  '<div class="w-full text-xs mt-3 text-gray-700">' +
+                    'Common keywords' +
+                  '</div>' +
+                  '<div class="w-full text-sm">' +
+                    '{{{keywords}}}' +
+                  '</div>' +
+                  '<div class="w-full text-xs mt-3 text-gray-700">' +
                     'Description' +
                   '</div>' +
-                  '<div class="w-full text-base">' +
-                    '{{#helpers.snippet}}{ "attribute": "description", "highlightedTagName": "strong" }{{/helpers.snippet}}' +
+                  '<div class="w-full text-sm pb-2">' +
+                    '{{{_snippetResult.description.value}}}' +
                   '</div>' +
-                  '{{#display_code}}' +
-                    '<div class="w-full text-sm mt-1">' +
-                      '{{{_highlightResult.code_with_suffix.value}}}' +
-                    '</div>' +
-                  '{{/display_code}}' +
                 '</div>' +
               '</a>'
+        // '<a href={{{url}}}>' +
+        //         '<div class="flex flex-wrap">' +
+        //           '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
+        //             '{{{_highlightResult.title.value}}}'+
+        //           '</div>' +
+        //           '<div class="w-full text-sm mt-0.5 text-gray-800">' +
+        //             '{{{type}}}' +
+        //           '</div>' +
+        //           '<div class="w-full text-xs mt-2 text-gray-600">' +
+        //             'Description' +
+        //           '</div>' +
+        //           '<div class="w-full text-base">' +
+        //             '{{#helpers.snippet}}{ "attribute": "description", "highlightedTagName": "strong" }{{/helpers.snippet}}' +
+        //           '</div>' +
+        //           '{{#display_code}}' +
+        //             '<div class="w-full text-sm mt-1">' +
+        //               '{{{_highlightResult.code_with_suffix.value}}}' +
+        //             '</div>' +
+        //           '{{/display_code}}' +
+        //         '</div>' +
+        //       '</a>'
       },
     }),
 

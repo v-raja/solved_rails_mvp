@@ -1,24 +1,40 @@
 %div{class: "w-full py-3"}
   -# Person thumbnail
-  %div{data: { controller: "toggle" }}
+  - if comment.kept?
+    %div{data: { controller: "toggle" }}
+      %div{class: "w-full flex"}
+        %div{class: "w-8 h-8 flex-shrink-0"}
+          = image_tag comment.user.thumbnail_url, class: "rounded-full object-cover"
+        %div{class: "ml-2 flex flex-wrap justify-between"}
+          %div{class: "w-full text-xs text-black font-medium flex items-center"}
+            = comment.user.name
+            %div{class: "ml-2 font-regular cursor-pointer text-gray-600 hover:underline", data: { action: "click->toggle#toggle touch->toggle#toggle" }}
+              %div{data: { toggle: { target: 'toggleable' } } }
+                [-]
+              %div{class: "hidden", data: { toggle: { target: 'toggleable' } } }
+                [+]
+
+          %div{class: "text-xs text-gray-600"}
+            = comment.user.bio
+      %div{class: "ml-10 text-sm mt-1 text-gray-900 mr-4", data: { toggle: { target: 'toggleable' } }}
+        - if user_signed_in?
+          = render 'comments/signed_in_body', comment: comment, new_comment: new_comment
+        - else
+          = render 'comments/signed_out_body', comment: comment
+        - comment.children.each do |child_comment|
+          = render 'comments/comment', comment: child_comment, new_comment: new_comment
+  - else
     %div{class: "w-full flex"}
       %div{class: "w-8 h-8 flex-shrink-0"}
-        = image_tag comment.user.thumbnail_url, class: "rounded-full object-cover"
+        = image_tag "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png", class: "rounded-full object-cover"
       %div{class: "ml-2 flex flex-wrap justify-between"}
-        %div{class: "w-full text-xs text-black font-medium flex items-center"}
-          = comment.user.name
-          %div{class: "ml-2 font-regular cursor-pointer text-gray-600 hover:underline", data: { action: "click->toggle#toggle touch->toggle#toggle" }}
-            %div{data: { toggle: { target: 'toggleable' } } }
-              [-]
-            %div{class: "hidden", data: { toggle: { target: 'toggleable' } } }
-              [+]
-
-        %div{class: "text-xs text-gray-600"}
-          = comment.user.bio
-    %div{class: "ml-10 text-sm mt-1 text-gray-900 mr-4", data: { toggle: { target: 'toggleable' } }}
-      - if user_signed_in?
-        = render 'comments/signed_in_body', comment: comment, new_comment: new_comment
-      - else
-        = render 'comments/signed_out_body', comment: comment
+        %div{class: "w-full text-xs text-gray-600 font-medium flex items-center space-x-3"}
+          %div
+            Comment deleted by user
+          - if policy(comment).really_destroy?
+            = link_to "Destroy", really_destroy_comment_path(comment), method: :delete, data: { confirm: 'Are you REALLY sure?' }, class: "p-1 -ml-1 transition uppercase text-secondary font-semibold hover:bg-gray-200 rounded-sm"
+          - if policy(comment).restore?
+            = link_to "Restore", restore_comment_path(comment), method: :post, class: "p-1 -ml-1 transition uppercase text-gray-900 font-semibold hover:bg-gray-200 rounded-sm"
+    %div{class: "ml-10 text-sm mt-1 text-gray-900 mr-4"}
       - comment.children.each do |child_comment|
         = render 'comments/comment', comment: child_comment, new_comment: new_comment
