@@ -33,7 +33,7 @@ class Occupation < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'niches', id: :code, raise_on_failure: Rails.env.development?, sanitize: true, per_environment: true do
+  algoliasearch index_name: 'niches_developement', id: :code, raise_on_failure: Rails.env.development?, sanitize: true do
     attribute :title, :description
     add_attribute :url, :type, :keywords
 

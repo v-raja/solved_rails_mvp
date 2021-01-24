@@ -36,7 +36,7 @@ class Industry < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'niches', id: :code, sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
+  algoliasearch index_name: 'niches_developement', id: :code, sanitize: true, raise_on_failure: Rails.env.development? do
     attribute :title, :description
     add_attribute :url, :type, :keywords
 
