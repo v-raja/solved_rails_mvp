@@ -80,6 +80,7 @@ class SolutionsController < ApplicationController
     @solution.youtube_urls.build
     @solution.build_product
     @solution.comment_threads.build
+    @solution.user = current_user
   end
 
   # POST /solutions

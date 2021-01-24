@@ -21,9 +21,9 @@
       !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.13.1";
         analytics.load('#{ENV['SEGMENT_WRITE_KEY']}');
       }}();
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'basic_instant_search'
     = javascript_pack_tag "select2"
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
 
     = yield :head
   %body
@@ -44,8 +44,8 @@
       #app_body
         = yield
       #results{class: "w-full flex justify-center"}
-        %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
-          %div{class: "max-w-screen-lg w-full relative flex flex-col"}
+        %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4 w-full"}
+          %div{class: "max-w-screen-lg w-full flex flex-col"}
             %div{class: "font-bold text-3xl"}
               Niches
             -# :css
@@ -53,7 +53,7 @@
             -#     font-weight: 700;
             -#     background: transparent;
             -#   }
-            #hits{class: "mt-4 mb-10"}
+            #hits{class: "mt-4 mb-10 w-full"}
             -# %div{class: "mt-8 font-bold text-3xl"}
             -#   Products
             -# #hits-product{class: "mt-4"}

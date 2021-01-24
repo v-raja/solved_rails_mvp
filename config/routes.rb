@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'errors/not_found'
-  get 'errors/unacceptable'
-  get 'errors/internal_server_error'
+  match '/404', via: :all, to: 'errors#not_found'
+  match '/422', via: :all, to: 'errors#unprocessable_entity'
+  match '/500', via: :all, to: 'errors#server_error'
+
   devise_for :users, controllers: { confirmations: 'confirmations' }
   resources :users
 

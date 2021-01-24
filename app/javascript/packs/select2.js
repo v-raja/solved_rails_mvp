@@ -10,7 +10,7 @@ $(document).on('turbolinks:load', function() {
 
   const algolia = algoliasearch(
     process.env.ALGOLIA_APP_ID,
-    process.env.ALGOLIA_ADMIN_API_KEY, {
+    process.env.ALGOLIA_SEARCH_KEY, {
       headers: {
         'X-Algolia-UserToken': userId
       }
