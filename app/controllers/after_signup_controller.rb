@@ -12,6 +12,7 @@ class AfterSignupController < ApplicationController
 
   def show
     @user = current_user
+    @user.save
     # byebug
     render_wizard
     set_meta_tags title: "Welcome to sovled!", site: false, nofollow: true, noindex: true

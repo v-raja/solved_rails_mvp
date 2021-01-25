@@ -8,7 +8,8 @@ class IndustryCategoriesController < ApplicationController
     authorize @industry_categories
     set_meta_tags title: "Explore by industries to find your niche",
                   description: "Explore by industries to find your niche. Find the best new solutions for your industry niche.",
-                  reverse: true
+                  reverse: true,
+                  canonical: industry_categories_url
   end
 
   # GET /categories/1
@@ -17,7 +18,8 @@ class IndustryCategoriesController < ApplicationController
     authorize @industry_category
     set_meta_tags title: "Explore by industries to find your niche",
                   description: "Explore by industries within the #{@industry_category.title} subsector to find your niche. Find the best new solutions for your industry niche.",
-                  reverse: true
+                  reverse: true,
+                  canonical: industry_category_url(@industry_category)
   end
 
   private

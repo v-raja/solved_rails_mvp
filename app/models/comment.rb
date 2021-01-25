@@ -27,6 +27,7 @@ class Comment < ActiveRecord::Base
   include Discard::Model
 
   before_save :assign_body_safe_html , if: -> { body_changed? || body_safe_html.nil? }
+  before_save :anti_spam, if: -> { body_safe_html_changed? }
 
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 
@@ -35,7 +36,7 @@ class Comment < ActiveRecord::Base
 
   acts_as_votable
 
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :commentable, :polymorphic => true, touch: true
 
   # NOTE: Comments belong to a user
   belongs_to :user
@@ -81,4 +82,15 @@ class Comment < ActiveRecord::Base
       body_safe_html: self.class.markdown.render(body.gsub(/\n/, '&nbsp;'))
     })
   end
+
+  def anti_spam
+    doc = Nokogiri::HTML::DocumentFragment.parse(self.body_safe_html)
+    doc.css('a').each do |a|
+      a[:rel] = 'nofollow ugc noopener'
+      a[:target] = '_blank'
+      a[:class] = 'user-link'
+    end
+    self.body_safe_html = doc.to_s
+  end
+
 end

@@ -15,23 +15,23 @@
             - @niche.tags.each do |tag|
               = link_to_unless_current(tag.name, [@niche, tag: tag.name], class: "flex-shrink-0 text-gray-600 hover:text-black") do end
       - if params[:tag]
-        = render partial: "solutions/niche_preview", collection: @solutions, as: :solution
+        = render partial: "solutions/niche_preview", collection: @solutions, as: :solution, cached: true
       - else
         - if @solutions.any?
           - if @solutions.today.any?
             %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Today
-            = render partial: "solutions/niche_preview", collection: @solutions.today, as: :solution
+            = render partial: "solutions/niche_preview", collection: @solutions.today, as: :solution, cached: true
             %div{class: "mt-6"}
           - if @solutions.past_week.any?
             %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Past Week
-            = render partial: "solutions/niche_preview", collection: @solutions.past_week, as: :solution
+            = render partial: "solutions/niche_preview", collection: @solutions.past_week, as: :solution, cached: true
             %div{class: "mt-6"}
           - if @solutions.past_month.any?
             %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Past Month
-            = render partial: "solutions/niche_preview", collection: @solutions.past_month, as: :solution
+            = render partial: "solutions/niche_preview", collection: @solutions.past_month, as: :solution, cached: true
         - else
           %div{class: "w-full flex flex-col items-center"}
             - if user_signed_in?

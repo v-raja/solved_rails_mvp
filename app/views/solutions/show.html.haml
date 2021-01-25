@@ -30,7 +30,7 @@
       %div{class: "bg-white p-4 block border border-gray-300"}
         %div{class: "aspect-w-7 aspect-h-4"}
           %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
-            = render @solution.youtube_urls
+            = render @solution.youtube_urls, cached: true
 
         %div{class: "mt-2 flex space-x-2"}
           - @solution.youtube_urls.each_with_index do |yt_utl, idx|
@@ -67,9 +67,9 @@
         %div{class: "ml-4 w-full", id: "upvote_button"}
           - if user_signed_in?
             - if current_user.voted_up_on? @solution
-              = render partial: 'solutions/upvoted', locals: { solution: @solution }
+              = render partial: 'solutions/upvoted', locals: { solution: @solution }, cached: true
             - else
-              = render partial: 'solutions/upvote', locals: { solution: @solution }
+              = render partial: 'solutions/upvote', locals: { solution: @solution }, cached: true
           - else
             = link_to new_user_session_path do
               %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm group"}
@@ -188,7 +188,7 @@
                     Sign Up
         - if @solution.root_comments.any?
           - @solution.root_comments.includes(:user).each do |comment|
-            = render 'comments/comment', comment: comment, new_comment: @new_comment
+            = render 'comments/comment', comment: comment, new_comment: @new_comment, cached: true
 
         - else
           %div{class: "w-full flex flex-wrap justify-between text-center py-10"}

@@ -30,6 +30,7 @@ class Request < ApplicationRecord
   end
 
   before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
+  before_save :anti_spam, if: -> { description_safe_html_changed? }
 
   belongs_to :user
   validates_presence_of :title, :description
@@ -38,7 +39,7 @@ class Request < ApplicationRecord
 
   acts_as_followable
   acts_as_commentable
-  acts_as_votable cacheable_strategy: :update_columns
+  acts_as_votable
 
   default_scope { order(created_at: :desc) }
 
@@ -121,6 +122,16 @@ class Request < ApplicationRecord
     assign_attributes({
       description_safe_html: self.class.markdown.render(description.gsub(/\n/, '&nbsp;'))
     })
+  end
+
+  def anti_spam
+    doc = Nokogiri::HTML::DocumentFragment.parse(self.description_safe_html)
+    doc.css('a').each do |a|
+      a[:rel] = 'nofollow ugc noopener'
+      a[:target] = '_blank'
+      a[:class] = 'user-link'
+    end
+    self.description_safe_html = doc.to_s
   end
 
 end

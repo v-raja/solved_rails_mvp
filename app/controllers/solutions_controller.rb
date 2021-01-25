@@ -3,9 +3,14 @@ class SolutionsController < ApplicationController
                                       :remove_upvote, :follow, :unfollow]
 
   before_action :set_niche,    only: [:niche_index]
+  etag { current_user.try :id }
 
   def niche_index
-    set_meta_tags title: "The best new solutions for #{@niche.title}", description: "The best new solutions for #{@niche.keywords.join(", ")}", keywords: @niche.keywords, reverse: true
+    set_meta_tags title: "The best new solutions for #{@niche.title}",
+                  description: "The best new solutions for #{@niche.keywords.join(", ")}",
+                  keywords: @niche.keywords,
+                  reverse: true,
+                  canonical: polymorphic_url(@niche)
     if params[:tag]
       # NOTE: the adding below changes @solutions to an array and so scopes like .today
       # don't work. Currently, we just check if param is used, and if so, don't use logic
@@ -58,10 +63,11 @@ class SolutionsController < ApplicationController
   # GET /solutions/1
   # GET /solutions/1.json
   def show
-    set_meta_tags title: @solution.title, description: @solution.description, reverse: true
-    if params[:r]
-      set_meta_tags canonical: params[:r]
-    end
+    fresh_when @solution
+    set_meta_tags title: @solution.title,
+                  description: @solution.description,
+                  reverse: true,
+                  canonical: solution_url(@solution)
     if user_signed_in?
       @new_comment = Comment.build_from(@solution, current_user, "")
     end
@@ -70,11 +76,13 @@ class SolutionsController < ApplicationController
 
   # GET /solutions/1/edit
   def edit
+    set_meta_tags noindex: true
     authorize @solution
   end
 
   # GET /solutions/new
   def new
+    set_meta_tags noindex: true
     @solution = Solution.new
     authorize @solution
     @solution.youtube_urls.build

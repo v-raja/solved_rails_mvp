@@ -14,8 +14,9 @@
             = link_to 'Solutions', root_path, class: "#{active}"
             = link_to 'Requests', requests_path, class: "#{inactive}"
           %div
-            = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
-            = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
+            - unless params[:tag]
+              = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
+              = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
         - else
           %div
             = link_to 'Solutions', root_path, class: "#{inactive}"

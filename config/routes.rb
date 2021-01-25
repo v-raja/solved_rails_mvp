@@ -2,6 +2,14 @@ Rails.application.routes.draw do
   match '/404', via: :all, to: 'errors#not_found'
   match '/422', via: :all, to: 'errors#unprocessable_entity'
   match '/500', via: :all, to: 'errors#server_error'
+  get "/robots.:format", to: "errros#robots"
+
+  # Force www redirect
+  constraints(host: /^(?!www\.)/i) do
+    match '(*any)', via: :all, to: redirect { |params, request|
+      URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
+    }
+  end
 
   devise_for :users, controllers: { confirmations: 'confirmations' }
   resources :users

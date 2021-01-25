@@ -1,4 +1,3 @@
-%p#notice= notice
 
 = render 'shared/explore/header'
 -# Side-bar: popular industries, new requests, new solutions
@@ -13,26 +12,27 @@
            column-gap: 20px;
   }
 
-%div{class: "flex flex-wrap justify-center pb-10"}
-  %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
-    = "#{@industry_category.title} Subsector"
+- cache @industry_category do
+  %div{class: "flex flex-wrap justify-center pb-10"}
+    %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
+      = "#{@industry_category.title} Subsector"
 
-  %div{class: "mt-4 max-w-screen-lg w-full relative flex"}
-    #container
-      %ul{class: "ml-6 list-disc space-y-6"}
-        - @industry_category.children.each do |industry_group|
-          %li{class: ""}
-            %div{class: "font-sans text-base font-medium"}
-              = "#{industry_group.title}"
-            %ul{class: "ml-6 list-disc space-y-2"}
-              - industry_group.children.each do |industry|
-                %li
-                  %div{class: "font-sans text-base"}
-                    = "#{industry.title}"
-                  %ul{class: "ml-6 list-disc"}
-                    - industry.industries.each do |national_industry|
-                      %li
-                        = link_to "#{national_industry.title}", national_industry, class: "font-sans text-sm underline"
+    %div{class: "mt-4 max-w-screen-lg w-full relative flex"}
+      #container
+        %ul{class: "ml-6 list-disc space-y-6"}
+          - @industry_category.children.each do |industry_group|
+            %li{class: ""}
+              %div{class: "font-sans text-base font-medium"}
+                = "#{industry_group.title}"
+              %ul{class: "ml-6 list-disc space-y-2"}
+                - industry_group.children.each do |industry|
+                  %li
+                    %div{class: "font-sans text-base"}
+                      = "#{industry.title}"
+                    %ul{class: "ml-6 list-disc"}
+                      - industry.industries.each do |national_industry|
+                        %li
+                          = link_to "#{national_industry.title}", national_industry, class: "font-sans text-sm underline"
 
 
 :javascript

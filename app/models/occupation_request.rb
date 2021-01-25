@@ -9,8 +9,8 @@
 #  updated_at    :datetime         not null
 #
 class OccupationRequest < ApplicationRecord
-  belongs_to :occupation
-  belongs_to :request
+  belongs_to :occupation, touch: true
+  belongs_to :request, touch: true
   # validates  :request_id, presence: true
   # validates  :occupation_id, presence: true
   validates_uniqueness_of :request_id, :scope => :occupation_id

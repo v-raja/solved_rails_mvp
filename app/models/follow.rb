@@ -17,8 +17,8 @@ class Follow < ActiveRecord::Base
   extend ActsAsFollower::FollowScopes
 
   # NOTE: Follows belong to the "followable" and "follower" interface
-  belongs_to :followable, polymorphic: true
-  belongs_to :follower,   polymorphic: true
+  belongs_to :followable, polymorphic: true, touch: true
+  belongs_to :follower,   polymorphic: true, touch: true
 
   def block!
     self.update_attribute(:blocked, true)

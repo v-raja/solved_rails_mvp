@@ -8,6 +8,10 @@
   @apply text-xs;
 }
 
+.user-link {
+  @apply border-b-3 border-secondary transition-all hover:bg-secondary hover:bg-white;
+}
+
 mark {
   @apply font-extrabold bg-transparent;
 }

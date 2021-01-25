@@ -2,10 +2,15 @@ class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy, :upvote,
                                      :remove_upvote, :follow, :unfollow]
   before_action :set_niche,   only: [:niche_index]
+  etag { current_user.try :id }
 
 
   def niche_index
-    set_meta_tags title: "Problems that need to be solved for #{@niche.title}", description: "Requests for solutions for #{@niche.keywords.join(", ")}", reverse: true
+    set_meta_tags title: "Problems that need to be solved for #{@niche.title}",
+                  description: "Requests for solutions for #{@niche.keywords.join(", ")}",
+                  reverse: true,
+                  keywords: @niche.keywords,
+                  canonical: polymorphic_url([@niche, :requests])
   end
 
   def follow
@@ -49,7 +54,11 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
-    set_meta_tags title: @request.title, description: @request.description, reverse: true
+    fresh_when @request
+    set_meta_tags title: @request.title,
+                  description: @request.description,
+                  reverse: true,
+                  canonical: request_url(@request)
     if user_signed_in?
       @new_comment = Comment.build_from(@request, current_user, "")
     end
@@ -59,6 +68,7 @@ class RequestsController < ApplicationController
   # GET /requests/1/edit
   def edit
     authorize @request
+    set_meta_tags noindex: true
   end
 
   # GET /requests/new
@@ -66,6 +76,10 @@ class RequestsController < ApplicationController
     @request = Request.new
     authorize @request
     @user = User.new
+    set_meta_tags title: "Request for a solution to your problem",
+                  description: "Create a request for a software solution from makers all around the world.",
+                  reverse: true,
+                  canonical: new_request_url
   end
 
   # POST /requests

@@ -9,8 +9,8 @@
 #  updated_at  :datetime         not null
 #
 class IndustryRequest < ApplicationRecord
-  belongs_to :industry
-  belongs_to :request
+  belongs_to :industry, touch: true
+  belongs_to :request, touch: true
   # validates  :request_id, presence: true
   # validates  :industry_id, presence: true
   validates_uniqueness_of :request_id, :scope => :industry_id

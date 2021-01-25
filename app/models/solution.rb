@@ -32,6 +32,7 @@ class Solution < ApplicationRecord
   acts_as_followable
 
   before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
+  before_save :anti_spam, if: -> { description_safe_html_changed? }
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
@@ -48,7 +49,7 @@ class Solution < ApplicationRecord
   has_many :youtube_urls, dependent: :destroy
   accepts_nested_attributes_for :youtube_urls, allow_destroy: true, reject_if: proc { |att| att['url'].blank? }
 
-  belongs_to :product
+  belongs_to :product, touch: true
   accepts_nested_attributes_for :product, :reject_if => :check_if_product_exists
 
   validates_associated :product
@@ -63,7 +64,7 @@ class Solution < ApplicationRecord
   acts_as_commentable
   accepts_nested_attributes_for :comment_threads, reject_if: proc { |att| att['body'].blank? }, limit: 1
 
-  acts_as_votable cacheable_strategy: :update_columns
+  acts_as_votable
   acts_as_taggable_on :general_tags, :niche_specific_tags
   acts_as_taggable_on :tags
 
@@ -218,6 +219,16 @@ class Solution < ApplicationRecord
     assign_attributes({
       description_safe_html: self.class.markdown.render(description.gsub(/\n/, "&nbsp;\n"))
     })
+  end
+
+  def anti_spam
+    doc = Nokogiri::HTML::DocumentFragment.parse(self.description_safe_html)
+    doc.css('a').each do |a|
+      a[:rel] = 'nofollow ugc noopener'
+      a[:target] = '_blank'
+      a[:class] = 'user-link'
+    end
+    self.description_safe_html = doc.to_s
   end
 
 end

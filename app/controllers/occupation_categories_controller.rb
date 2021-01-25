@@ -8,7 +8,8 @@ class OccupationCategoriesController < ApplicationController
     authorize @occupation_categories
     set_meta_tags title: "Explore by occupations to find your niche",
                   description: "Explore by occupations to find your niche. Find the best new solutions for your occupation niche.",
-                  reverse: true
+                  reverse: true,
+                  canonical: occupation_categories_url
   end
 
   # GET /categories/1
@@ -17,7 +18,8 @@ class OccupationCategoriesController < ApplicationController
     authorize @occupation_category
     set_meta_tags title: "Explore by occupations to find your niche",
                   description: "Explore by industries within the #{@occupation_category.title} subsector to find your niche. Find the best new solutions for your industry niche.",
-                  reverse: true
+                  reverse: true,
+                  canonical: occupation_category_url(@occupation_category)
   end
 
   private

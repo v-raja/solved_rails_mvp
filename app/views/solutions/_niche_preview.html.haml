@@ -1,35 +1,35 @@
+- cache(solution) do
+  = link_to solution do
+    %div{class: "mt-8 bg-white overflow-auto px-5 border border-gray-400 w-full",
+        hover: "border-gray-900"}
+      %div{class: "flex flex-col rounded-sm py-5"}
+        %div{class: "w-full flex items-stretch"}
+          %div{class: "w-16 h-16 flex-shrink-0"}
+            = link_to (image_tag solution.product.thumbnail_url, class: "object-cover"), solution.product
+            -# = image_tag solution.product.thumbnail_url
+          %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
+            = link_to solution do
+              %div{class: "font-medium two-lines-only"}
+                = solution.title
+            %div{class: "text-xs text-gray-600 flex flex-wrap items-center"}
 
-= link_to solution do
-  %div{class: "mt-8 bg-white overflow-auto px-5 border border-gray-400 w-full",
-       hover: "border-gray-900"}
-    %div{class: "flex flex-col rounded-sm py-5"}
-      %div{class: "w-full flex items-stretch"}
-        %div{class: "w-16 h-16 flex-shrink-0"}
-          = link_to (image_tag solution.product.thumbnail_url, class: "object-cover"), solution.product
-          -# = image_tag solution.product.thumbnail_url
-        %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
+              %div{class: "hover:text-black flex-shrink-1 text-gray-600 hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
+                = link_to "with #{solution.product.name}", solution.product
+              .mx-1
+                &middot;
+              .hover:text-black.flex-shrink-0
+                = solution.user.name
+              .ml-2.flex-shrink-0.hover:underline.hover:text-black
+                = link_to "#{time_ago_in_words(solution.created_at)} ago", solution
+
           = link_to solution do
-            %div{class: "font-medium two-lines-only"}
-              = solution.title
-          %div{class: "text-xs text-gray-600 flex flex-wrap items-center"}
-
-            %div{class: "hover:text-black flex-shrink-1 text-gray-600 hover:bg-gray-200 hover:bg-opacity-70 -m-1 p-1"}
-              = link_to "with #{solution.product.name}", solution.product
-            .mx-1
-              &middot;
-            .hover:text-black.flex-shrink-0
-              = solution.user.name
-            .ml-2.flex-shrink-0.hover:underline.hover:text-black
-              = link_to "#{time_ago_in_words(solution.created_at)} ago", solution
-
-        = link_to solution do
-          %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded border border-gray-300 leading-none transition hover:text-primary group"}
-            -# = link_to upvote_solution_path(solution), class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none" do
-            %div{class: "text-sm leading-none group-hover:animate-bounce"}
-              ▲
-            %div{class: "mt-1 font-semibold"}
-              = upvote_count(solution)
-      - if solution.youtube_urls.present?
-        %div{class: "aspect-w-7 aspect-h-4 mt-6"}
-          %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
-            = render solution.youtube_urls
+            %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded border border-gray-300 leading-none transition hover:text-primary group"}
+              -# = link_to upvote_solution_path(solution), class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none" do
+              %div{class: "text-sm leading-none group-hover:animate-bounce"}
+                ▲
+              %div{class: "mt-1 font-semibold"}
+                = upvote_count(solution)
+        - if solution.youtube_urls.present?
+          %div{class: "aspect-w-7 aspect-h-4 mt-6"}
+            %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+              = render solution.youtube_urls
