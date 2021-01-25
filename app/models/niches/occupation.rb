@@ -29,15 +29,29 @@ class Occupation < ApplicationRecord
   has_many :occupation_requests, dependent: :destroy
   has_many :requests, through: :occupation_requests
 
-  has_many :keywordz, primary_key: :code, foreign_key: :code, class_name: "Keyword"
-
   include AlgoliaSearch
 
-  algoliasearch index_name: 'niches_developement', id: :code, raise_on_failure: Rails.env.development?, sanitize: true do
-    attribute :title, :description
-    add_attribute :url, :type, :keywords
+  # algoliasearch index_name: 'niches', id: :code, raise_on_failure: Rails.env.development?, sanitize: true, per_environment: true do
+  #   attribute :title, :description
+  #   add_attribute :url, :type, :keyword_list
 
-    searchableAttributes [ 'unordered(title)', 'unordered(keywords)', 'unordered(description)']
+  #   searchableAttributes [ 'unordered(title)', 'unordered(keyword_list)', 'unordered(description)']
+  # end
+
+  def keyword_list
+    if self.keywords.present?
+      self.keywords.split("; ")
+    else
+      []
+    end
+  end
+
+  def add_keyword(keyword)
+    if self.keywords.blank?
+      self.keywords = keyword
+    else
+      self.keywords += "; #{keyword}"
+    end
   end
 
   def titleize_title
@@ -72,9 +86,6 @@ class Occupation < ApplicationRecord
     ]
   end
 
-  def keywords
-    self.keywordz.pluck(:keyword)
-  end
 
   private
 

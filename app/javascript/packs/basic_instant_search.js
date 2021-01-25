@@ -26,7 +26,7 @@ $(document).on('turbolinks:load', function() {
 
   const search = instantsearch({
     searchClient,
-    indexName: 'niches_development',
+    indexName: 'niches_' + process.env.RAILS_ENV,
     stalledSearchDelay: 800,
     urlSync: true,
     routing: true,
@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function() {
       transformItems(items) {
         var itemz = items.map(item => ({
           ...item,
-          keywords: handleKeywords(item._highlightResult.keywords)
+          keyword_list: handleKeywords(item._highlightResult.keyword_list)
         }));
         console.log(itemz);
         return itemz;
@@ -87,7 +87,7 @@ $(document).on('turbolinks:load', function() {
                     'Common keywords' +
                   '</div>' +
                   '<div class="w-full text-sm">' +
-                    '{{{keywords}}}' +
+                    '{{{keyword_list}}}' +
                   '</div>' +
                   '<div class="w-full text-xs mt-3 text-gray-700">' +
                     'Description' +

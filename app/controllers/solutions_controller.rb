@@ -7,8 +7,8 @@ class SolutionsController < ApplicationController
 
   def niche_index
     set_meta_tags title: "The best new solutions for #{@niche.title}",
-                  description: "The best new solutions for #{@niche.keywords.join(", ")}",
-                  keywords: @niche.keywords,
+                  description: "The best new solutions for #{@niche.keywords}",
+                  keywords: @niche.keyword_list,
                   reverse: true,
                   canonical: polymorphic_url(@niche)
     if params[:tag]

@@ -7,9 +7,9 @@ class RequestsController < ApplicationController
 
   def niche_index
     set_meta_tags title: "Problems that need to be solved for #{@niche.title}",
-                  description: "Requests for solutions for #{@niche.keywords.join(", ")}",
+                  description: "Requests for solutions for #{@niche.keywords}",
                   reverse: true,
-                  keywords: @niche.keywords,
+                  keywords: @niche.keyword_list,
                   canonical: polymorphic_url([@niche, :requests])
   end
 

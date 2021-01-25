@@ -26,8 +26,6 @@ class Industry < ApplicationRecord
   has_many :industry_requests, dependent: :destroy
   has_many :requests, through: :industry_requests
 
-  has_many :keywordz, primary_key: :code, foreign_key: :code, class_name: "Keyword"
-
   acts_as_followable
 
   before_save :titleize_title
@@ -36,12 +34,12 @@ class Industry < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'niches_developement', id: :code, sanitize: true, raise_on_failure: Rails.env.development? do
-    attribute :title, :description
-    add_attribute :url, :type, :keywords
+  # algoliasearch index_name: 'niches', id: :code, sanitize: true, raise_on_failure: Rails.env.development?, per_environment: true do
+  #   attribute :title, :description
+  #   add_attribute :url, :type, :keyword_list
 
-    searchableAttributes [ 'unordered(title)', 'unordered(keywords)', 'unordered(description)']
-  end
+  #   searchableAttributes [ 'unordered(title)', 'unordered(keyword_list)', 'unordered(description)']
+  # end
 
   def titleize_title
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of"]
@@ -65,14 +63,34 @@ class Industry < ApplicationRecord
     self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)
   end
 
-  def keywords
-    self.keywordz.pluck(:keyword)
+  def keyword_list
+    if self.keywords
+      self.keywords.split("; ")
+    else
+      []
+    end
+  end
+
+  def add_keyword(keyword)
+    if self.keywords.blank?
+      self.keywords = keyword
+    else
+      self.keywords += "; #{keyword}"
+    end
   end
 
   private
 
   def url
     Rails.application.routes.url_helpers.industry_path(slug)
+  end
+
+  def url_changed?
+    slug_changed?
+  end
+
+  def keyword_list_changed?
+    keywords_changed?
   end
 
   def code_with_suffix

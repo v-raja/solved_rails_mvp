@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_042512) do
+ActiveRecord::Schema.define(version: 2021_01_23_034139) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
@@ -21,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.text "commentable_type"
     t.text "title"
     t.text "body"
+    t.text "body_safe_html"
     t.text "subject"
     t.integer "user_id", null: false
     t.integer "parent_id"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.integer "rgt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "body_safe_html"
     t.datetime "discarded_at"
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["discarded_at"], name: "index_comments_on_discarded_at"
@@ -65,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.text "description"
     t.text "code"
     t.text "slug"
+    t.text "keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "industry_category_id", null: false
@@ -78,12 +78,12 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.text "description"
     t.text "code"
     t.text "slug"
-    t.text "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "ancestry"
     t.integer "ancestry_depth", default: 0
     t.index ["ancestry"], name: "index_industry_categories_on_ancestry"
+    t.index ["code"], name: "index_industry_categories_on_code", unique: true
     t.index ["slug"], name: "index_industry_categories_on_slug", unique: true
   end
 
@@ -105,15 +105,6 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.index ["industry_id"], name: "index_industry_solutions_on_industry_id"
     t.index ["solution_id", "industry_id"], name: "index_industry_solutions_on_solution_id_and_industry_id", unique: true
     t.index ["solution_id"], name: "index_industry_solutions_on_solution_id"
-  end
-
-  create_table "keywords", force: :cascade do |t|
-    t.text "code"
-    t.text "keyword"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["code", "keyword"], name: "index_keywords_on_code_and_keyword", unique: true
-    t.index ["code"], name: "index_keywords_on_code"
   end
 
   create_table "notable_jobs", force: :cascade do |t|
@@ -155,6 +146,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.string "ancestry"
     t.integer "ancestry_depth", default: 0
     t.index ["ancestry"], name: "index_occupation_categories_on_ancestry"
+    t.index ["code"], name: "index_occupation_categories_on_code", unique: true
     t.index ["slug"], name: "index_occupation_categories_on_slug", unique: true
   end
 
@@ -183,6 +175,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.text "description"
     t.text "code"
     t.text "slug"
+    t.text "keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "occupation_category_id", null: false
@@ -214,6 +207,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
   create_table "requests", force: :cascade do |t|
     t.text "title"
     t.text "description"
+    t.text "description_safe_html"
     t.bigint "user_id", null: false
     t.text "slug"
     t.datetime "created_at", precision: 6, null: false
@@ -225,7 +219,6 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
-    t.text "description_safe_html"
     t.index ["slug"], name: "index_requests_on_slug", unique: true
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -233,6 +226,7 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
   create_table "solutions", force: :cascade do |t|
     t.text "title"
     t.text "description"
+    t.text "description_safe_html"
     t.text "get_it_url"
     t.bigint "product_id", null: false
     t.text "slug"
@@ -247,7 +241,6 @@ ActiveRecord::Schema.define(version: 2021_01_24_042512) do
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
     t.boolean "is_creator", default: false
-    t.text "description_safe_html"
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
     t.index ["user_id"], name: "index_solutions_on_user_id"

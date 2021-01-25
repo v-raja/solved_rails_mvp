@@ -50,7 +50,7 @@ File.open(csv_path, 'r') do |file|
       title: row['Title'],
       description: row['Description'],
       code: row['Code'],
-      parent: IndustryCategory.find(row['Parent'])
+      parent: IndustryCategory.find_by(code: row['Parent'])
     )
   end
 end

@@ -17,7 +17,7 @@ $(document).on('turbolinks:load', function() {
     }
   );
 
-  var index = algolia.initIndex('niches_development');
+  var index = algolia.initIndex('niches_' + process.env.RAILS_ENV);
 
     $('#general_tags').select2({
       placeholder: 'marketing, sales, crm, team management, engineering, human resources',

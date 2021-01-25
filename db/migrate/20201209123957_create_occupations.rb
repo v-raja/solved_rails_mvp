@@ -5,7 +5,7 @@ class CreateOccupations < ActiveRecord::Migration[6.0]
       t.text :description
       t.text :code
       t.text :slug
-      t.text :common_keywords
+      t.text :keywords
 
       t.timestamps
     end

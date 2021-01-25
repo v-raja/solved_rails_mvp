@@ -3,6 +3,7 @@ class CreateSolutions < ActiveRecord::Migration[6.0]
     create_table :solutions do |t|
       t.text :title
       t.text :description
+      t.text :description_safe_html
       t.text :get_it_url
       t.references :product, null: false, foreign_key: true
       t.text :slug

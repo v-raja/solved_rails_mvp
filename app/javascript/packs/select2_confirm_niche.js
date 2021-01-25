@@ -18,8 +18,7 @@ $(document).on('turbolinks:load', function() {
     }
   );
 
-  var index = algolia.initIndex('niches_development');
-
+  var index = algolia.initIndex('niches_' + process.env.RAILS_ENV);
 
     function handleKeywords(keywordsArr) {
       var returnString = "";
@@ -98,7 +97,7 @@ $(document).on('turbolinks:load', function() {
                     'Common keywords' +
                   '</div>' +
                   '<div class="w-full text-sm">' +
-                    handleKeywords(niche_res._highlightResult.keywords) +
+                    handleKeywords(niche_res._highlightResult.keyword_list) +
                   '</div>' +
                   '<div class="w-full text-xs mt-2 text-gray-600">' +
                     'Description' +
