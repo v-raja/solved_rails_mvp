@@ -15,9 +15,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :bio, :thumbnail_url, ])
   end
 
-  def local_request?
-    false
-  end
+  # def local_request?
+  #   false
+  # end
 
   private
   # Its important that the location is NOT stored if:
