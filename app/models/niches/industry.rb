@@ -34,12 +34,12 @@ class Industry < ApplicationRecord
 
   include AlgoliaSearch
 
-  # algoliasearch index_name: 'niches', id: :code, sanitize: true, raise_on_failure: Rails.env.development?, per_environment: true do
-  #   attribute :title, :description
-  #   add_attribute :url, :type, :keyword_list
+  algoliasearch index_name: 'niches', id: :code, sanitize: true, raise_on_failure: Rails.env.development?, per_environment: true do
+    attribute :title, :description
+    add_attribute :url, :type, :keyword_list
 
-  #   searchableAttributes [ 'unordered(title)', 'unordered(keyword_list)', 'unordered(description)']
-  # end
+    searchableAttributes [ 'unordered(title)', 'unordered(keyword_list)', 'unordered(description)']
+  end
 
   def titleize_title
     words_no_cap = ["and", "or", "the", "over", "to", "the", "a", "but", "of"]
