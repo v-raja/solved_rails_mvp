@@ -3,8 +3,21 @@ class IndustriesController < ApplicationController
 
   def follow
     authorize @industry
-    current_user.follow(@industry)
-    redirect_to @industry
+    if current_user.nil? && user_params[:email].blank?
+      return redirect_to @industry, alert: "Please enter a valid email."
+    end
+
+    @user = current_user || User.invite_subscriber!({attributes: user_params}, @industry)
+    @user.follow(@industry)
+    if current_user
+      return redirect_to @industry
+    else
+      if @user.confirmed?
+        return redirect_to @industry, notice: "Successfully subscribed to industry."
+      else
+        return redirect_to @industry, notice: "Confirm your email to recieve updates."
+      end
+    end
   end
 
   def unfollow
@@ -29,5 +42,9 @@ class IndustriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def industry_params
       params.fetch(:industry, {})
+    end
+
+    def user_params
+      params.require(:user).permit(:email)
     end
 end

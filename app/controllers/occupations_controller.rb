@@ -3,8 +3,22 @@ class OccupationsController < ApplicationController
 
   def follow
     authorize @occupation
-    current_user.follow(@occupation)
-    redirect_to @occupation
+
+    if current_user.nil? && user_params[:email].blank?
+      return redirect_to @occupation, alert: "Please enter a valid email."
+    end
+
+    @user = current_user || User.invite_subscriber!({attributes: user_params}, @occupation)
+    @user.follow(@occupation)
+    if current_user
+      return redirect_to @occupation
+    else
+      if @user.confirmed?
+        return redirect_to @occupation, notice: "Successfully subscribed to occupation."
+      else
+        return redirect_to @occupation, notice: "Confirm your email to recieve updates."
+      end
+    end
   end
 
   def unfollow
@@ -26,6 +40,10 @@ class OccupationsController < ApplicationController
       if params[:id] != @occupation.slug
         return redirect_to @occupation, :status => :moved_permanently
       end
+    end
+
+    def user_params
+      params.require(:user).permit(:email)
     end
 
     # Only allow a list of trusted parameters through.

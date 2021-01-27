@@ -34,7 +34,7 @@
             - options = options_for_select (@request.niche_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
             = f.select :niche_list,  options, {}, {multiple: true, id: "test", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
           %div{class: "text-gray-600 text-xs mt-2"}
-            = "Unsure of what niches to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant niches.".html_safe
+            = "Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
           -# %div{class: "text-gray-600 text-xs mt-1"}
           -#   Please refresh the page if the box above looks funky 🤪
 

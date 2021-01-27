@@ -1,13 +1,43 @@
 -# = render 'layouts/header'
 -# - @render_shadow = false
-
+:javascript
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+  }
 %div{class: "mt-10 flex justify-center pb-10"}
-  %div{class: "max-w-screen-lg flex overflow-hidden"}
+  %div{class: "max-w-screen-lg flex overflow-hidden", "data-controller": 'toggle'}
     %div{class: "w-2/3 pr-12"}
-      - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-semibold rounded"
-      - inactive = "text-gray-900 px-2 py-2 font-semibold rounded hover:bg-gray-fb hover:bg-opacity-50"
-      -# - active = "px-2 py-2 rounded bg-secondary text-white font-semibold"
-      -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-semibold text-gray-900"
+      %div{class: "bg-white w-full rounded border border-gray-400 p-4 mb-4 #{cookies[:showInfo1] ? 'hidden' : nil}", "data-toggle-target": 'toggleable'}
+        %div{class: "text-base flex items-center w-full justify-between font-medium"}
+          Hello! 👋
+          %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('showInfo1', true, 10);"}
+            -# <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            -# </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+        -# = "About #{niche_type}"
+        %div{class: "py-1 w-full rounded-lg mt-1"}
+          Welcome to solved, a place to share and find the best new solutions to your problems.
+          <br/><br/>
+          🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
+          -# Find your industry / occupation community and learn how people like you use products they love to solve their problems.
+          -# Welcome to solved, a place for you to share and find the best new solutions to your problems.
+          <br/><br/>
+          ✨ Stay up to date by following your community to recieve a weekly email with the top solutions of the week.
+          <br/><br/>
+          ❤️ Take part in your community and help others by posting about how you use the products you love to solve your problems.
+          -#  you solve your problems with the products you love.
+
+      - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-medium rounded"
+      - inactive = "text-gray-900 px-2 py-2 font-medium rounded hover:bg-gray-fb hover:bg-opacity-50"
+      -# - active = "px-2 py-2 rounded bg-secondary text-white font-medium"
+      -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-medium text-gray-900"
       %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between"}
         - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
           %div
@@ -59,26 +89,75 @@
 
 
     %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
-      %div{class: "w-full flex flex-col rounded-sm space-y-6"}
-
-        %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
-          %div{class: "w-full text-base font-semibold"}
-            Hey! 👋
+      %div{class: "w-full flex flex-col rounded-sm"}
+        %div{class: "py-3 px-4 mb-6 bg-white border border-gray-400 rounded"}
+          -# %div{class: "w-full"}
+          -#   Create a new
+          %div{class: "grid grid-cols-2 gap-2 "}
+            = link_to "New Request", new_request_path,  class: "border-b-3 border-secondary px-0.5 pt-1 pb-0.5 mx-auto font-medium leading-4 transition-all hover:bg-secondary hover:text-white text-center tracking-wide"
+            = link_to "New Solution", new_solution_path,  class: "border-b-3 border-secondary px-0.5 pt-1 pb-0.5 mx-auto font-medium leading-4 transition-all hover:bg-secondary hover:text-white text-center tracking-wide"
+            -# %div{class: "cursor-pointer text-center rounded p-2 bg-gray-200 hover:bg-secondary hover:text-white"}
+            -#   Request
+            -# %div{class: "cursor-pointer text-center rounded p-2 bg-gray-200 hover:bg-secondary hover:text-white"}
+            -#   Solution
+        %div{class: "py-3 px-4 mb-6 bg-white border border-gray-400 rounded #{cookies[:showInfo1] ? nil : 'hidden'}", "data-toggle-target": 'toggleable'}
+          %div{class: "w-full text-base font-medium"}
+            Hello! 👋
             -# = "About #{niche_type}"
           %div{class: "py-1 w-full rounded-lg "}
-            %div{class: "font-source font-bold text-base -mb-1 text-primary float-left inline-flex mr-1"}
-              solved
-            %div{class: ""}
-              is a community of problem solvers and makers helping you find (or build!) better solutions to problems you face.
-              <br/><br/>
-              🤔 Know there's a better way to do that task you do everyday, but don't have the time to figure out a better solution?
-              <br/>
-            = link_to "Make a request to your niche.", new_request_path, class: "text-base underline"
-            %div{class: ""}
-              <br/>
-              👆 Find your industry / occupation niche by using the search bar above.
-              <br/><br/>
-              💫 Subscribe to your niche to get a weekly newsletter with the top solutions and requests of the week.
+            Welcome to solved, a place to share and find the best new solutions to your problems.
+            <br/><br/>
+            🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
+            -# Find your industry / occupation community and learn how people like you use products they love to solve their problems.
+            -# Welcome to solved, a place for you to share and find the best new solutions to your problems.
+            <br/><br/>
+            ✨ Stay up to date by following your community to recieve a weekly email with the top solutions of the week.
+            <br/><br/>
+            ❤️ Take part in your community and help others by posting about how you use the products you love to solve your problems.
+            -# Find your industry / occupation community and learn about new solutions that could help you earn, or save you time and money.
+
+            -# helps you find and stay up to date with the best new solutions to your problems.
+
+            -# Subscribe to your industry / occupation community to stay up to date with the new ways
+            -# Find your industry / occupation community to
+
+            -# Welcome to solved, a place for problem solvers and product lovers to share
+
+            -# Welcome to solved, a place for people to share how they use products they love to solve their problems.
+
+            -# Welcome to solved, a place for people to help others find better solution
+
+            -# Welcome to solved, a place for people to help others find better solutions by sharing how they use the products they love to solve their problems.
+            -# a place for people to share how they use the %p
+
+            -# a place for people to help others by sharing
+
+            -# network effects
+            -# we're solving a problem people already had and we were removing as much friction as %possible
+            -# what are you a little too obsessed about? helping people find better solutions
+            -# using the power of the community to create a great resource
+            -# connecting problem solves and businesses all around the world
+
+            -# is a palce for people to post how they use the proudcts they love to solve their problems
+            -# Find you industry / occupation and learn about the best new solutions, tailored to your problems, that could save you time / money, or gerenate money.
+            -# is a place to help others find better solutions by posting about how you use the proudct you love to solve your problems.
+
+            -# to share how they solve their problem
+
+
+            -# a place for you to help others find better solutions by sharing how you use the proudcts you love
+            -# a place for other to help you find better solutions by sharing how they use the products they %lvoe
+
+            -# a place for people to share how they use the products they love to solve their problems.
+
+            -# a place for people to share the best new solutions to their problems.
+
+            -# a place for people to share their solutions
+
+
+
+            -# <br/><br/>
+            -# Take part in your community by sharing how you solve your problems with the products you love, or by making a request for a solution to that dreadful task you do everyday.
 
         - if user_signed_in?
           - posts = current_user.following_by_type('Solution') + current_user.following_by_type('Request')

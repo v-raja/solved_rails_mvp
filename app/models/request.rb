@@ -110,7 +110,7 @@ class Request < ApplicationRecord
 
   def atleast_one_niche
     if industries.empty? && occupations.empty?
-      errors.add(:niches, "can't be empty")
+      errors.add(:communities, "can't be empty")
     end
   end
 

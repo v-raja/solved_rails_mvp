@@ -56,6 +56,13 @@ gem 'wicked'
 gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'discard', '~> 1.2'
 gem 'meta-tags'
+gem 'authtrail'
+gem 'rollbar'
+# gem 'logdna'
+gem 'maxminddb'
+gem 'lograge'
+gem 'sidekiq'
+gem 'newrelic_rpm'
 
 
 group :development, :test do

@@ -21,6 +21,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "mangle-css-class-webpack-plugin": "^4.0.11",
     "webpack-dev-server": "^3.11.0"
   }
 }

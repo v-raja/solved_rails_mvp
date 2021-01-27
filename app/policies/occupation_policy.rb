@@ -7,7 +7,7 @@ class OccupationPolicy
   end
 
   def follow?
-    @user.present?
+    true
   end
 
   def unfollow?

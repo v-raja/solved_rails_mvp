@@ -88,32 +88,83 @@ class SolutionsController < ApplicationController
     @solution.youtube_urls.build
     @solution.build_product
     @solution.comment_threads.build
-    @solution.user = current_user
+    @user = current_user || User.new
+    # @solution.user = current_user
   end
 
   # POST /solutions
   # POST /solutions.json
   def create
     authorize Solution
-    @solution = current_user.solutions.build(solution_params)
+    @solution = Solution.new(solution_params)
 
     if solution_params[:product_id].blank?
       @solution.build_product(product_params)
     end
 
     respond_to do |format|
-      if @solution.save
+      if user_signed_in?
+        @solution.user = current_user
+        # Handle creation like normal
+        if @solution.save
 
-        current_user.follow(@solution)
-        @solution.niche_list.each do |n|
-          current_user.follow(n)
+          current_user.follow(@solution)
+          @solution.niche_list.each do |n|
+            current_user.follow(n)
+          end
+
+          format.html { redirect_to @solution, notice: {title: 'Solution was successfully created.', body: "You're now following the niches you posted to." }}
+          format.json { render :show, status: :created, location: @solution }
+        else
+          if @solution.comment_threads.empty?
+            @solution.comment_threads.build
+          end
+
+          if @solution.youtube_urls.empty?
+            @solution.youtube_urls.build
+          end
+
+          format.html { render :new }
+          format.json { render json: @solution.errors, status: :unprocessable_entity }
         end
-
-        format.html { redirect_to @solution, notice: {title: 'Solution was successfully created.', body: "You're now following the niches you posted to." }}
-        format.json { render :show, status: :created, location: @solution }
       else
-        format.html { render :new }
-        format.json { render json: @solution.errors, status: :unprocessable_entity }
+        # Find if user exists
+        @user = User.find_by(email: user_params[:email])
+        if @user.present?
+          # Make user login to create if email address exists.
+          flash[:now] = "Email address has already been taken. Please sign in to post."
+          @solution.valid?
+          @solution.errors.messages.except!(:user) #remove password from errors
+          format.html { render :new }
+        else
+          @user = User.new(user_params)
+          @user.valid?
+          @user.errors.messages.except!(:password) #remove password from errors
+          @solution.valid?
+          # byebug
+          @solution.errors.messages.except!(:user, :"comment_threads.user") #remove password from errors
+          if (@user.errors.any? || @solution.errors.any?)
+            if @solution.comment_threads.empty?
+              @solution.comment_threads.build
+            end
+
+            if @solution.youtube_urls.empty?
+              @solution.youtube_urls.build
+            end
+
+            format.html { render :new }
+          else
+            @user.invite!
+            @solution.user = @user
+            @solution.save
+            @user.follow(@request)
+            @solution.niche_list.each do |n|
+              @user.follow(n)
+            end
+            format.html { redirect_to @solution, notice: {title: 'Request was successfully created.', body: "Please confirm your email to finish posting your request." }}
+            format.json { render :show, status: :created, location: @request }
+          end
+        end
       end
     end
   end
@@ -167,6 +218,10 @@ class SolutionsController < ApplicationController
 
     def product_params
       params.require(:solution).require(:product_attributes).permit(:name, :thumbnail_url)
+    end
+
+    def user_params
+      params.require(:user).permit(:name, :email)
     end
 
     def set_niche

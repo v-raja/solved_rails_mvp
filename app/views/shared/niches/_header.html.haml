@@ -29,24 +29,24 @@
         = link_to_unless_current("Solutions", niche, class: "#{inactive}") do link_to 'Solutions', niche, class: "#{active}" end
         = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
         = link_to_unless_current("Search", [niche, :search], class: "#{inactive}") do link_to("Search", [niche, :search], class: "#{active}") end
-      %nav{class: "space-x-2 flex items-center text-sm"}
-        -# = link_to_unless_current("Requests", [niche, :requests], class: "hidden") do link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded") end
-        -# = link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded")
-        = link_to new_solution_path(code: niche.code) do
-          -# %div{class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded leading-none"}
-          %div{class: "text-gray-700 hover:text-white hover:bg-secondary px-2 py-1 font-medium rounded flex items-center"}
-            New Solution
-            -# <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            -# </svg>
-            -# %div{class: "-ml-0.5 leading-none"}
-            -#   Solution
-        = link_to new_request_path(code: niche.code) do
-          -# %div{class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded leading-none"}
-          %div{class: "text-gray-700 hover:text-white hover:bg-secondary px-2 py-1 font-medium rounded flex items-center"}
-            New Request
-            -# <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            -# </svg>
-            -# %div{class: "-ml-0.5 leading-none"}
-            -#   Request
+      -# %nav{class: "space-x-2 flex items-center text-sm"}
+      -#   -# = link_to_unless_current("Requests", [niche, :requests], class: "hidden") do link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded") end
+      -#   -# = link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded")
+      -#   = link_to new_solution_path(code: niche.code) do
+      -#     -# %div{class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded leading-none"}
+      -#     %div{class: "text-gray-700 hover:text-white hover:bg-secondary px-2 py-1 font-medium rounded flex items-center"}
+      -#       New Solution
+      -#       -# <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      -#       -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      -#       -# </svg>
+      -#       -# %div{class: "-ml-0.5 leading-none"}
+      -#       -#   Solution
+      -#   = link_to new_request_path(code: niche.code) do
+      -#     -# %div{class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded leading-none"}
+      -#     %div{class: "text-gray-700 hover:text-white hover:bg-secondary px-2 py-1 font-medium rounded flex items-center"}
+      -#       New Request
+      -#       -# <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      -#       -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      -#       -# </svg>
+      -#       -# %div{class: "-ml-0.5 leading-none"}
+      -#       -#   Request

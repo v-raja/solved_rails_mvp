@@ -87,38 +87,50 @@ class RequestsController < ApplicationController
   def create
     authorize Request
     @request = Request.new(request_params)
-    @user = current_user || User.new(user_params)
     respond_to do |format|
-      if @user.save
-        @request.user = @user
+      if user_signed_in?
+        # Handle creation like normal
+        @request.user = current_user
         if @request.save
-
-          @user.follow(@request)
+          current_user.follow(@request)
           @request.niche_list.each do |n|
-            @user.follow(n)
+            current_user.follow(n)
           end
 
-          if current_user
-            format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You're now following the niches you posted to." }}
-            format.json { render :show, status: :created, location: @request }
-          else
-            format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You'll recieve an email with a link to confirm you account shortly." }}
-          end
+          format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "You're now following the communities you posted to." }}
+          format.json { render :show, status: :created, location: @request }
         else
-          if user_signed_in?
+          format.html { render :new }
+        end
+      else
+        # Find if user exists
+        @user = User.find_by(email: user_params[:email])
+        if @user.present?
+          # Make user login to create if email address exists.
+          flash[:now] = "Email address has already been taken. Please sign in to post."
+          @request.valid?
+          @request.errors.messages.except!(:user) #remove password from errors
+          format.html { render :new }
+        else
+          @user = User.new(user_params)
+          @user.valid?
+          @user.errors.messages.except!(:password) #remove password from errors
+          @request.valid?
+          @request.errors.messages.except!(:user) #remove password from errors
+          if (@user.errors.any? || @request.errors.any?)
             format.html { render :new }
-            format.json { render json: @request.errors, status: :unprocessable_entity }
           else
-            # User was just created, let him know he has to confirm his account
-            sign_in @user
-            flash.now[:notice] = "You have successfully signed up. Please confirm your account within the next 2 hours."
-            #  {title: 'You have successfully signed up. Please confirm your account within 2 hours.', data: "An email with a confirmation link will be sent to you shortly."}
-            format.html { render :new }
+            @user.invite!
+            @request.user = @user
+            @request.save
+            @user.follow(@request)
+            @request.niche_list.each do |n|
+              @user.follow(n)
+            end
+            format.html { redirect_to @request, notice: {title: 'Request was successfully created.', body: "Please confirm your email to finish posting your request." }}
+            format.json { render :show, status: :created, location: @request }
           end
         end
-
-      else
-        format.html { render :new }
       end
     end
   end
@@ -171,7 +183,7 @@ class RequestsController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :password)
+      params.require(:user).permit(:name, :email)
     end
 
     def set_niche

@@ -35,7 +35,7 @@ class SolutionPolicy
   end
 
   def create?
-    @user.present?
+    true
   end
 
   def destroy?

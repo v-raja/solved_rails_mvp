@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
     for (i = 0; i < keywordsArr.length; i++) {
       var keywordObj = keywordsArr[i];
       if (keywordObj.matchLevel !== "none") {
-        returnString += keywordObj.value + '<br/>';
+        returnString += '<li>' + keywordObj.value + '</li>';
       }
     }
     return returnString;
@@ -49,7 +49,7 @@ $(document).on('turbolinks:load', function() {
 
   search.addWidgets([
     instantsearch.widgets.configure({
-      attributesToSnippet: ['description:30'],
+      attributesToSnippet: ['description:50'],
       hitsPerPage: 9,
       // filters: 'NOT categories:"Cell Phones"'
     }),
@@ -74,9 +74,9 @@ $(document).on('turbolinks:load', function() {
       },
       container: '#hits',
       templates: {
-        empty: 'No niches have been found for "{{ query }}"',
+        empty: 'No communities have been found for "{{ query }}"',
         item: '<a href={{{url}}}>'+
-                '<div class="flex flex-wrap text-black">' +
+                '<div class="flex flex-wrap text-black" data-controller="toggle">' +
                   '<div class="w-full text-sm uppercase mt-1 text-gray-900">' +
                     '{{{type}}}' +
                   '</div>' +
@@ -86,13 +86,25 @@ $(document).on('turbolinks:load', function() {
                   '<div class="w-full text-xs mt-3 text-gray-700">' +
                     'Common keywords' +
                   '</div>' +
-                  '<div class="w-full text-sm">' +
+                  '<div class="w-full text-sm list-disc list-inside space-y-0.5">' +
                     '{{{keyword_list}}}' +
                   '</div>' +
-                  '<div class="w-full text-xs mt-3 text-gray-700">' +
-                    'Description' +
+                  '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                    '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                      '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+                      '</svg>' +
+                    '</div>' +
+                    '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                      '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+                      '</svg>' +
+                    '</div>' +
+                    '<div class="">' +
+                      'Description' +
+                    '</div>' +
                   '</div>' +
-                  '<div class="w-full text-sm pb-2">' +
+                  '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
                     '{{{_snippetResult.description.value}}}' +
                   '</div>' +
                 '</div>' +

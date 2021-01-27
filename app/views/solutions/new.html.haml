@@ -57,7 +57,7 @@
               - options = options_for_select (@solution.niche_list + niche_from_param.to_a).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
               = f.select :niche_list,  options, {}, {multiple: true, id: "test", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
             %div{class: "text-gray-600 text-xs mt-2"}
-              = "Unsure of what niches to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant niches.".html_safe
+              = "Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
             -# %div{class: "text-gray-600 text-xs mt-1"}
             -#   Please refresh the page if the box above looks funky 🤪
 
@@ -125,7 +125,10 @@
                     .mx-1
                       &middot;
                     .hover:text-black.flex-shrink-0
-                      = current_user.name
+                      - if user_signed_in?
+                        = current_user.name
+                      - else
+                        Your name
                     .ml-2.flex-shrink-0.hover:underline.hover:text-black
                       just now
                 %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none transition hover:text-primary"}
@@ -164,7 +167,7 @@
                 = "- Required"
             = f.text_area :description,
                 class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
-                placeholder: "Manage / Organise / Increase / Improve / Simplify ...",
+                placeholder: "300 characters maximum",
                 data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:solution, :description).blank? ? "false" : "true"}",
                 rows: "6"
             %div{class: "mt-1 text-xs"}
@@ -184,7 +187,7 @@
               = f.select :general_tag_list, Solution.general_tag_counts.collect {|t| [t.name, t.name]}, {}, id: "general_tags", :multiple => true, class: "w-full"
 
             %div{class: "mt-3"}
-              Niche-specific tags
+              Community-specific tags
             %div{class: "text-gray-600 text-xs mt-1"}
               Words that make sense in the context of the industry / occupation you're posting to.
             %div{class: "mt-1"}
@@ -221,6 +224,7 @@
                 .mt-1.space-y-1
                   %li= "What problem does your solution solved?"
                   %li= "Who is it for?"
+                  %li= "What would people search to find a solution like this?"
               %div{class: "mt-4 font-medium uppercase"}
                 Video & First Comment
               %ul{class: "mt-2 list-disc list-inside space-y-2 leading-relaxed"}
@@ -228,12 +232,12 @@
                   Show, don't tell.
                   %div{class: "ml-5"}
                     Give a visual example of how you use the product to solve your problem. Use a real life scenario instead of a hypothetical one, if possible.
-                %li
-                  If you're the maker of the product:
-                  %div{class: "ml-5"}
-                    Put yourself in the shoes of the people you want to help. Understand their concerns of investing their time and money on your solution, only for it to not work out for them.
-                    <br/>
-                    What could you tell or show to convince them that it's worth giving your solution a shot?
+                -# %li
+                -#   If you're the maker of the product:
+                -#   %div{class: "ml-5"}
+                -#     Put yourself in the shoes of the people you want to help. Understand their concerns of investing their time and money on your solution, only for it to not work out for them.
+                -#     <br/>
+                -#     What could you tell or show to convince them that it's worth giving your solution a shot?
                 %li
                   If you're not the maker of the product:
                   %div{class: "ml-5"}
@@ -255,7 +259,7 @@
               %div{class: "ml-2 text-gray-600"}
                 = "- Optional, but recommended"
             = f.fields_for :comment_threads do |builder|
-              = builder.hidden_field :user_id, value: @solution.user.id
+              -# = builder.hidden_field :user_id, value: 1
               = builder.text_area :body,
                   class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                   placeholder: "Hi there 👋...",
@@ -263,8 +267,27 @@
             %div{class: "mt-1 text-xs"}
               Formatting: [this will be a link](https://www.example.com), **<strong>bold</strong>**, *<em>italic</em>*
 
-        %div{class: "w-full"}
-
+          - unless user_signed_in?
+            %div{class: "w-full mt-10 font-medium text-lg"}
+              Looks like you aren't logged in...
+            %div{class: "mt-1 text-gray-700 text-sm"}
+              Fill in your details below to make an account and post.
+            %div{class: "mt-4"}
+            - if @user.errors.any?
+              %ul{class: "mt-8 list-inside list-disc text-red-500"}
+                - @user.errors.full_messages.each do |msg|
+                  = content_tag(:li, msg)
+            %input{type: "text", name: "user[name]",
+                  value: "#{params[:user] ? params[:user][:name] : nil}",
+                  placeholder: "Name",
+                  autocomplete: "name",
+                  class: "mt-1 block text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+            %input{type: "text", name: "user[email]",
+                  value: "#{params[:user] ? params[:user][:email] : nil}",
+                  placeholder: "Email",
+                  autocomplete: "email",
+                  class: "mt-2 block text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+          %div{class: "w-full"}
       = f.submit "Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-4 uppercase cursor-pointer hover:bg-opacity-90"
 
 -# = content_for :head do

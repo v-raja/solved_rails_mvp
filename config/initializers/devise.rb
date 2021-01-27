@@ -28,7 +28,7 @@ Devise.setup do |config|
   # with default "from" parameter.
 
   config.mailer_sender = 'hello@solvedapp.io'
-  # config.mailer = 'UserMailer'
+  config.mailer = 'InviteMailer'
 
 
   # Configure the class responsible to send e-mails.

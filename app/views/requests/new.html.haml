@@ -35,7 +35,7 @@
             - options = options_for_select (@request.niche_list + niche_from_param.to_a).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
             = f.select :niche_list,  options, {}, {multiple: true, id: "test", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
           %div{class: "text-gray-600 text-xs mt-2"}
-            = "Unsure of what niches to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant niches.".html_safe
+            = "Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
         - unless user_signed_in?
           - if @user.errors.any?
             %ul{class: "mt-8 list-inside list-disc text-red-500"}
@@ -48,17 +48,19 @@
           %div{class: "mt-4"}
 
           %input{type: "text", name: "user[name]",
+                value: "#{params[:user] ? params[:user][:name] : nil}",
                 placeholder: "Name",
                 autocomplete: "name",
                 class: "mt-1 block text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
           %input{type: "text", name: "user[email]",
+                value: "#{params[:user] ? params[:user][:email] : nil}",
                 placeholder: "Email",
                 autocomplete: "email",
                 class: "mt-2 block text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
-          %input{type: "password", name: "user[password]",
-                placeholder: "Password",
-                autocomplete: "password",
-                class: "mt-2 block text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+          -# %input{type: "password", name: "user[password]",
+          -#       placeholder: "Password",
+          -#       autocomplete: "password",
+          -#       class: "mt-2 block text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
 
 
         = f.submit "#{user_signed_in? ? nil : "Sign Up & "}Post →", class: "my-10 w-full text-sm font-semibold text-white bg-primary rounded-sm py-2 uppercase cursor-pointer hover:bg-opacity-90"
@@ -79,12 +81,12 @@
           %ul.mt-2.list-disc.list-inside.space-y-1
             Try to include details about:
             %li= "your problem and the context around it."
-            %li= "the last time you faced the problem (the more about the where / when / why, the better!)."
-            %li= "why was [what you did to solve the problem] hard."
+            %li= "the last time you faced the problem (to give context around where / when / why you faced the problem)."
+            %li= "why was [what you did to solve the problem] hard?"
             %li= "what, if anything, have you done to try and solve the problem?"
             %li= "what don't you love about the solutions you've tried?"
           .mt-4
-            If you don't have ideas for a request, ask yourself, "What is hardest (most painful / frustrating / dreadful) part of my job?", and then answer the questions above.
+            If you don't have ideas for a request, ask yourself, "What is hardest (most painful / frustrating / dreadful) part of what I do everyday?", and then answer the questions above.
           -# %div{class: "mt-4 font-semibold"}
           -#   Sharing
           -# %ul{class: "mt-2"}

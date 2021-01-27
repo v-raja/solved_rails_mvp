@@ -7,7 +7,8 @@ class IndustryPolicy
   end
 
   def follow?
-    @user.present?
+    # @user.present?
+    true
   end
 
   def unfollow?

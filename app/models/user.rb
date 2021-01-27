@@ -39,9 +39,18 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :validatable, :confirmable, :trackable
 
-  validates_presence_of :name
+  has_many :login_activities, as: :user
 
-  before_validation :add_thumbnail
+  validates_presence_of :name
+  before_save :set_default_name
+
+  before_save :add_thumbnail
+
+  # FOr invitations and confirmations
+  # attr_accessor :invitation_instructions
+  attr_accessor :confirmation_instructions
+  attr_accessor :niche
+
 
   has_many :solutions
   has_many :requests
@@ -66,11 +75,51 @@ class User < ApplicationRecord
     end
   end
 
+  def self.invite_subscriber!(attributes={}, niche=nil)
+    u = nil
+    if u = User.find_by(email: attributes[:attributes][:email])
+      if !u.confirmed?
+        u.niche = niche
+        u.confirmation_instructions = :subscriber_confirmation_instructions
+        u.send_confirmation_instructions
+      end
+    else
+      u = self.invite!(attributes) do |u|
+        u.skip_invitation = true
+      end
+      u.niche = niche
+      u.confirmation_instructions = :subscriber_confirmation_instructions
+      u.send_confirmation_instructions
+    end
+    u
+  end
+
+  # def self.invite_poster!(attributes={}, invited_by=nil)
+  #   self.invite!(attributes, invited_by) do |invitable|
+  #     invitable.invitation_instructions = :poster_invitation_instructions
+  #   end
+  # end
+
+  protected
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   private
+
+  def set_default_name
+    self.name ||= "Your name here"
+  end
 
   def add_thumbnail
     if !name.blank? && thumbnail_url.blank?
       self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    end
+    if name_changed?
+      if Addressable::URI.parse(self.thumbnail_url).host == "avatar.oxro.io"
+        self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+      end
     end
   end
 

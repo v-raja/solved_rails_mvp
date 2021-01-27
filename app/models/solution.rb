@@ -39,6 +39,7 @@ class Solution < ApplicationRecord
 
   validates_presence_of :title, :description, :youtube_urls, :product
   validate :atleast_one_niche
+  validates_length_of :description, :maximum => 300
 
   has_many :industry_solutions, dependent: :destroy
   has_many :industries, through: :industry_solutions
@@ -201,7 +202,7 @@ class Solution < ApplicationRecord
 
   def atleast_one_niche
     if industries.empty? && occupations.empty?
-      errors.add(:niches, "can't be empty")
+      errors.add(:communities, "can't be empty")
     end
   end
 

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     }
   end
 
-  devise_for :users, controllers: { confirmations: 'confirmations' }
+  devise_for :users, controllers: { confirmations: 'confirmations', invitations: 'users/invitations' }
 
   authenticate :user, -> (user) { user.admin? } do
     mount PgHero::Engine, at: "pghero"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_034139) do
+ActiveRecord::Schema.define(version: 2021_01_26_193532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,29 @@ ActiveRecord::Schema.define(version: 2021_01_23_034139) do
     t.index ["industry_id"], name: "index_industry_solutions_on_industry_id"
     t.index ["solution_id", "industry_id"], name: "index_industry_solutions_on_solution_id_and_industry_id", unique: true
     t.index ["solution_id"], name: "index_industry_solutions_on_solution_id"
+  end
+
+  create_table "login_activities", force: :cascade do |t|
+    t.string "scope"
+    t.string "strategy"
+    t.string "identity"
+    t.boolean "success"
+    t.string "failure_reason"
+    t.string "user_type"
+    t.bigint "user_id"
+    t.string "context"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "city"
+    t.string "region"
+    t.string "country"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at"
+    t.index ["identity"], name: "index_login_activities_on_identity"
+    t.index ["ip"], name: "index_login_activities_on_ip"
+    t.index ["user_type", "user_id"], name: "index_login_activities_on_user_type_and_user_id"
   end
 
   create_table "notable_jobs", force: :cascade do |t|

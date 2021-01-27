@@ -16,12 +16,16 @@ mark {
   @apply font-extrabold bg-transparent;
 }
 
+.ais-Hits {
+  @apply w-full;
+}
+
 .ais-Hits-list {
-  @apply w-full grid grid-cols-3 gap-4 mt-4;
+  @apply w-full grid grid-cols-3 mt-4;
 }
 
 .ais-Hits-item {
-  @apply bg-white w-full mt-0 border border-gray-400 shadow-none;
+  @apply bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100;
 }
 
 .ais-SearchBox-input {

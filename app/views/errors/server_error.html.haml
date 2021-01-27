@@ -1,3 +1,8 @@
-%h1 Errors#unacceptable
-%p Find me in app/views/errors/unacceptable.html.haml
-
+%div{class: "flex flex-col w-full items-center mt-20"}
+  = image_tag "https://media.giphy.com/media/yFQ0ywscgobJK/giphy.gif"
+  %div{class: "mt-5 font-semibold text-3xl"}
+    Oh no! Something went wrong...
+  %div{class: "w-1/2 text-center text-lg mt-4"}
+    You're seeing this because there was a mistake from our end.<br/>
+    Please use the feedback button in the top left corner to let us know how you got here. (Error Code: 422)
+  = link_to "Go Back", request.referrer || root_path, class: "mt-2 text-xl border-b-3 border-secondary transition-all hover:text-white hover:bg-secondary px-0.5 leading-none"
