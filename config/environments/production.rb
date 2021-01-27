@@ -32,7 +32,7 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://solvedapp.io'
-  config.action_controller.asset_host = ENV['CLOUDFRONT_ENDPOINT']
+  # config.action_controller.asset_host = ENV['CLOUDFRONT_ENDPOINT']
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
