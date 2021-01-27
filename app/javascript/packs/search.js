@@ -1,5 +1,8 @@
 $(document).on('turbolinks:load', function() {
   function handleKeywords(keywordsArr) {
+    if (keywordsArr == null) {
+      return "";
+    }
     var returnString = "";
     var i;
     for (i = 0; i < keywordsArr.length; i++) {
@@ -13,6 +16,9 @@ $(document).on('turbolinks:load', function() {
 
   var other_keywords = "";
   function otherKeywords(keywordsArr) {
+    if (keywordsArr == null) {
+      return "";
+    }
     var returnString = "";
     var i;
     for (i = 0; i < keywordsArr.length; i++) {
@@ -99,15 +105,15 @@ $(document).on('turbolinks:load', function() {
                   '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
                     '{{{_highlightResult.title.value}}}' +
                   '</div>' +
-                  '<div class="w-full text-xs mt-3 text-gray-700">' +
-                    'Common keywords' +
+                  '<div class="w-full text-xs mt-3 mb-1 text-gray-700">' +
+                    'Relevant keywords' +
                   '</div>' +
                   '<div class="w-full text-sm list-disc list-inside space-y-0.5">' +
                     '{{{keyword_list}}}' +
                   '</div>' +
                   '{{#display_other_keywords}}' +
                     '<div data-controller="toggle w-full">' +
-                      '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                      '<div class="-ml-4 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                         '<div class="w-4 h-4" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
@@ -118,7 +124,7 @@ $(document).on('turbolinks:load', function() {
                           '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
                           '</svg>' +
                         '</div>' +
-                        '<div class="w-full">' +
+                        '<div class="w-full mb-1">' +
                           'Other keywords' +
                         '</div>' +
                       '</div>' +
@@ -128,7 +134,7 @@ $(document).on('turbolinks:load', function() {
                     '</div>' +
                   '{{/display_other_keywords}}' +
                   '<div data-controller="toggle">' +
-                    '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                    '<div class="-ml-4 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                       '<div class="w-4 h-4" data-toggle-target="toggleable">' +
                         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                           '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
@@ -139,7 +145,7 @@ $(document).on('turbolinks:load', function() {
                         '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
                         '</svg>' +
                       '</div>' +
-                      '<div class="">' +
+                      '<div class="mb-1">' +
                         'Description' +
                       '</div>' +
                     '</div>' +

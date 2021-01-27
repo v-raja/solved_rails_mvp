@@ -21,19 +21,39 @@ mark {
 }
 
 .ais-Hits-list {
-  @apply w-full grid grid-cols-3 mt-4;
+  @apply w-full grid grid-cols-3 gap-4 mt-4;
 }
 
 .ais-Hits-item {
-  @apply bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100;
+  @apply bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100 px-6 py-4;
+}
+
+.ais-SearchBox-form {
+  @apply block relative flex items-center;
+}
+
+.ais-SearchBox-submit {
+  @apply absolute inset-y-0 left-3 pl-4 flex items-center;
+}
+
+.ais-SearchBox-submitIcon {
+  @apply h-4 w-4 text-gray-600 fill-current;
 }
 
 .ais-SearchBox-input {
-  @apply text-black rounded pl-7 placeholder-gray-700;
+  @apply block pl-9 pr-4 py-1 w-full border border-transparent placeholder-gray-600 bg-gray-200 focus:outline-none focus:bg-white focus:border-gray-300 text-gray-900 rounded-lg;
 }
 
 .ais-SearchBox-reset {
-  @apply p-2;
+  @apply absolute inset-y-0 right-2 flex items-center pr-4;
+}
+
+// .ais-SearchBox-reset {
+//   @apply appearance-none invisible;
+// }
+
+.ais-SearchBox-resetIcon {
+  @apply h-2 w-2 text-gray-400 fill-current;
 }
 
 .disable-scrollbars {
