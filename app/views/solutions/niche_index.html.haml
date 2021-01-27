@@ -38,14 +38,14 @@
               %div{class: "mt-4 w-full font-semibold text-xl leading-none text-center"}
                 No solutions yet 😔
 
-              %div{class: "w-full text-lg text-center mt-8 cursor-pointer"}
-                = "Have a problem you're looking for a solution for? #{link_to "Make a request", new_request_path(code: @niche.code),  class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-lg font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"}".html_safe
               -# - else
 
               - if !current_user.following?(@niche)
                 %div{class: "w-3/4 text-lg text-center mt-8"}
                   = "#{link_to "Follow", [:follow, @niche],  class: "flex-shrink-0 border-b-3 border-secondary font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide mr-0.5"} to get notified when solutions are posted to the #{@niche.title} community.".html_safe
                 -# .ml-1
+              %div{class: "w-full text-lg text-center mt-20 cursor-pointer"}
+                = "Have a problem you're looking for a solution for? #{link_to "Make a request", new_request_path(code: @niche.code),  class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-lg font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"}".html_safe
                 -#   to get notified when solutions are posted
             - else
               %div{class: "mt-4 w-full font-semibold text-2xl leading-none text-center"}
@@ -66,7 +66,7 @@
                 Your email will not be used for any other purposes.<br/>
                 You can unsubscribe at any time.
 
-              %div{class: "w-full text-lg text-center mt-8 cursor-pointer"}
+              %div{class: "w-full text-lg text-center mt-20 cursor-pointer"}
                 = "Have a problem you're looking for a solution for? #{link_to "Make a request", new_request_path(code: @niche.code),  class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-lg font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"}".html_safe
 
 
@@ -98,3 +98,18 @@
                   = link_to "Follow Niche", [:follow, @niche], class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
             %div{class: "mt-1 py-3 w-full rounded-lg text-sm"}
               = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe
+
+          - if @niche.solutions.present?
+            %div
+              %div{class: "mt-5 text-lg text-center"}
+                Get notified weekly about top solutions / requests posted to this community 👇
+              = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-4 flex items-center"} do |f|
+                %input{type: "text", name: "user[email]",
+                  placeholder: "Email",
+                  autofocus: true,
+                  autocomplete: "email",
+                  class: "block text-gray-900 w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+                = f.submit "Notify Me!", class: "flex-shrink-0 ml-2 p-2 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+              %div{class: "text-xs mt-3 text-gray-700"}
+                Your email will not be used for any other purposes.<br/>
+                You can unsubscribe at any time.

@@ -30,6 +30,7 @@ class Solution < ApplicationRecord
   end
 
   acts_as_followable
+  acts_as_votable
 
   before_save :assign_description_safe_html , if: -> { description_changed? || description_safe_html.nil? }
   before_save :anti_spam, if: -> { description_safe_html_changed? }
@@ -39,10 +40,13 @@ class Solution < ApplicationRecord
 
   validates_presence_of :title, :description, :youtube_urls, :product
   validate :atleast_one_niche
-  validates_length_of :description, :maximum => 300
+  # validates_length_of :description
 
-  has_many :industry_solutions, dependent: :destroy
-  has_many :industries, through: :industry_solutions
+  # has_many :industry_solutions, dependent: :destroy
+  # has_many :industries, through: :industry_solutions
+
+  has_many_and_belong_to_many :industries
+  counter_cache :industry, column
 
   has_many :occupation_solutions, dependent: :destroy
   has_many :occupations, through: :occupation_solutions
@@ -65,7 +69,6 @@ class Solution < ApplicationRecord
   acts_as_commentable
   accepts_nested_attributes_for :comment_threads, reject_if: proc { |att| att['body'].blank? }, limit: 1
 
-  acts_as_votable
   acts_as_taggable_on :general_tags, :niche_specific_tags
   acts_as_taggable_on :tags
 
@@ -76,65 +79,46 @@ class Solution < ApplicationRecord
   scope :top,        -> { unscoped.order(cached_votes_score: :desc).order(created_at: :desc) }
 
 
-  include AlgoliaSearch
+  # include AlgoliaSearch
 
-  algoliasearch index_name: 'solutions', sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
-    attribute :created_at, :title, :description
+  # algoliasearch index_name: 'solutions', sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
+  #   attribute :created_at, :title, :description
 
-    # integer version of the created_at datetime field, to use numerical filtering
-    attribute :created_at_i do
-      created_at.to_i
-    end
+  #   # integer version of the created_at datetime field, to use numerical filtering
+  #   attribute :created_at_i do
+  #     created_at.to_i
+  #   end
 
-    attribute :user do
-      { name: user.name }
-    end
+  #   attribute :user do
+  #     { name: user.name }
+  #   end
 
-    attribute :product do
-      { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product) }
-    end
+  #   attribute :product do
+  #     { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product) }
+  #   end
 
-    attribute :industries do
-      industries.map do |i|
-        { title: i.title, url: Rails.application.routes.url_helpers.industry_path(i), type: "Industry" }
-      end
-    end
+  #   attribute :industries do
+  #     industries.map do |i|
+  #       { title: i.title, url: Rails.application.routes.url_helpers.industry_path(i), type: "Industry" }
+  #     end
+  #   end
 
-    attribute :occupations do
-      occupations.map do |o|
-        { title: o.title, url: Rails.application.routes.url_helpers.occupation_path(o), type: "Occupation" }
-      end
-    end
-
-    # tags tag_list
-
-    searchableAttributes ['unordered(title)', 'unordered(description)']
-
-    # industries.each do |i|
-    #   add_index i.code_with_suffix do
-    #     attribute :created_at, :title, :description, :url
-
-    #     # integer version of the created_at datetime field, to use numerical filtering
-    #     attribute :created_at_i do
-    #       created_at.to_i
-    #     end
-
-    #     attribute :user do
-    #       { name: user.name }
-    #     end
-
-    #     attribute :product do
-    #       { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product) }
-    #     end
+  #   attribute :occupations do
+  #     occupations.map do |o|
+  #       { title: o.title, url: Rails.application.routes.url_helpers.occupation_path(o), type: "Occupation" }
+  #     end
+  #   end
 
 
-    #     searchableAttributes ['unordered(title)', 'unordered(description)']
-    #   end
-    # end
-  end
+  #   searchableAttributes ['unordered(title)', 'unordered(description)']
+  # end
 
   def tags
     self.niche_specific_tag_list + self.general_tag_list
+  end
+
+  def created_by_user?
+    self.is_creator
   end
 
   def normalize_friendly_id(string)
@@ -146,9 +130,11 @@ class Solution < ApplicationRecord
   end
 
   def niche_list=(codes)
+    # byebug
     industries = []
     occupations = []
-    codes.reject!(&:blank?).map do |code|
+    # byebug
+    codes.delete_if(&:blank?).map do |code|
       if industry = Industry.where(code: code).first
         industries << industry
       elsif occupation = Occupation.where(code: code).first

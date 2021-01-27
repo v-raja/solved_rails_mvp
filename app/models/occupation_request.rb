@@ -10,6 +10,7 @@
 #
 class OccupationRequest < ApplicationRecord
   belongs_to :occupation, touch: true
+  counter_culture :occupation, column_name: "requests_count"
   belongs_to :request, touch: true
   # validates  :request_id, presence: true
   # validates  :occupation_id, presence: true

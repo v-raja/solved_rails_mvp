@@ -10,8 +10,9 @@
 #
 class IndustrySolution < ApplicationRecord
   belongs_to :industry, touch: true
+  # counter_culture :industry, column_name: "solutions_count"
   belongs_to :solution, touch: true
-  # validates  :solution_id, presence: true
-  # validates  :industry_id, presence: true
+
   validates_uniqueness_of :solution_id, :scope => :industry_id
+
 end

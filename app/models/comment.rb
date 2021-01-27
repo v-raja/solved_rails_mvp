@@ -37,7 +37,7 @@ class Comment < ActiveRecord::Base
   acts_as_votable
 
   belongs_to :commentable, :polymorphic => true, touch: true
-
+  counter_culture :commentable, column_name: "comments_count"
   # NOTE: Comments belong to a user
   belongs_to :user
 

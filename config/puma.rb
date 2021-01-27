@@ -27,8 +27,10 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
+if ENV.fetch("RAILS_ENV") == "production"
+  workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+end
 
 # on_worker_boot do
 #   # Valid on Rails 4.1+ using the `config/database.yml` method of setting `pool` size

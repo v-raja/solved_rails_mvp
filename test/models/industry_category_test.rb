@@ -7,7 +7,6 @@
 #  description    :text
 #  code           :text
 #  slug           :text
-#  type           :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  ancestry       :string

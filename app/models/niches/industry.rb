@@ -7,6 +7,7 @@
 #  description          :text
 #  code                 :text
 #  slug                 :text
+#  keywords             :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  industry_category_id :bigint           not null
@@ -20,8 +21,9 @@ class Industry < ApplicationRecord
   validates :title,       presence: true
   validates :description, presence: true
 
-  has_many :industry_solutions, dependent: :destroy
-  has_many :solutions, through: :industry_solutions
+  # has_many :industry_solutions, dependent: :destroy
+  # has_many :solutions, through: :industry_solutions
+  has_many_and_belong_to_many :solutions
 
   has_many :industry_requests, dependent: :destroy
   has_many :requests, through: :industry_requests
@@ -60,7 +62,7 @@ class Industry < ApplicationRecord
   end
 
   def tags
-    self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)
+    (self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)).uniq
   end
 
   def keyword_list

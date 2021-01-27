@@ -7,6 +7,7 @@
 #  description          :text
 #  code                 :text
 #  slug                 :text
+#  keywords             :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  industry_category_id :bigint           not null

@@ -63,6 +63,7 @@ gem 'maxminddb'
 gem 'lograge'
 gem 'sidekiq'
 gem 'newrelic_rpm'
+gem 'counter_culture', '~> 2.0'
 
 
 group :development, :test do

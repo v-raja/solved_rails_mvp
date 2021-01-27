@@ -9,20 +9,17 @@ module ApplicationHelper
     doc.to_html.html_safe
   end
 
-  def canonical(url)
-    content_for(:canonical, tag(:link, rel: :canonical, href: url)) if url
-  end
-
   def add_class_if_path_is_base(path, class_to_add)
     request.path.start_with?(path) ? class_to_add : ""
   end
 
   def upvote_count(votable)
-    if votable.class.name == "Solution" || votable.class.name == "Requests"
-      votable.cached_votes_score
-    else
-      votable.votes_for.up.by_type(User).size
-    end
+    votable.votes_for.size
+    # if votable.class.name == "Solution" || votable.class.name == "Requests"
+    #   votable.cached_votes_score
+    # else
+    #   votable.votes_for.up.by_type(User).size
+    # end
   end
 
   def link_to_add_field(name, f, association, **args)

@@ -10,6 +10,7 @@
 #
 class IndustryRequest < ApplicationRecord
   belongs_to :industry, touch: true
+  counter_culture :industry, column_name: "requests_count"
   belongs_to :request, touch: true
   # validates  :request_id, presence: true
   # validates  :industry_id, presence: true

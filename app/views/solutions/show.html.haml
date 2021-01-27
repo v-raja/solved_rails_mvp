@@ -85,8 +85,12 @@
 
       -# Maker / Hunter
       %div{class: "mt-4 px-4 pt-4 pb-6 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
-        %div{class: "w-full text-gray-600 text-xs uppercase"}
-          Solved by
+        - if @solution.created_by_user?
+          %div{class: "w-full text-gray-600 text-xs uppercase"}
+            Created by
+        - else
+          %div{class: "w-full text-gray-600 text-xs uppercase"}
+            Solved by
         %div{class: "mt-4 w-full flex"}
           -# = link_to @solution.user do
           - if @solution.user.bio.blank?

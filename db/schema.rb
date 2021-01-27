@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_193532) do
+ActiveRecord::Schema.define(version: 2021_01_27_172832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 2021_01_26_193532) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "discarded_at"
+    t.integer "cached_votes_total", default: 0
+    t.integer "cached_votes_score", default: 0
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
+    t.integer "cached_weighted_score", default: 0
+    t.integer "cached_weighted_total", default: 0
+    t.float "cached_weighted_average", default: 0.0
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["discarded_at"], name: "index_comments_on_discarded_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
@@ -68,6 +75,8 @@ ActiveRecord::Schema.define(version: 2021_01_26_193532) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "industry_category_id", null: false
+    t.integer "solutions_count", default: 0, null: false
+    t.integer "requests_count", default: 0, null: false
     t.index ["code"], name: "index_industries_on_code", unique: true
     t.index ["industry_category_id"], name: "index_industries_on_industry_category_id"
     t.index ["slug"], name: "index_industries_on_slug", unique: true
@@ -202,6 +211,8 @@ ActiveRecord::Schema.define(version: 2021_01_26_193532) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "occupation_category_id", null: false
+    t.integer "solutions_count", default: 0, null: false
+    t.integer "requests_count", default: 0, null: false
     t.index ["code"], name: "index_occupations_on_code", unique: true
     t.index ["occupation_category_id"], name: "index_occupations_on_occupation_category_id"
     t.index ["slug"], name: "index_occupations_on_slug", unique: true
@@ -242,6 +253,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_193532) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
+    t.integer "comments_count", default: 0, null: false
     t.index ["slug"], name: "index_requests_on_slug", unique: true
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -264,6 +276,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_193532) do
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
     t.boolean "is_creator", default: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
     t.index ["user_id"], name: "index_solutions_on_user_id"

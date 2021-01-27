@@ -7,6 +7,7 @@
 #  description            :text
 #  code                   :text
 #  slug                   :text
+#  keywords               :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  occupation_category_id :bigint           not null
@@ -74,7 +75,7 @@ class Occupation < ApplicationRecord
   end
 
   def tags
-    self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)
+    (self.solutions.tag_counts_on(:niche_specific_tags) + self.solutions.tag_counts_on(:general_tags)).uniq
   end
 
   # Try building a slug based on the following fields in

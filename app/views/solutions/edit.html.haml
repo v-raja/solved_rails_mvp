@@ -130,14 +130,16 @@
             %div{class: "text-gray-600 text-xs mt-1"}
               Words that make sense across many different industries / occupations.
             %div{class: "mt-1"}
-              = f.select :general_tag_list, Solution.general_tag_counts.collect {|t| [t.name, t.name]}, {}, id: "general_tags", :multiple => true, class: "w-full"
+              - options = @solution.general_tag_list + Solution.general_tag_counts.pluck(:name)
+              = f.select :general_tag_list, options, {}, id: "general_tags", :multiple => true, class: "w-full"
 
             %div{class: "mt-3"}
               Community-specific tags
             %div{class: "text-gray-600 text-xs mt-1"}
               Words that make sense in the context of the industry / occupation you're posting to.
             %div{class: "mt-1"}
-              = f.select :niche_specific_tag_list, Solution.niche_specific_tag_counts.collect {|t| [t.name, t.name]}, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
+              - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
+              = f.select :niche_specific_tag_list, options, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
 
           %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
             %div{class: "flex items-center"}

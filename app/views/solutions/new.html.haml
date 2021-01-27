@@ -32,7 +32,7 @@
                     id: "product-name"
                   %div{class: "mt-4 flex items-center"}
                     %div{class: "font-medium"}
-                      Thumbnail url
+                      Logo url
                     %div{class: "ml-2 text-gray-600"}
                       = "- Required"
                   = builder.text_field :thumbnail_url,
@@ -42,12 +42,30 @@
                     placeholder: "https://"
                   %div{class: "text-gray-600 text-xs mt-1"}
                     Preview not available. Use a square image (atleast 60 x 60) for best results.
-
+              %div{class: "inline-flex items-center mt-3 ml-1"}
+                = f.check_box :is_creator, class: "form-checkbox rounded"
+                %div{class: "text-black text-sm ml-2"}
+                  Did you help make this product?
 
 
 
           %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
+
             %div{class: "flex items-center"}
+              %div{class: "font-medium"}
+                Problem title
+              %div{class: "ml-2 text-gray-600"}
+                = "- Required"
+            = f.text_field :title,
+                class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                placeholder: "Manage / Organise / Increase / Improve / Simplify ...",
+                data: {action: "change->data-binding#update"}, "data-binding-target": "problem-title", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-initial": "#{params.dig(:solution, :title).blank? ? "false" : "true"}"
+
+            %div{class: "text-gray-600 text-xs mt-1"}
+              Try to skip words like "How to" and concisely state the problem you're solving.
+
+
+            %div{class: "mt-6 flex items-center"}
               %div{class: "font-medium"}
                 What industries / occupations is your solution for?
               %div{class: "ml-2 text-gray-600"}
@@ -62,18 +80,6 @@
             -#   Please refresh the page if the box above looks funky 🤪
 
 
-            %div{class: "mt-6 flex items-center"}
-              %div{class: "font-medium"}
-                Problem title
-              %div{class: "ml-2 text-gray-600"}
-                = "- Required"
-            = f.text_field :title,
-                class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
-                placeholder: "Manage / Organise / Increase / Improve / Simplify ...",
-                data: {action: "change->data-binding#update"}, "data-binding-target": "problem-title", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-initial": "#{params.dig(:solution, :title).blank? ? "false" : "true"}"
-
-            %div{class: "text-gray-600 text-xs mt-1"}
-              Try to skip words like "How to" and concisely state the problem you're solving.
 
 
 
@@ -167,7 +173,7 @@
                 = "- Required"
             = f.text_area :description,
                 class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
-                placeholder: "300 characters maximum",
+                placeholder: "",
                 data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:solution, :description).blank? ? "false" : "true"}",
                 rows: "6"
             %div{class: "mt-1 text-xs"}
@@ -179,19 +185,25 @@
                 Tags
               -# %div{class: "ml-2 text-gray-600"}
               -#   = "- Required"
+
             %div{class: "mt-2"}
               General tags
             %div{class: "text-gray-600 text-xs mt-1"}
-              Words that make sense across many different industries / occupations.
+              General tags make it easier to find your solution across different communities. Use words that make sense across many different industries / occupations.
             %div{class: "mt-1"}
-              = f.select :general_tag_list, Solution.general_tag_counts.collect {|t| [t.name, t.name]}, {}, id: "general_tags", :multiple => true, class: "w-full"
+              -# - options = Solution.general_tag_counts.collect {|t| [t.name, t.name] }
+              -# - options.concat{ @solution.general_tag_list.collect { |t| [t, t, {'selected' => 'selected'}] } }
+              - options = @solution.general_tag_list + Solution.general_tag_counts.pluck(:name)
+              -# - byebug
+              = f.select :general_tag_list, options, {}, id: "general_tags", :multiple => true, class: "w-full"
 
             %div{class: "mt-3"}
               Community-specific tags
             %div{class: "text-gray-600 text-xs mt-1"}
               Words that make sense in the context of the industry / occupation you're posting to.
             %div{class: "mt-1"}
-              = f.select :niche_specific_tag_list, Solution.niche_specific_tag_counts.collect {|t| [t.name, t.name]}, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
+              - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
+              = f.select :niche_specific_tag_list, options, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
 
           %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
             %div{class: "flex items-center"}
@@ -211,10 +223,15 @@
             %div{class: "w-full text-lg font-medium"}
               Tips! 👇
             %ul{class: "mt-3 list-disc list-inside leading-relaxed"}
+              -# %li
+              -#   Try to include a video.
+              -#   %div.pl-5
+              -#     Videos make it easier for others to understand what you're trying to convey. They also help people visualize how they could apply your solution in their daily life.
               %li
-                Try to include a video.
+                This is your space.
+                -# Your solution doesn't have to be perfect.
                 %div.pl-5
-                  Videos make it easier for others to understand what you're trying to convey. They also help people visualize how they could apply your solution in their daily life.
+                  Your solution doesn't have to be the best one for your problem. If you're satisfied with how you solve your problem and would recommend the product, it's worth sharing with the community.
             %div{class: "text-sm font-normal"}
               %div{class: "mt-4 font-medium uppercase"}
                 Description
@@ -222,28 +239,32 @@
               %ul.mt-2.list-disc.list-inside.space-y-1.leading-relaxed
                 Keep it short. Try to only include details about:
                 .mt-1.space-y-1
-                  %li= "What problem does your solution solved?"
-                  %li= "Who is it for?"
-                  %li= "What would people search to find a solution like this?"
+                  %li
+                    = "Who are you (alternatively, who is your solution for)?"
+                    %div.pl-5
+                      This helps pepole understand what you're looking for in your solution, which helps them understand if the same applies to them.
+                  -# whether the reason you chose the solution would apply to them."
+                  %li= "What problem are you trying to solve?"
+                  %li= "What one thing do you love the most about your solution, and what isn't so great? Including the not so great points helps others make better informed decisions."
+                  -# %li= "What would people search to find a solution like this?"
               %div{class: "mt-4 font-medium uppercase"}
                 Video & First Comment
               %ul{class: "mt-2 list-disc list-inside space-y-2 leading-relaxed"}
                 %li
-                  Show, don't tell.
+                  Try to show, don't tell.
                   %div{class: "ml-5"}
-                    Give a visual example of how you use the product to solve your problem. Use a real life scenario instead of a hypothetical one, if possible.
+                    Give a visual example of how you use the product to solve your problem. Use a real life scenario instead of a hypothetical one, if possible. This helps people visualise how they can apply your solution to their problem.
                 -# %li
                 -#   If you're the maker of the product:
                 -#   %div{class: "ml-5"}
                 -#     Put yourself in the shoes of the people you want to help. Understand their concerns of investing their time and money on your solution, only for it to not work out for them.
                 -#     <br/>
                 -#     What could you tell or show to convince them that it's worth giving your solution a shot?
-                %li
-                  If you're not the maker of the product:
-                  %div{class: "ml-5"}
-                    Give an honest review. Including the not so great points helps others make a better informed decision, and makes you come off as trustworthy.
-                    -# <br/>
-                    -# Has the product saved you time / money, helped you earn more money, or made you happier? Putting a figure / percentage helps people understand impact better.
+                -# %li
+                -#   If you're not the maker of the product:
+                -#   %div{class: "ml-5"}
+                -#     Give an honest review. Including the not so great points helps others make a better informed decision, and makes you come off as trustworthy.
+                -# Has the product saved you time / money, helped you earn more money, or made you happier? Putting a figure / percentage helps people understand impact better.
 
                 %li
                   Use the first comment to include details missed in your video / description, and to get the conversation started.

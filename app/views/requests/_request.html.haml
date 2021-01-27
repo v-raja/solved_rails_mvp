@@ -33,7 +33,7 @@
               <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
               </svg>
               %div{class: "flex-shrink-0 ml-1 "}
-                = "#{pluralize(request.root_comments.count, 'Comment')}"
+                = "#{pluralize(request.root_comments.size, 'Comment')}"
 
 
         -# %div{class: "pt-2 pb-2 pl-3 pr-9 text-xs inline-flex disable-scrollbars w-full text-gray-600 overflow-auto w-full"}

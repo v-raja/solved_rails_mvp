@@ -106,8 +106,11 @@ class SolutionsController < ApplicationController
       if user_signed_in?
         @solution.user = current_user
         # Handle creation like normal
-        if @solution.save
+        if @solution.comment_threads.present?
+          @solution.comment_threads.first.user = current_user
+        end
 
+        if @solution.save
           current_user.follow(@solution)
           @solution.niche_list.each do |n|
             current_user.follow(n)
@@ -133,8 +136,20 @@ class SolutionsController < ApplicationController
         if @user.present?
           # Make user login to create if email address exists.
           flash[:now] = "Email address has already been taken. Please sign in to post."
+          # @solution.comment_threads.first.user = @user
+          if @solution.comment_threads.present?
+            @solution.comment_threads.first.user = @user
+          end
           @solution.valid?
           @solution.errors.messages.except!(:user) #remove password from errors
+
+          if @solution.comment_threads.empty?
+            @solution.comment_threads.build
+          end
+
+          if @solution.youtube_urls.empty?
+            @solution.youtube_urls.build
+          end
           format.html { render :new }
         else
           @user = User.new(user_params)
@@ -156,7 +171,12 @@ class SolutionsController < ApplicationController
           else
             @user.invite!
             @solution.user = @user
+            if @solution.comment_threads.present?
+              @solution.comment_threads.first.user = @user
+            end
+
             @solution.save
+
             @user.follow(@request)
             @solution.niche_list.each do |n|
               @user.follow(n)
