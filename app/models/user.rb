@@ -103,7 +103,11 @@ class User < ApplicationRecord
   protected
 
   def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
+    if Rails.env.production?
+      devise_mailer.send(notification, self, *args).deliver_later
+    else
+      devise_mailer.send(notification, self, *args).deliver
+    end
   end
 
   private

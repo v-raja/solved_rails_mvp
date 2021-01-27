@@ -29,7 +29,7 @@ mark {
 }
 
 .ais-SearchBox-input {
-  @apply text-black rounded pl-7;
+  @apply text-black rounded pl-7 placeholder-gray-700;
 }
 
 .ais-SearchBox-reset {

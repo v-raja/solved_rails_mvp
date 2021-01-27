@@ -2,8 +2,8 @@
 
 <p>You've requested to subscribe to the <%=@niche.title%> (<%=@niche.class.to_s%>) community.</p>
 
-<p>Please confirm your email through the link below to recieve weekly updates with the top solutions and requests posted to the community:</p>
+<p>Please confirm your email through the link below to recieve weekly updates with the most popular solutions and requests posted to the community:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, for_notifs: true) %></p>
 
 <p>If you have not made this request, you can ignore this email.</p>

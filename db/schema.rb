@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_172832) do
+ActiveRecord::Schema.define(version: 2021_01_27_205255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_172832) do
     t.bigint "industry_category_id", null: false
     t.integer "solutions_count", default: 0, null: false
     t.integer "requests_count", default: 0, null: false
+    t.integer "solution_votes_count", default: 0, null: false
     t.index ["code"], name: "index_industries_on_code", unique: true
     t.index ["industry_category_id"], name: "index_industries_on_industry_category_id"
     t.index ["slug"], name: "index_industries_on_slug", unique: true
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_172832) do
     t.integer "industry_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "solution_votes", default: 0, null: false
     t.index ["industry_id"], name: "index_industry_solutions_on_industry_id"
     t.index ["solution_id", "industry_id"], name: "index_industry_solutions_on_solution_id_and_industry_id", unique: true
     t.index ["solution_id"], name: "index_industry_solutions_on_solution_id"
@@ -197,6 +199,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_172832) do
     t.integer "occupation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "solution_votes", default: 0, null: false
     t.index ["occupation_id"], name: "index_occupation_solutions_on_occupation_id"
     t.index ["solution_id", "occupation_id"], name: "index_occupation_solutions_on_solution_id_and_occupation_id", unique: true
     t.index ["solution_id"], name: "index_occupation_solutions_on_solution_id"
@@ -213,6 +216,7 @@ ActiveRecord::Schema.define(version: 2021_01_27_172832) do
     t.bigint "occupation_category_id", null: false
     t.integer "solutions_count", default: 0, null: false
     t.integer "requests_count", default: 0, null: false
+    t.integer "solution_votes_count", default: 0, null: false
     t.index ["code"], name: "index_occupations_on_code", unique: true
     t.index ["occupation_category_id"], name: "index_occupations_on_occupation_category_id"
     t.index ["slug"], name: "index_occupations_on_slug", unique: true

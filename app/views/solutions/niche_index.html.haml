@@ -99,7 +99,7 @@
             %div{class: "mt-1 py-3 w-full rounded-lg text-sm"}
               = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe
 
-          - if @niche.solutions.present?
+          - if @niche.solutions.present? && !user_signed_in?
             %div
               %div{class: "mt-5 text-lg text-center"}
                 Get notified weekly about top solutions / requests posted to this community 👇

@@ -5,6 +5,7 @@
 #  id                      :bigint           not null, primary key
 #  title                   :text
 #  description             :text
+#  description_safe_html   :text
 #  get_it_url              :text
 #  product_id              :bigint           not null
 #  slug                    :text
@@ -19,7 +20,7 @@
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
 #  is_creator              :boolean          default(FALSE)
-#  description_safe_html   :text
+#  comments_count          :integer          default(0), not null
 #
 class Solution < ApplicationRecord
 
@@ -42,11 +43,8 @@ class Solution < ApplicationRecord
   validate :atleast_one_niche
   # validates_length_of :description
 
-  # has_many :industry_solutions, dependent: :destroy
-  # has_many :industries, through: :industry_solutions
-
-  has_many_and_belong_to_many :industries
-  counter_cache :industry, column
+  has_many :industry_solutions, dependent: :destroy
+  has_many :industries, through: :industry_solutions
 
   has_many :occupation_solutions, dependent: :destroy
   has_many :occupations, through: :occupation_solutions
@@ -112,6 +110,31 @@ class Solution < ApplicationRecord
 
   #   searchableAttributes ['unordered(title)', 'unordered(description)']
   # end
+
+  # def liked_by(user)
+  #   super
+  #   self
+  # end
+
+  # def unliked_by(user)
+  #   super
+  #   self.industry_solutions.each do |is|
+  #     is.solution_votes = self.cached_votes_score
+  #   end
+  # end
+
+  def self.fix_industry_solution_votes
+    Solution.all.each do |s|
+      s.industry_solutions.each do |is|
+        is.solution_votes = s.cached_votes_score
+        is.save
+      end
+      s.occupation_solutions.each do |os|
+        os.solution_votes = s.cached_votes_score
+        os.save
+      end
+    end
+  end
 
   def tags
     self.niche_specific_tag_list + self.general_tag_list

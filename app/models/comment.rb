@@ -2,20 +2,28 @@
 #
 # Table name: comments
 #
-#  id               :bigint           not null, primary key
-#  commentable_id   :integer
-#  commentable_type :text
-#  title            :text
-#  body             :text
-#  subject          :text
-#  user_id          :integer          not null
-#  parent_id        :integer
-#  lft              :integer
-#  rgt              :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  body_safe_html   :text
-#  discarded_at     :datetime
+#  id                      :bigint           not null, primary key
+#  commentable_id          :integer
+#  commentable_type        :text
+#  title                   :text
+#  body                    :text
+#  body_safe_html          :text
+#  subject                 :text
+#  user_id                 :integer          not null
+#  parent_id               :integer
+#  lft                     :integer
+#  rgt                     :integer
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  discarded_at            :datetime
+#  cached_votes_total      :integer          default(0)
+#  cached_votes_score      :integer          default(0)
+#  cached_votes_up         :integer          default(0)
+#  cached_votes_down       :integer          default(0)
+#  cached_weighted_score   :integer          default(0)
+#  cached_weighted_total   :integer          default(0)
+#  cached_weighted_average :float            default(0.0)
+#  comments_count          :integer          default(0), not null
 #
 class Comment < ActiveRecord::Base
   class << self

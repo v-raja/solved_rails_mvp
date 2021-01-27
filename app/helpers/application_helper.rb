@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def upvote_count(votable)
-    votable.votes_for.size
+    votable.cached_votes_score
     # if votable.class.name == "Solution" || votable.class.name == "Requests"
     #   votable.cached_votes_score
     # else

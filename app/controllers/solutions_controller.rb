@@ -39,6 +39,14 @@ class SolutionsController < ApplicationController
     respond_to do |format|
       if !current_user.voted_for? @solution
         @solution.liked_by current_user
+        @solution.industry_solutions.each do |is|
+          is.increment(:solution_votes)
+          is.save
+        end
+        @solution.occupation_solutions.each do |os|
+          os.increment(:solution_votes)
+          os.save
+        end
         format.html { redirect_to @solution }
         format.js
       else
@@ -52,6 +60,14 @@ class SolutionsController < ApplicationController
     respond_to do |format|
       if current_user.voted_for? @solution
         @solution.unliked_by current_user
+        @solution.industry_solutions.each do |is|
+          is.decrement(:solution_votes)
+          is.save
+        end
+        @solution.occupation_solutions.each do |os|
+          os.decrement(:solution_votes)
+          os.save
+        end
         format.html { redirect_to @solution }
         format.js
       else

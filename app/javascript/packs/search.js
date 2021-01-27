@@ -11,6 +11,20 @@ $(document).on('turbolinks:load', function() {
     return returnString;
   };
 
+  var other_keywords = "";
+  function otherKeywords(keywordsArr) {
+    var returnString = "";
+    var i;
+    for (i = 0; i < keywordsArr.length; i++) {
+      var keywordObj = keywordsArr[i];
+      if (keywordObj.matchLevel == "none") {
+        returnString += '<li>' + keywordObj.value + '</li>';
+      }
+    }
+    other_keywords = returnString;
+    return returnString;
+  };
+
 
   var loginEl = document.getElementById('turbolinkz');
   var userId = loginEl.dataset.turbolinkzId;
@@ -67,16 +81,18 @@ $(document).on('turbolinks:load', function() {
       transformItems(items) {
         var itemz = items.map(item => ({
           ...item,
-          keyword_list: handleKeywords(item._highlightResult.keyword_list)
+          keyword_list: handleKeywords(item._highlightResult.keyword_list),
+          other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
+          display_other_keywords: other_keywords !== "",
         }));
-        console.log(itemz);
+        // console.log(itemz);
         return itemz;
       },
       container: '#hits',
       templates: {
         empty: 'No communities have been found for "{{ query }}"',
         item: '<a href={{{url}}}>'+
-                '<div class="flex flex-wrap text-black" data-controller="toggle">' +
+                '<div class="flex flex-col text-black">' +
                   '<div class="w-full text-sm uppercase mt-1 text-gray-900">' +
                     '{{{type}}}' +
                   '</div>' +
@@ -89,23 +105,47 @@ $(document).on('turbolinks:load', function() {
                   '<div class="w-full text-sm list-disc list-inside space-y-0.5">' +
                     '{{{keyword_list}}}' +
                   '</div>' +
-                  '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
-                    '<div class="w-4 h-4" data-toggle-target="toggleable">' +
-                      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
-                      '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
-                      '</svg>' +
+                  '{{#display_other_keywords}}' +
+                    '<div data-controller="toggle w-full">' +
+                      '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                        '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                            '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+                          '</svg>' +
+                        '</div>' +
+                        '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                          '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+                          '</svg>' +
+                        '</div>' +
+                        '<div class="w-full">' +
+                          'Other keywords' +
+                        '</div>' +
+                      '</div>' +
+                      '<div class="w-full text-sm list-disc list-inside space-y-0.5 hidden" data-toggle-target="toggleable">' +
+                        '{{{other_keyword_list}}}' +
+                      '</div>' +
                     '</div>' +
-                    '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
-                      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
-                      '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
-                      '</svg>' +
+                  '{{/display_other_keywords}}' +
+                  '<div data-controller="toggle">' +
+                    '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                      '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                          '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+                        '</svg>' +
+                      '</div>' +
+                      '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                        '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+                        '</svg>' +
+                      '</div>' +
+                      '<div class="">' +
+                        'Description' +
+                      '</div>' +
                     '</div>' +
-                    '<div class="">' +
-                      'Description' +
+                    '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
+                      '{{{_snippetResult.description.value}}}' +
                     '</div>' +
-                  '</div>' +
-                  '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
-                    '{{{_snippetResult.description.value}}}' +
                   '</div>' +
                 '</div>' +
               '</a>'

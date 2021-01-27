@@ -11,6 +11,9 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  industry_category_id :bigint           not null
+#  solutions_count      :integer          default(0), not null
+#  requests_count       :integer          default(0), not null
+#  solution_votes_count :integer          default(0), not null
 #
 
 class Industry < ApplicationRecord
@@ -21,9 +24,8 @@ class Industry < ApplicationRecord
   validates :title,       presence: true
   validates :description, presence: true
 
-  # has_many :industry_solutions, dependent: :destroy
-  # has_many :solutions, through: :industry_solutions
-  has_many_and_belong_to_many :solutions
+  has_many :industry_solutions, dependent: :destroy
+  has_many :solutions, through: :industry_solutions
 
   has_many :industry_requests, dependent: :destroy
   has_many :requests, through: :industry_requests
