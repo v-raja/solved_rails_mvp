@@ -30,10 +30,10 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
 
-on_worker_boot do
-  # Valid on Rails 4.1+ using the `config/database.yml` method of setting `pool` size
-  ActiveRecord::Base.establish_connection
-end
+# on_worker_boot do
+#   # Valid on Rails 4.1+ using the `config/database.yml` method of setting `pool` size
+#   ActiveRecord::Base.establish_connection
+# end
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
