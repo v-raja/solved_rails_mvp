@@ -117,12 +117,12 @@ class User < ApplicationRecord
   end
 
   def add_thumbnail
-    if !name.blank? && thumbnail_url.blank?
-      self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    if !self.name.blank? && self.thumbnail_url.blank?
+      self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
     end
     if name_changed?
       if Addressable::URI.parse(self.thumbnail_url).host == "avatar.oxro.io"
-        self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+        self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
       end
     end
   end
