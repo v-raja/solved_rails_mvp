@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 module ApplicationHelper
   def svg_tag(icon_name, options={})
     file = File.read(Rails.root.join('app', 'assets', 'svgs', "#{icon_name}.svg"))
@@ -20,6 +22,10 @@ module ApplicationHelper
     # else
     #   votable.votes_for.up.by_type(User).size
     # end
+  end
+
+  def is_oxro_url?(url)
+    Addressable::URI.parse(url).host == "avatar.oxro.io"
   end
 
   def link_to_add_field(name, f, association, **args)

@@ -30,7 +30,7 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if !current_user.voted_for? @request
         @request.liked_by current_user
-        format.html { redirect_to @solution }
+        format.html { redirect_to @request }
         format.js
       else
         format.html { redirect_to @request, notice: "You've already upvoted the request." }
@@ -43,7 +43,7 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if current_user.voted_for? @request
         @request.unliked_by current_user
-        format.html { redirect_to @solution }
+        format.html { redirect_to @request }
         format.js
       else
         format.html { redirect_to @request, notice: "You haven't voted for the request." }
@@ -114,7 +114,7 @@ class RequestsController < ApplicationController
         else
           @user = User.new(user_params)
           @user.valid?
-          @user.errors.messages.except!(:password) #remove password from errors
+          @user.errors.messages.except!(:password, :thumbnail_url) #remove password from errors
           @request.valid?
           @request.errors.messages.except!(:user) #remove password from errors
           if (@user.errors.any? || @request.errors.any?)

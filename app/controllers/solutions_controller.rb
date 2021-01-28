@@ -170,7 +170,7 @@ class SolutionsController < ApplicationController
         else
           @user = User.new(user_params)
           @user.valid?
-          @user.errors.messages.except!(:password) #remove password from errors
+          @user.errors.messages.except!(:password, :thumbnail_url) #remove password from errors
           @solution.valid?
           # byebug
           @solution.errors.messages.except!(:user, :"comment_threads.user") #remove password from errors
@@ -193,7 +193,7 @@ class SolutionsController < ApplicationController
 
             @solution.save
 
-            @user.follow(@request)
+            @user.follow(@solution)
             @solution.niche_list.each do |n|
               @user.follow(n)
             end

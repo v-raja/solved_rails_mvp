@@ -33,6 +33,8 @@
 #  invited_by_id          :bigint
 #  invitations_count      :integer          default(0)
 #
+require 'addressable/uri'
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -42,9 +44,10 @@ class User < ApplicationRecord
   has_many :login_activities, as: :user
 
   validates_presence_of :name
-  before_save :set_default_name
+  before_create :set_default_name_and_thumbnail
 
   before_save :add_thumbnail
+  validates :thumbnail_url, url: { no_local: true }
 
   # FOr invitations and confirmations
   # attr_accessor :invitation_instructions
@@ -112,19 +115,35 @@ class User < ApplicationRecord
 
   private
 
-  def set_default_name
+  def set_default_name_and_thumbnail
     self.name ||= "Your name here"
+    self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
   end
 
   def add_thumbnail
-    if !self.name.blank? && self.thumbnail_url.blank?
+    # if !self.new_record? && self.thumbnail_url.blank?
+    #   if name_changed?
+    #     self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    #   else
+    #     self.thumbnail_url = self.old_thumbnail_url
+    #   end
+    # end
+    if !self.new_record? && (self.thumbnail_url.blank? || (name_changed? && is_oxro_url?(self.thumbnail_url)))
       self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
     end
-    if name_changed?
-      if Addressable::URI.parse(self.thumbnail_url).host == "avatar.oxro.io"
-        self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
-      end
-    end
+    # If I edit profile, will thumbnail URL be set before this function?
+    # if !self.name.blank? && self.thumbnail_url.blank?
+    #   self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    # end
+    # if name_changed?
+    #   if is_oxro_url?(self.thumbnail_url)
+    #     self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    #   end
+    # end
+  end
+
+  def is_oxro_url?(url)
+    Addressable::URI.parse(url).host == "avatar.oxro.io"
   end
 
   def random_thumbnail_bg_color
