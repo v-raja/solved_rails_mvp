@@ -27,12 +27,12 @@ class SearchController < ApplicationController
   end
 
   def requests
-    @solutions = Request.all.top
+    @solutions = Request.all.top.includes(:user)
     render 'home'
   end
 
   def requests_recent
-    @solutions = Request.all
+    @solutions = Request.all.includes(:user)
     render 'home'
   end
 
