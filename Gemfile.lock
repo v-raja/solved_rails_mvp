@@ -347,6 +347,7 @@ DEPENDENCIES
   acts_as_commentable_with_threading
   acts_as_follower!
   acts_as_votable
+  addressable
   algoliasearch-rails
   ancestry
   annotate
