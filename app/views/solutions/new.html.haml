@@ -75,6 +75,9 @@
               - options = options_for_select (@solution.niche_list + niche_from_param.to_a).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
               = f.select :niche_list,  options, {}, {multiple: true, id: "test", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
             %div{class: "text-gray-600 text-xs mt-2"}
+              Post to an industry if your solution is relevant to businesses.<br/>
+              Post to occupations if your solution is geared towards individuals.<br/>
+              Solutions posted to industries are geared towards businesses, whereas solutions posted to occupations are more relevant to individuals.
               = "Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
             -# %div{class: "text-gray-600 text-xs mt-1"}
             -#   Please refresh the page if the box above looks funky 🤪
@@ -189,7 +192,8 @@
             %div{class: "mt-2"}
               General tags
             %div{class: "text-gray-600 text-xs mt-1"}
-              General tags make it easier to find your solution across different communities. Use words that make sense across many different industries / occupations.
+              If a business/person from an unrelated industry/occupation would get value from your solution, what phrase would they search for to find a solution like yours?
+              -# General tags make it easier to find your solution across different communities. Use words that make sense across many different industries / occupations.
             %div{class: "mt-1"}
               -# - options = Solution.general_tag_counts.collect {|t| [t.name, t.name] }
               -# - options.concat{ @solution.general_tag_list.collect { |t| [t, t, {'selected' => 'selected'}] } }
@@ -200,6 +204,7 @@
             %div{class: "mt-3"}
               Community-specific tags
             %div{class: "text-gray-600 text-xs mt-1"}
+              If a business/person in
               Words that make sense in the context of the industry / occupation you're posting to.
             %div{class: "mt-1"}
               - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
@@ -232,6 +237,12 @@
                 -# Your solution doesn't have to be perfect.
                 %div.pl-5
                   Your solution doesn't have to be the best one for your problem. If you're satisfied with how you solve your problem and would recommend the product, it's worth sharing with the community.
+              %li
+                Only recommend products you've used for a while.
+                -# Your solution doesn't have to be perfect.
+                %div.pl-5
+                  -# If your content is reported to be not genunine, your post will be removed.
+                  We allow affiliate links to compensate you for your time and effort in giving a genuine review of the product, and how you solve your problem. If your content is reported as not genuine, your post will be removed.
             %div{class: "text-sm font-normal"}
               %div{class: "mt-4 font-medium uppercase"}
                 Description
@@ -253,7 +264,9 @@
                 %li
                   Try to show, don't tell.
                   %div{class: "ml-5"}
-                    Give a visual example of how you use the product to solve your problem. Use a real life scenario instead of a hypothetical one, if possible. This helps people visualise how they can apply your solution to their problem.
+                    Give a visual example of how you use the product to solve your problem. Use a real life scenario, not a hypothetical one. <br/>Exception: if you're the maker of the product, you can use a hypothetical scenario.
+
+                    -# This helps people visualise how they can apply your solution to their problem.
                 -# %li
                 -#   If you're the maker of the product:
                 -#   %div{class: "ml-5"}

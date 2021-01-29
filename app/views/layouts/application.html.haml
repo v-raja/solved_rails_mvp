@@ -19,7 +19,7 @@
     -# <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"></script>
     -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
     <!-- Include only the reset -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css" integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8=" crossorigin="anonymous">
+    -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css" integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8=" crossorigin="anonymous">
     <!-- or include the full Algolia theme -->
     -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css" integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8=" crossorigin="anonymous">
     = render 'application/favicon'
@@ -50,6 +50,8 @@
           %div{class: "max-w-screen-lg w-full flex flex-col"}
             %div{class: "font-m text-2xl"}
               Choose your industry or occupation below 👇
+            %div{class: "text-lg"}
+              = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
             -# (Solutions posted to industries are geared towards businesses / entrepreneurs; solutions posted to occupations are geared towards individuals)
             -# :css
             -#   mark {

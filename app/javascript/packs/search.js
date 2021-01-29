@@ -69,8 +69,8 @@ $(document).on('turbolinks:load', function() {
 
   search.addWidgets([
     instantsearch.widgets.configure({
-      attributesToSnippet: ['description:50'],
-      hitsPerPage: 9,
+      attributesToSnippet: ['description:100'],
+      hitsPerPage: 12,
       // filters: 'NOT categories:"Cell Phones"'
     }),
     instantsearch.widgets.searchBox({

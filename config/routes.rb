@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   # get "/robots.:format", to: "errros#robots"
 
   # Force www redirect
-  constraints(host: /^(?!www\.)/i) do
-    match '(*any)', via: :all, to: redirect { |params, request|
-      URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
-    }
-  end
+  # constraints(host: /^(?!www\.)/i) do
+  #   match '(*any)', via: :all, to: redirect { |params, request|
+  #     URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
+  #   }
+  # end
 
   devise_for :users, controllers: { confirmations: 'confirmations', invitations: 'users/invitations', registrations: 'users/registrations' }
 
@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   get 'recent', to: 'search#recent'
   get 'requests', to: 'search#requests'
   get 'requests/recent', to: 'search#requests_recent'
-
 
   resources :industries, only: [], type: "Industry", path: "/i" do
     get "/", to: "solutions#niche_index"
