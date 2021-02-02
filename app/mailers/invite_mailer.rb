@@ -10,7 +10,7 @@ class InviteMailer < Devise::Mailer
   def confirmation_instructions(record, token, opts = {})
     @token = token
     @niche = record.niche
-    devise_mail(record, record.confirmation_instructions || :confirmation_instructions, opts)
+    devise_mail(record, :confirmation_instructions, opts)
   end
 
 end

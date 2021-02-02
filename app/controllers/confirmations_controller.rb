@@ -12,7 +12,8 @@ class ConfirmationsController < Devise::ConfirmationsController
 
     # end
     sign_in(resource_name, resource)
-    after_signup_path(":)")
+    home_path
+    # after_signup_path(":)")
   end
 
 end

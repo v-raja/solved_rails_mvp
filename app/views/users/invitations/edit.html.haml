@@ -1,23 +1,35 @@
-%div{class: "h-screen overflow-hidden"}
-  %div{class: "flex flex-wrap justify-center h-full"}
-    -# 2 Column
+%div{class: "h-screen overflow-hidden flex flex-wrap justify-center h-full w-full"}
+  %div{class: "max-w-screen-md w-full mt-16"}
+    %div{class: "w-full text-4xl font-semibold"}
+      👋 Welcome to solved
+    %div{class: "mt-2 w-full text-lg font-medium"}
+      Fill in your details below to complete singing up.
     = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
       -# = render "users/shared/error_messages", resource: resource
       = f.hidden_field :invitation_token, readonly: true
-      %div{class: "max-w-screen-md w-full h-full flex items-center flex-wrap px-6 md:flex md:flex-nowrap"}
+
+
+      %div{class: "mt-10 w-full grid grid-cols-2 items-center"}
+        -# flex items-center flex-wrap px-6 md:flex md:flex-nowrap
         -# Left Column
-        %div{class: "w-1/2"}
+        %div{class: "w-full"}
           = image_tag resource.thumbnail_url, class: "rounded-full h-40 w-40 object-cover"
-          %div{class: "w-full mt-4 "}
+          %div{class: "w-full mt-4"}
             .font-medium
-              Thumbnail link (ex: Twitter, GitHub thumbnails) <br/>
+              .flex.items-center
+                Thumbnail link
+                .ml-2.text-gray-600.font-normal.text-sm
+                  = "- optional"
+              (ex: Twitter, GitHub thumbnails) <br/>
             -# .text-sm
             -#   (Leave blank to update automatically)
             = f.text_field :thumbnail_url, value: "#{is_oxro_url?(resource.thumbnail_url) ? nil : resource.thumbnail_url}", class: "w-full mt-3 py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "https://"
             = f.hidden_field :old_thumbnail_url, value: resource.thumbnail_url
 
-          %div{class: "w-full text-lg font-medium mt-8"}
+          %div{class: "w-full text-lg font-medium mt-8 flex items-center"}
             Short bio
+            .ml-2.text-gray-600.font-normal.text-sm
+              = "- optional"
 
           %div.w-full.mt-2
             = f.text_field :bio, class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "Marketing @ FoodCompany / Engineer @ XYZ"
@@ -26,14 +38,14 @@
           -# %div{class: "mt-9 text-2xl"}
           -#   Find better solutions to your problems.
             -# Find solutions tailored to you.
-        %div{class: "w-1/2"}
+        %div{class: "w-full"}
           %div{class: "w-full ml-24 bg-white pt-4 pb-6 shadow-lg rounded-lg"}
             %div{class: "flex flex-col items-center w-full px-4"}
               -# %div{class: "text-primary font-medium text-2xl"}
               -#   Sign Up
-              = f.text_field :name, value: "#{resource.name != "Your name here" ? resource.name : nil}", placeholder: "Name", autofocus: true, autocomplete: "name", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
+              = f.text_field :name, value: "#{resource.name != "Your name here" ? resource.name : nil}", placeholder: "Name", autocomplete: "name", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
               %div{class: "mt-3"}
-              = f.email_field :email, disabled: true, placeholder: "Email", class: "text-gray-600 cursor-not-allowed select-none w-full py-3  rounded-md border-gray-400 focus:border-indigo-300"
+              = f.email_field :email, disabled: true, placeholder: "Email", class: "text-gray-900 cursor-not-allowed select-none w-full py-3  rounded-md border-gray-400 focus:border-indigo-300"
               %div{class: "mt-3"}
               = f.password_field :password, placeholder: "New password", autocomplete: "new-password", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
               -# %div{class: "mt-1 text-gray-600 text-xs text-left w-full"}

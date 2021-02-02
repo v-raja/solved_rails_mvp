@@ -44,10 +44,19 @@ class User < ApplicationRecord
   has_many :login_activities, as: :user
 
   validates_presence_of :name
+  before_validation :add_thumbnail, except: :create
+
+  before_validation :set_default_name_and_thumbnail, on: :create
+  validates :thumbnail_url, url: { no_local: true }
+
+  # Problem: need to assign names and thumbnails when user signs up from a community page.
+  # So we used a before_create callback. This works as expected.
+  # But we validate thumbnail url in general. So if user signs up from sign up page,
+  # the thumbnail validation fails as the default url is set only after the validation.
+  # Thus, we call set_default_name_and_thumbnail two times for each case of signing up.
   before_create :set_default_name_and_thumbnail
 
-  before_save :add_thumbnail
-  validates :thumbnail_url, url: { no_local: true }
+  # Want to init name and thumbnail, even if validation is skipped
 
   # For invitations and confirmations
   # attr_accessor :confirmation_instructions
@@ -144,8 +153,11 @@ class User < ApplicationRecord
   private
 
   def set_default_name_and_thumbnail
+    # byebug
     self.name ||= "Your name here"
-    self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    self.thumbnail_url ||= "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
+    # self.update(:name, "Your name here") unless self.name.present?
+    # self.update(:thumbnail_url, "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1")
   end
 
   def add_thumbnail
@@ -156,6 +168,7 @@ class User < ApplicationRecord
     #     self.thumbnail_url = self.old_thumbnail_url
     #   end
     # end
+
     if !self.new_record? && (self.thumbnail_url.blank? || (name_changed? && is_oxro_url?(self.thumbnail_url)))
       self.thumbnail_url = "https://avatar.oxro.io/avatar.svg?name=#{self.name[0]}&background=#{random_thumbnail_bg_color}&length=1"
     end
