@@ -39,19 +39,20 @@
           -#           = link_to "Log In to save a community", new_user_session_path, class: 'text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
 
           -# - else
-          %div{class: "relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "bg-gray-200 border-gray-400", "data-dropdown-active-target": '#activeTarget2'}
-            %div{"data-action": "mouseenter->dropdown#show mouseleave->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
-              %span{id: "activeTarget2", class: "text-sm leading-none px-2 py-2  block rounded font-semibold border border-transparent"}
-                New
 
-            %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-24 z-40"}
-              %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300"}
-                = link_to "Request" , new_request_path, class: 'font-medium hover:font-semibold transition-all text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
-                = link_to "Solution" , new_solution_path, class: 'font-medium hover:font-semibold transition-alltext-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
-          - if user_signed_in?
-            = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
-          - else
+          -# %div{class: "relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "bg-gray-200 border-gray-400", "data-dropdown-active-target": '#activeTarget2'}
+          -#   %div{"data-action": "mouseenter->dropdown#show mouseleave->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
+          -#     %span{id: "activeTarget2", class: "text-sm leading-none px-2 py-2  block rounded font-semibold border border-transparent"}
+          -#       New
+
+          -#   %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-24 z-40"}
+          -#     %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300"}
+          -#       = link_to "Request" , new_request_path, class: 'font-medium hover:font-semibold transition-all text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+          -#       = link_to "Solution" , new_solution_path, class: 'font-medium hover:font-semibold transition-alltext-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+          - if !user_signed_in?
             = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
+          -# - else
+          -#   = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
 
           -# "text-sm text-center leading-none p-4  block hover:bg-gray-200 font-medium text-gray-900"
         %div{class: "flex-shrink-0 ml-4 flex items-center"}
