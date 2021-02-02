@@ -45,7 +45,7 @@ $( document ).on('turbolinks:load', function() {
       'allow',
       'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
     );
-    iframe.setAttribute('class', 'h-full w-full');
+    iframe.setAttribute('class', 'h-full w-full cursor-pointer');
     div.parentNode.replaceChild(iframe, div);
   }
 

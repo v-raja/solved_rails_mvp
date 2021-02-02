@@ -9,7 +9,6 @@
     = display_meta_tags site: 'solved'
     = render 'layouts/shim'
     = render 'layouts/rails_default'
-
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
     = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
@@ -17,6 +16,7 @@
     = render 'application/favicon'
     = yield :head
   %body
+    <script defer src="https://feedback.fish/ff.js?pid=f8d0cb1bf57f97"></script>
     -# = javascript_pack_tag 'search', 'data-turbolinks-track': 'reload'
     -# :javascript
     -#   analytics.page();
