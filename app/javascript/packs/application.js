@@ -71,16 +71,17 @@ $( document ).on('turbolinks:load', function() {
       playerElements[n].appendChild(thumbNode);
     }
   }
+  initYouTubeVideos();
 
-  var first_expand = true;
+  // var first_expand = true;
   var expandCollapse = document.getElementById("expand-collapse");
   if (expandCollapse) {
     expandCollapse.addEventListener("click", function(){
       if (expandCollapse.textContent === "Expand") {
-        if (first_expand) {
-          initYouTubeVideos();
-          first_expand = false;
-        }
+        // if (first_expand) {
+        //   initYouTubeVideos();
+        //   first_expand = false;
+        // }
         var videos = document.querySelectorAll('.video');
         for (var i = 0; i < videos.length; ++i) {
           videos[i].style.display = 'block';
