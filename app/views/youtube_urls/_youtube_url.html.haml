@@ -1,6 +1,8 @@
 %div{class: "aspect-w-16 aspect-h-9 w-full flex-shrink-0"}
-  %iframe{class: "h-full w-full",
-            src: "https://www.youtube-nocookie.com/embed/#{youtube_url.youtube_id}?rel=0",
-            frameborder: "0",
-            allowFullScreen: "1",
-            id: "#{youtube_url_iteration.index}-video"}
+  %div{class: "youtube-player", "data-id": "#{youtube_url.youtube_id}"}
+
+  -# %iframe{class: "h-full w-full",
+  -#           src: "https://www.youtube-nocookie.com/embed/#{youtube_url.youtube_id}?rel=0",
+  -#           frameborder: "0",
+  -#           allowFullScreen: "1",
+  -#           id: "#{youtube_url_iteration.index}-video"}
