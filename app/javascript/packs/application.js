@@ -32,24 +32,6 @@ application.register("data-binding", DataBindingController);
 
 
 $( document ).on('turbolinks:load', function() {
-  var expandCollapse = document.getElementById("expand-collapse");
-  if (expandCollapse) {
-    expandCollapse.addEventListener("click", function(){
-      if (expandCollapse.textContent === "Expand") {
-        var videos = document.querySelectorAll('.video');
-        for (var i = 0; i < videos.length; ++i) {
-          videos[i].style.display = 'block';
-        }
-        expandCollapse.textContent = "Collapse"
-      } else {
-        var videos = document.querySelectorAll('.video');
-        for (var i = 0; i < videos.length; ++i) {
-          videos[i].style.display = '';
-        }
-        expandCollapse.textContent = "Expand"
-      }
-    });
-  }
 
   function labnolIframe(div) {
     var iframe = document.createElement('iframe');
@@ -90,6 +72,29 @@ $( document ).on('turbolinks:load', function() {
     }
   }
 
-  initYouTubeVideos();
+  var first_expand = true;
+  var expandCollapse = document.getElementById("expand-collapse");
+  if (expandCollapse) {
+    expandCollapse.addEventListener("click", function(){
+      if (expandCollapse.textContent === "Expand") {
+        if (first_expand) {
+          initYouTubeVideos();
+          first_expand = false;
+        }
+        var videos = document.querySelectorAll('.video');
+        for (var i = 0; i < videos.length; ++i) {
+          videos[i].style.display = 'block';
+        }
+        expandCollapse.textContent = "Collapse"
+      } else {
+        var videos = document.querySelectorAll('.video');
+        for (var i = 0; i < videos.length; ++i) {
+          videos[i].style.display = '';
+        }
+        expandCollapse.textContent = "Expand"
+      }
+    });
+  }
+
   // document.addEventListener('DOMContentLoaded', initYouTubeVideos);
 })
