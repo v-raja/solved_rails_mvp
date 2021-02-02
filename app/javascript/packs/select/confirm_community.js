@@ -36,9 +36,27 @@ $(document).on('turbolinks:load', function() {
       for (i = 0; i < keywordsArr.length; i++) {
         var keywordObj = keywordsArr[i];
         if (keywordObj.matchLevel !== "none") {
-          returnString += keywordObj.value + '<br/>';
+          returnString += '<li>' + keywordObj.value + '</li>';
         }
       }
+      return returnString;
+    };
+
+    var other_keywords = "";
+    function otherKeywords(keywordsArr) {
+      if (keywordsArr == null) {
+        other_keywords = "";
+        return "";
+      }
+      var returnString = "";
+      var i;
+      for (i = 0; i < keywordsArr.length; i++) {
+        var keywordObj = keywordsArr[i];
+        if (keywordObj.matchLevel == "none") {
+          returnString += '<li>' + keywordObj.value + '</li>';
+        }
+      }
+      other_keywords = returnString;
       return returnString;
     };
 
@@ -52,7 +70,7 @@ $(document).on('turbolinks:load', function() {
       },
       placeholder: 'Select two communities to continue',
       multiple: true,
-      maximumSelectionLength: 8,
+      maximumSelectionLength: 10,
       ajax: {
         // Custom transport to call Algolia's API
         transport: function(params, success, failure) {
@@ -72,6 +90,9 @@ $(document).on('turbolinks:load', function() {
             results: data.hits.map(function(item) {
                     return {...item,
                             id : item.objectID,
+                            keyword_list: handleKeywords(item._highlightResult.keyword_list),
+                            other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
+                            display_other_keywords: other_keywords !== "",
                     };
                   }),
             pagination: {
@@ -96,38 +117,98 @@ $(document).on('turbolinks:load', function() {
         if (niche_res.text == 'Searching…'){
           return niche_res.text;
         } else {
-          return '<div class="flex flex-wrap" data-controller="toggle">' +
-                  '<div class="w-full font-medium uppercase mt-1 text-gray-800">' +
-                    niche_res.type +
-                  '</div>' +
-                  '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
-                    niche_res._highlightResult.title.value +
-                  '</div>' +
-                  '<div class="w-full text-xs mt-2 text-gray-700">' +
-                    'Common keywords' +
-                  '</div>' +
-                  '<div class="w-full text-sm">' +
-                    handleKeywords(niche_res._highlightResult.keyword_list) +
-                  '</div>' +
-                  '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
-                    '<div class="w-4 h-4" data-toggle-target="toggleable">' +
-                      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
-                      '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
-                      '</svg>' +
-                    '</div>' +
-                    '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
-                      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
-                      '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
-                      '</svg>' +
-                    '</div>' +
-                    '<div class="">' +
-                      'Description' +
-                    '</div>' +
-                  '</div>' +
-                  '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
-                    niche_res._snippetResult.description.value +
-                  '</div>' +
-                '</div>'
+          return '' +
+        '<div class="flex flex-col text-black">' +
+          '<div class="w-full text-sm uppercase mt-1 text-gray-900">' +
+            niche_res.type +
+          '</div>' +
+          '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
+            niche_res._highlightResult.title.value +
+          '</div>' +
+          '<div class="w-full text-xs mt-3 mb-1 text-gray-700">' +
+            'Relevant keywords' +
+          '</div>' +
+          '<div class="w-full text-sm list-disc list-inside space-y-0.5">' +
+            niche_res.keyword_list +
+          '</div>' +
+          (niche_res.display_other_keywords ?
+            '<div data-controller="toggle w-full">' +
+              '<div class="-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                    '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+                  '</svg>' +
+                '</div>' +
+                '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                  '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+                  '</svg>' +
+                '</div>' +
+                '<div class="">' +
+                  'Other keywords' +
+                '</div>' +
+              '</div>' +
+              '<div class="w-full text-sm list-disc list-inside space-y-0.5 hidden" data-toggle-target="toggleable">' +
+                niche_res.other_keyword_list +
+              '</div>' +
+            '</div>'
+          : '' ) +
+          '<div data-controller="toggle">' +
+            '<div class="-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+              '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                  '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+                '</svg>' +
+              '</div>' +
+              '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+                '</svg>' +
+              '</div>' +
+              '<div class="">' +
+                'Description' +
+              '</div>' +
+            '</div>' +
+            '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
+              niche_res._snippetResult.description.value +
+            '</div>' +
+          '</div>' +
+        '</div>'
+
+
+
+          // '<div class="flex flex-wrap" data-controller="toggle">' +
+          //         '<div class="w-full font-medium uppercase mt-1 text-gray-800">' +
+          //           niche_res.type +
+          //         '</div>' +
+          //         '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
+          //           niche_res._highlightResult.title.value +
+          //         '</div>' +
+          //         '<div class="w-full text-xs mt-2 text-gray-700">' +
+          //           'Common keywords' +
+          //         '</div>' +
+          //         '<div class="w-full text-sm">' +
+          //           handleKeywords(niche_res._highlightResult.keyword_list) +
+          //         '</div>' +
+          //         '<div class="w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+          //           '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+          //             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+          //             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+          //             '</svg>' +
+          //           '</div>' +
+          //           '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+          //             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+          //             '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+          //             '</svg>' +
+          //           '</div>' +
+          //           '<div class="">' +
+          //             'Description' +
+          //           '</div>' +
+          //         '</div>' +
+          //         '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
+          //           niche_res._snippetResult.description.value +
+          //         '</div>' +
+          //       '</div>'
         }
       }
     });

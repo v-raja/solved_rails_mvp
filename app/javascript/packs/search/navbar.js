@@ -18,6 +18,7 @@ $(document).on('turbolinks:load', function() {
     var other_keywords = "";
     function otherKeywords(keywordsArr) {
       if (keywordsArr == null) {
+        other_keywords = "";
         return "";
       }
       var returnString = "";

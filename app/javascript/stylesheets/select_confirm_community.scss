@@ -78,7 +78,7 @@
 }
 
 .select2-container--default .select2-results__option {
-	@apply bg-white;
+	@apply bg-white p-4;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
