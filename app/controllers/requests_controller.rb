@@ -170,7 +170,7 @@ class RequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
-      @request = Request.friendly.find(params[:id])
+      @request = Request.find_by_slug(params[:id])
 
       if params[:id] != @request.slug
         return redirect_to @request, :status => :moved_permanently
@@ -188,9 +188,9 @@ class RequestsController < ApplicationController
 
     def set_niche
       if id = params[:industry_id]
-        @niche = Industry.friendly.find params[:industry_id]
+        @niche = Industry.find_by_slug params[:industry_id]
       elsif id = params[:occupation_id]
-        @niche = Occupation.friendly.find params[:occupation_id]
+        @niche = Occupation.find_by_slug params[:occupation_id]
       end
     end
 end

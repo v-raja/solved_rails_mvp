@@ -20,6 +20,7 @@ class SolutionsController < ApplicationController
     else
       @solutions = @niche.solutions
     end
+    @suggested_keyword = SuggestedKeyword.new
   end
 
   def follow
@@ -239,7 +240,7 @@ class SolutionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_solution
-      @solution = Solution.friendly.find(params[:id])
+      @solution = Solution.find_by_slug(params[:id])
 
       if params[:id] != @solution.slug
         return redirect_to @solution, :status => :moved_permanently
@@ -262,9 +263,9 @@ class SolutionsController < ApplicationController
 
     def set_niche
       if params[:industry_id]
-        @niche = Industry.friendly.find params[:industry_id]
+        @niche = Industry.find_by_slug params[:industry_id]
       else
-        @niche = Occupation.friendly.find params[:occupation_id]
+        @niche = Occupation.find_by_slug params[:occupation_id]
       end
 
       # If an old id or a numeric id was used to find the record, then

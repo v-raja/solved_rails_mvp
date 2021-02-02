@@ -26,7 +26,7 @@ class IndustryCategoriesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_category
-    @industry_category = IndustryCategory.friendly.find params[:id]
+    @industry_category = IndustryCategory.find_by_slug params[:id]
 
     # If an old id or a numeric id was used to find the record, then
     # the request path will not match the solution_path, and we should do

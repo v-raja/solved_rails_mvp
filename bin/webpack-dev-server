@@ -14,5 +14,7 @@ require "webpacker/dev_server_runner"
 
 APP_ROOT = File.expand_path("..", __dir__)
 Dir.chdir(APP_ROOT) do
-  Webpacker::DevServerRunner.run(ARGV)
+  Webpacker::DevServerRunner.run(["#{ENV["NODE_MODULES_PATH"]}/.bin/webpack", "--progress", "--color", "--config", "config/webpack/vendor.js"])
 end
+
+# "#{NODE_MODULES_PATH}/.bin/webpack", "--progress", "--color", "--config", "config/webpack/vendor.js",

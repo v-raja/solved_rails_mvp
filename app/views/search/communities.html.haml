@@ -1,0 +1,44 @@
+
+%div{class: "flex justify-center pb-10"}
+  %div{class: "max-w-screen-lg w-full flex flex-col items-center overflow-hidden", "data-controller": 'toggle'}
+    :css
+      .ais-SearchBox-input {
+        @apply rounded-full bg-white;
+      }
+      .ais-SearchBox-reset {
+        visibility: hidden;
+      }
+    %div{class: "w-1/2 flex flex-col mt-10"}
+      #searchbox_communities
+
+    %div{id: "app_body", class: "w-full flex flex-col items-center"}
+      %div{class: "mt-8 bg-white w-1/2 rounded border border-gray-400 p-4 mb-4 #{cookies[:closeInfo] ? 'hiddn' : nil}", "data-toggle-target": 'toggleable'}
+        %div{class: "text-xl flex items-center w-full justify-between font-medium"}
+          Hello! 👋
+          -# %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo', true, 10);"}
+          -#   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          -#   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          -#   </svg>
+        %div{class: "py-1 w-full rounded-lg mt-1 text-xl"}
+          Welcome to solved, a place to share and find the best new solutions to your problems.
+          <br/><br/>
+          🔍 Find your industry / occupation and learn about how others in your field are applying new software products to solve problems in new ways.
+          -# 🔍 Search to find your industry / occupation community and learn about new ways of doing things from problem solvers and makers around the world.
+          -#  that could help you earn, or help you save time and money.
+          <br/><br/>
+          🤫 solved is currently in beta so posting solutions and requests is limited to certain communities.
+          <br/>
+          %div{class: "text-sm"}
+            (Posting is allowed once a community has 40 followers. Follow your community to get it unlocked!)
+
+    #results{class: "w-full flex justify-center"}
+      %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4 w-full"}
+        %div{class: "max-w-screen-lg w-full flex flex-col"}
+          %div{class: "font-m text-2xl"}
+            Choose your industry or occupation below 👇
+          %div{class: "text-lg"}
+            = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
+            #hits{class: "mt-6 mb-10 w-full"}
+
+
+

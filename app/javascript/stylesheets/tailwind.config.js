@@ -205,6 +205,8 @@ module.exports = {
   },
   variants: {
     extend: {
+      backgroundColor: ['checked'],
+      borderColor: ['checked'],
       ringColor: ['hover'],
       ringOpacity: ['hover'],
       textColor: ['active'],

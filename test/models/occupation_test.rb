@@ -14,6 +14,7 @@
 #  solutions_count        :integer          default(0), not null
 #  requests_count         :integer          default(0), not null
 #  solution_votes_count   :integer          default(0), not null
+#  is_unlocked            :boolean          default(FALSE)
 #
 require 'test_helper'
 

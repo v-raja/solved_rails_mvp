@@ -62,66 +62,84 @@ class Solution < ApplicationRecord
 
   after_create :remake_slug
 
-  default_scope { order(created_at: :desc) }
-
   acts_as_commentable
   accepts_nested_attributes_for :comment_threads, reject_if: proc { |att| att['body'].blank? }, limit: 1
 
   acts_as_taggable_on :general_tags, :niche_specific_tags
   acts_as_taggable_on :tags
 
-  scope :today,      -> { where('solutions.created_at >= ?', 1.day.ago) }
-  scope :past_week,  -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => 1.day.ago }) }
-  scope :past_month, -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }) }
+  # default_scope { most_recent }
 
-  scope :top,        -> { unscoped.order(cached_votes_score: :desc).order(created_at: :desc) }
+  scope :today,           -> { where('solutions.created_at >= ?', 1.day.ago) }
+  scope :past_week,       -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.week.ago, :end_date => 1.day.ago }) }
+  scope :past_month,      -> { where("solutions.created_at >= :start_date AND solutions.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }) }
 
+  scope :top,             -> { order(cached_votes_score: :desc) }
+  scope :most_recent,     -> { order(created_at: :desc) }
 
-  # include AlgoliaSearch
-
-  # algoliasearch index_name: 'solutions', sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
-  #   attribute :created_at, :title, :description
-
-  #   # integer version of the created_at datetime field, to use numerical filtering
-  #   attribute :created_at_i do
-  #     created_at.to_i
-  #   end
-
-  #   attribute :user do
-  #     { name: user.name }
-  #   end
-
-  #   attribute :product do
-  #     { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product) }
-  #   end
-
-  #   attribute :industries do
-  #     industries.map do |i|
-  #       { title: i.title, url: Rails.application.routes.url_helpers.industry_path(i), type: "Industry" }
-  #     end
-  #   end
-
-  #   attribute :occupations do
-  #     occupations.map do |o|
-  #       { title: o.title, url: Rails.application.routes.url_helpers.occupation_path(o), type: "Occupation" }
-  #     end
-  #   end
+  scope :by_industries,   -> (industries) { joins(:industry_solutions).where("industry_solutions.industry_id IN (?)", industries) }
+  scope :by_occupations,   -> (occupations) { joins(:occupation_solutions).where("occupation_solutions.occupation_id IN (?)", occupations) }
+  scope :by_communities,  -> (communities) { joins(:industry_solutions).joins(:occupation_solutions).where("industry_solutions.industry_id IN (?) OR occupation_solutions.occupation_id IN (?)", communities, communities).distinct }
 
 
-  #   searchableAttributes ['unordered(title)', 'unordered(description)']
-  # end
+  include AlgoliaSearch
 
-  # def liked_by(user)
-  #   super
-  #   self
-  # end
+  algoliasearch index_name: 'solutions', sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
+    attribute :created_at, :title, :is_creator, :comments_count
 
-  # def unliked_by(user)
-  #   super
-  #   self.industry_solutions.each do |is|
-  #     is.solution_votes = self.cached_votes_score
-  #   end
-  # end
+    add_attribute :url
+
+    attribute :nb_votes do
+      cached_votes_score
+    end
+
+    attribute :description_text do
+      description_safe_html
+    end
+
+    # integer version of the created_at datetime field, to use numerical filtering
+    attribute :created_at_i do
+      created_at.to_i
+    end
+
+    attribute :user do
+      { name: user.name }
+    end
+
+    attribute :product do
+      { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product) }
+    end
+
+    attribute :communities do
+      communities_for_search
+    end
+
+    attribute :industries do
+      industries.map do |i|
+        { title: i.title, keywords: i.keyword_list, type: "Industry" }
+      end
+    end
+
+    attribute :occupations do
+      occupations.map do |o|
+        { title: o.title, keywords: o.keyword_list, type: "Occupation" }
+      end
+    end
+
+    attribute :niche_specific_tags do
+      niche_specific_tag_list
+    end
+
+    tags do
+      general_tag_list
+    end
+
+    # search for title, industry, occupation, description
+    # rank by comments count, is is_creator
+    # facet by tags, niche_specific tags, industries, occupations
+    # searchableAttributes ['unordered(title)', 'unordered(description)']
+  end
+
 
   def self.fix_industry_solution_votes
     Solution.all.each do |s|
@@ -178,16 +196,34 @@ class Solution < ApplicationRecord
 
   private
 
+  def url
+    Rails.application.routes.url_helpers.solution_path(self.slug)
+  end
+
+  def communities_for_search
+    industries = self.industries.map do |i|
+      { title: i.title, keywords: i.keyword_list, type: "Industry" }
+    end
+
+    occupations = self.occupations.map do |o|
+      { title: o.title, keywords: o.keyword_list, type: "Occupation" }
+    end
+
+    industries + occupations
+  end
+
+
+
+  def url_changed?
+    true || slug_changed?
+  end
+
   def remake_slug
     base_slug = normalize_friendly_id(self.title)
     if self.slug != base_slug
       self.slug = "#{base_slug}-#{self.id}"
       self.save
     end
-  end
-
-  def url
-    Rails.application.routes.url_helpers.solution_path(id)
   end
 
   def check_if_product_exists(product_attr)

@@ -6,4 +6,8 @@ Geocoder.configure(
   }
 )
 
-AuthTrail.job_queue = :low_priority
+if Rails.env.production?
+  AuthTrail.job_queue = :low_priority
+else
+  AuthTrail.geocode = false
+end

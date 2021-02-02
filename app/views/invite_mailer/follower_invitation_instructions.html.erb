@@ -1,0 +1,9 @@
+<p>Hello <%= @email %>!</p>
+
+<p>You've requested to follow the <%=@niche.title %>(<%=@niche.class.to_s%>) community on solved.</p>
+
+<p>Please confirm your email through the link below to finish signing up:</p>
+
+<p><%= link_to 'Confirm my account', accept_invitation_url(@resource, invitation_token: @token) %></p>
+
+<p>If you have not made this request, you can ignore this email.</p>

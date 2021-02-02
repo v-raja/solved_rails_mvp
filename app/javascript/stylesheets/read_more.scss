@@ -1,0 +1,41 @@
+
+.eight-lines-only, .read-more {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8; /* number of lines to show */
+  line-height: 1.25;        /* fallback */
+  max-height: 2.5;       /* fallback */
+}
+
+// .read-more {
+//   /* "transparent" only works here because == rgba(0,0,0,0) */
+//   background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1));
+
+//   position: relative;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   text-align: left;
+//   vertical-align: text-top;
+//   z-index: 1;
+// }
+
+.read-more {
+  position: relative;
+}
+
+.read-more::before {
+  // background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1));
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -ms-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  content: "\00a0";
+  height: 96%;
+  position: absolute;
+  width: 100%;
+  margin: 40px 0px 0px;
+}

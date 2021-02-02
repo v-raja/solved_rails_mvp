@@ -1,22 +1,26 @@
 %div{class: "h-screen overflow-hidden"}
   %div{class: "flex flex-wrap justify-center h-full"}
-    %div{class: "w-full"}
     -# 2 Column
     = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
-      = render "users/shared/error_messages", resource: resource
+      -# = render "users/shared/error_messages", resource: resource
       = f.hidden_field :invitation_token, readonly: true
-      %div{class: "max-w-screen-lg w-full h-full relative flex flex-wrap px-6 md:flex md:flex-nowrap"}
+      %div{class: "max-w-screen-md w-full h-full flex items-center flex-wrap px-6 md:flex md:flex-nowrap"}
         -# Left Column
-        %div{class: "w-1/2 mt-10"}
+        %div{class: "w-1/2"}
           = image_tag resource.thumbnail_url, class: "rounded-full h-40 w-40 object-cover"
-          %div.w-full.mt-4
-            = f.text_field :bio, class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "Short bio (Ex: Marketing @ FoodCompany / Engineer @ XYZ)"
-          %div{class: "w-full text-xl font-medium mt-16"}
-            Thumbnail link (ex: Twitter, GitHub thumbnails)
+          %div{class: "w-full mt-4 "}
+            .font-medium
+              Thumbnail link (ex: Twitter, GitHub thumbnails) <br/>
+            -# .text-sm
+            -#   (Leave blank to update automatically)
+            = f.text_field :thumbnail_url, value: "#{is_oxro_url?(resource.thumbnail_url) ? nil : resource.thumbnail_url}", class: "w-full mt-3 py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "https://"
+            = f.hidden_field :old_thumbnail_url, value: resource.thumbnail_url
+
+          %div{class: "w-full text-lg font-medium mt-8"}
+            Short bio
 
           %div.w-full.mt-2
-            = f.text_field :thumbnail_url, value: "#{is_oxro_url?(resource.thumbnail_url) ? nil : resource.thumbnail_url}", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "https://"
-            = f.hidden_field :old_thumbnail_url, value: resource.thumbnail_url
+            = f.text_field :bio, class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "Marketing @ FoodCompany / Engineer @ XYZ"
           -# %div{class: "mt-2 text-gray-600 text-xs text-left w-full"}
           -#   Leave blank if you don't want to change your thumbnail
           -# %div{class: "mt-9 text-2xl"}
@@ -27,11 +31,11 @@
             %div{class: "flex flex-col items-center w-full px-4"}
               -# %div{class: "text-primary font-medium text-2xl"}
               -#   Sign Up
-              = f.text_field :name, placeholder: "Name", autofocus: true, autocomplete: "name", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
+              = f.text_field :name, value: "#{resource.name != "Your name here" ? resource.name : nil}", placeholder: "Name", autofocus: true, autocomplete: "name", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
               %div{class: "mt-3"}
               = f.email_field :email, disabled: true, placeholder: "Email", class: "text-gray-600 cursor-not-allowed select-none w-full py-3  rounded-md border-gray-400 focus:border-indigo-300"
               %div{class: "mt-3"}
-              = f.password_field :password, placeholder: "password", autocomplete: "new-password", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
+              = f.password_field :password, placeholder: "New password", autocomplete: "new-password", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
               -# %div{class: "mt-1 text-gray-600 text-xs text-left w-full"}
               -#   Leave blank if you don't want to change your password
               -# = f.password_field :current_password, placeholder: "Current password", autocomplete: "current-password", class: "mt-3 w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
@@ -40,7 +44,7 @@
               -# %div{class: "mt-3"}
               -# = f.password_field :password_confirmation, placeholder: "Password Confirmation", autocomplete: "new-password", class: "w-full py-3 rounded-md border-gray-400 focus:border-indigo-300"
               %div{class: "mt-6"}
-              = f.submit "Create account", class: "text-center font-bold text-white py-2.5 w-full bg-primary rounded-md text-xl hover:bg-opacity-90 cursor-pointer"
+              = f.submit "Complete sign up", class: "text-center font-bold text-white py-2.5 w-full bg-primary rounded-md text-xl hover:bg-opacity-90 cursor-pointer"
               -# %div{class: "mt-4 border-b w-full border-gray-400"}
               -# %div{class: "mt-6 flex"}
               -#   = link_to "Return home", root_path, class: "font-medium text-primary hover:underline", "data-no-turbolink": 'true'

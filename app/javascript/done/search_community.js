@@ -1,3 +1,5 @@
+
+
 $(document).on('turbolinks:load', function() {
   function handleKeywords(keywordsArr) {
     if (keywordsArr == null) {
@@ -31,18 +33,22 @@ $(document).on('turbolinks:load', function() {
     return returnString;
   };
 
-
-  var loginEl = document.getElementById('turbolinkz');
-  var userId = loginEl.dataset.turbolinkzId;
-
-  const searchClient = algoliasearch(
-    process.env.ALGOLIA_APP_ID,
-    process.env.ALGOLIA_SEARCH_KEY, {
-      headers: {
-        'X-Algolia-UserToken': userId
+  var searchClient;
+  if (gon.current_user_id !== null) {
+    searchClient = algoliasearch(
+      process.env.ALGOLIA_APP_ID,
+      process.env.ALGOLIA_SEARCH_KEY, {
+        headers: {
+          'X-Algolia-UserToken': gon.current_user_id
+        }
       }
-    }
-  );
+    );
+  } else {
+    searchClient = algoliasearch(
+      process.env.ALGOLIA_APP_ID,
+      process.env.ALGOLIA_SEARCH_KEY
+    );
+  }
 
   const search = instantsearch({
     searchClient,

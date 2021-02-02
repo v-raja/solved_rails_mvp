@@ -13,9 +13,9 @@ class IndustriesController < ApplicationController
       return redirect_to @industry
     else
       if @user.confirmed?
-        return redirect_to @industry, notice: "Successfully subscribed to industry."
+        return redirect_to @industry, notice: "You're now following #{@industry.title}."
       else
-        return redirect_to @industry, notice: "Confirm your email to recieve updates."
+        return redirect_to @industry, notice: "Confirm your email to finish signing up."
       end
     end
   end
@@ -29,7 +29,7 @@ class IndustriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_industry
-      @industry = Industry.friendly.find params[:id]
+      @industry = Industry.find_by_slug params[:id]
 
       # If an old id or a numeric id was used to find the record, then
       # the request path will not match the solution_path, and we should do

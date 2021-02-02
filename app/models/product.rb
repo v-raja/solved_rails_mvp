@@ -37,7 +37,7 @@ class Product < ApplicationRecord
   private
 
   def url
-    Rails.application.routes.url_helpers.product_path(id)
+    Rails.application.routes.url_helpers.product_path(self.slug)
   end
 
   def nb_solutions

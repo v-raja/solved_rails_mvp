@@ -20,7 +20,7 @@ en:
         subject: "Welcome to solved 😊"
         hello: "Hello %{name} 👋"
         someone_invited_you: "Thank you for posting to solved. Please confirm your email using the link below for your post to go live."
-        accept: "Confirm email and create account."
+        accept: "Confirm email and sign up."
         accept_until: "This invitation will be due in %{due_date}."
         ignore: "Your account will only be created after you open the link and set a password. If you did not post to solved, you can ignore this email."
   time:

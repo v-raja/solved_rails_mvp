@@ -10,7 +10,7 @@
               "data-replace": '{ "translate-y-12": "translate-y-0", "opacity-0" : "opacity-100" }'}
             .mt-10.pl-0
               - options = options_for_select (@user.niche_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
-              = f.select :niche_list,  options, {}, {multiple: true, id: "select-niches", class: "w-full"}
+              = f.select :niche_list,  options, {}, {multiple: true, id: "select_confirm_community", class: "w-full"}
           %div{class: "pb-56"}
             %div{class: "flex items-center duration-2000 transform transition transition-all opacity-0 translate-y-12 ease-in-out",
               "data-replace": '{ "translate-y-12": "translate-y-0", "opacity-0" : "opacity-100" }'}
@@ -45,7 +45,6 @@
 
       -#   %div{class: "ml-24 bg-white px-4 pt-4 pb-6 shadow-lg rounded-lg"}
 -# = content_for :head do
-= javascript_pack_tag 'confirm_niche'
 
 :javascript
   function replace(replacer, classes) {

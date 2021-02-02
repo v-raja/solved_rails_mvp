@@ -42,13 +42,18 @@ class Request < ApplicationRecord
   acts_as_commentable
   acts_as_votable
 
-  default_scope { order(created_at: :desc) }
+  # default_scope { order(created_at: :desc) }
 
   scope :today,      -> { where('requests.created_at >= ?', 1.day.ago) }
   scope :past_week,  -> { where("requests.created_at >= :start_date AND requests.created_at < :end_date", {:start_date => 1.week.ago, :end_date => 1.day.ago }) }
   scope :past_month, -> { where("requests.created_at >= :start_date AND requests.created_at < :end_date", {:start_date => 1.month.ago, :end_date => 1.week.ago }) }
 
-  scope :top,        -> { unscoped.order(cached_votes_score: :desc).order(created_at: :desc) }
+  scope :top,             -> { order(cached_votes_score: :desc) }
+  scope :most_recent,     -> { order(created_at: :desc) }
+
+  scope :by_industries,   -> (industries) { joins(:industry_requests).where("industry_requests.industry_id IN (?)", industries) }
+  scope :by_occupations,   -> (occupations) { joins(:occupation_requests).where("occupation_requests.occupation_id IN (?)", occupations) }
+  scope :by_communities,  -> (communities) { joins(:industry_requests).joins(:occupation_requests).where("industry_requests.industry_id IN (?) OR occupation_requests.occupation_id IN (?)", communities, communities).distinct }
 
   has_many :industry_requests, dependent: :destroy
   has_many :industries, through: :industry_requests

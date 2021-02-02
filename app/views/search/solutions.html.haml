@@ -1,0 +1,36 @@
+%div{class: "flex justify-center pb-10"}
+  %div{class: "max-w-screen-lg w-full flex flex-col items-center overflow-hidden", "data-controller": 'toggle'}
+    %div{class: "w-1/2 flex flex-col mt-4"}
+      #searchbox_posts
+
+    #results{class: "w-full flex justify-center"}
+      %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4 w-full"}
+        %div{class: "max-w-screen-lg w-full flex items-start"}
+          %div{class: "w-1/3 flex-shrink-0 flex flex-col space-y-20 pr-16"}
+            %div
+              %div{class: "text-2xl font-semibold"}
+                Tags
+              #tags{class: "mt-2 w-full"}
+
+            %div
+              %div{class: "text-2xl font-semibold"}
+                Communities
+              #communities{class: "mt-2 w-full"}
+
+          %div{class: "w-2/3 flex flex-wrap"}
+            %div{class: "flex items-end w-full"}
+              %div{class: "text-2xl font-semibold"}
+                -# - if @is_solutions_page
+                Solutions
+                -# - else
+                -#   Requests
+              -# %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text- hover:underline"}
+              -#   -# - if @is_solutions_page
+              -#   -#   - if @is_top_results
+              -#   = link_to 'Requests', requests_path
+            %div{id: "hits", class: "mt-6 w-full"}
+
+
+
+
+

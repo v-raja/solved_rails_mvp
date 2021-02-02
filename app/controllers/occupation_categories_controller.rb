@@ -26,7 +26,7 @@ class OccupationCategoriesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_occupation_category
-    @occupation_category = OccupationCategory.friendly.find params[:id]
+    @occupation_category = OccupationCategory.find_by_slug params[:id]
 
     # If an old id or a numeric id was used to find the record, then
     # the request path will not match the solution_path, and we should do

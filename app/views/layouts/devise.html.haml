@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    = include_gon
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
     %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
@@ -8,6 +9,8 @@
     <meta name="robots" content="noindex, nofollow">
     = render 'layouts/rails_default'
     = render 'layouts/shim'
+    = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
+
     = yield :head
   %body
     -# = debug(params) if Rails.env.development?

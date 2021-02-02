@@ -2,14 +2,7 @@ Rails.application.routes.draw do
   match '/404', via: :all, to: 'errors#not_found'
   match '/422', via: :all, to: 'errors#unprocessable_entity'
   match '/500', via: :all, to: 'errors#server_error'
-  # get "/robots.:format", to: "errros#robots"
-
-  # Force www redirect
-  # constraints(host: /^(?!www\.)/i) do
-  #   match '(*any)', via: :all, to: redirect { |params, request|
-  #     URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
-  #   }
-  # end
+  get "/robots.:format", to: "errros#robots"
 
   devise_for :users, controllers: { confirmations: 'confirmations', invitations: 'users/invitations', registrations: 'users/registrations' }
 
@@ -17,14 +10,18 @@ Rails.application.routes.draw do
     mount PgHero::Engine, at: "pghero"
   end
 
-  # get 'welcome', to: 'users#welcome', as: :user_welcome
   resources :after_signup, path: "/welcome"
+  resources :suggested_keywords, only: [:create, :destroy]
 
+  root to: 'search#communities'
+  get '/search/solutions', to: 'search#solutions'
 
-  root to: 'search#home'
-  get 'recent', to: 'search#recent'
-  get 'requests', to: 'search#requests'
-  get 'requests/recent', to: 'search#requests_recent'
+  get 'home', to: 'home#home'
+  get 'recent', to: 'home#recent'
+  get 'requests', to: 'home#requests'
+  get 'requests/recent', to: 'home#requests_recent'
+  get 'all', to: 'home#all'
+  # get '/search/requests', to: 'search#requests'
 
   resources :industries, only: [], type: "Industry", path: "/i" do
     get "/", to: "solutions#niche_index"

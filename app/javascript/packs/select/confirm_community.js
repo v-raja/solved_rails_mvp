@@ -2,25 +2,35 @@ import $ from 'jquery';
 import 'select2';                       // globally assign select2 fn to $ element
 import 'select2/dist/css/select2.css'
 
-import '../stylesheets/confirm_niche.scss';  // optional if you have css loader
-
+import '../../stylesheets/select_confirm_community.scss';
 
 $(document).on('turbolinks:load', function() {
-  var loginEl = document.getElementById('turbolinkz');
-  var userId = loginEl.dataset.turbolinkzId;
+  if (document.getElementById("select_confirm_community")) {
 
-  const algolia = algoliasearch(
-    process.env.ALGOLIA_APP_ID,
-    process.env.ALGOLIA_SEARCH_KEY, {
-      headers: {
-        'X-Algolia-UserToken': userId
-      }
+    var algolia;
+    if (gon.current_user_id !== null) {
+      algolia = algoliasearch(
+        process.env.ALGOLIA_APP_ID,
+        process.env.ALGOLIA_SEARCH_KEY, {
+          headers: {
+            'X-Algolia-UserToken': gon.current_user_id
+          }
+        }
+      );
+    } else {
+      algolia = algoliasearch(
+        process.env.ALGOLIA_APP_ID,
+        process.env.ALGOLIA_SEARCH_KEY
+      );
     }
-  );
 
-  var index = algolia.initIndex('niches_' + process.env.RAILS_ENV);
+
+    var index = algolia.initIndex('niches_' + process.env.RAILS_ENV);
 
     function handleKeywords(keywordsArr) {
+      if (keywordsArr == null) {
+        return "";
+      }
       var returnString = "";
       var i;
       for (i = 0; i < keywordsArr.length; i++) {
@@ -32,9 +42,9 @@ $(document).on('turbolinks:load', function() {
       return returnString;
     };
 
-    document.getElementById("select-niches").focus();
+    document.getElementById("select_confirm_community").focus();
     // $('#select-niches').select2('focus');
-    $('#select-niches').select2({
+    $('#select_confirm_community').select2({
       language: {
         inputTooShort: function() {
           return 'Please enter 3 or more character to search';
@@ -65,7 +75,7 @@ $(document).on('turbolinks:load', function() {
                     };
                   }),
             pagination: {
-	            more: data.page + 1 < data.nbPages
+              more: data.page + 1 < data.nbPages
             }
           };
         }
@@ -76,15 +86,15 @@ $(document).on('turbolinks:load', function() {
       cache: false,
       templateSelection: function(contact) {
         if (contact.text == 'Choose a contact'){
-        	return "Choose a contact";
+          return "Choose a contact";
         } else {
           return contact.title;
         }
         // return contact._highlightResult.title.value;
       },
       templateResult: function(niche_res) {
-      	if (niche_res.text == 'Searching…'){
-        	return niche_res.text;
+        if (niche_res.text == 'Searching…'){
+          return niche_res.text;
         } else {
           return '<div class="flex flex-wrap" data-controller="toggle">' +
                   '<div class="w-full font-medium uppercase mt-1 text-gray-800">' +
@@ -121,9 +131,5 @@ $(document).on('turbolinks:load', function() {
         }
       }
     });
-
-
-});
-
-
-
+  }
+})

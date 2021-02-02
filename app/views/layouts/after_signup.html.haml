@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    = include_gon
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
     %title
@@ -10,6 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"></script>
     = render 'layouts/rails_default'
     = render 'layouts/shim'
+    = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_packs_with_chunks_tag 'select/confirm_community', 'data-turbolinks-track': 'reload'
+    -# = stylesheet_pack_tag 'confirm_niche', media: 'all', 'data-turbolinks-track': 'reload'
     = yield :head
   %body
     %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}
@@ -23,4 +27,4 @@
         = yield
 
     = tag :meta, name: "current-user", content: current_user.id, data: {email: current_user.email, name: current_user.name} if user_signed_in?
-    = javascript_pack_tag 'segment_call'
+    -# = javascript_pack_tag 'segment_call'

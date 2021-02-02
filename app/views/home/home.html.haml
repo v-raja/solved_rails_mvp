@@ -18,79 +18,85 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            -# <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            -# </svg>
-        -# = "About #{niche_type}"
         %div{class: "py-1 w-full rounded-lg mt-1 text-xl"}
           Welcome to solved, a place to share and find the best new solutions to your problems.
           <br/><br/>
           🔍 Find your industry / occupation community and learn about new ways of doing things that could help you earn, or help you save time and money.
-          -# Find your industry / occupation community and learn how people like you use products they love to solve their problems.
-          -# Welcome to solved, a place for you to share and find the best new solutions to your problems.
-          -# <br/><br/>
-          -# ✨ Stay up to date by following your community to recieve a weekly email with the top solutions and requests of the week.
-          -# <br/><br/>
-          -# ❤️ Take part in your community and help others by posting about how you use the products you love to solve your problems.
-          -#  you solve your problems with the products you love.
 
       - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-medium rounded"
       - inactive = "text-gray-900 px-2 py-2 font-medium rounded hover:bg-gray-fb hover:bg-opacity-50"
       -# - active = "px-2 py-2 rounded bg-secondary text-white font-medium"
       -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-medium text-gray-900"
-      %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between"}
-        - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
-          %div
-            = link_to 'Solutions', root_path, class: "#{active}"
-            = link_to 'Requests', requests_path, class: "#{inactive}"
-          %div
-            - unless params[:tag]
-              = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
-              = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
-        - else
-          %div
-            = link_to 'Solutions', root_path, class: "#{inactive}"
-            = link_to 'Requests', requests_path, class: "#{active}"
-          %div
-            = link_to_unless_current("Top", [:requests], class: "#{inactive}") do link_to 'Top', [:requests], class: "#{active}" end
-            = link_to_unless_current("Most Recent", [:requests, :recent], class: "#{inactive}") do link_to 'Most Recent', [:requests, :recent], class: "#{active}" end
+      %div{class: "flex justify-between"}
+        %div{class: "flex items-end"}
+          %div{class: "text-2xl font-semibold"}
+            - if @is_solutions_page
+              Solutions
+            - else
+              Requests
+          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text- hover:underline"}
+            - if @is_solutions_page
+              - if @is_top_results
+                = link_to 'Requests', requests_path
+              - else
+                = link_to 'Requests', requests_recent_path
+            - else
+              - if @is_top_results
+                = link_to 'Solutions', home_path
+              - else
+                = link_to 'Solutions', recent_path
 
-      - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
-        %div{class: "flex items-center mt-4 #{params[:tag].present? ? "text-base" : "text-xs"}"}
-          %div{class: "font-semibold pb-4 flex-shrink-0"}
-            Tags:
-          - if params[:tag]
-            %div{class: "flex-shrink-0 text-black mr-1 ml-3 pb-4 font-medium"}
-              = params[:tag]
-          %div{class: "ml-3 space-x-4 overflow-x-scroll flex items-center pb-4"}
-            - Solution.general_tag_counts.each do |tag|
-              - if params[:tag] != tag.name
-                = link_to root_path(tag: tag.name), class: "flex-shrink-0 " do
-                  %div{class: "text-gray-600 hover:text-black"}
-                    = tag.name
-              -# = link_to c do
-              -#     %div{class: "-m-1.5 p-1.5 hover:bg-gray-200"}
-              -#       = "#{c.title} (#{c.class.to_s})"
-              -# = link_to_unless_current(tag.name, root_path(tag: tag.name), class: "flex-shrink-0 text-gray-600 hover:text-black") do end
-      - if params[:tag]
-        %div{class: "mt-8"}
-          = render @solutions
+        %div{class: "flex items-end"}
+          %div{class: "text-2xl font-semibold"}
+            - if @is_top_results
+              Top
+            - else
+              Most recent
+          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text- hover:underline"}
+            - if @is_top_results
+              - if @is_solutions_page
+                = link_to 'Most recent', recent_path
+              - else
+                = link_to 'Most recent', requests_recent_path
+            - else
+              -# Most results are showing
+              - if @is_solutions_page
+                = link_to 'Top', home_path
+              - else
+                = link_to 'Top', requests_path
+      %div{class: "text-base"}
+        (from the communities you follow)
+      - if @is_solutions_page
+        %div{id: "expand-collapse", class: "text-gray-600 cursor-pointer text-sm hover:underline"}
+          Expand
+
+      - if @posts.empty?
+        - if @is_solutions_page
+          %div{class: "mt-20 w-full text-center text-xl font-medium"}
+            No solutions to learn from 😔
+          %div{class: "mt-8 w-full text-center text-lg px-36"}
+            Follow your industry / occupation community to see solutions here
+        - else
+          %div{class: "mt-20 w-full text-center text-xl font-medium"}
+            No problems to solve 😔
+          %div{class: "mt-8 w-full text-center text-lg px-36"}
+            Follow your industry / occupation community to see requests here
       - else
-        %div{class: "mt-4"}
-          - if @solutions.today.any?
-            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+        %div{class: "mt-8"}
+          - if @posts.today.any?
+            %div{class: "w-full font-semibold text-xl mb-8 leading-none"}
               Today
-            = render @solutions.today
+            = render @posts.today
             %div{class: "mt-8"}
-          - if @solutions.past_week.any?
-            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+          - if @posts.past_week.any?
+            %div{class: "w-full font-semibold text-xl mb-8 leading-none"}
               Past Week
-            = render @solutions.past_week
+            = render @posts.past_week
             %div{class: "mt-8"}
-          - if @solutions.past_month.any?
-            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+          - if @posts.past_month.any?
+            %div{class: "w-full font-semibold text-xl mb-8 leading-none"}
               Past Month
-            = render @solutions.past_month
+            = render @posts.past_month
 
 
 
@@ -109,33 +115,60 @@
             -#   Solution
         %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
           %div{class: "w-full text-base font-medium"}
-            Popular communities
+            My communities
 
 
           %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
-            - cache(:popular_communities, expires_in: 30.minutes) do
-              - communities = Industry.order(Arel.sql('solutions_count + solution_votes_count DESC')).take(3) + Occupation.order(Arel.sql('solutions_count + solution_votes_count DESC')).take(3)
+            - cache(current_user.niche_list) do
+              - communities = current_user.niche_list
               - communities.each do |c|
                 = link_to c, class: "-m-1.5 p-1.5" do
                   %div{class: "hover:bg-gray-200 -m-1.5 p-1.5"}
                     = "#{c.title} (#{c.class.to_s})"
                 %div{class: "w-full"}
 
+        - if user_signed_in?
+          - posts = current_user.following_by_type('Solution') + current_user.following_by_type('Request')
+          - if posts.any?
+            %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
+              %div{class: "w-full text-base font-medium"}
+                Discussion you're following
+
+
+              %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
+                - posts.each do |p|
+                  = link_to p.title, p, class: "-m-1.5 p-1.5 hover:bg-gray-200"
+                  %div{class: "w-full"}
+
+        -# %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
+        -#   %div{class: "w-full text-base font-medium"}
+        -#     Popular communities
+
+
+        -#   %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
+        -#     - cache(:popular_communities, expires_in: 30.minutes) do
+        -#       - communities = Industry.is_postable.popular.take(3) + Occupation.is_postable.popular.take(3)
+        -#       - communities.each do |c|
+        -#         = link_to c, class: "-m-1.5 p-1.5" do
+        -#           %div{class: "hover:bg-gray-200 -m-1.5 p-1.5"}
+        -#             = "#{c.title} (#{c.class.to_s})"
+        -#         %div{class: "w-full"}
+
         %div{class: "pt-4 pb-4 px-4 bg-white border border-gray-400 rounded"}
 
           -# = "About #{niche_type}"
 
-          %div{class: "#{cookies[:closeInfo] ? nil : 'hidden'}", "data-toggle-target": 'toggleable'}
-            %div{class: "w-full text-base font-medium pb-2"}
-              Hello! 👋
-            Welcome to solved, a place to share and find the best new solutions to your problems.
-            <br/><br/>
-            🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
-            %div{class: ""}
-              <br/>
+
+          %div{class: "w-full text-base font-medium pb-2"}
+            Hello! 👋
+          Welcome to solved, a place to share and find the best new solutions to your problems.
+          <br/><br/>
+          🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
+          %div{class: ""}
+            <br/>
           ✨ Stay up to date by following your community to recieve a weekly email with the top solutions of the week.
           <br/><br/>
-          ❤️ Help others in your community by posting about how you use the products you love to solve your problems.
+          ❤️ Help others in your community by posting about how you solve your problems using the products you love.
           -# Find your industry / occupation community and learn about new solutions that could help you earn, or save you time and money.
 
           -# helps you find and stay up to date with the best new solutions to your problems.
@@ -181,15 +214,4 @@
           -# <br/><br/>
           -# Take part in your community by sharing how you solve your problems with the products you love, or by making a request for a solution to that dreadful task you do everyday.
 
-        - if user_signed_in?
-          - posts = current_user.following_by_type('Solution') + current_user.following_by_type('Request')
-          - if posts.any?
-            %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
-              %div{class: "w-full text-base font-medium"}
-                Discussions you're following
 
-
-              %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
-                - posts.each do |p|
-                  = link_to p.title, p, class: "-m-1.5 p-1.5 hover:bg-gray-200"
-                  %div{class: "w-full"}

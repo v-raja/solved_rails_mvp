@@ -49,9 +49,9 @@ class User < ApplicationRecord
   before_save :add_thumbnail
   validates :thumbnail_url, url: { no_local: true }
 
-  # FOr invitations and confirmations
-  # attr_accessor :invitation_instructions
-  attr_accessor :confirmation_instructions
+  # For invitations and confirmations
+  # attr_accessor :confirmation_instructions
+  attr_accessor :invitation_instructions
   attr_accessor :niche
 
 
@@ -63,7 +63,7 @@ class User < ApplicationRecord
   acts_as_follower
 
   def niche_list
-    following_industries + following_occupations
+    following_industries + following_occupation
   end
 
   def niche_list=(codes)
@@ -78,25 +78,53 @@ class User < ApplicationRecord
     end
   end
 
+  # Use when you only want to confirm the email without setting password
+  # def self.invite_subscriber!(attributes={}, niche=nil)
+  #   u = nil
+  #   if u = User.find_by(email: attributes[:attributes][:email])
+  #     if !u.confirmed?
+  #       u.niche = niche
+  #       u.confirmation_instructions = :subscriber_confirmation_instructions
+  #       u.send_confirmation_instructions
+  #     end
+  #   else
+  #     u = self.invite!(attributes) do |u|
+  #       u.skip_invitation = true
+  #     end
+  #     u.niche = niche
+  #     u.confirmation_instructions = :subscriber_confirmation_instructions
+  #     u.send_confirmation_instructions
+  #   end
+  #   u
+  # end
+
   def self.invite_subscriber!(attributes={}, niche=nil)
-    u = nil
-    if u = User.find_by(email: attributes[:attributes][:email])
-      if !u.confirmed?
-        u.niche = niche
-        u.confirmation_instructions = :subscriber_confirmation_instructions
-        u.send_confirmation_instructions
-      end
-    else
-      u = self.invite!(attributes) do |u|
-        u.skip_invitation = true
-      end
-      u.niche = niche
-      u.confirmation_instructions = :subscriber_confirmation_instructions
-      u.send_confirmation_instructions
+    u = self.invite!(attributes) do |invitable|
+      invitable.invitation_instructions = :follower_invitation_instructions
+      invitable.niche = niche
     end
     u
+    # u = nil
+    # if u = User.find_by(email: attributes[:attributes][:email])
+    #   if !u.confirmed?
+    #     u.niche = niche
+    #     u.invitation_instructions = :follower_confirmation_instructions
+    #     u.send_confirmation_instructions
+    #   end
+    # else
+    #   u = self.invite!(attributes) do |u|
+    #     u.skip_invitation = true
+    #   end
+    #   u.niche = niche
+    #   u.invitation_instructions = :follower_confirmation_instructions
+    #   u.send_confirmation_instructions
+    # end
+    # u
   end
 
+  def unconfirmed?
+    !self.confirmed?
+  end
   # def self.invite_poster!(attributes={}, invited_by=nil)
   #   self.invite!(attributes, invited_by) do |invitable|
   #     invitable.invitation_instructions = :poster_invitation_instructions

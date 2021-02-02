@@ -14,9 +14,9 @@ class OccupationsController < ApplicationController
       return redirect_to @occupation
     else
       if @user.confirmed?
-        return redirect_to @occupation, notice: "Successfully subscribed to occupation."
+        return redirect_to @occupation, notice: "You're now following #{@occupation.title}."
       else
-        return redirect_to @occupation, notice: "Confirm your email to recieve updates."
+        return redirect_to @occupation, notice: "Confirm your email to finish signing up."
       end
     end
   end
@@ -32,7 +32,7 @@ class OccupationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_occupation
-      @occupation = Occupation.friendly.find params[:id]
+      @occupation = Occupation.find_by_slug params[:id]
 
       # If an old id or a numeric id was used to find the record, then
       # the request path will not match the solution_path, and we should do

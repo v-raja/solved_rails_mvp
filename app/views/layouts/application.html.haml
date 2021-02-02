@@ -1,35 +1,24 @@
 !!!
 %html
   %head
-
-    = javascript_pack_tag 'segment_setup'
+    = include_gon
+    -# = javascript_pack_tag 'segment_setup', media: 'all', 'data-turbolinks-track': 'reload'
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Language" content="en">
     = display_meta_tags site: 'solved'
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
     = render 'layouts/shim'
     = render 'layouts/rails_default'
-    -# %script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@1/dist/instantsearch.min.js")
-    -# <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"></script>
+    = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_packs_with_chunks_tag 'select/community', 'data-turbolinks-track': 'reload'
+    = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
-
-    -# <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"></script>
-    -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.1.0/themes/algolia.css" />
-    <!-- Include only the reset -->
-    -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css" integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8=" crossorigin="anonymous">
-    <!-- or include the full Algolia theme -->
-    -# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css" integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8=" crossorigin="anonymous">
     = render 'application/favicon'
-    = javascript_pack_tag 'search'
-    = javascript_pack_tag 'community_select'
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-
     = yield :head
   %body
-    %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}
+    -# = javascript_pack_tag 'search'
+    -# %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}
 
     -# :javascript
     -#   analytics.page();
@@ -45,23 +34,17 @@
       <script defer src="https://feedback.fish/ff.js?pid=f8d0cb1bf57f97"></script>
       #app_body
         = yield
-      #results{class: "w-full flex justify-center"}
+      #results{class: "w-full flex justify-center hidden"}
         %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4 w-full"}
           %div{class: "max-w-screen-lg w-full flex flex-col"}
             %div{class: "font-m text-2xl"}
               Choose your industry or occupation below 👇
             %div{class: "text-lg"}
               = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
-            -# (Solutions posted to industries are geared towards businesses / entrepreneurs; solutions posted to occupations are geared towards individuals)
-            -# :css
-            -#   mark {
-            -#     font-weight: 700;
-            -#     background: transparent;
-            -#   }
             #hits{class: "mt-6 mb-10 w-full"}
             -# %div{class: "mt-8 font-bold text-3xl"}
             -#   Products
             -# #hits-product{class: "mt-4"}
 
     = tag :meta, name: "current-user", content: current_user.id, data: {email: current_user.email, name: current_user.name} if user_signed_in?
-    = javascript_pack_tag 'segment_call'
+    -# = javascript_pack_tag 'segment_call'

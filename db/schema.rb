@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_205255) do
+ActiveRecord::Schema.define(version: 2021_02_02_123419) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
@@ -78,6 +79,9 @@ ActiveRecord::Schema.define(version: 2021_01_27_205255) do
     t.integer "solutions_count", default: 0, null: false
     t.integer "requests_count", default: 0, null: false
     t.integer "solution_votes_count", default: 0, null: false
+    t.boolean "is_unlocked", default: false
+    t.text "user_suggested_keywords"
+    t.boolean "is_postable", default: false
     t.index ["code"], name: "index_industries_on_code", unique: true
     t.index ["industry_category_id"], name: "index_industries_on_industry_category_id"
     t.index ["slug"], name: "index_industries_on_slug", unique: true
@@ -217,6 +221,9 @@ ActiveRecord::Schema.define(version: 2021_01_27_205255) do
     t.integer "solutions_count", default: 0, null: false
     t.integer "requests_count", default: 0, null: false
     t.integer "solution_votes_count", default: 0, null: false
+    t.boolean "is_unlocked", default: false
+    t.text "user_suggested_keywords"
+    t.boolean "is_postable", default: false
     t.index ["code"], name: "index_occupations_on_code", unique: true
     t.index ["occupation_category_id"], name: "index_occupations_on_occupation_category_id"
     t.index ["slug"], name: "index_occupations_on_slug", unique: true
@@ -284,6 +291,18 @@ ActiveRecord::Schema.define(version: 2021_01_27_205255) do
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
     t.index ["user_id"], name: "index_solutions_on_user_id"
+  end
+
+  create_table "suggested_keywords", force: :cascade do |t|
+    t.text "industry_slug"
+    t.text "occupation_slug"
+    t.text "keyword"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["industry_slug"], name: "index_suggested_keywords_on_industry_slug"
+    t.index ["keyword"], name: "index_suggested_keywords_on_keyword"
+    t.index ["occupation_slug"], name: "index_suggested_keywords_on_occupation_slug"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

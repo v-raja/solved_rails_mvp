@@ -1,23 +1,28 @@
 import $ from 'jquery';
-import 'select2';                       // globally assign select2 fn to $ element
+import 'select2';
 import 'select2/dist/css/select2.css'
 
-
-
 $(document).on('turbolinks:load', function() {
-  var loginEl = document.getElementById('turbolinkz');
-  var userId = loginEl.dataset.turbolinkzId;
+  if (document.getElementById("select_community")) {
 
-  const algolia = algoliasearch(
-    process.env.ALGOLIA_APP_ID,
-    process.env.ALGOLIA_SEARCH_KEY, {
-      headers: {
-        'X-Algolia-UserToken': userId
-      }
+    var algolia;
+    if (gon.current_user_id !== null) {
+      algolia = algoliasearch(
+        process.env.ALGOLIA_APP_ID,
+        process.env.ALGOLIA_SEARCH_KEY, {
+          headers: {
+            'X-Algolia-UserToken': gon.current_user_id
+          }
+        }
+      );
+    } else {
+      algolia = algoliasearch(
+        process.env.ALGOLIA_APP_ID,
+        process.env.ALGOLIA_SEARCH_KEY
+      );
     }
-  );
 
-  var index = algolia.initIndex('niches_' + process.env.RAILS_ENV);
+    var index = algolia.initIndex('niches_' + process.env.RAILS_ENV);
 
     $('#general_tags').select2({
       placeholder: 'marketing, sales, crm, team management, engineering, human resources',
@@ -36,7 +41,7 @@ $(document).on('turbolinks:load', function() {
       },
     });
 
-    $('#test').select2({
+    $('#select_community').select2({
       language: {
         inputTooShort: function() {
           return 'Please enter 3 or more character to search';
@@ -56,7 +61,7 @@ $(document).on('turbolinks:load', function() {
         },
         // build Algolia's query parameters (with page starting at 0)
         data: function(params) {
-          return { query: params.term, hitsPerPage: 8, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>' };
+          return { query: params.term, hitsPerPage: 8, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>', filters: `is_postable=1` };
         },
 
         // return Algolia's results
@@ -68,25 +73,25 @@ $(document).on('turbolinks:load', function() {
                     };
                   }),
             pagination: {
-	            more: data.page + 1 < data.nbPages
+              more: data.page + 1 < data.nbPages
             }
           };
         }
       },
       escapeMarkup: function (markup) { return markup; },
-      minimumInputLength: 3,
+      // minimumInputLength: 3,
       cache: false,
       templateSelection: function(contact) {
         if (contact.text == 'Choose a contact'){
-        	return "Choose a contact";
+          return "Choose a contact";
         } else {
           return contact.title;
         }
         // return contact._highlightResult.title.value;
       },
       templateResult: function(contact) {
-      	if (contact.text == 'Searching…'){
-        	return contact.text;
+        if (contact.text == 'Searching…'){
+          return contact.text;
         } else {
           return "<div class='select2-user-result'>" +
                 contact._highlightResult.title.value +
@@ -96,9 +101,5 @@ $(document).on('turbolinks:load', function() {
         }
       }
     });
+  }
 });
-
-
-
-
-

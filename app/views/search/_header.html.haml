@@ -1,0 +1,75 @@
+%div{class: "bg-transparent top-0 z-40"}
+  %div{class: "flex justify-center border-0 px-4 md:px-0"}
+    %div{data: { controller: "toggle"},
+        class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
+      %div{class: "flex items-end"}
+        %div{class: "fill-current h-8 w-28"}
+          = link_to root_path do
+            - if current_page?(root_url)
+              %h1= svg_tag 'logo', alt: "solved"
+            - else
+              = svg_tag 'logo', alt: "solved"
+        %div{class: "leading ml-2 font-source font-bold text-black block flex flex-col items-start"}
+          %div{class: ""}
+            Beta
+
+      = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
+      %nav{class: "flex items-center"}
+        %div{class: "flex items-center space-x-2 pr-4 border-r border-gray-400"}
+          %a(data-feedback-fish){href: "#", class: "p-1.5 text-yellow-500 rounded border border-transparent hover:bg-gray-200 hover:border-gray-400", data: { turbolinks: false }, "data-feedback-fish-userid": "#{user_signed_in? ? current_user.email : nil}"}
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+            </svg>
+          -# - if params[:controller] == "search"
+          -#   %div{class: "flex-shrink-0 relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "bg-gray-200 border-gray-400", "data-dropdown-active-target": '#activeTarget'}
+          -#     %div{"data-action": "mouseover->dropdown#show mouseout->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "flex-shrink-0  inline-block select-none"}
+          -#       %span{id: "activeTarget", class: "flex-shrink-0 text-sm leading-none px-2 py-2  block rounded font-semibold border border-transparent"}
+          -#         My Communities
+
+          -#     %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-56 z-40"}
+          -#       %div{class: "overflow-y-auto max-h-72 w-full bg-white border rounded shadow divide-y divide-gray-300"}
+          -#         - if user_signed_in?
+          -#           - if current_user.niche_list.present?
+          -#             - current_user.niche_list.each do |n|
+          -#               = link_to n.title,  n, class: 'text-sm transition-all  block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+          -#           - else
+          -#             %div{class: 'text-sm block px-3 py-3 text-gray-900 bg-white whitespace-no-wrap'}
+          -#               Follow a community to view it here
+          -#         - else
+          -#           = link_to "Log In to save a community", new_user_session_path, class: 'text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-no-wrap'
+
+          -# - else
+          %div{class: "relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "bg-gray-200 border-gray-400", "data-dropdown-active-target": '#activeTarget2'}
+            %div{"data-action": "mouseenter->dropdown#show mouseleave->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none"}
+              %span{id: "activeTarget2", class: "text-sm leading-none px-2 py-2  block rounded font-semibold border border-transparent"}
+                New
+
+            %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-24 z-40"}
+              %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300"}
+                = link_to "Request" , new_request_path, class: 'font-medium hover:font-semibold transition-all text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+                = link_to "Solution" , new_solution_path, class: 'font-medium hover:font-semibold transition-alltext-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+          - if user_signed_in?
+            = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
+          - else
+            = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
+
+          -# "text-sm text-center leading-none p-4  block hover:bg-gray-200 font-medium text-gray-900"
+        %div{class: "flex-shrink-0 ml-4 flex items-center"}
+          - if user_signed_in?
+
+            %div{class: "relative", "data-controller": "dropdown", "data-dropdown-active-class": "border-gray-400 bg-gray-200", "data-dropdown-active-target": '#activeTarget3'}
+              %div{id: "activeTarget3", "data-action": "mouseover->dropdown#show onmouseout->dropdown#hide click@window->dropdown#hide", role: "button", class: "flex select-none items-center border border-transparent  rounded px-2 py-0.5"}
+                %div{class: "flex items-center inline-block text-gray-700"}
+                  = image_tag current_user.thumbnail_url, class: "object-cover rounded-full w-7 h-7 ring-0.5 ring-white hover:ring-gray-400 hover:ring-opacity-70"
+                %div{class: "text-sm font-medium ml-2"}
+                  = current_user.name
+
+              %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2 w-full"}
+                %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300 text-sm w-full"}
+                  = link_to 'Profile',  edit_user_registration_path, class: 'font-medium hover:font-semibold transition-all text-left block p-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+                  = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'font-medium hover:font-semibold transition-all text-left no-underline block p-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+          - else
+            %div{class: "space-x-2"}
+              = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-2 px-2 hover:bg-gray-200 rounded"
+              = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-2 px-2 bg-secondary hover:bg-opacity-90"
+

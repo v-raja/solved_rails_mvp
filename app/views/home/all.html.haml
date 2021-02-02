@@ -1,0 +1,237 @@
+
+:javascript
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+  }
+
+%div{class: "mt-10 flex justify-center pb-10"}
+  %div{class: "max-w-screen-lg flex overflow-hidden", "data-controller": 'toggle'}
+    %div{class: "w-2/3 pr-12"}
+      %div{class: "bg-white w-full rounded border border-gray-400 p-4 mb-4 #{cookies[:closeInfo] ? 'hidden' : nil}", "data-toggle-target": 'toggleable'}
+        -# %div{class: "text-xl flex items-center w-full justify-between font-medium"}
+        -#   Hello! 👋
+        -#   %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo', true, 10);"}
+        -#     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        -#     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        -#     </svg>
+        -#     -# <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        -#     -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        -#     -# </svg>
+        -# -# = "About #{niche_type}"
+        -# %div{class: "py-1 w-full rounded-lg mt-1 text-xl"}
+        -#   Welcome to solved, a place to share and find the best new solutions to your problems.
+        -#   <br/><br/>
+        -#   🔍 Find your industry / occupation community and learn about new ways of doing things that could help you earn, or help you save time and money.
+        -#   -# Find your industry / occupation community and learn how people like you use products they love to solve their problems.
+        -#   -# Welcome to solved, a place for you to share and find the best new solutions to your problems.
+        -#   -# <br/><br/>
+        -#   -# ✨ Stay up to date by following your community to recieve a weekly email with the top solutions and requests of the week.
+        -#   -# <br/><br/>
+        -#   -# ❤️ Take part in your community and help others by posting about how you use the products you love to solve your problems.
+        -#   -#  you solve your problems with the products you love.
+
+      - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-medium rounded"
+      - inactive = "text-gray-900 px-2 py-2 font-medium rounded hover:bg-gray-fb hover:bg-opacity-50"
+      -# - active = "px-2 py-2 rounded bg-secondary text-white font-medium"
+      -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-medium text-gray-900"
+
+
+      %div{class: "flex items-end"}
+        %div{class: "text-2xl font-semibold"}
+          Popular Solutions
+      %div{class: "text-base"}
+        (across all communities)
+        -# %div{class: "text-gray-600 ml-2 mr-1"}
+        -#   |
+      %div{id: "expand-collapse", class: "text-gray-600 cursor-pointer text-sm hover:underline"}
+        Expand
+
+
+      -# %nav{class: "bg-white border border-gray-400 rounded px-3 py-3 space-x-2 flex justify-between"}
+      -#   - if current_page?(controller: 'search', action: 'home') || current_page?(controller: 'search', action: 'recent')
+      -#     %div
+      -#       = link_to 'Solutions', root_path, class: "#{active}"
+      -#       = link_to 'Requests', requests_path, class: "#{inactive}"
+      -#     %div
+      -#       - unless params[:tag]
+      -#         = link_to_unless_current("Top", root_path, class: "#{inactive}") do link_to 'Top', root_path, class: "#{active}" end
+      -#         = link_to_unless_current("Most Recent", [:recent], class: "#{inactive}") do link_to 'Most Recent', [:recent], class: "#{active}" end
+      -#   - else
+      -#     %div
+      -#       = link_to 'Solutions', root_path, class: "#{inactive}"
+      -#       = link_to 'Requests', requests_path, class: "#{active}"
+      -#     %div
+      -#       = link_to_unless_current("Top", [:requests], class: "#{inactive}") do link_to 'Top', [:requests], class: "#{active}" end
+      -#       = link_to_unless_current("Most Recent", [:requests, :recent], class: "#{inactive}") do link_to 'Most Recent', [:requests, :recent], class: "#{active}" end
+
+      - if current_page?(controller: 'home', action: 'home') || current_page?(controller: 'home', action: 'recent')
+        %div{class: "flex items-center mt-4 #{params[:tag].present? ? "text-base" : "text-xs"}"}
+          %div{class: "font-semibold pb-4 flex-shrink-0"}
+            Tags:
+          - if params[:tag]
+            %div{class: "flex-shrink-0 text-black mr-1 ml-3 pb-4 font-medium"}
+              = params[:tag]
+          %div{class: "ml-3 space-x-4 overflow-x-scroll flex items-center pb-4"}
+            - Solution.general_tag_counts.each do |tag|
+              - if params[:tag] != tag.name
+                = link_to root_path(tag: tag.name), class: "flex-shrink-0 " do
+                  %div{class: "text-gray-600 hover:text-black"}
+                    = tag.name
+              -# = link_to c do
+              -#     %div{class: "-m-1.5 p-1.5 hover:bg-gray-200"}
+              -#       = "#{c.title} (#{c.class.to_s})"
+              -# = link_to_unless_current(tag.name, root_path(tag: tag.name), class: "flex-shrink-0 text-gray-600 hover:text-black") do end
+      - if params[:tag]
+        %div{class: "mt-8"}
+          = render @posts
+      - else
+        %div{class: "mt-8"}
+          - if @posts.today.any?
+            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+              Today
+            = render @posts.today
+            %div{class: "mt-8"}
+          - if @posts.past_week.any?
+            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+              Past Week
+            = render @posts.past_week
+            %div{class: "mt-8"}
+          - if @posts.past_month.any?
+            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+              Past Month
+            = render @posts.past_month
+
+
+
+
+    %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
+      %div{class: "w-full flex flex-col rounded-sm space-y-6"}
+        %div{class: "py-3 px-4 bg-white border border-gray-400 rounded"}
+          -# %div{class: "w-full"}
+          -#   Create a new
+          %div{class: "grid grid-cols-2 gap-2 "}
+            = link_to "New Solution", new_solution_path,  class: "border-b-3 border-secondary px-0.5 pt-1 pb-0.5 mx-auto font-medium leading-4 transition-all hover:bg-secondary hover:text-white text-center tracking-wide"
+            = link_to "New Request", new_request_path,  class: "border-b-3 border-secondary px-0.5 pt-1 pb-0.5 mx-auto font-medium leading-4 transition-all hover:bg-secondary hover:text-white text-center tracking-wide"
+            -# %div{class: "cursor-pointer text-center rounded p-2 bg-gray-200 hover:bg-secondary hover:text-white"}
+            -#   Request
+            -# %div{class: "cursor-pointer text-center rounded p-2 bg-gray-200 hover:bg-secondary hover:text-white"}
+            -#   Solution
+
+        %div{class: "py-3 px-4 bg-white border border-gray-400 rounded"}
+          %div{class: "w-full text-base font-medium"}
+            Popular general tags
+
+
+          %div{class: "mt-3 text-sm space-y-1 flex flex-wrap space-x-5"}
+            - cache(:popular_tags, expires_in: 10.minutes) do
+              - tags = Solution.general_tag_counts.order("taggings_count desc")
+              - tags.each do |tag|
+                = link_to search_solutions_path(tags: tag.name), class: "-m-1.5 p-1.5" do
+                  %div{class: "hover:bg-gray-200 -m-1.5 p-1.5"}
+                    = tag.name
+
+
+
+        %div{class: "py-3 px-4 bg-white border border-gray-400 rounded"}
+          %div{class: "w-full text-base font-medium"}
+            Popular communities
+
+
+          %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
+            - cache(:popular_communities, expires_in: 30.minutes) do
+              - communities = Industry.is_postable.popular.take(3) + Occupation.is_postable.popular.take(3)
+              - communities.each do |c|
+                = link_to c, class: "-m-1.5 p-1.5" do
+                  %div{class: "hover:bg-gray-200 -m-1.5 p-1.5"}
+                    = "#{c.title} (#{c.class.to_s})"
+                %div{class: "w-full"}
+
+
+        %div{class: "pt-4 pb-4 px-4 bg-white border border-gray-400 rounded"}
+
+          %div{class: "w-full text-base font-medium pb-2"}
+            Hello! 👋
+          Welcome to solved, a place to share and find the best new solutions to your problems.
+          <br/><br/>
+          🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
+          %div{class: ""}
+            <br/>
+          ✨ Stay up to date by following your community to recieve a weekly email with the top solutions of the week.
+          <br/><br/>
+          ❤️ Help others in your community by posting about how you solve your problems using the products you love.
+        -# %div{class: "pt-4 pb-4 px-4 bg-white border border-gray-400 rounded"}
+
+        -#   -# = "About #{niche_type}"
+
+        -#   %div{class: "#{cookies[:closeInfo] ? nil : 'hidden'}", "data-toggle-target": 'toggleable'}
+        -#     %div{class: "w-full text-base font-medium pb-2"}
+        -#       Hello! 👋
+        -#     Welcome to solved, a place to share and find the best new solutions to your problems.
+        -#     <br/><br/>
+        -#     🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
+        -#     %div{class: ""}
+        -#       <br/>
+        -#   ✨ Stay up to date by following your community to recieve a weekly email with the top solutions of the week.
+        -#   <br/><br/>
+        -#   ❤️ Help others in your community by posting about how you use the products you love to solve your problems.
+          -# Find your industry / occupation community and learn about new solutions that could help you earn, or save you time and money.
+
+          -# helps you find and stay up to date with the best new solutions to your problems.
+
+          -# Subscribe to your industry / occupation community to stay up to date with the new ways
+          -# Find your industry / occupation community to
+
+          -# Welcome to solved, a place for problem solvers and product lovers to share
+
+          -# Welcome to solved, a place for people to share how they use products they love to solve their problems.
+
+          -# Welcome to solved, a place for people to help others find better solution
+
+          -# Welcome to solved, a place for people to help others find better solutions by sharing how they use the products they love to solve their problems.
+          -# a place for people to share how they use the %p
+
+          -# a place for people to help others by sharing
+
+          -# network effects
+          -# we're solving a problem people already had and we were removing as much friction as %possible
+          -# what are you a little too obsessed about? helping people find better solutions
+          -# using the power of the community to create a great resource
+          -# connecting problem solves and businesses all around the world
+
+          -# is a palce for people to post how they use the proudcts they love to solve their problems
+          -# Find you industry / occupation and learn about the best new solutions, tailored to your problems, that could save you time / money, or gerenate money.
+          -# is a place to help others find better solutions by posting about how you use the proudct you love to solve your problems.
+
+          -# to share how they solve their problem
+
+
+          -# a place for you to help others find better solutions by sharing how you use the proudcts you love
+          -# a place for other to help you find better solutions by sharing how they use the products they %lvoe
+
+          -# a place for people to share how they use the products they love to solve their problems.
+
+          -# a place for people to share the best new solutions to their problems.
+
+          -# a place for people to share their solutions
+
+
+
+          -# <br/><br/>
+          -# Take part in your community by sharing how you solve your problems with the products you love, or by making a request for a solution to that dreadful task you do everyday.
+
+        -# - if user_signed_in?
+        -#   - posts = current_user.following_by_type('Solution') + current_user.following_by_type('Request')
+        -#   - if posts.any?
+        -#     %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
+        -#       %div{class: "w-full text-base font-medium"}
+        -#         Discussions you're following
+
+
+        -#       %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
+        -#         - posts.each do |p|
+        -#           = link_to p.title, p, class: "-m-1.5 p-1.5 hover:bg-gray-200"
+        -#           %div{class: "w-full"}

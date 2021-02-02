@@ -1,0 +1,79 @@
+
+.ais-Snippet-highlighted {
+  @apply text-xs;
+}
+
+
+
+mark {
+  @apply font-extrabold bg-transparent;
+}
+
+.ais-Hits {
+  @apply w-full;
+}
+
+.ais-Hits-list {
+  @apply w-full flex flex-col;
+}
+
+.ais-Hits-item {
+  @apply m-0 mt-2 p-0 px-5 bg-white overflow-x-auto border border-gray-400 w-full hover:border-gray-900 group;
+}
+
+.ais-SearchBox-form {
+  @apply relative flex items-center;
+}
+
+.ais-SearchBox-submit {
+  @apply absolute inset-y-0 left-3 flex items-center;
+}
+
+.ais-SearchBox-submitIcon {
+  @apply h-4 w-4 text-gray-600 fill-current;
+}
+
+.ais-SearchBox-input {
+  @apply block pl-9 pr-4 py-2 w-full shadow-none hover:shadow-md rounded-lg placeholder-gray-500 bg-white border border-gray-400 hover:border-transparent focus:outline-none focus:shadow-md focus:ring-transparent focus:border-transparent text-gray-900;
+}
+
+// .ais-SearchBox-reset {
+//   @apply absolute inset-y-0 right-2 flex items-center;
+// }
+
+// .ais-SearchBox-resetIcon {
+//   @apply h-2 w-2 text-gray-400 fill-current;
+// }
+
+.two-lines-only {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-height: 1.25;        /* fallback */
+  max-height: 2.5;       /* fallback */
+}
+
+.read-more {
+  position: relative;
+}
+
+.read-more::before {
+  // background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1));
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -ms-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  content: "\00a0";
+  height: 96%;
+  position: absolute;
+  width: 100%;
+  margin: 40px 0px 0px;
+}
+
+b {
+  font-weight: 500;
+}
+
