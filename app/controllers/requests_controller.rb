@@ -69,6 +69,7 @@ class RequestsController < ApplicationController
   def edit
     authorize @request
     set_meta_tags noindex: true
+    @use_select_community = true
   end
 
   # GET /requests/new
@@ -80,6 +81,7 @@ class RequestsController < ApplicationController
                   description: "Create a request for a software solution from makers all around the world.",
                   reverse: true,
                   canonical: new_request_url
+    @use_select_community = true
   end
 
   # POST /requests

@@ -95,6 +95,7 @@ class SolutionsController < ApplicationController
   def edit
     set_meta_tags noindex: true
     authorize @solution
+    @use_select_community = true
   end
 
   # GET /solutions/new
@@ -106,6 +107,7 @@ class SolutionsController < ApplicationController
     @solution.build_product
     @solution.comment_threads.build
     @user = current_user || User.new
+    @use_select_community = true
     # @solution.user = current_user
   end
 
