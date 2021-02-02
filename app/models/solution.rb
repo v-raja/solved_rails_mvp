@@ -114,17 +114,23 @@ class Solution < ApplicationRecord
       communities_for_search
     end
 
-    attribute :industries do
-      industries.map do |i|
-        { title: i.title, keywords: i.keyword_list, type: "Industry" }
+    attribute :videos do
+      youtube_urls.map do |yt|
+        { youtube_id: yt.youtube_id }
       end
     end
 
-    attribute :occupations do
-      occupations.map do |o|
-        { title: o.title, keywords: o.keyword_list, type: "Occupation" }
-      end
-    end
+    # attribute :industries do
+    #   industries.map do |i|
+    #     { title: i.title, keywords: i.keyword_list, type: "Industry" }
+    #   end
+    # end
+
+    # attribute :occupations do
+    #   occupations.map do |o|
+    #     { title: o.title, keywords: o.keyword_list, type: "Occupation" }
+    #   end
+    # end
 
     attribute :niche_specific_tags do
       niche_specific_tag_list

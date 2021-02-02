@@ -22,8 +22,10 @@
               %div{class: "text-2xl font-semibold"}
                 -# - if @is_solutions_page
                 Solutions
-                -# - else
-                -#   Requests
+            %div{id: "expand-collapse", class: "text-gray-600 cursor-pointer text-sm hover:underline"}
+              Expand
+              -# - else
+              -#   Requests
               -# %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text- hover:underline"}
               -#   -# - if @is_solutions_page
               -#   -#   - if @is_top_results

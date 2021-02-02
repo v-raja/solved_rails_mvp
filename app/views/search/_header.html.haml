@@ -51,8 +51,8 @@
           -#       = link_to "Solution" , new_solution_path, class: 'font-medium hover:font-semibold transition-alltext-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
           - if !user_signed_in?
             = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
-          -# - else
-          -#   = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
+          - else
+            = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-transparent"
 
           -# "text-sm text-center leading-none p-4  block hover:bg-gray-200 font-medium text-gray-900"
         %div{class: "flex-shrink-0 ml-4 flex items-center"}

@@ -66,7 +66,7 @@
                 = link_to 'Top', requests_path
       %div{class: "text-base"}
         (from the communities you follow)
-      - if @is_solutions_page
+      - if @is_solutions_page && !@posts.empty?
         %div{id: "expand-collapse", class: "text-gray-600 cursor-pointer text-sm hover:underline"}
           Expand
 

@@ -40,7 +40,8 @@
             <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
             </svg>
           - if params[:controller] == "home"
-            = link_to "Search Solutions" , search_solutions_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
+            - if !user_signed_in? || params[:action] != "all"
+              = link_to "Search Solutions" , search_solutions_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
           - else
             -# %div{class: "flex-shrink-0 relative text-gray-900", "data-controller": "dropdown", "data-dropdown-active-class": "bg-gray-200 border-gray-400", "data-dropdown-active-target": '#activeTarget'}
             -#   %div{"data-action": "mouseover->dropdown#show mouseout->dropdown#hide click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "flex-shrink-0  inline-block select-none"}
@@ -76,15 +77,18 @@
           -# - else
           -#   = link_to "New Request", new_request_path, class: "text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
           - if user_signed_in?
-            - if params[:action] == "all"
+            - if params[:controller] == "home"
+              - if params[:action] == "all"
+                = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
+              - else
+                = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
+            - else
               = link_to "Home" , home_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
-            - else
-              = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
           - else
-            - if params[:action] == "all"
-              = link_to "Home" , root_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
-            - else
+            - if params[:action] != "all"
               = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
+            -# - else
+            -#   = link_to "Home" , root_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
           -# - unless params[:controller] == "search"
           -#   = link_to "New Request" , new_request_path, class: "flex-shrink-0 text-xs leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
           -#   = link_to "New Solution" , new_solution_path, class: "flex-shrink-0 text-xs leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
