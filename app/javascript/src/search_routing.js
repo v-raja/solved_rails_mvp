@@ -117,16 +117,29 @@ const stateMapping = {
   },
 
   routeToState(routeState) {
-    return {
-      "solutions_development": {
-        query: routeState.q,
-        page: routeState.page,
-        refinementList: {
-          "communities.title": routeState.communities,
-          _tags: routeState.tags
-        },
-      }
-    };
+    if (process.env.NODE_ENV == "development") {
+      return {
+        "solutions_development": {
+          query: routeState.q,
+          page: routeState.page,
+          refinementList: {
+            "communities.title": routeState.communities,
+            _tags: routeState.tags
+          },
+        }
+      };
+    } else {
+      return {
+        "solutions_production": {
+          query: routeState.q,
+          page: routeState.page,
+          refinementList: {
+            "communities.title": routeState.communities,
+            _tags: routeState.tags
+          },
+        }
+      };
+    }
   },
 };
 
