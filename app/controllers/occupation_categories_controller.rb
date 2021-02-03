@@ -10,6 +10,7 @@ class OccupationCategoriesController < ApplicationController
                   description: "Explore by occupations to find your niche. Find the best new solutions for your occupation niche.",
                   reverse: true,
                   canonical: occupation_categories_url
+    @suggested_community = SuggestedCommunity.new
   end
 
   # GET /categories/1

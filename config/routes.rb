@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :after_signup, path: "/welcome"
   resources :suggested_keywords, only: [:create, :destroy]
+  resources :suggested_communities, only: [:create, :destroy]
 
   root to: 'search#communities'
   get '/search/solutions', to: 'search#solutions'

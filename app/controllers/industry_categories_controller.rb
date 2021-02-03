@@ -10,6 +10,7 @@ class IndustryCategoriesController < ApplicationController
                   description: "Explore by industries to find your niche. Find the best new solutions for your industry niche.",
                   reverse: true,
                   canonical: industry_categories_url
+    @suggested_community = SuggestedCommunity.new
   end
 
   # GET /categories/1

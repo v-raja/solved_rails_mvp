@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_123419) do
+ActiveRecord::Schema.define(version: 2021_02_03_100931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -291,6 +291,15 @@ ActiveRecord::Schema.define(version: 2021_02_02_123419) do
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
     t.index ["user_id"], name: "index_solutions_on_user_id"
+  end
+
+  create_table "suggested_communities", force: :cascade do |t|
+    t.integer "user_id"
+    t.text "community"
+    t.text "community_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["community"], name: "index_suggested_communities_on_community"
   end
 
   create_table "suggested_keywords", force: :cascade do |t|
