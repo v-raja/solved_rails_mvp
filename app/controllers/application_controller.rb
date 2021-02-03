@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
   after_action :verify_authorized, except: [:show, :niche_index], unless: :devise_controller?
-  before_action :set_current_user_id
+  before_action :set_current_user
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
 
@@ -10,8 +10,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_current_user_id
+  def set_current_user
+    gon.user_signed_in = user_signed_in?
     gon.current_user_id = user_signed_in? ? current_user.id : nil
+    gon.current_user_name = user_signed_in? ? current_user.name : nil
+    gon.current_user_email = user_signed_in? ? current_user.email : nil
   end
 
   def configure_permitted_parameters

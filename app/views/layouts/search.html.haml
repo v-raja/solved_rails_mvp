@@ -2,6 +2,7 @@
 %html
   %head
     = include_gon
+    = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload'
     -# = javascript_pack_tag 'segment_setup', media: 'all', 'data-turbolinks-track': 'reload'
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +17,7 @@
     = render 'application/favicon'
     = yield :head
   %body
+    = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
     <script defer src="https://feedback.fish/ff.js?pid=f8d0cb1bf57f97"></script>
     -# = javascript_pack_tag 'search', 'data-turbolinks-track': 'reload'
     -# :javascript
