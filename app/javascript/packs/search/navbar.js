@@ -34,7 +34,7 @@ $(document).on('turbolinks:load', function() {
     };
 
     var searchClient;
-    if (gon.current_user_id !== null) {
+    if (gon.ffi) {
       searchClient = algoliasearch(
         process.env.ALGOLIA_APP_ID,
         process.env.ALGOLIA_SEARCH_KEY, {

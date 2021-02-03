@@ -1,12 +1,11 @@
 document.addEventListener("turbolinks:load", function() {
-
-  if (gon.user_singed_in) {
+  console.log(gon);
+  if (gon.ffi) {
     analytics.identify(
-      meta_tag.content,
+      atob(gon.page_id),
       {
-        id: gon.current_user_id,
-        name: gon.current_user_name,
-        email: gon.current_user_email,
+        name: atob(gon.ldap),
+        email: atob(gon.udap),
       }
     );
   }

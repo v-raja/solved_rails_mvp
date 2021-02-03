@@ -3,12 +3,12 @@
   %head
     = include_gon
     = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload'
-    -# = javascript_pack_tag 'segment_setup', media: 'all', 'data-turbolinks-track': 'reload'
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Language" content="en">
     <script defer src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
+
     = display_meta_tags site: 'solved'
     = render 'layouts/shim'
     = render 'layouts/rails_default'
@@ -19,8 +19,10 @@
     = render 'application/favicon'
     = yield :head
   %body
+    -# = include_gon(:init => true)
+    -# = include_gon
     = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
-    <script defer src="https://feedback.fish/ff.js?pid=f8d0cb1bf57f97"></script>
+    -# <script defer src="https://feedback.fish/ff.js?pid=f8d0cb1bf57f97"></script>
     -# = javascript_pack_tag 'search'
     -# %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}
 

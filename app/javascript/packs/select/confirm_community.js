@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function() {
   if (document.getElementById("select_confirm_community")) {
 
     var algolia;
-    if (gon.current_user_id !== null) {
+    if (gon.ffi) {
       algolia = algoliasearch(
         process.env.ALGOLIA_APP_ID,
         process.env.ALGOLIA_SEARCH_KEY, {

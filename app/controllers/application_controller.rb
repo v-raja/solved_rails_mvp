@@ -1,3 +1,4 @@
+
 class ApplicationController < ActionController::Base
   include Pundit
   after_action :verify_authorized, except: [:show, :niche_index], unless: :devise_controller?
@@ -11,10 +12,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_current_user
-    gon.user_signed_in = user_signed_in?
-    gon.current_user_id = user_signed_in? ? current_user.id : nil
-    gon.current_user_name = user_signed_in? ? current_user.name : nil
-    gon.current_user_email = user_signed_in? ? current_user.email : nil
+    gon.ffi = user_signed_in?
+    gon.page_id = user_signed_in? ? Base64.encode64(current_user.id.to_s) : nil
+    gon.ldap = user_signed_in? ? Base64.encode64(current_user.name) : nil
+    gon.udap = user_signed_in? ? Base64.encode64(current_user.email) : nil
+    # byebug
   end
 
   def configure_permitted_parameters
