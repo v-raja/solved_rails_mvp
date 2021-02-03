@@ -75,7 +75,7 @@
               - options = options_for_select (@solution.niche_list + niche_from_param.to_a).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
               = f.select :niche_list,  options, {}, {multiple: true, id: "select_community", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
             %div{class: "text-gray-600 text-xs mt-2"}
-              = "You can only post to communities that are unlocked. Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
+              = "Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
               -# Post to an industry if your solution is relevant to businesses.<br/>
               -# Post to occupations if your solution is geared towards individuals.<br/>
               -# Solutions posted to industries are geared towards businesses, whereas solutions posted to occupations are more relevant to individuals.

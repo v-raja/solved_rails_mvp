@@ -61,7 +61,8 @@ $(document).on('turbolinks:load', function() {
         },
         // build Algolia's query parameters (with page starting at 0)
         data: function(params) {
-          return { query: params.term, hitsPerPage: 8, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>', filters: `is_postable=1` };
+          return { query: params.term, hitsPerPage: 8, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>' };
+          // filters: `is_postable=1`
         },
 
         // return Algolia's results
