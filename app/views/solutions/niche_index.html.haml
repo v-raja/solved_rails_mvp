@@ -78,7 +78,7 @@
             = "Sign up and follow the #{@niche.title} community 👇"
 
           = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-4 w-full flex justify-center px-28"} do |f|
-            %input{type: "text", name: "user[email]",
+            %input{type: "email", name: "user[email]",
               placeholder: "Email",
               autocomplete: "email",
               class: "block text-gray-900 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
@@ -142,7 +142,7 @@
                 Sign up and follow this community 👇
                 -# Get notified weekly about top solutions / requests posted to this community 👇
               = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-4 flex items-center"} do |f|
-                %input{type: "text", name: "user[email]",
+                %input{type: "email", name: "user[email]",
                   placeholder: "Email",
                   autocomplete: "email",
                   class: "block text-gray-900 w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
