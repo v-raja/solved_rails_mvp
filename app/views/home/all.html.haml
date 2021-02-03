@@ -143,7 +143,7 @@
 
           %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
             - cache(:popular_communities, expires_in: 30.minutes) do
-              - communities = Industry.is_postable.popular.take(3) + Occupation.is_postable.popular.take(3)
+              - communities = Industry.popular.take(3) + Occupation.popular.take(3)
               - communities.each do |c|
                 = link_to c, class: "-m-1.5 p-1.5" do
                   %div{class: "hover:bg-gray-200 -m-1.5 p-1.5"}
