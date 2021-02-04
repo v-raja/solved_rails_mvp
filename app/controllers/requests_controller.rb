@@ -54,7 +54,7 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
-    fresh_when @request
+    # fresh_when @request
     set_meta_tags title: @request.title,
                   description: @request.description,
                   reverse: true,

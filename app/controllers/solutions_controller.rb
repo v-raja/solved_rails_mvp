@@ -80,7 +80,7 @@ class SolutionsController < ApplicationController
   # GET /solutions/1
   # GET /solutions/1.json
   def show
-    fresh_when @solution
+    # fresh_when @solution
     set_meta_tags title: @solution.title,
                   description: @solution.description,
                   reverse: true,
