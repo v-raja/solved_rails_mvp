@@ -62,14 +62,16 @@
       - if @posts.empty?
         - if @is_solutions_page
           %div{class: "mt-20 w-full text-center text-xl font-medium"}
-            No solutions to learn from 😔
+            No solutions from your communities yet 😔
+          -# %div{class: "mt-8 w-full text-center text-lg px-36"}
+          -#   Follow your industry / occupation community to see solutions here.
           %div{class: "mt-8 w-full text-center text-lg px-36"}
-            Follow your industry / occupation community to see solutions here
+            = "Explore solutions from all industries and occupations #{link_to "here", all_path, class: "user-link pt-1"}.".html_safe
         - else
           %div{class: "mt-20 w-full text-center text-xl font-medium"}
-            No problems to solve 😔
+            No requests from your communities yet 😔
           %div{class: "mt-8 w-full text-center text-lg px-36"}
-            Follow your industry / occupation community to see requests here
+            = "Explore solutions from all industries and occupations #{link_to "here", all_path, class: "user-link pt-1"}.".html_safe
       - else
         %div{class: "mt-8"}
           - if @posts.today.any?
