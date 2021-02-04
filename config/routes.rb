@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :suggested_keywords, only: [:create, :destroy]
   resources :suggested_communities, only: [:create, :destroy]
 
-  root to: 'search#communities'
+  root to: 'home#all'
   get '/search/solutions', to: 'search#solutions'
 
   get 'home', to: 'home#home'

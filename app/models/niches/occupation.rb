@@ -80,7 +80,7 @@ class Occupation < ApplicationRecord
 
   def check_and_set_is_postable_and_get_nb_followers
     nb_followers = self.nb_followers
-    self.update(is_postable: self.is_unlocked || nb_followers >= 40)
+    self.update(is_postable: self.solutions.exists? || self.is_unlocked || nb_followers >= 40)
     return {is_postable: self.is_postable, nb_followers: nb_followers}
   end
 

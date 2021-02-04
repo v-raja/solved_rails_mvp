@@ -1,39 +1,36 @@
-
--# :javascript
--#   function setCookie(cname, cvalue, exdays) {
--#     var d = new Date();
--#     d.setTime(d.getTime() + (exdays*24*60*60*1000));
--#     var expires = "expires="+ d.toUTCString();
--#     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
--#     console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
--#   }
+:javascript
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+  }
 
 %div{class: "mt-10 flex justify-center pb-10"}
   %div{class: "max-w-screen-lg flex overflow-hidden", "data-controller": 'toggle'}
     %div{class: "w-2/3 pr-12"}
-      -# %div{class: "bg-white w-full rounded border border-gray-400 p-4 mb-4 #{cookies[:closeInfo] ? 'hidden' : nil}", "data-toggle-target": 'toggleable'}
-      -# %div{class: "text-xl flex items-center w-full justify-between font-medium"}
-      -#   Hello! 👋
-      -#   %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo', true, 10);"}
-      -#     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      -#     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      -#     </svg>
-      -#     -# <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      -#     -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-      -#     -# </svg>
-      -# -# = "About #{niche_type}"
-      -# %div{class: "py-1 w-full rounded-lg mt-1 text-xl"}
-      -#   Welcome to solved, a place to share and find the best new solutions to your problems.
-      -#   <br/><br/>
-      -#   🔍 Find your industry / occupation community and learn about new ways of doing things that could help you earn, or help you save time and money.
-      -#   -# Find your industry / occupation community and learn how people like you use products they love to solve their problems.
-      -#   -# Welcome to solved, a place for you to share and find the best new solutions to your problems.
-      -#   -# <br/><br/>
-      -#   -# ✨ Stay up to date by following your community to recieve a weekly email with the top solutions and requests of the week.
-      -#   -# <br/><br/>
-      -#   -# ❤️ Take part in your community and help others by posting about how you use the products you love to solve your problems.
-      -#   -#  you solve your problems with the products you love.
-
+      %div{class: "bg-white w-full rounded border border-gray-400 p-4 mb-8 #{cookies[:closeInfo] ? 'hidden' : nil}", "data-toggle-target": 'toggleable'}
+        %div{class: "text-xl flex items-center w-full justify-between font-medium"}
+          Hello! 👋
+          %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo', true, 10);"}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            -# <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            -# <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            -# </svg>
+        -# = "About #{niche_type}"
+        %div{class: "py-1 w-full rounded-lg mt-1 text-xl pr-6"}
+          Welcome to solved, a place to share and find the best new solutions to your problems.
+          <br/><br/>
+          🔍 Search above to find your industry / occupation and learn about how others in your field are applying new software products to solve problems in new ways.
+          <br/><br/>
+          🤫 solved is currently in beta so posting solutions and requests is limited to certain communities.
+          <br/>
+          %div{class: "text-sm"}
+            (Posting is allowed once a community has 40 followers. Follow your community to get it unlocked!)<br/><br/>
+          👇 Explore solutions from all communities across solved below
       - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-medium rounded"
       - inactive = "text-gray-900 px-2 py-2 font-medium rounded hover:bg-gray-fb hover:bg-opacity-50"
       -# - active = "px-2 py-2 rounded bg-secondary text-white font-medium"
@@ -68,42 +65,42 @@
       -#       = link_to_unless_current("Top", [:requests], class: "#{inactive}") do link_to 'Top', [:requests], class: "#{active}" end
       -#       = link_to_unless_current("Most Recent", [:requests, :recent], class: "#{inactive}") do link_to 'Most Recent', [:requests, :recent], class: "#{active}" end
 
-      - if current_page?(controller: 'home', action: 'home') || current_page?(controller: 'home', action: 'recent')
-        %div{class: "flex items-center mt-4 #{params[:tag].present? ? "text-base" : "text-xs"}"}
-          %div{class: "font-semibold pb-4 flex-shrink-0"}
-            Tags:
-          - if params[:tag]
-            %div{class: "flex-shrink-0 text-black mr-1 ml-3 pb-4 font-medium"}
-              = params[:tag]
-          %div{class: "ml-3 space-x-4 overflow-x-scroll flex items-center pb-4"}
-            - Solution.general_tag_counts.each do |tag|
-              - if params[:tag] != tag.name
-                = link_to root_path(tag: tag.name), class: "flex-shrink-0 " do
-                  %div{class: "text-gray-600 hover:text-black"}
-                    = tag.name
-              -# = link_to c do
-              -#     %div{class: "-m-1.5 p-1.5 hover:bg-gray-200"}
-              -#       = "#{c.title} (#{c.class.to_s})"
-              -# = link_to_unless_current(tag.name, root_path(tag: tag.name), class: "flex-shrink-0 text-gray-600 hover:text-black") do end
-      - if params[:tag]
-        %div{class: "mt-8"}
-          = render @posts
-      - else
-        %div{class: "mt-8"}
-          - if @posts.today.any?
-            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
-              Today
-            = render @posts.today
-            %div{class: "mt-8"}
-          - if @posts.past_week.any?
-            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
-              Past Week
-            = render @posts.past_week
-            %div{class: "mt-8"}
-          - if @posts.past_month.any?
-            %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
-              Past Month
-            = render @posts.past_month
+      -# - if current_page?(controller: 'home', action: 'home') || current_page?(controller: 'home', action: 'recent')
+      -#   %div{class: "flex items-center mt-4 #{params[:tag].present? ? "text-base" : "text-xs"}"}
+      -#     %div{class: "font-semibold pb-4 flex-shrink-0"}
+      -#       Tags:
+      -#     - if params[:tag]
+      -#       %div{class: "flex-shrink-0 text-black mr-1 ml-3 pb-4 font-medium"}
+      -#         = params[:tag]
+      -#     %div{class: "ml-3 space-x-4 overflow-x-scroll flex items-center pb-4"}
+      -#       - Solution.general_tag_counts.each do |tag|
+      -#         - if params[:tag] != tag.name
+      -#           = link_to root_path(tag: tag.name), class: "flex-shrink-0 " do
+      -#             %div{class: "text-gray-600 hover:text-black"}
+      -#               = tag.name
+      -#         -# = link_to c do
+      -#         -#     %div{class: "-m-1.5 p-1.5 hover:bg-gray-200"}
+      -#         -#       = "#{c.title} (#{c.class.to_s})"
+      -#         -# = link_to_unless_current(tag.name, root_path(tag: tag.name), class: "flex-shrink-0 text-gray-600 hover:text-black") do end
+      -# - if params[:tag]
+      -#   %div{class: "mt-8"}
+      -#     = render @posts
+      -# - else
+      %div{class: "mt-8"}
+        - if @posts.today.any?
+          %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+            Today
+          = render @posts.today
+          %div{class: "mt-8"}
+        - if @posts.past_week.any?
+          %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+            Past Week
+          = render @posts.past_week
+          %div{class: "mt-8"}
+        - if @posts.past_month.any?
+          %div{class: "w-full font-semibold text-xl mb-6 leading-none"}
+            Past Month
+          = render @posts.past_month
 
 
 
@@ -152,14 +149,14 @@
 
 
         %div{class: "pt-4 pb-4 px-4 bg-white border border-gray-400 rounded"}
-
-          %div{class: "w-full text-base font-medium pb-2"}
-            Hello! 👋
-          Welcome to solved, a place to share and find the best new solutions to your problems.
-          <br/><br/>
-          🔍 Find your industry / occupation community and learn about better new solutions that could help you earn, or help you save time and money.
-          %div{class: ""}
-            <br/>
+          %div{class: "#{cookies[:closeInfo] ? nil : 'hidden'}", "data-toggle-target": 'toggleable'}
+            %div{class: "w-full text-base font-medium pb-2"}
+              Hello! 👋
+            Welcome to solved, a place to share and find the best new solutions to your problems.
+            <br/><br/>
+            🔍 Search above to find your industry / occupation and learn about how others in your field are applying new software products to solve problems in new ways.
+            %div{class: ""}
+              <br/>
           ✨ Stay up to date by following your community to recieve a weekly email with the top solutions of the week.
           <br/><br/>
           ❤️ Help others in your community by posting about how you solve your problems using the products you love.
