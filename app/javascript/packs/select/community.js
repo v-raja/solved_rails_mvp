@@ -30,6 +30,13 @@ $(document).on('turbolinks:load', function() {
       tags: true
     });
 
+    $('#group_select').select2({
+      placeholder: 'Small and Medium-sized Businesses',
+      multiple: true,
+      tags: true
+    });
+
+
     $('#niche_specific_tags').select2({
       placeholder: 'design request management, classroom management, online learning',
       multiple: true,

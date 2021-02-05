@@ -2,19 +2,21 @@
 #
 # Table name: industries
 #
-#  id                   :bigint           not null, primary key
-#  title                :text
-#  description          :text
-#  code                 :text
-#  slug                 :text
-#  keywords             :text
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  industry_category_id :bigint           not null
-#  solutions_count      :integer          default(0), not null
-#  requests_count       :integer          default(0), not null
-#  solution_votes_count :integer          default(0), not null
-#  is_unlocked          :boolean          default(FALSE)
+#  id                      :bigint           not null, primary key
+#  title                   :text
+#  description             :text
+#  code                    :text
+#  slug                    :text
+#  keywords                :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  industry_category_id    :bigint           not null
+#  solutions_count         :integer          default(0), not null
+#  requests_count          :integer          default(0), not null
+#  solution_votes_count    :integer          default(0), not null
+#  is_unlocked             :boolean          default(FALSE)
+#  user_suggested_keywords :text
+#  is_postable             :boolean          default(FALSE)
 #
 
 class Industry < ApplicationRecord
@@ -41,7 +43,7 @@ class Industry < ApplicationRecord
   # end
   acts_as_followable
 
-  has_many :suggested_keywords, :as => :community
+  has_many :suggested_keywords
 
   # before_save :titleize_title
 

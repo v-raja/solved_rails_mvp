@@ -49,6 +49,9 @@ class Solution < ApplicationRecord
   has_many :occupation_solutions, dependent: :destroy
   has_many :occupations, through: :occupation_solutions
 
+  has_many :group_solutions, dependent: :destroy
+  has_many :groups, through: :group_solutions
+
   has_many :youtube_urls, dependent: :destroy
   accepts_nested_attributes_for :youtube_urls, allow_destroy: true, reject_if: proc { |att| att['url'].blank? }
 
@@ -66,7 +69,6 @@ class Solution < ApplicationRecord
   accepts_nested_attributes_for :comment_threads, reject_if: proc { |att| att['body'].blank? }, limit: 1
 
   acts_as_taggable_on :general_tags, :niche_specific_tags
-  acts_as_taggable_on :tags
 
   # default_scope { most_recent }
 
@@ -80,6 +82,7 @@ class Solution < ApplicationRecord
   scope :by_industries,   -> (industries) { joins(:industry_solutions).where("industry_solutions.industry_id IN (?)", industries) }
   scope :by_occupations,   -> (occupations) { joins(:occupation_solutions).where("occupation_solutions.occupation_id IN (?)", occupations) }
   scope :by_communities,  -> (communities) { joins(:industry_solutions).joins(:occupation_solutions).where("industry_solutions.industry_id IN (?) OR occupation_solutions.occupation_id IN (?)", communities, communities).distinct }
+
 
 
   include AlgoliaSearch
@@ -192,13 +195,30 @@ class Solution < ApplicationRecord
     self.occupations = occupations
   end
 
-  def post_to_industry(industry)
-    industries << industry
+  def group_list
+    self.groups
   end
 
-  def post_to_occupation(occupation)
-    occupations << occupation
+  def group_list=(group_titles)
+    groups = []
+    group_titles.delete_if(&:blank?).map do |title|
+      if group = Group.where(title: title).first
+        groups << group
+      else
+        list = Group.new(title: title)
+        groups << group
+      end
+    end
+    self.groups = groups
   end
+
+  # def post_to_industry(industry)
+  #   industries << industry
+  # end
+
+  # def post_to_occupation(occupation)
+  #   occupations << occupation
+  # end
 
   private
 

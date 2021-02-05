@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :lists
   match '/404', via: :all, to: 'errors#not_found'
   match '/422', via: :all, to: 'errors#unprocessable_entity'
   match '/500', via: :all, to: 'errors#server_error'
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
   resources :after_signup, path: "/welcome"
   resources :suggested_keywords, only: [:create, :destroy]
   resources :suggested_communities, only: [:create, :destroy]
+
+  resources :group, only: [:show]
 
   root to: 'home#all'
   get '/search/solutions', to: 'search#solutions'

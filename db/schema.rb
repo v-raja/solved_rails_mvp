@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_100931) do
+ActiveRecord::Schema.define(version: 2021_02_05_070707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -65,6 +65,30 @@ ActiveRecord::Schema.define(version: 2021_02_03_100931) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "group_solutions", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "solution_id", null: false
+    t.integer "solution_votes", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_solutions_on_group_id"
+    t.index ["solution_id", "group_id"], name: "index_group_solutions_on_solution_id_and_group_id", unique: true
+    t.index ["solution_id"], name: "index_group_solutions_on_solution_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.text "slug"
+    t.text "keywords"
+    t.integer "solutions_count", default: 0, null: false
+    t.integer "solution_votes_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_groups_on_slug", unique: true
+    t.index ["title"], name: "index_groups_on_title", unique: true
   end
 
   create_table "industries", force: :cascade do |t|
@@ -309,6 +333,8 @@ ActiveRecord::Schema.define(version: 2021_02_03_100931) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "group_slug"
+    t.index ["group_slug"], name: "index_suggested_keywords_on_group_slug"
     t.index ["industry_slug"], name: "index_suggested_keywords_on_industry_slug"
     t.index ["keyword"], name: "index_suggested_keywords_on_keyword"
     t.index ["occupation_slug"], name: "index_suggested_keywords_on_occupation_slug"
@@ -405,6 +431,8 @@ ActiveRecord::Schema.define(version: 2021_02_03_100931) do
     t.index ["solution_id"], name: "index_youtube_urls_on_solution_id"
   end
 
+  add_foreign_key "group_solutions", "groups"
+  add_foreign_key "group_solutions", "solutions"
   add_foreign_key "industries", "industry_categories"
   add_foreign_key "occupations", "occupation_categories"
   add_foreign_key "requests", "users"

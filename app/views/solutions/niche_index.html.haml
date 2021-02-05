@@ -123,9 +123,9 @@
             %div{class: "hidden", "data-toggle-target": "toggleable"}
               -# = form_with url: suggested_keywords_path, method: :post, local: true, html: {class: "flex w-full items-center"} do |f|
               = form_with model: @suggested_keyword, method: :post, local: true, html: {class: "flex w-full items-center"} do |f|
-                = f.hidden_field "type", value: @niche.class.to_s
+                -# = f.hidden_field "type", value: @niche.class.to_s
                 = f.hidden_field "#{@niche.class.to_s.downcase}_slug", value: @niche.slug
-                = f.hidden_field "niche_id", value: @niche.id
+                -# = f.hidden_field "niche_id", value: @niche.id
                 = f.text_field :keyword, placeholder: "New keyword", class: "block text-sm text-gray-900 w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
                 -# %input{type: "text",
                 -#       name: "suggested_keyword[keyword]",

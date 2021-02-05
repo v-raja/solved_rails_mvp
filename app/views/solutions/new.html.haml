@@ -67,7 +67,7 @@
 
             %div{class: "mt-6 flex items-center"}
               %div{class: "font-medium"}
-                What industries / occupations is your solution for?
+                Which industries / occupations is your solution for?
               %div{class: "ml-2 text-gray-600"}
                 = "- Required"
             %div{class: "w-full mt-1"}
@@ -83,6 +83,20 @@
             -# %div{class: "text-gray-600 text-xs mt-1"}
             -#   Please refresh the page if the box above looks funky 🤪
 
+            -# %div{class: "mt-6 flex items-center"}
+            -#   %div{class: "font-medium"}
+            -#     Which groups is your solution relevant to?
+            -#   %div{class: "ml-2 text-gray-600"}
+            -#     = "- Optional"
+            -# %div{class: "w-full mt-1"}
+            -#   - options = @solution.group_list.pluck(:title) + Group.all.pluck(:title)
+            -#   -# - byebug
+            -#   = f.select :group_list, options, {}, id: "group_select", :multiple => true, class: "w-full"
+            -#   -# - niche_from_param = params[:code] ? (Industry.where(code: params[:code]).empty? ?  Occupation.where(code: params[:code]) : Industry.where(code: params[:code])) : nil
+            -#   -# - options = options_for_select (@solution.list_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
+            -#   -# = f.select :list_list,  options, {}, {multiple: true, id: "select_community", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
+            -# %div{class: "text-gray-600 text-xs mt-2"}
+            -#   Some solutions apply generally to businesses / individuals with a common interest (ex: ).
 
 
 
