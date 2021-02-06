@@ -205,7 +205,7 @@ class Solution < ApplicationRecord
       if group = Group.where(title: title).first
         groups << group
       else
-        list = Group.new(title: title)
+        group = Group.new(title: title)
         groups << group
       end
     end

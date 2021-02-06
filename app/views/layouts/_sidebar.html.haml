@@ -1,0 +1,154 @@
+
+
+-# Side bar slideover
+%div{class: "fixed inset-0 flex z-40 transition-opacity ease-linear duration-300 opacity-0 hidden", "data-slideover-target": "overlay", "data-slideover-active-target": "#slideover-target"}
+  %div{class: "fixed inset-0"}
+    %div{class: "absolute inset-0 bg-black opacity-30", "data-action": "click@div->slideover#hide"}
+  %div{id: "slideover-target", class: "relative overflow-y-auto disable-scrollbars flex flex-col  pb-10 bg-white transition ease-in-out duration-300 transform -translate-x-full hidden", "data-slideover-target": "menu"}
+    %div{class: "absolute top-0 right-0 p-1 "}
+      %button{class: "flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-200", "aria-label": "Close sidebar", "data-action": "slideover#_hide"}
+        %svg.h-6.w-6.text-black{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
+          %path{:d => "M6 18L18 6M6 6l12 12", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+    -# Side bar content
+    %div{class: "flex items-end w-full pl-4 shadow-sm py-2.5"}
+      %div{class: "fill-current h-8 w-28"}
+        -# Logo
+        -# = link_to (svg_tag "logo"), root_path
+        = link_to root_path do
+          - if current_page?(root_url)
+            %h1= svg_tag 'logo', alt: "solved"
+          - else
+            = svg_tag 'logo', alt: "solved"
+      %div{class: "leading ml-2 font-source font-bold text-black block flex flex-col items-start"}
+        %div{class: ""}
+          Beta
+
+    %div{class: "border-b border-gray-300 py-2"}
+      = link_to all_path do
+        - active = params[:controller] == "home" && params[:action] == "all"
+        %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
+          %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+            </svg>
+          %div{class: "ml-2 text-base mt-0.5 #{active ? "text-black font-semibold" : nil}"}
+            Popular
+
+
+      -# - path = user_signed_in? ? home_path : new_user_session_path
+
+      = link_to home_path do
+        - active = params[:controller] == "home" && params[:action] != "all"
+        %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
+          %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          %div{class: "ml-2 text-base mt-0.5 #{active ? "text-black font-semibold" : nil}"}
+            Home
+
+      = link_to search_solutions_path do
+        - active = params[:controller] == "search" && params[:action] == "solutions"
+        %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
+          %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          %div{class: "ml-2 text-base flex-shrink-0 mt-0.5 #{active ? "text-black font-semibold" : nil}"}
+            Search Solutions
+
+
+    %div{class: "border-b border-gray-300 py-2"}
+      %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
+        My Communities
+      - if user_signed_in?
+        - cache(current_user.niche_list) do
+          - communities = current_user.niche_list
+          - communities.each do |c|
+            = link_to c do
+              %div{class: "px-8 py-4 overflow-x-scroll disable-scrollbars text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
+                = image_tag "https://avatar.oxro.io/avatar.svg?name=#{c.title[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
+                %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
+                  = "#{c.title} (#{c.class.to_s})"
+      - else
+        %div{class: "px-8 py-4"}
+          = "#{link_to "Log in", new_user_session_path, class: "user-link"} to save your community.".html_safe
+
+
+    -# %div{class: "border-b border-gray-300"}
+    -#   %div{class: "pt-4 pb-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
+    -#     Popular Communities
+
+    -#   - cache(:popular_communities, expires_in: 30.minutes) do
+    -#     - communities = Industry.popular.take(3) + Occupation.popular.take(2)
+    -#     - communities.each do |c|
+    -#       = link_to c do
+    -#         %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
+    -#           = image_tag "https://avatar.oxro.io/avatar.svg?name=#{c.title[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
+    -#           %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
+    -#             = "#{c.title} (#{c.class.to_s})"
+
+    %div{class: "border-b border-gray-300 py-2"}
+      %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
+        Popular Lists
+
+      - cache(:popular_lists, expires_in: 10.minutes) do
+        - groups = Group.all
+        - groups.each do |group|
+          = link_to group do
+            %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
+              = image_tag "https://avatar.oxro.io/avatar.svg?name=#{group.title[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
+              %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
+                = group.title
+
+    %div{class: "border-b border-gray-300 py-2"}
+      %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
+        Popular Tags
+
+      - cache(:popular_tags, expires_in: 10.minutes) do
+        %div{class: "grid grid-cols-2"}
+          - tags = Solution.general_tag_counts.order("taggings_count desc").limit(6)
+          - tags.each do |tag|
+            = link_to search_solutions_path(tags: tag.name) do
+              %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
+                = image_tag "https://avatar.oxro.io/avatar.svg?name=#{tag.name[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
+                %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
+                  = tag.name.titleize
+
+
+-# Sidebar
+%div{class: "hidden md:block overflow-y-hidden pt-4 pb-6 w-20 flex-none bg-white"}
+  = link_to all_path do
+    - active = params[:controller] == "home" && params[:action] == "all"
+    %div{class: "px-1 py-4  text-gray-800 active:bg-gray-100 transition hover:bg-gray-100 cursor-pointer flex flex-col items-center"}
+      %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+        </svg>
+      %div{class: "text-xs mt-0.5 #{active ? "text-black font-semibold" : nil}"}
+        Popular
+
+  -# - path = user_signed_in? ? home_path : new_user_session_path
+  = link_to home_path do
+    - active = params[:controller] == "home" && params[:action] != "all"
+    %div{class: "px-4 py-4  text-gray-800 active:bg-gray-100 transition hover:bg-gray-100 cursor-pointer flex flex-col items-center"}
+      %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      %div{class: "text-xs mt-0.5 #{active ? "text-black font-semibold" : nil}"}
+        Home
+  = link_to search_solutions_path do
+    - active = params[:controller] == "search" && params[:action] == "solutions"
+    %div{class: "px-1 py-4  text-gray-800 active:bg-gray-100 transition hover:bg-gray-100 cursor-pointer flex flex-col items-center"}
+      %div{class: "w-4 h-4 #{active ? "text-secondary" : nil}"}
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      %div{class: "text-xs text-center mt-0.5 flex #{active ? "text-black font-semibold" : nil}"}
+        Search Solutions
+
+
+

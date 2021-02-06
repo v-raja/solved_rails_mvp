@@ -1,0 +1,42 @@
+- cache(solution) do
+  = link_to solution do
+    %div{class: "mt-2 bg-white overflow-x-auto px-5 border border-gray-400 w-full hover:border-gray-900"}
+      %div{class: "flex flex-col rounded-sm py-5"}
+        %div{class: "w-full flex items-stretch"}
+          %div{class: "w-16 h-16 flex-shrink-0"}
+            = link_to (image_tag solution.product.thumbnail_url, class: "object-cover"), solution.product
+            -# = image_tag solution.product.thumbnail_url
+          %div{class: "pl-3 flex-grow w-min flex flex-col justify-between overflow-x-auto overflow-y-hidden"}
+            = link_to solution do
+              %div{class: "text-sm md:text-base font-medium two-lines-only"}
+                = solution.title
+                -# .titleize(exclude: exclude)
+            -# %div{class: "text-gray-700 flex text-sm leading-none"}
+            -#   with
+            -#   .ml-1.hover:text-black
+            -#     = link_to solution.product.name, solution.product
+            %div{class: "text-xs text-gray-600 flex flex-wrap"}
+              - niche = solution.industries.first || solution.occupations.first
+              %div{class: "flex-shrink-1 truncate text-black flex items-center group -m-1 p-1"}
+                %div{class: "group-hover:bg-gray-200 group-hover:bg-opacity-70 -m-1 p-1 font-medium"}
+                  = link_to "#{niche.title}", niche
+                -# = niche.title
+                %div{class: "hidden md:block mx-1 text-gray-600"}
+                  &middot;
+              %div{class: "hidden md:block hover:text-black flex-shrink-0 pr-2"}
+                = solution.user.name
+              %div{class: "hidden md:block flex-shrink-0 hover:underline hover:text-black"}
+                = link_to "#{time_ago_in_words(solution.created_at)} ago", solution
+
+          = link_to solution do
+            %div{class: "ml-6 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded border border-gray-300 leading-none transition hover:text-primary group"}
+              -# = link_to upvote_solution_path(solution), class: "text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none" do
+              %div{class: "text-sm leading-none group-hover:animate-bounce"}
+                ▲
+              %div{class: "mt-1 font-semibold"}
+                = upvote_count(solution)
+
+        - if solution.youtube_urls.present?
+          %div{class: "video aspect-w-7 aspect-h-4 mt-6 hidden"}
+            %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+              = render solution.youtube_urls

@@ -35,22 +35,23 @@
           - flash.each do |type, data|
             = render NotificationComponent.new(type: type, data: data)
 
-      %div{class: "h-max flex flex-col justify-between"}
+      %div{class: "h-screen flex flex-col justify-between", "data-controller": "slideover", "data-action": "click@window->slideover#hide", "data-slideover-open-value": "false", "data-slideover-invisible-class": "-translate-x-full,opacity-0", "data-slideover-visible-class": "block,translate-x-0,opacity-100", "data-slideover-entering-class": "", "data-slideover-enter-timeout": "500,300", "data-slideover-leaving-class": "", "data-slideover-leave-timeout": "5,0"}
         = render 'layouts/header'
         -# %div{class: "justify-between"}
-        %div{class: "flex-grow pb-10 md:pb-0"}
-          #app_body
+        %div{class: "flex-grow pb-10 md:pb-0 flex overflow-y-auto"}
+          = render 'layouts/sidebar'
+          #app_body{class: "overflow-y-auto"}
             = yield
-          #results{class: "w-full flex justify-center hidden"}
-            %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4 w-full"}
-              %div{class: "max-w-screen-lg w-full flex flex-col"}
-                %div{class: "font-m text-2xl"}
-                  Choose your industry or occupation below 👇
-                %div{class: "text-lg"}
-                  = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
-                #hits{class: "mt-6 mb-10 w-full"}
-                -# %div{class: "mt-8 font-bold text-3xl"}
-                -#   Products
-                -# #hits-product{class: "mt-4"}
+            -# {class: "h-full"}
+
+
+
+          #results{class: "overflow-y-auto hidden px-8 mt-4"}
+            %div{class: "font-m text-2xl"}
+              Choose your industry or occupation below 👇
+            %div{class: "text-lg"}
+              = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
+            #hits{class: "mt-6 mb-10 w-full"}
+
         = render 'layouts/mobile_footer'
 
