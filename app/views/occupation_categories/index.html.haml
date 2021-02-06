@@ -21,7 +21,7 @@
     Explore by Occupations
   = form_with model: @suggested_community, method: :post, local: true, html: {class: "mt-2 max-w-screen-lg flex w-full items-center"} do |f|
     = f.hidden_field "community_type", value: "Occupation"
-    Suggest a new industry:
+    Suggest a new occupation:
     = f.text_field :community, placeholder: "New occupation", class: "ml-4 block text-sm leading-none text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
     = f.submit "Suggest", class: "text-sm flex-shrink-0 ml-2 py-1.5 px-2.5 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
   -# %div{c: "max-w-screen-lg w-full text-gray-700 tracking-wider"}
