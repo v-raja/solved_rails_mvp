@@ -1,7 +1,8 @@
 :javascript
   function convertToIframe(event) {
     event.preventDefault();
-    var div = event.target;
+    var div = event.target.closest('.group');
+
     var iframe = document.createElement('iframe');
     iframe.setAttribute(
       'src',

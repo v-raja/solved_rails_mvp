@@ -79,7 +79,7 @@ $(document).on('turbolinks:load', function() {
             // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
             // display_other_keywords: other_keywords !== "",
           }));
-          console.log(itemz);
+          // console.log(itemz);
           return itemz;
         },
         templates: {
