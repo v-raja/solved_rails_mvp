@@ -4,7 +4,7 @@
     - if solution.youtube_urls.present?
       %div{class: "video aspect-w-7 aspect-h-4 "}
         %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
-          = render solution.youtube_urls
+          = render solution.youtube_urls.first
     = link_to solution do
       %div{class: "flex mt-2"}
         %div{class: "flex-shrink-0"}

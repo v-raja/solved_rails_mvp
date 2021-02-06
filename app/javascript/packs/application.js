@@ -80,7 +80,7 @@ $( document ).on('turbolinks:load', function() {
           </div>
         </div>
         `
-        div.appendChild(upvotePosDiv);
+        // div.appendChild(upvotePosDiv);
       }
 
 

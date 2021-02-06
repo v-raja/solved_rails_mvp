@@ -4,7 +4,7 @@
 %div{class: "fixed inset-0 flex z-40 transition-opacity ease-linear duration-300 opacity-0 hidden", "data-slideover-target": "overlay", "data-slideover-active-target": "#slideover-target"}
   %div{class: "fixed inset-0"}
     %div{class: "absolute inset-0 bg-black opacity-30", "data-action": "click@div->slideover#hide"}
-  %div{id: "slideover-target", class: "relative overflow-y-auto disable-scrollbars flex flex-col  pb-10 bg-white transition ease-in-out duration-300 transform -translate-x-full hidden", "data-slideover-target": "menu"}
+  %div{id: "slideover-target", class: "relative overflow-y-auto disable-scrollbars flex flex-col  pb-16 bg-white transition ease-in-out duration-300 transform -translate-x-full hidden", "data-slideover-target": "menu"}
     %div{class: "absolute top-0 right-0 p-1 "}
       %button{class: "flex items-center justify-center h-12 w-12 rounded-full focus:outline-none focus:bg-gray-200", "aria-label": "Close sidebar", "data-action": "slideover#_hide"}
         %svg.h-6.w-6.text-black{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24"}
@@ -107,7 +107,7 @@
         Popular Tags
 
       - cache(:popular_tags, expires_in: 10.minutes) do
-        %div{class: "grid grid-cols-2"}
+        %div{class: "grid grid-cols-1 sm:grid-cols-2"}
           - tags = Solution.general_tag_counts.order("taggings_count desc").limit(6)
           - tags.each do |tag|
             = link_to search_solutions_path(tags: tag.name) do
