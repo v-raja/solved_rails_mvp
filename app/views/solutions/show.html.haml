@@ -135,6 +135,10 @@
             - @solution.occupations.each do |occupation|
               -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
               = link_to "#{occupation.title} (Occupation)", occupation, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+          - if @solution.groups.any?
+            - @solution.groups.each do |groups|
+              -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+              = link_to "#{groups.title} (List)", groups, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
 
           -# = link_to @solution.user do
           -# %div{class: "w-8 h-8 flex-shrink-0"}

@@ -196,7 +196,7 @@ class Solution < ApplicationRecord
   end
 
   def group_list
-    self.groups
+    self.groups.pluck(:title)
   end
 
   def group_list=(group_titles)

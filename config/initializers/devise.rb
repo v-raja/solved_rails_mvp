@@ -27,7 +27,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
 
-  config.mailer_sender = 'hello@solvedapp.io'
+  config.mailer_sender = 'vivek@solvedapp.io'
   config.mailer = 'InviteMailer'
 
 

@@ -2,10 +2,12 @@
   %div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
 
     -# Logo, problem, product, and posted_to banner
-    %div{class: "flex items-end w-full max-w-screen-lg"}
+    %div{class: "ml-6 flex flex-col w-full max-w-screen-lg"}
       -# %div{class: "flex-shrink-0"}
       -#   = image_tag @product.thumbnail_url, class: "object-cover w-28 h-28"
-      %div{class: "ml-6 text-4xl font-semibold"}
+      %div{class: "text-xl"}
+        The best new solutions for
+      %div{class: "text-4xl font-semibold"}
         = @group.title
 
     %div{class: "mt-8 max-w-screen-lg w-full relative flex overflow-hidden"}
@@ -13,7 +15,13 @@
         %div{class: "flex justify-items-end"}
           -# %nav
             -# = link_to "Top", ""
-        = render partial: 'solution', collection: @group.solutions.includes(:user), cached: true
+        %div{class: "flex items-end"}
+          %div{class: "text-xl md:text-2xl font-semibold text-right"}
+            Top
+          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text-sm md:text-base hover:underline"}
+            = link_to 'Most recent', group_path(@group, sortBy: "recent")
+
+        = render partial: 'solutions/niche_preview', as: :solution , collection: @group.solutions.includes(:user), cached: true
 
       -# %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
         -# Test
