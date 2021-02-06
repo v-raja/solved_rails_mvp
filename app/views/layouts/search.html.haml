@@ -29,6 +29,10 @@
           - flash.each do |type, data|
             = render NotificationComponent.new(type: type, data: data)
 
-      = render 'search/header'
+      %div{class: "h-max flex flex-col justify-between"}
+        = render 'search/header'
 
-      = yield
+        %div{class: "flex-grow pb-10 md:pb-0"}
+          = yield
+
+        = render 'layouts/mobile_footer'

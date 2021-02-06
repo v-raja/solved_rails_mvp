@@ -13,8 +13,8 @@
           %div{class: ""}
             Beta
 
-      = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
-      %nav{class: "flex items-center"}
+
+      %nav{class: "hidden md:flex items-center"}
         %div{class: "flex items-center space-x-2 pr-4 border-r border-gray-400"}
           -# %a(data-feedback-fish){href: "#", class: "p-1.5 text-yellow-500 rounded border border-transparent hover:bg-gray-200 hover:border-gray-400", data: { turbolinks: false }, "data-feedback-fish-userid": "#{user_signed_in? ? current_user.email : nil}"}
           -#   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">

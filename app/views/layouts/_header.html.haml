@@ -12,8 +12,8 @@
   -#   = stylesheet_pack_tag 'search_navbar', media: 'all', 'data-turbolinks-track': 'reload'
   %div{class: "flex justify-center border-0 px-4 shadow-sm md:px-0"}
     %div{data: { controller: "toggle"},
-        class: "max-w-screen-lg w-full flex items-center justify-between py-2"}
-      %div{class: "flex items-end"}
+        class: "max-w-screen-lg w-full flex items-center md:justify-between py-2"}
+      %div{class: "hidden md:flex items-end"}
         %div{class: "fill-current h-8 w-28"}
           -# Logo
           -# = link_to (svg_tag "logo"), root_path
@@ -28,12 +28,14 @@
           -#   Private
           %div{class: ""}
             Beta
+      = link_to root_path do
+        = svg_tag 'safari-pinned-tab', class: "text-primary h-8 w-8 object-cover md:hidden"
 
-      %div{c: "justify-self-center flex-shrink ml-4 w-1/3"}
+      %div{c: "justify-self-center flex-shrink ml-4 w-full md:w-1/3"}
         #searchbox_navbar
 
       = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
-      %nav{class: "flex items-center"}
+      %nav{class: "hidden md:flex items-center"}
         %div{class: "flex items-center space-x-2 pr-4 border-r border-gray-400"}
           -# %a(data-feedback-fish){href: "#", class: "p-1.5 text-yellow-500 rounded border border-white hover:bg-gray-200 hover:border-gray-400", data: { turbolinks: false }, "data-feedback-fish-userid": "#{user_signed_in? ? current_user.email : nil}"}
           -#   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
@@ -113,4 +115,5 @@
             %div{class: "space-x-2"}
               = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-2 px-2 hover:bg-gray-200 rounded"
               = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-2 px-2 bg-secondary hover:bg-opacity-90"
+
 

@@ -12,11 +12,11 @@
 
 %div{class: "h-screen overflow-hidden"}
   %div{class: "flex flex-wrap justify-center h-full"}
-    %div{class: "h-1/5 w-full"}
+    %div{class: "hidden lg:block lg:h-1/5 w-full"}
     -# 2 Column
-    %div{class: "max-w-screen-lg w-full h-full relative flex flex-wrap px-6 md:flex md:flex-nowrap"}
+    %div{class: "max-w-screen-md lg:max-w-screen-lg w-full h-full relative flex flex-wrap px-6 lg:flex-nowrap"}
       -# Left Column
-      %div{class: "w-1/2 mt-16"}
+      %div{class: "w-full lg:w-1/2 mt-16"}
         %div{class: "fill-current h-8 w-48"}
           -# Logo
           = link_to root_path do
@@ -24,12 +24,12 @@
         %div{class: "mt-9 text-2xl"}
           Find better solutions to your problems.
 
-      %div{class: "w-1/2"}
-        %div{class: "ml-24 bg-white pt-4 pb-6 shadow-lg rounded-lg"}
+      %div{class: "w-full lg:w-1/2"}
+        %div{class: "lg:ml-24 bg-white pt-4 pb-6 shadow-lg rounded-lg"}
           = form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "flex flex-col items-center w-full px-4"} do |f|
-            = f.email_field :email, autofocus: "true", placeholder: "Email", autocomplete: "email", value: "#{resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email}", class: "w-full py-3  rounded-md border-gray-400 focus:border-indigo-300"
+            = f.email_field :email, autofocus: "true", placeholder: "Email", autocomplete: "email", value: "#{resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email}", class: "w-full py-3  rounded-lg border-gray-400 focus:border-indigo-300"
             %div{class: "mt-3"}
-            = f.submit "Resend Confirmation Instructions", class: "text-center font-bold text-white py-2.5 w-full bg-primary rounded-md text- hover:bg-opacity-90 cursor-pointer"
+            = f.submit "Resend Confirmation Instructions", class: "text-center font-bold text-white py-2.5 w-full bg-primary rounded-lg text- hover:bg-opacity-90 cursor-pointer"
             %div{class: "mt-4 w-full justify-center"}
             = link_to "Log In instead", new_session_path(resource_name), class: "text-primary text-sm font-medium hover:underline"
             -# %div{class: "mt-4 border-b w-full border-gray-400"}

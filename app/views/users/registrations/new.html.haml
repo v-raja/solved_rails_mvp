@@ -23,11 +23,11 @@
 -# = render "users/shared/links"
 %div{class: "h-screen overflow-hidden"}
   %div{class: "flex flex-wrap justify-center h-full"}
-    %div{class: "h-1/5 w-full"}
+    %div{class: "hidden lg:block lg:h-1/5 w-full"}
     -# 2 Column
-    %div{class: "max-w-screen-lg w-full h-full relative flex flex-wrap px-6 md:flex md:flex-nowrap"}
+    %div{class: "max-w-screen-sm lg:max-w-screen-lg w-full h-full relative flex flex-wrap px-6 lg:flex-nowrap"}
       -# Left Column
-      %div{class: "w-1/2 mt-16"}
+      %div{class: "w-full lg:w-1/2 mt-16"}
         %div{class: "fill-current h-8 w-48"}
           -# Logo
           = link_to root_path do
@@ -35,8 +35,8 @@
         %div{class: "mt-9 text-2xl"}
           Find better solutions to your problems.
           -# Find solutions tailored to you.
-      %div{class: "w-1/2"}
-        %div{class: "ml-24 bg-white pt-4 pb-6 shadow-lg rounded-lg"}
+      %div{class: "w-full lg:w-1/2"}
+        %div{class: "lg:ml-24 bg-white pt-4 pb-6 shadow-lg rounded-lg"}
           = form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: "flex flex-col items-center w-full px-4"} do |f|
             -# %div{class: "text-primary font-medium text-2xl"}
             -#   Sign Up
@@ -53,7 +53,7 @@
             = link_to "Log In instead", new_session_path(resource_name), class: "text-primary text-sm font-medium hover:underline"
             %div{class: "mt-4 border-b w-full border-gray-400"}
             %div{class: "mt-6 flex"}
-              = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "font-medium text-secondary hover:underline"
+              = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "font-medium text-center text-secondary hover:underline"
               -# -# New to solved?
               -# .ml-1.5.flex
               -#   = link_to "Create an Account", new_registration_path(resource_name), class: "font-medium text-secondary hover:underline"

@@ -10,7 +10,22 @@
 
 %div{class: "mt-10 flex justify-center pb-10"}
   %div{class: "max-w-screen-lg flex overflow-hidden", "data-controller": 'toggle'}
-    %div{class: "w-2/3 pr-12"}
+    %div{class: "w-full px-4 md:px-0 md:w-2/3 md:pr-12"}
+
+
+      %div{class: "md:hidden py-3 px-4 mb-8 bg-white border border-gray-400 rounded"}
+        %div{class: "w-full text-base font-medium"}
+          My communities
+
+
+        %div{class: "mt-3 text-sm space-y-1 flex flex-wrap"}
+          - cache(current_user.niche_list) do
+            - communities = current_user.niche_list
+            - communities.each do |c|
+              = link_to c, class: "-m-1.5 p-1.5" do
+                %div{class: "hover:bg-gray-200 -m-1.5 p-1.5"}
+                  = "#{c.title} (#{c.class.to_s})"
+              %div{class: "w-full"}
 
       - active   = "text-secondary bg-gray-fb bg-opacity-50 px-2 py-2 font-medium rounded"
       - inactive = "text-gray-900 px-2 py-2 font-medium rounded hover:bg-gray-fb hover:bg-opacity-50"
@@ -18,12 +33,12 @@
       -# - inactive = "px-2 py-2 rounded hover:bg-secondary hover:text-white font-medium text-gray-900"
       %div{class: "flex justify-between"}
         %div{class: "flex items-end"}
-          %div{class: "text-2xl font-semibold"}
+          %div{class: "text-xl md:text-2xl font-semibold"}
             - if @is_solutions_page
               Solutions
             - else
               Requests
-          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text- hover:underline"}
+          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text-sm md:text-base hover:underline"}
             - if @is_solutions_page
               - if @is_top_results
                 = link_to 'Requests', requests_path
@@ -36,12 +51,12 @@
                 = link_to 'Solutions', recent_path
 
         %div{class: "flex items-end"}
-          %div{class: "text-2xl font-semibold"}
+          %div{class: "text-xl md:text-2xl font-semibold text-right"}
             - if @is_top_results
               Top
             - else
               Most recent
-          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text- hover:underline"}
+          %div{class: "ml-2 leading-snug pl-2 border-l border-gray-600 text-gray-600 cursor-pointer text-sm md:text-base hover:underline"}
             - if @is_top_results
               - if @is_solutions_page
                 = link_to 'Most recent', recent_path
@@ -53,7 +68,7 @@
                 = link_to 'Top', home_path
               - else
                 = link_to 'Top', requests_path
-      %div{class: "text-base"}
+      %div{class: "text-sm md:text-base"}
         (from the communities you follow)
       - if @is_solutions_page && !@posts.empty?
         %div{id: "expand-collapse", class: "text-gray-600 cursor-pointer text-sm hover:underline"}
@@ -65,12 +80,12 @@
             No solutions from your communities yet 😔
           -# %div{class: "mt-8 w-full text-center text-lg px-36"}
           -#   Follow your industry / occupation community to see solutions here.
-          %div{class: "mt-8 w-full text-center text-lg px-36"}
+          %div{class: "mt-8 w-full text-center text-lg md:px-36"}
             = "Explore solutions from all industries and occupations #{link_to "here", all_path, class: "user-link pt-1"}.".html_safe
         - else
           %div{class: "mt-20 w-full text-center text-xl font-medium"}
             No requests from your communities yet 😔
-          %div{class: "mt-8 w-full text-center text-lg px-36"}
+          %div{class: "mt-8 w-full text-center text-lg md:px-36"}
             = "Explore solutions from all industries and occupations #{link_to "here", all_path, class: "user-link pt-1"}.".html_safe
       - else
         %div{class: "mt-8"}
@@ -92,7 +107,7 @@
 
 
 
-    %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
+    %div{class: "hidden md:block w-1/3 flex-shrink-0 flex flex-wrap"}
       %div{class: "w-full flex flex-col rounded-sm space-y-6"}
         %div{class: "py-3 px-4 bg-white border border-gray-400 rounded"}
           -# %div{class: "w-full"}

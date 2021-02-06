@@ -8,7 +8,7 @@
             -# = image_tag solution.product.thumbnail_url
           %div{class: "pl-3 flex-grow w-min flex flex-col justify-between overflow-x-auto overflow-y-hidden"}
             = link_to solution do
-              %div{class: "font-medium two-lines-only"}
+              %div{class: "text-sm md:text-base font-medium two-lines-only"}
                 = solution.title
                 -# .titleize(exclude: exclude)
             -# %div{class: "text-gray-700 flex text-sm leading-none"}
@@ -21,11 +21,11 @@
                 %div{class: "group-hover:bg-gray-200 group-hover:bg-opacity-70 -m-1 p-1 font-medium"}
                   = link_to "#{niche.title}", niche
                 -# = niche.title
-                %div{class: "mx-1 text-gray-600"}
+                %div{class: "hidden md:block mx-1 text-gray-600"}
                   &middot;
-              %div{class: "hover:text-black flex-shrink-0 pr-2"}
+              %div{class: "hidden md:block hover:text-black flex-shrink-0 pr-2"}
                 = solution.user.name
-              %div{class: "flex-shrink-0 hover:underline hover:text-black"}
+              %div{class: "hidden md:block flex-shrink-0 hover:underline hover:text-black"}
                 = link_to "#{time_ago_in_words(solution.created_at)} ago", solution
 
           = link_to solution do

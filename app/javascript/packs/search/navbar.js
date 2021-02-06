@@ -95,7 +95,7 @@ $(document).on('turbolinks:load', function() {
       instantsearch.widgets.hits({
         cssClasses: {
           root: "w-full",
-          list: "w-full grid grid-cols-3 gap-4 mt-4",
+          list: "w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4",
           item: "bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100 px-6 py-4",
         },
         transformItems(items) {
