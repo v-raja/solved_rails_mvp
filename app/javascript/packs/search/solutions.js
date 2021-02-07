@@ -69,12 +69,14 @@ $(document).on('turbolinks:load', function() {
         container: '#hits',
         cssClasses: {
           root: "w-full",
-          list: "w-full flex flex-col space-y-3",
-          item: "m-0 p-0 px-5 bg-white overflow-x-auto border border-gray-400 w-full hover:border-gray-900 group",
+          list: "w-full grid grid-cols-1 gap-x-2 gap-y-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+          // item: "m-0 p-0 px-5 bg-white overflow-x-auto border border-gray-400 w-full hover:border-gray-900 group",
+          item: ""
         },
         transformItems(items) {
           var itemz = items.map(item => ({
             ...item,
+            show_votes: item.nb_votes > 0,
             // keyword_list: handleKeywords(item._highlightResult.keyword_list),
             // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
             // display_other_keywords: other_keywords !== "",
@@ -86,64 +88,78 @@ $(document).on('turbolinks:load', function() {
           empty: 'No solutions have been found for "{{ query }}"',
           item: '<a href={{{url}}} target="_blank">'+
                   '<div class="">' +
-                    '<div class="flex flex-col rounded-sm py-5">' +
-                      '<div class="w-full flex items-stretch">' +
-                          '<div class="w-16 h-16 flex-shrink-0">' +
-                            // '<a href={{{product.url}}}>' +
-                            '<img src={{{product.thumbnail_url}}} class="object-cover"/>' +
-                            // '</a>' +
-                          '</div>' +
-                          '<div class="pl-3 flex-grow h-max w-min flex flex-col justify-between overflow-x-auto overflow-y-hidden">' +
-                            '<div class="font-medium two-lines-only">' +
-                              '{{{_highlightResult.title.value}}}' +
-                            '</div>' +
-                            '<div class="text-xs text-gray-600 flex flex-wrap">' +
-                              '<div class="flex-shrink-1 truncate text-black flex items-center">' +
-                                '<div class="font-medium">' +
-                                  '{{{communities.0.title}}}' +
-                                '</div>' +
-                                '<div class="hidden md:block mx-1 text-gray-600">' +
-                                  '&middot;' +
-                                '</div>' +
-                              '</div>' +
-                              '<div class="hidden md:block hover:text-black flex-shrink-0 pr-2">' +
-                                '{{{user.name}}}' +
-                              '</div>' +
-                            '</div>' +
-                          '</div>' +
-                          '<div class="ml-6 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded border border-gray-300 leading-none transition group-hover:text-primary">' +
-                            '<div class="text-sm leading-none group-hover:animate-bounce">' +
-                              '▲' +
-                            '</div>' +
-                            '<div class="mt-1 font-semibold">' +
-                              '{{{nb_votes}}}' +
-                            '</div>' +
-                          '</div>' +
-                      '</div>' +
-                      `<div class=" video aspect-w-7 aspect-h-4 mt-6 hidden">
-                        <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
-                          <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player" data-id="{{{videos.0.youtube_id}}}">
-
-                            <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
-                              <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="h-full w-full object-cover cursor-pointer"/>
-                              <div class="absolute w-16 inset-1/2 h-16 -m-8 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-black opacity-80 group-hover:opacity-100 group-hover:text-red-yt" viewBox="0 -77 512.00213 512">
-                                  <path d="m501.453125 56.09375c-5.902344-21.933594-23.195313-39.222656-45.125-45.128906-40.066406-10.964844-200.332031-10.964844-200.332031-10.964844s-160.261719 0-200.328125 10.546875c-21.507813 5.902344-39.222657 23.617187-45.125 45.546875-10.542969 40.0625-10.542969 123.148438-10.542969 123.148438s0 83.503906 10.542969 123.148437c5.90625 21.929687 23.195312 39.222656 45.128906 45.128906 40.484375 10.964844 200.328125 10.964844 200.328125 10.964844s160.261719 0 200.328125-10.546875c21.933594-5.902344 39.222656-23.195312 45.128906-45.125 10.542969-40.066406 10.542969-123.148438 10.542969-123.148438s.421875-83.507812-10.546875-123.570312zm0 0"></path><path d="m204.96875 256 133.269531-76.757812-133.269531-76.757813zm0 0" fill="#fff"></path>
-                                </svg>
+                      `<div class=" flex flex-col">
+                        <div class=" video aspect-w-7 aspect-h-4 ">
+                          <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
+                            <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player relative">
+                              <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
+                                {{#show_votes}}
+                                  <div class="absolute right-2 top-2 max-w-min max-h-min text-white font-bold text-sm p-2 bg-primary rounded-lg">
+                                    <div class="flex items-centerjustify-center place-self-center">
+                                      {{{nb_votes}}}
+                                      <div class="ml-0.5">
+                                        ▲
+                                      </div>
+                                    </div>
+                                  </div>
+                                {{/show_votes}}
+                                <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="h-full w-full object-cover cursor-pointer"/>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>` +
+                        <a href="{{{url}}}">
+                          <div class=" flex mt-2">
+                            <div class=" flex-shrink-0">
+                              <img class="w-8 h-8 object-cover rounded-full" src="{{{product.thumbnail_url}}}">
+                            </div>
+                            <div class=" flex-grow flex flex-wrap ml-2">
+                              <div class=" w-full text-xs md:text-sm font-medium two-lines-only">
+                                <div class=" flex-shrink-0 ">
+                                  {{{_highlightResult.title.value}}}
+                                </div>
+                              </div>
+                            <div class=" mt-1 text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
+                              <div class=" flex-shrink-0 ">
+                                {{{communities.0.title}}}
+                              </div>
+                            </div>
+                            <div class=" text-xxs md:text-xs text-gray-700 flex items-center mr-6 overflow-x-scroll disable-scrollbars">
+                              <div class=" flex-shrink-0 ">
+                                {{{user.name}}}
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>` +
+
+
+
+
                     '</div>' +
                   '</div>' +
                 '</a>'
         },
       }),
 
-      // <div class="youtube-player">
-      //   <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="h-full w-full object-cover cursor-pointer" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)"/>
-      // </div>
+    //   `<div class=" video aspect-w-7 aspect-h-4 mt-6 hidden">
+    //   <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
+    //     <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player" data-id="{{{videos.0.youtube_id}}}">
+
+    //       <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
+    //         <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="h-full w-full object-cover cursor-pointer"/>
+    //         <div class="absolute w-16 inset-1/2 h-16 -m-8 cursor-pointer">
+    //           <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-black opacity-80 group-hover:opacity-100 group-hover:text-red-yt" viewBox="0 -77 512.00213 512">
+    //             <path d="m501.453125 56.09375c-5.902344-21.933594-23.195313-39.222656-45.125-45.128906-40.066406-10.964844-200.332031-10.964844-200.332031-10.964844s-160.261719 0-200.328125 10.546875c-21.507813 5.902344-39.222657 23.617187-45.125 45.546875-10.542969 40.0625-10.542969 123.148438-10.542969 123.148438s0 83.503906 10.542969 123.148437c5.90625 21.929687 23.195312 39.222656 45.128906 45.128906 40.484375 10.964844 200.328125 10.964844 200.328125 10.964844s160.261719 0 200.328125-10.546875c21.933594-5.902344 39.222656-23.195312 45.128906-45.125 10.542969-40.066406 10.542969-123.148438 10.542969-123.148438s.421875-83.507812-10.546875-123.570312zm0 0"></path><path d="m204.96875 256 133.269531-76.757812-133.269531-76.757813zm0 0" fill="#fff"></path>
+    //           </svg>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>` +
+
 
 
       // <iframe allowfullscreen="1" class=" h-full w-full" frameborder="0" src="https://www.youtube-nocookie.com/embed/{{{videos.0.youtube_id}}}?rel=0"></iframe>
@@ -162,7 +178,7 @@ $(document).on('turbolinks:load', function() {
         },
         placeholder: "Search for a tag",
         cssClasses: {
-          searchableForm: "border-0",
+          searchableForm: "border-0 flex-shrink-0 w-min",
           searchableInput: "bg-transparent border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-3 border-secondary",
           // root: the root element of the widget.
           list: "mt-4 space-y-2",
@@ -171,11 +187,11 @@ $(document).on('turbolinks:load', function() {
           // label: "{{{label}}}}1",
           // checkbox: each checkbox element (when using the default template).
           // labelText: each label text element.
-          showMore: "text-sm mt-4 font-medium hover:underline focus:outline-none",
+          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
           disabledShowMore: "hidden",
           // count: each count element (when using the default template).
-          // searchableRoot: the root element of the search box.
-          // searchableSubmit: "hidden",
+          // searchableRoot: "flex-shrink-0",
+          searchableSubmit: "hidden",
           // searchableSubmitIcon: the reset button icon of the search box.
           searchableReset: "hidden"
           // searchableLoadingIndicator: the submit button element of the search box.
@@ -198,12 +214,13 @@ $(document).on('turbolinks:load', function() {
         },
         placeholder: "Search for a community",
         cssClasses: {
-          searchableForm: "border-0",
+          searchableForm: "border-0 flex-shrink-0 w-min",
           searchableInput: "bg-transparent border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-3 border-secondary",
-          list: "mt-4 space-y-3",
+          list: "mt-4 space-y-4",
+          searchableSubmit: "hidden",
           searchableReset: "hidden",
           item: "leading-none",
-          showMore: "text-sm mt-4 font-medium hover:underline focus:outline-none",
+          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
           disabledShowMore: "hidden"
         }
       }),

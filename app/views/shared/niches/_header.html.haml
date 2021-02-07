@@ -1,7 +1,7 @@
 
 %div{class: "flex justify-center bg-white"}
-  %div{class: "max-w-screen-lg w-full"}
-    %div{class: "pt-3 flex items-center"}
+  %div{class: "max-w-screen-lg w-full px-4"}
+    %div{class: "pt-3 flex flex-wrap items-center"}
       - breadcrumb_class = "text-gray-600 underline text-xs hover:bg-transparent hover:text-black"
       = link_to(niche_type.pluralize, [niche_type.downcase.to_sym, :categories], class: breadcrumb_class)
       %div{class: "mx-1"}
@@ -15,20 +15,62 @@
         = " > "
       %div{class: "text-xs"}
         = niche.title
-    %div{class: "mt-2 text-gray-900 font-bold text-2xl"}
+    %div{class: "mt-2 text-gray-900 font-bold text-2xl inline-flex items-end leading-none"}
       = niche.title
-    -# %div{c: "text-gray-700 text-xs"}
-    -#   - letter = (niche_type == "Industry" ? 'i' : 'o')
-    -#   = "#{letter}/#{niche.code}"
-    -# - active   = "py-1 border-b-2 border-primary font-medium text-gray-900 hover:bg-white hover:text-gray-900"
-    -# - inactive = "py-1 text-gray-600 border-b-2 border-gray-300 hover:text-gray-900 hover:bg-white hover:border-gray-500"
+      %div{class: "ml-0 md:ml-2 cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle'}
+        %div{class: "w-4 h-4"}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+          </svg>
+      -# %div{c: "text-gray-700 text-xs"}
+      -#   - letter = (niche_type == "Industry" ? 'i' : 'o')
+      -#   = "#{letter}/#{niche.code}"
+      -# - active   = "py-1 border-b-2 border-primary font-medium text-gray-900 hover:bg-white hover:text-gray-900"
+      -# - inactive = "py-1 text-gray-600 border-b-2 border-gray-300 hover:text-gray-900 hover:bg-white hover:border-gray-500"
+    %div{class: "mt-1"}
+      - if user_signed_in?
+        - if @current_user_is_following_niche
+          = link_to "Following", [:unfollow, @niche], class: "flex-shrink-0 border-b-0 text-gray-700 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white tracking-wide"
+        - else
+          = link_to "Follow Community", [:follow, @niche], class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white tracking-wide"
+
+    %div{class: "grid grid-cols-1 md:grid-cols-2 px-4 hidden", "data-toggle-target": "toggleable"}
+      %div{class: "mt-4 w-full text-sm", "data-controller": "toggle"}
+        %div{class: "mb-2 -ml-4 flex w-full items-center hover:text-black hover:font-medium hover:cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle'}
+          %div{class: "w-4 h-4 hover:cursor-pointer", "data-toggle-target": "toggleable"}
+            = svg_tag "chevron-right"
+
+          %div{class: "hidden w-4 h-4 hover:cursor-pointer", "data-toggle-target": "toggleable"}
+            = svg_tag "chevron-down"
+          %div{class: "hover:cursor-pointer"}
+            Description
+        = simple_format @niche.description.gsub(/\n/, '<br/>').html_safe, class: "pb-3 hidden pr-16 max-h-28 overflow-y-scroll", "data-toggle-target": "toggleable"
+
+      %div{class: "mt-4 w-full text-sm", "data-controller": "toggle"}
+        %div{class: "mb-2 -ml-4 flex w-full items-center hover:text-black hover:font-medium hover:cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle'}
+          %div{class: "w-4 h-4 hover:cursor-pointer", "data-toggle-target": "toggleable"}
+            = svg_tag "chevron-right"
+
+          %div{class: "hidden w-4 h-4 hover:cursor-pointer", "data-toggle-target": "toggleable"}
+            = svg_tag "chevron-down"
+          %div{class: "hover:cursor-pointer"}
+            Keywords
+        %div{class: "pb-3 hidden space-y-3 h-28 overflow-y-scroll", "data-toggle-target": "toggleable"}
+          = simple_format @niche.all_keywords.gsub(/;/, "\n\n"), wrapper_tag: "div"
+        %div{class: "hidden mt-2", "data-toggle-target": "toggleable"}
+          = form_with model: @suggested_keyword, method: :post, local: true, html: {class: "flex w-full items-center"} do |f|
+            = f.hidden_field "#{@niche.class.to_s.downcase}_slug", value: @niche.slug
+            = f.text_field :keyword, placeholder: "New keyword", class: "block text-xs py-1 text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
+            = f.submit "Suggest", class: "text-xs flex-shrink-0 ml-2 py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+
     - active   = "text-secondary bg-gray-100 px-2 py-2 font-medium rounded"
     - inactive = "text-gray-700 px-2 py-2 font-medium rounded hover:bg-gray-200"
-    %div{class: "flex justify-between items-center mb-3 mt-6"}
+    %div{class: "flex max-w-sm justify-between items-center mb-3 mt-6"}
       %nav{class: "h-full text-base space-x-4"}
         = link_to_unless_current("Solutions", niche, class: "#{inactive}") do link_to 'Solutions', niche, class: "#{active}" end
         = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
         = link_to_unless_current("Search", search_solutions_path(communities: niche.title), class: "#{inactive}") do link_to("Search", [niche, :search], class: "#{active}") end
+
       -# %nav{class: "space-x-2 flex items-center text-sm"}
       -#   -# = link_to_unless_current("Requests", [niche, :requests], class: "hidden") do link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded") end
       -#   -# = link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded")

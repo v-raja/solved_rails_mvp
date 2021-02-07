@@ -17,9 +17,9 @@
   }
 
 %div{class: "flex flex-wrap justify-center pb-10"}
-  %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
+  %div{class: "px-4 lg:px-0 mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
     Explore by Occupations
-  = form_with model: @suggested_community, method: :post, local: true, html: {class: "mt-2 max-w-screen-lg flex w-full items-center"} do |f|
+  = form_with model: @suggested_community, method: :post, local: true, html: {class: "px-4 lg:px-0 mt-2 max-w-screen-lg flex w-full items-center"} do |f|
     = f.hidden_field "community_type", value: "Occupation"
     Suggest a new occupation:
     = f.text_field :community, placeholder: "New occupation", class: "ml-4 block text-sm leading-none text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
@@ -35,7 +35,7 @@
   -#     industries. There are four levels of classification,
   -# %div{class: "text-base max-w-screen-lg w-full"}
   -#   and solutions and requests are posted to the fourth level.
-  %div{class: "mt-8 max-w-screen-lg w-full relative flex"}
+  %div{class: "px-4 lg:px-0 mt-8 max-w-screen-lg w-full relative flex"}
     -# %div{class: "w-1/2 flex-shrink-0 flex flex-wrap"}
     #container
       = render "occupation_categories/expand_group", group: @occupation_categories.first

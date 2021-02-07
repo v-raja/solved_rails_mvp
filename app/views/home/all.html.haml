@@ -1,8 +1,41 @@
+:javascript
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+  }
 
-%div{class: "mt-4 mb-6 px-4"}
-  %div{class: "text-4xl font-bold"}
+%div{class: "bg-white w-1/2 rounded border border-gray-400 m-4 p-4 mb-8 #{cookies[:closeInfo] ? 'hidden' : nil}", "data-toggle-target": 'toggleable', "data-controller": "toggle"}
+  %div{class: "text-xl flex items-center w-full justify-between font-medium"}
+    Hello! 👋
+    %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo', true, 10);"}
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+
+  %div{class: "py-1 w-full rounded-lg mt-1 text-base pr-6"}
+    Welcome to solved, a place to find the best new solutions for your industry / occupation.
+    <br/><br/>
+    🤓 Solutions on solved are focused on people showing how they apply a prodcut in their daily workflow to solve a problem.<br/><br/>
+    ❌ Solutions that vaguely talk about benefits and superficially demonstrate features are highly discouraged. Please help the community out by flagging such solutions.<br/><br/>
+    ❤️ Help others by showing them your favorite solutions.
+    %div{class: 'text-sm'}
+      (We allow affiliate links, but please only recommend products you've used for sometime.)
+    -# -# 🤫 solved is currently in beta so posting solutions and requests is limited to certain communities.
+    -# -# <br/>
+    -# -# %div{class: "text-sm"}
+    -# -#   (Posting is allowed once a community has 40 followers. Follow your community to get it unlocked!)<br/><br/>
+    -# 🔍 Search above now to find your industry / occupation and learn about how others in your field are applying new software products to solve problems in new ways.
+    -# <br/><br/>
+    -# 👇 Explore solutions from all industies and occupations across solved below.
+
+
+%div{class: "mt-4 mb-10 px-4"}
+  %div{class: "text-2xl font-bold"}
     Popular Solutions
-  %div{class: "text-lg font-medium tracking-wide text-gray-700 mb-6"}
+  %div{class: "text-base font-medium tracking-wide text-gray-700 mb-6"}
     Trending solutions from all communities
 
   - if @posts.today.any?

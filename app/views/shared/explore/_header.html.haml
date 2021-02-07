@@ -1,7 +1,8 @@
 -# = render 'layouts/header', render_shadow: false
 
-%div{class: "pt-2 flex flex-wrap justify-center bg-white shadow-sm pb-4 mb-4"}
-  %nav{class: "mt-2 flex justify-between max-w-screen-md w-full"}
+%div{class: "pt-2 flex w-full justify-center bg-white shadow-sm pb-4 mb-4"}
+  %nav{class: "mt-2 flex justify-around w-full"}
+    -# max-w-screen-md
     -# - inactive = "text-gray-900 px-3 py-2 rounded-lg text-base font-semibold hover:bg-gray-100 hover:text-gray-900"
     - active = "text-secondary px-3 py-2 rounded-lg text-base font-semibold bg-gray-fb bg-opacity-50"
     - inactive = "text-gray-900 px-3 py-2 rounded-lg text-base font-semibold hover:bg-gray-fb hover:text-gray-900"

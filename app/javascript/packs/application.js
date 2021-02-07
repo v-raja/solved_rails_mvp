@@ -60,34 +60,37 @@ $( document ).on('turbolinks:load', function() {
         videoId
       );
       var div = document.createElement('div');
-      div.setAttribute('class', 'group')
+      div.setAttribute('class', 'group');
       thumbNode.setAttribute('class', 'h-full w-full object-cover cursor-pointer');
 
       thumbNode.setAttribute('data-id', videoId);
 
-      // var playButton = document.createElement('div');
-      // playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-black opacity-80 group-hover:opacity-100 group-hover:text-red-yt" viewBox="0 -77 512.00213 512"><path d="m501.453125 56.09375c-5.902344-21.933594-23.195313-39.222656-45.125-45.128906-40.066406-10.964844-200.332031-10.964844-200.332031-10.964844s-160.261719 0-200.328125 10.546875c-21.507813 5.902344-39.222657 23.617187-45.125 45.546875-10.542969 40.0625-10.542969 123.148438-10.542969 123.148438s0 83.503906 10.542969 123.148437c5.90625 21.929687 23.195312 39.222656 45.128906 45.128906 40.484375 10.964844 200.328125 10.964844 200.328125 10.964844s160.261719 0 200.328125-10.546875c21.933594-5.902344 39.222656-23.195312 45.128906-45.125 10.542969-40.066406 10.542969-123.148438 10.542969-123.148438s.421875-83.507812-10.546875-123.570312zm0 0"/><path d="m204.96875 256 133.269531-76.757812-133.269531-76.757813zm0 0" fill="#fff"/></svg>`
-      // playButton.setAttribute('class', 'absolute w-16 inset-1/2 h-16 -m-8 cursor-pointer');
-      var upvotes = playerElements[n].dataset.votes;
-      var upvotePosDiv = document.createElement('div');
-      if (upvotes > 0) {
-        upvotePosDiv.setAttribute('class', 'absolute right-2 top-2 max-w-min max-h-min text-white font-bold text-sm p-2 bg-primary rounded-lg');
-        upvotePosDiv.innerHTML = `
-        <div class="flex items-centerjustify-center place-self-center">
-          ${upvotes}
-          <div class="ml-0.5">
-            ▲
+      var upvoteOrPlayButton = document.createElement('div');
+      var addPlayButton = playerElements[n].dataset.ytButton;
+      if (addPlayButton === "true") {
+        upvoteOrPlayButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-black opacity-80 group-hover:opacity-100 group-hover:text-red-yt" viewBox="0 -77 512.00213 512"><path d="m501.453125 56.09375c-5.902344-21.933594-23.195313-39.222656-45.125-45.128906-40.066406-10.964844-200.332031-10.964844-200.332031-10.964844s-160.261719 0-200.328125 10.546875c-21.507813 5.902344-39.222657 23.617187-45.125 45.546875-10.542969 40.0625-10.542969 123.148438-10.542969 123.148438s0 83.503906 10.542969 123.148437c5.90625 21.929687 23.195312 39.222656 45.128906 45.128906 40.484375 10.964844 200.328125 10.964844 200.328125 10.964844s160.261719 0 200.328125-10.546875c21.933594-5.902344 39.222656-23.195312 45.128906-45.125 10.542969-40.066406 10.542969-123.148438 10.542969-123.148438s.421875-83.507812-10.546875-123.570312zm0 0"/><path d="m204.96875 256 133.269531-76.757812-133.269531-76.757813zm0 0" fill="#fff"/></svg>`
+        upvoteOrPlayButton.setAttribute('class', 'absolute w-16 inset-1/2 h-16 -m-8 cursor-pointer');
+
+      } else {
+        var upvotes = playerElements[n].dataset.votes;
+        if (upvotes > 0) {
+          upvoteOrPlayButton.setAttribute('class', 'absolute right-2 top-2 max-w-min max-h-min text-white font-bold text-sm p-2 bg-primary rounded-lg');
+          upvoteOrPlayButton.innerHTML = `
+          <div class="flex items-centerjustify-center place-self-center">
+            ${upvotes}
+            <div class="ml-0.5">
+              ▲
+            </div>
           </div>
-        </div>
-        `
-        // div.appendChild(upvotePosDiv);
+          `
+        }
       }
 
 
       div.setAttribute('data-id', videoId);
 
       div.appendChild(thumbNode);
-
+      div.appendChild(upvoteOrPlayButton);
       // div.appendChild(playButton);
       div.onclick = function () {
         labnolIframe(this);
@@ -97,29 +100,29 @@ $( document ).on('turbolinks:load', function() {
   }
   initYouTubeVideos();
 
-  // var first_expand = true;
-  var expandCollapse = document.getElementById("expand-collapse");
-  if (expandCollapse) {
-    expandCollapse.addEventListener("click", function(){
-      if (expandCollapse.textContent === "Expand") {
-        // if (first_expand) {
-        //   initYouTubeVideos();
-        //   first_expand = false;
-        // }
-        var videos = document.querySelectorAll('.video');
-        for (var i = 0; i < videos.length; ++i) {
-          videos[i].style.display = 'block';
-        }
-        expandCollapse.textContent = "Collapse"
-      } else {
-        var videos = document.querySelectorAll('.video');
-        for (var i = 0; i < videos.length; ++i) {
-          videos[i].style.display = '';
-        }
-        expandCollapse.textContent = "Expand"
-      }
-    });
-  }
+
+  // var expandCollapse = document.getElementById("expand-collapse");
+  // if (expandCollapse) {
+  //   expandCollapse.addEventListener("click", function(){
+  //     if (expandCollapse.textContent === "Expand") {
+  //       // if (first_expand) {
+  //       //   initYouTubeVideos();
+  //       //   first_expand = false;
+  //       // }
+  //       var videos = document.querySelectorAll('.video');
+  //       for (var i = 0; i < videos.length; ++i) {
+  //         videos[i].style.display = 'block';
+  //       }
+  //       expandCollapse.textContent = "Collapse"
+  //     } else {
+  //       var videos = document.querySelectorAll('.video');
+  //       for (var i = 0; i < videos.length; ++i) {
+  //         videos[i].style.display = '';
+  //       }
+  //       expandCollapse.textContent = "Expand"
+  //     }
+  //   });
+  // }
 
   // document.addEventListener('DOMContentLoaded', initYouTubeVideos);
 })

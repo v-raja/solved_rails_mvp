@@ -14,11 +14,9 @@
     = render 'layouts/rails_default'
     = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_packs_with_chunks_tag "search/#{params[:action]}", 'data-turbolinks-track': 'reload'
-
     = render 'application/favicon'
     = yield :head
   %body
-
     = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
 
     -# = debug(params) if Rails.env.development?
@@ -28,13 +26,10 @@
           - flash.each do |type, data|
             = render NotificationComponent.new(type: type, data: data)
 
-      %div{class: "h-screen flex flex-col justify-between", "data-controller": "slideover", "data-action": "click@window->slideover#hide", "data-slideover-open-value": "false", "data-slideover-invisible-class": "-translate-x-full,opacity-0", "data-slideover-visible-class": "block,translate-x-0,opacity-100", "data-slideover-entering-class": "", "data-slideover-enter-timeout": "500,300", "data-slideover-leaving-class": "", "data-slideover-leave-timeout": "5,0"}
-        = render 'layouts/header'
+      %div{class: "h-max flex flex-col justify-between"}
+        = render 'search/header'
 
-        %div{class: "flex-grow pb-10 md:pb-0 flex overflow-y-auto"}
-          = render 'layouts/sidebar'
-          #app_body{class: "overflow-y-auto w-full"}
-            = yield
+        %div{class: "flex-grow pb-10 md:pb-0"}
+          = yield
 
         = render 'layouts/mobile_footer'
-

@@ -19,12 +19,8 @@
     = render 'application/favicon'
     = yield :head
   %body
-    -# = include_gon(:init => true)
-    -# = include_gon
+
     = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
-    -# <script defer src="https://feedback.fish/ff.js?pid=f8d0cb1bf57f97"></script>
-    -# = javascript_pack_tag 'search'
-    -# %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}
 
     -# :javascript
     -#   analytics.page();
@@ -37,16 +33,12 @@
 
       %div{class: "h-screen flex flex-col justify-between", "data-controller": "slideover", "data-action": "click@window->slideover#hide", "data-slideover-open-value": "false", "data-slideover-invisible-class": "-translate-x-full,opacity-0", "data-slideover-visible-class": "block,translate-x-0,opacity-100", "data-slideover-entering-class": "", "data-slideover-enter-timeout": "500,300", "data-slideover-leaving-class": "", "data-slideover-leave-timeout": "5,0"}
         = render 'layouts/header'
-        -# %div{class: "justify-between"}
         %div{class: "flex-grow pb-10 md:pb-0 flex overflow-y-auto"}
           = render 'layouts/sidebar'
-          #app_body{class: "overflow-y-auto"}
+          #app_body{class: "overflow-y-auto w-full"}
             = yield
-            -# {class: "h-full"}
 
-
-
-          #results{class: "overflow-y-auto hidden px-8 mt-4"}
+          #results{class: "overflow-y-auto hidden px-8 mt-4 w-full"}
             %div{class: "font-m text-2xl"}
               Choose your industry or occupation below 👇
             %div{class: "text-lg"}

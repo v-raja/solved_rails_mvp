@@ -1,36 +1,38 @@
 -# = render 'layouts/header'
-= render 'shared/niches/header', niche: @niche
+%div{class: "w-full", "data-controller": 'toggle'}
+  - @current_user_is_following_niche = user_signed_in? ? current_user.following?(@niche) : false
+  = render 'shared/niches/header', niche: @niche
 
-%div{class: "mt-10 flex justify-center pb-10"}
-  %div{class: "max-w-screen-lg w-full relative flex"}
-    %div{class: "w-full"}
-      -# mr-12
-      - if @niche.requests.any?
-        - if @niche.requests.today.any?
-          %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
-            Today
-          = render @niche.requests.today
-          %div{class: "mt-6"}
-        - if @niche.requests.past_week.any?
-          %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
-            Past Week
-          = render @niche.requests.past_week
-          %div{class: "mt-6"}
-        - if @niche.requests.past_month.any?
-          %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
-            Past Month
-          = render @niche.requests.past_month
-      - else
-        %div{class: "w-full font-medium mt-10 text-2xl leading-none text-center"}
-          No problems to solve yet 😞
+  %div{class: "mt-10 flex justify-center pb-10"}
+    %div{class: "max-w-screen-lg w-full relative flex"}
+      %div{class: "w-full"}
+        -# mr-12
+        - if @niche.requests.any?
+          - if @niche.requests.today.any?
+            %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+              Today
+            = render @niche.requests.today
+            %div{class: "mt-6"}
+          - if @niche.requests.past_week.any?
+            %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+              Past Week
+            = render @niche.requests.past_week
+            %div{class: "mt-6"}
+          - if @niche.requests.past_month.any?
+            %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+              Past Month
+            = render @niche.requests.past_month
+        - else
+          %div{class: "w-full font-medium mt-10 text-xl leading-none text-center"}
+            No problems to solve yet 😞
 
 
 
 
-    -# %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
-      -# %div{class: "w-full flex flex-wrap bg-white rounded-sm"}
-      -#   %div{class: "py-3 px-4"}
-      -#     %div{class: "w-full text-lg font-medium"}
-      -#       About this Industry
-      -#     %div{class: "py-1 w-full rounded-lg text-sm "}
-      -#       = simple_format @niche.description_safe_html.html_safe
+      -# %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
+        -# %div{class: "w-full flex flex-wrap bg-white rounded-sm"}
+        -#   %div{class: "py-3 px-4"}
+        -#     %div{class: "w-full text-lg font-medium"}
+        -#       About this Industry
+        -#     %div{class: "py-1 w-full rounded-lg text-sm "}
+        -#       = simple_format @niche.description_safe_html.html_safe

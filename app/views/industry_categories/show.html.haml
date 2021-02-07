@@ -14,10 +14,10 @@
 
 - cache @industry_category do
   %div{class: "flex flex-wrap justify-center pb-10"}
-    %div{class: "mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
+    %div{class: "px-4 lg:px-0 mt-4 max-w-screen-lg w-full text-2xl font-bold tracking-wide"}
       = "#{@industry_category.title} Subsector"
 
-    %div{class: "mt-4 max-w-screen-lg w-full relative flex"}
+    %div{class: "px-4 lg:px-0 mt-4 max-w-screen-lg w-full relative flex"}
       #container
         %ul{class: "ml-6 list-disc space-y-6"}
           - @industry_category.children.each do |industry_group|

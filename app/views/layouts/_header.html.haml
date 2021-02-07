@@ -40,7 +40,8 @@
       %div{c: "justify-self-center flex-shrink ml-4 w-full md:w-1/2"}
         #searchbox_navbar
 
-      = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
+      -# - if params[:controller] != "search"
+      -#   = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
       -# %nav{class: "hidden md:flex items-center"}
       -#   %div{class: "flex items-center space-x-2 pr-4 border-r border-gray-400"}
       -#     -# %a(data-feedback-fish){href: "#", class: "p-1.5 text-yellow-500 rounded border border-white hover:bg-gray-200 hover:border-gray-400", data: { turbolinks: false }, "data-feedback-fish-userid": "#{user_signed_in? ? current_user.email : nil}"}
