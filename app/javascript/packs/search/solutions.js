@@ -55,11 +55,11 @@ $(document).on('turbolinks:load', function() {
       }),
       instantsearch.widgets.searchBox({
         container: '#searchbox_posts',
-        placeholder: "Search for a problem by keywords",
+        placeholder: "What daily task do you find painful?",
         searchAsYouType: true,
         cssClasses: {
           form: "relative flex items-center",
-          input: "block pl-9 pr-4 py-2 w-full shadow-none hover:shadow-md rounded-lg placeholder-gray-700 bg-white border-0 border-gray-400 hover:border-transparent focus:outline-none focus:shadow-md focus:ring-transparent focus:border-transparent text-gray-900",
+          input: "block pl-9 pr-4 py-2 w-full shadow-none hover:shadow-md rounded-lg placeholder-gray-500 bg-white border-0 border-gray-400 hover:border-transparent focus:outline-none focus:shadow-md focus:ring-transparent focus:border-transparent text-gray-900",
           submit: "absolute inset-y-0 left-3 flex items-center",
           submitIcon: "h-4 w-4 text-gray-600 fill-current",
           reset: "hidden"
@@ -179,9 +179,10 @@ $(document).on('turbolinks:load', function() {
         limit: 8,
         templates: {
           item: `
-          <a href="{{url}}" class="{{#isRefined}}font-bold{{/isRefined}}">
-            <span class="ml-1 hover:underline">{{label}}  ({{count}})</span>
-          </a>
+          <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
+            <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
+            <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
+          </div>
         `,
         // searchableNoResults: `noResults`
         },
@@ -192,9 +193,9 @@ $(document).on('turbolinks:load', function() {
           // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
           // root: the root element of the widget.
           list: "mt-3 space-y-2",
-          item: "text-sm",
+          item: "",
           // selectedItem: each selected item in the list.
-          label: "text-sm",
+          label: "",
           noResults: "text-sm mt-2",
           // checkbox: each checkbox element (when using the default template).
           // labelText: each label text element.
@@ -245,9 +246,10 @@ $(document).on('turbolinks:load', function() {
         limit: 6,
         templates: {
           item: `
-          <a href="{{url}}" class="{{#isRefined}}font-bold{{/isRefined}}">
-            <span class="text-sm hover:underline">{{label}} ({{count}})</span>
-          </a>
+          <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
+            <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
+            <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
+          </div>
         `,
         },
         placeholder: "Search for a community",
@@ -257,7 +259,7 @@ $(document).on('turbolinks:load', function() {
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
           // root: the root element of the widget.
           list: "mt-3 space-y-3",
-          item: "text-sm leading-tight",
+          item: "leading-tight",
           // selectedItem: each selected item in the list.
           label: "leading-none",
           // checkbox: each checkbox element (when using the default template).
@@ -294,11 +296,12 @@ $(document).on('turbolinks:load', function() {
         limit: 4,
         templates: {
           item: `
-          <a href="{{url}}" class="{{#isRefined}}font-bold{{/isRefined}}">
-            <span class="ml-1 hover:underline">{{label}}  ({{count}})</span>
-          </a>
+          <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
+            <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
+            <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
+          </div>
         `,
-        // searchableNoResults: `noResults`
+        searchableNoResults: `noResults`
         },
         placeholder: "Search for a platform",
         cssClasses: {
@@ -307,11 +310,13 @@ $(document).on('turbolinks:load', function() {
           // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
           // root: the root element of the widget.
           list: "mt-3 space-y-2",
-          item: "text-sm",
+          item: "",
           // selectedItem: each selected item in the list.
-          label: "text-sm",
+          // label: "ml-1 hover:underline",
+
           noResults: "text-sm mt-2",
-          // checkbox: each checkbox element (when using the default template).
+
+
           // labelText: each label text element.
           showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
           disabledShowMore: "hidden",
