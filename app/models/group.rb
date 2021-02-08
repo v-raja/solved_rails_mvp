@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                   :bigint           not null, primary key
+#  title                :text
+#  description          :text
+#  slug                 :text
+#  keywords             :text
+#  solutions_count      :integer          default(0), not null
+#  solution_votes_count :integer          default(0), not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
 class Group < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged

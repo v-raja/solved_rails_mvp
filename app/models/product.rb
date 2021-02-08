@@ -16,8 +16,9 @@ class Product < ApplicationRecord
   validates_presence_of :name, :thumbnail_url
   validates :thumbnail_url, url: { no_local: true }
   has_many :solutions
+  after_save { solutions.each(&:touch) }
 
-  has_many :plans
+  has_many :plans, dependent: :destroy
   accepts_nested_attributes_for :plans
 
   include AlgoliaSearch

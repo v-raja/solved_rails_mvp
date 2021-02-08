@@ -85,8 +85,8 @@
 
           %div{"data-dropdown-target": "menu", class: "absolute right-0 hidden mt-2.5 w-24"}
             %div{class: "overflow-hidden bg-white border rounded shadow divide-y divide-gray-300"}
-              = link_to "Request" , new_request_path, class: 'font-medium hover:font-semibold transition-all text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
-              = link_to "Solution" , new_solution_path, class: 'font-medium hover:font-semibold transition-alltext-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap'
+              = link_to "Request" , new_request_path, class: 'font-medium hover:font-semibold transition-all text-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap', "data-turbolinks": "false"
+              = link_to "Solution" , new_solution_path, class: 'font-medium hover:font-semibold transition-alltext-left text-sm two-lines-only block px-3 py-3 text-gray-900 bg-white hover:bg-secondary hover:text-white whitespace-no-wrap', "data-turbolinks": "false"
 
         - if user_signed_in?
 

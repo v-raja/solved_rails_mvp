@@ -21,6 +21,7 @@
 #  cached_weighted_average :float            default(0.0)
 #  is_creator              :boolean          default(FALSE)
 #  comments_count          :integer          default(0), not null
+#  plan_id                 :bigint
 #
 class Solution < ApplicationRecord
 
@@ -70,7 +71,7 @@ class Solution < ApplicationRecord
   acts_as_commentable
   accepts_nested_attributes_for :comment_threads, reject_if: proc { |att| att['body'].blank? }, limit: 1
 
-  acts_as_taggable_on :general_tags, :niche_specific_tags
+  acts_as_taggable_on :general_tags, :niche_specific_tags, :platform
 
   # default_scope { most_recent }
 
@@ -86,6 +87,7 @@ class Solution < ApplicationRecord
   scope :by_communities,  -> (communities) { joins(:industry_solutions).joins(:occupation_solutions).where("industry_solutions.industry_id IN (?) OR occupation_solutions.occupation_id IN (?)", communities, communities).distinct }
 
 
+  after_touch :index!
 
   include AlgoliaSearch
 
@@ -112,7 +114,8 @@ class Solution < ApplicationRecord
     end
 
     attribute :product do
-      { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product) }
+      { name: product.name, thumbnail_url: product.thumbnail_url, url: Rails.application.routes.url_helpers.product_path(product),
+        plan: plan_for_search }
     end
 
     attribute :communities do
@@ -139,6 +142,10 @@ class Solution < ApplicationRecord
 
     attribute :niche_specific_tags do
       niche_specific_tag_list
+    end
+
+    attribute :platforms do
+      platform_list.map {|p| p.titleize(except: ["macOS"]) }
     end
 
     tags do
@@ -238,6 +245,15 @@ class Solution < ApplicationRecord
     end
 
     industries + occupations
+  end
+
+  def plan_for_search
+    plan.nil? ? {} : {
+      name: plan.name,
+      price_per_month: plan.price_per_month,
+      is_price_per_user: plan.is_price_per_user
+    }
+
   end
 
 

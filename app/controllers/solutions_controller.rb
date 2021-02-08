@@ -95,6 +95,9 @@ class SolutionsController < ApplicationController
   def edit
     set_meta_tags noindex: true
     authorize @solution
+    if @solution.plan.nil?
+      @solution.build_plan
+    end
     @use_select_community = true
   end
 
@@ -224,6 +227,11 @@ class SolutionsController < ApplicationController
   # PATCH/PUT /solutions/1.json
   def update
     authorize @solution
+    if solution_params[:plan_id].blank?
+      @solution.build_plan(plans_params)
+      @solution.plan.product = @solution.product
+    end
+
     respond_to do |format|
       if @solution.update(solution_params)
 
@@ -264,7 +272,7 @@ class SolutionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def solution_params
       params.require(:solution).permit(:title, :description, :product_id, :plan_id, :is_creator, :get_it_url, comment_threads_attributes: [:user_id, :body],
-            general_tag_list: [], group_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], plan_attributes: [:name, :price_per_month, :is_price_per_user], youtube_urls_attributes: [:_destroy, :id, :url])
+            general_tag_list: [], platform_list: [], group_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], plan_attributes: [:name, :price_per_month, :is_price_per_user], youtube_urls_attributes: [:_destroy, :id, :url])
     end
 
     def product_params

@@ -30,8 +30,14 @@ $(document).on('turbolinks:load', function() {
       tags: true
     });
 
+    $('#platform_select').select2({
+      placeholder: 'Web App, macOS, Slack, Shopify, Chrome Extension',
+      multiple: true,
+      tags: true
+    });
+
     $('#group_select').select2({
-      placeholder: 'Small and Medium-sized Businesses',
+      placeholder: 'Small and Medium-sized Businesses, Indie Hackers',
       multiple: true,
       tags: true
     });

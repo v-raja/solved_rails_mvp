@@ -51,7 +51,7 @@
           -#   Have a question about this solution? Discuss below.
         - if policy(@solution).update?
           %div{class: "flex mt-4 items-center"}
-            = link_to "Edit", edit_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+            = link_to "Edit", edit_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide", "data-turbolinks": false
             -# "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
             - if policy(@solution).destroy?
               %div{class: "ml-2"}

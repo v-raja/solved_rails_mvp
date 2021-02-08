@@ -68,6 +68,8 @@ class User < ApplicationRecord
   has_many :requests
   # , dependent: :destroy
 
+  after_save { solutions.each(&:touch) }
+
   acts_as_voter
   acts_as_follower
 

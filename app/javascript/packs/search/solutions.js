@@ -276,7 +276,49 @@ $(document).on('turbolinks:load', function() {
         }
       }),
 
+      instantsearch.widgets.rangeInput({
+        container: '#price_range',
+        attribute: 'product.plan.price_per_month',
+      }),
 
+      instantsearch.widgets.refinementList({
+        container: '#platforms',
+        attribute: 'platforms',
+        searchable: true,
+        showMore: true,
+        limit: 4,
+        templates: {
+          item: `
+          <a href="{{url}}" class="{{#isRefined}}font-bold{{/isRefined}}">
+            <span class="ml-1 hover:underline">{{label}}  ({{count}})</span>
+          </a>
+        `,
+        // searchableNoResults: `noResults`
+        },
+        placeholder: "Search for a platform",
+        cssClasses: {
+          searchableForm: "border-0 flex-shrink-0",
+          searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
+          // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
+          // root: the root element of the widget.
+          list: "mt-3 space-y-2",
+          item: "text-sm",
+          // selectedItem: each selected item in the list.
+          label: "text-sm",
+          noResults: "text-sm mt-2",
+          // checkbox: each checkbox element (when using the default template).
+          // labelText: each label text element.
+          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          disabledShowMore: "hidden",
+          // count: each count element (when using the default template).
+          // searchableRoot: "flex-shrink-0",
+          searchableSubmit: "hidden",
+          // searchableSubmitIcon: the reset button icon of the search box.
+          searchableReset: "hidden"
+          // searchableLoadingIndicator: the submit button element of the search box.
+          // searchableLoadingIcon: the submit button icon of the search box.
+        }
+      }),
 
     ]);
 

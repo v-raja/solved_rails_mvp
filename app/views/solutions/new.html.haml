@@ -37,7 +37,7 @@
                       Logo url
                     %div{class: "ml-2 text-gray-600"}
                       = "- Required"
-                  = builder.text_field :thumbnail_url,
+                  = builder.url_field :thumbnail_url,
                     data: {action: "change->data-binding#update"}, "data-binding-target": "product-logo", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "false",
                     class: "mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                     id: "thumbnail-url",
@@ -45,7 +45,7 @@
                   %div{class: "text-gray-600 text-xs mt-1"}
                     Preview not available. Use a square image (atleast 60 x 60) for best results.
 
-            %div{class: "mt-6 text-base font-medium"}
+            %div{class: "mt-6 text-sm font-medium"}
               What tier plan of the product are you using in your solution?
             %div{class: "mt-4 w-full"}
               = f.select :plan_id, {}, {selected: "#{params.dig(:solution, :plan_id).nil? ? 1 : params.dig(:solution, :plan_id)}", include_blank: "Add a new plan"}, {class: "w-full text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
@@ -59,6 +59,8 @@
                   = builder.text_field :name,
                     class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                     id: "plan-name"
+                  %div{class: "mt-1 text-xs text-gray-600"}
+                    Try to use the official name. Avoid adding words like "Plan", or "Tier".
                   %div{class: "mt-4 flex items-center"}
                     %div{class: ""}
                       Price per month (billed monthly)
@@ -77,8 +79,11 @@
                     %div{class: "text-black text-sm ml-2"}
                       This price is per user per month
 
-
-
+            %div{class: "mt-6 text-sm font-medium"}
+              What platform are you using the product on?
+            %div{class: "mt-1"}
+              - options = @solution.platform_list + Solution.platform_counts.pluck(:name)
+              = f.select :platform_list, options, {}, id: "platform_select", :multiple => true, class: "w-full"
 
 
             %div{class: "inline-flex items-center mt-6 ml-1"}
@@ -269,7 +274,7 @@
                 Link to the product
               %div{class: "ml-2 text-gray-600"}
                 = "- Required"
-            = f.text_field :get_it_url,
+            = f.url_field :get_it_url,
                 class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                 placeholder: "https://"
             %div{class: "text-gray-600 text-xs mt-1"}
@@ -411,7 +416,7 @@
         var selectedId = parseInt("#{params.dig(:solution, :plan_id).nil? ? 1 : params.dig(:solution, :plan_id)}");
         listitems += `<option value>Add a new plan</option>`;
         $.each(data.plans,function(key, value) {
-          listitems += `<option value="${value.id}" ${key + 1 == selectedId ? "selected" : ""}>${value.name} - $${value.price_per_month}${value.is_price_per_user ? " / user" : ""} / month</option>`;
+          listitems += `<option value="${value.id}" ${key + 1 == selectedId ? "selected" : ""}>${value.name} - $${parseFloat(value.price_per_month).toFixed(2)}${value.is_price_per_user ? " / user" : ""} / month</option>`;
         });
         $("#solution_plan_id").append(listitems);
         updatePlanPreview();
@@ -420,7 +425,12 @@
 
 
     } else  {
-      $("#product_builder").show()
+      $("#product_builder").show();
+      $("#solution_plan_id").children().remove();
+      $("#solution_plan_id").append([`<option value>Add a new plan</option>`]);
+      updatePlanPreview();
+
+      var listitems = [];
       document.getElementById("product_logo").src = "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png";
       document.getElementById("product_name").textContent = "Product name";
     }
