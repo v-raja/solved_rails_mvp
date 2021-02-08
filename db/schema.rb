@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_070707) do
+ActiveRecord::Schema.define(version: 2021_02_07_204305) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -264,6 +265,16 @@ ActiveRecord::Schema.define(version: 2021_02_05_070707) do
     t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.text "name"
+    t.boolean "is_price_per_user", default: false
+    t.decimal "price_per_month", precision: 8, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "product_id", null: false
+    t.index ["product_id"], name: "index_plans_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.text "name"
     t.text "thumbnail_url"
@@ -312,6 +323,8 @@ ActiveRecord::Schema.define(version: 2021_02_05_070707) do
     t.float "cached_weighted_average", default: 0.0
     t.boolean "is_creator", default: false
     t.integer "comments_count", default: 0, null: false
+    t.bigint "plan_id"
+    t.index ["plan_id"], name: "index_solutions_on_plan_id"
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
     t.index ["user_id"], name: "index_solutions_on_user_id"
@@ -435,7 +448,9 @@ ActiveRecord::Schema.define(version: 2021_02_05_070707) do
   add_foreign_key "group_solutions", "solutions"
   add_foreign_key "industries", "industry_categories"
   add_foreign_key "occupations", "occupation_categories"
+  add_foreign_key "plans", "products"
   add_foreign_key "requests", "users"
+  add_foreign_key "solutions", "plans"
   add_foreign_key "solutions", "products"
   add_foreign_key "solutions", "users"
   add_foreign_key "taggings", "tags"

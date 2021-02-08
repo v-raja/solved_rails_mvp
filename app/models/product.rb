@@ -17,6 +17,9 @@ class Product < ApplicationRecord
   validates :thumbnail_url, url: { no_local: true }
   has_many :solutions
 
+  has_many :plans
+  accepts_nested_attributes_for :plans
+
   include AlgoliaSearch
 
   algoliasearch index_name: 'products', raise_on_failure: Rails.env.development?, sanitize: true, per_environment: true do
@@ -29,10 +32,20 @@ class Product < ApplicationRecord
       created_at.to_i
     end
 
+    attribute :plans do
+      plans.map do |p|
+        { id: p.id, name: p.name, price_per_month: p.price_per_month, is_price_per_user: p.is_price_per_user }
+      end
+    end
+
     # tags self.tag_list
 
     searchableAttributes ['unordered(name)']
   end
+
+  # def as_json(options={})
+  #   super(include: { plans })
+  # end
 
   private
 

@@ -109,5 +109,92 @@ $(document).on('turbolinks:load', function() {
         }
       }
     });
+
+
+
+
+    // function updatePreview(data) {
+    //   $("#product_builder").hide();
+    //   document.getElementById("product_name").textContent = data.name;
+    //   document.getElementById("product_logo").src = data.thumbnail_url;
+    //   document.getElementById('product-name').value = '';
+    //   document.getElementById('thumbnail-url').value = '';
+    //   $("#solution_plan_id").children().remove();
+    //   var listitems = [];
+    //   listitems += `<option value>Add a new plan</option>`;
+    //   $.each(data.plans,function(key, value) {
+    //     listitems += '<option value="' + value.id + '">' + value.name + '</option>';
+    //   });
+    //   $("#solution_plan_id").append(listitems);
+    // }
+
+    // var product_index = algolia.initIndex('products_' + process.env.RAILS_ENV);
+    // var $product_select = $('#solution_product_id');
+    // $product_select.select2({
+    //   language: {
+    //     inputTooShort: function() {
+    //       return 'Please enter 2 or more character to search';
+    //     },
+    //   },
+    //   // minimumInputLength: 2,
+    //   // allowClear: true,
+    //   // placeholder: 'Search for a product',
+    //   ajax: {
+    //     // Custom transport to call Algolia's API
+    //     transport: function(params, success, failure) {
+    //       var queryParams = params.data;
+    //       var q = queryParams.query;
+    //       delete queryParams.query;
+    //       product_index.search(q, queryParams).then(success, failure);
+    //     },
+    //     // build Algolia's query parameters (with page starting at 0)
+    //     data: function(params) {
+    //       return { query: params.term, hitsPerPage: 6, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>' };
+    //       // filters: `is_postable=1`
+    //     },
+
+    //     // return Algolia's results
+    //     processResults: function(data) {
+    //       data.hits.unshift({thumbnail_url: "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png", text: "Add a new product", objectID: 0});
+    //       return {
+    //         results: data.hits.map(function(item) {
+    //                 return {...item,
+    //                         id : item.objectID,
+    //                 };
+    //               }),
+    //         pagination: {
+    //           more: data.page + 1 < data.nbPages
+    //         }
+    //       };
+    //     }
+    //   },
+    //   escapeMarkup: function (markup) { return markup; },
+    //   cache: false,
+    //   templateSelection: function(option) {
+
+    //     if (option.text) {
+    //       $("#product_builder").show()
+    //       document.getElementById("product_name").textContent = "Product name";
+    //       document.getElementById("product_logo").src = option.thumbnail_url;
+    //       return option.text;
+    //     } else {
+    //       updatePreview(option);
+    //       return option.name;
+    //     }
+    //   },
+    //   templateResult: function(product) {
+    //     if (product.text){
+    //       return "<div class='select2-user-result'>" +
+    //             product.text +
+    //           "</div>";
+    //     } else {
+    //       return "<div class='select2-user-result'>" +
+    //               product._highlightResult.name.value +
+    //             "</div>";
+    //     }
+    //   }
+    // })
+
+
   }
 });

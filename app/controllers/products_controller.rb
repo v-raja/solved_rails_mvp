@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
                   canonical: product_url(@product)
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @product }
+      format.json { render json: @product, include: ['plans'] }
      end
   end
 

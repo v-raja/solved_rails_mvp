@@ -105,6 +105,7 @@ class SolutionsController < ApplicationController
     authorize @solution
     @solution.youtube_urls.build
     @solution.build_product
+    @solution.build_plan
     @solution.comment_threads.build
     @user = current_user || User.new
     @use_select_community = true
@@ -121,6 +122,10 @@ class SolutionsController < ApplicationController
       @solution.build_product(product_params)
     end
 
+    if solution_params[:plan_id].blank?
+      @solution.build_plan(plans_params)
+    end
+
     respond_to do |format|
       if user_signed_in?
         @solution.user = current_user
@@ -129,7 +134,10 @@ class SolutionsController < ApplicationController
           @solution.comment_threads.first.user = current_user
         end
 
+        @solution.plan.product = @solution.product
         if @solution.save
+          # @solution.save
+
           current_user.follow(@solution)
           @solution.niche_list.each do |n|
             current_user.follow(n)
@@ -169,6 +177,7 @@ class SolutionsController < ApplicationController
           if @solution.youtube_urls.empty?
             @solution.youtube_urls.build
           end
+
           format.html { render :new }
         else
           @user = User.new(user_params)
@@ -194,7 +203,10 @@ class SolutionsController < ApplicationController
               @solution.comment_threads.first.user = @user
             end
 
+            @solution.plan.product = @solution.product
             @solution.save
+
+
 
             @user.follow(@solution)
             @solution.niche_list.each do |n|
@@ -251,12 +263,16 @@ class SolutionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solution_params
-      params.require(:solution).permit(:title, :description, :product_id, :get_it_url, comment_threads_attributes: [:user_id, :body],
-            general_tag_list: [], group_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], youtube_urls_attributes: [:_destroy, :id, :url])
+      params.require(:solution).permit(:title, :description, :product_id, :plan_id, :is_creator, :get_it_url, comment_threads_attributes: [:user_id, :body],
+            general_tag_list: [], group_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], plan_attributes: [:name, :price_per_month, :is_price_per_user], youtube_urls_attributes: [:_destroy, :id, :url])
     end
 
     def product_params
       params.require(:solution).require(:product_attributes).permit(:name, :thumbnail_url)
+    end
+
+    def plans_params
+      params.require(:solution).require(:plan_attributes).permit(:name, :price_per_month, :is_price_per_user)
     end
 
     def user_params

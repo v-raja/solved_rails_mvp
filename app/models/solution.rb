@@ -62,6 +62,8 @@ class Solution < ApplicationRecord
   validates :get_it_url, url: { no_local: true }
 
   belongs_to :user
+  belongs_to :plan
+  accepts_nested_attributes_for :plan, :reject_if => :check_if_plan_exists
 
   after_create :remake_slug
 
@@ -87,8 +89,8 @@ class Solution < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'solutions', sanitize: true, per_environment: true, raise_on_failure: Rails.env.development? do
-    attribute :created_at, :title, :is_creator, :comments_count
+  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development? do
+    attribute :created_at, :title, :is_creator, :comments_count, :description
 
     add_attribute :url
 
@@ -265,6 +267,25 @@ class Solution < ApplicationRecord
 
     # One field blank means user hasn't filled out form properly (user error)
     if product_attr['name'].blank? || product_attr['thumbnail_url'].blank?
+      return true
+    end
+
+    return false
+  end
+
+  def check_if_plan_exists(plan_attr)
+    # User has selected an existing product so both fields are blank
+    if plan_attr['name'].blank? && plan_attr['price_per_month'].blank? && !plan_attr['id'].blank?
+      if _plan = Plan.find(plan_attr['id'])
+        self.plan = _plan
+        return true
+      else
+        return false
+      end
+    end
+
+    # One field blank means user hasn't filled out form properly (user error)
+    if plan_attr['name'].blank? || plan_attr['price_per_month'].blank?
       return true
     end
 

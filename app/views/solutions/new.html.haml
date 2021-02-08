@@ -1,5 +1,6 @@
 -# = render 'layouts/header', render_shadow: false
 - @render_shadow = false
+
 %div{class: "flex flex-wrap justify-center px-4", data: { controller: "data-binding"} }
   = form_with model: @solution, local: true, html: {class: ""} do |f|
     -# 2 Column
@@ -18,11 +19,12 @@
             %div{class: "text-base font-medium"}
               What product does your solution use?
             %div{class: "mt-4 w-full"}
-              = f.select :product_id, Product.all.order('LOWER(name) ASC').collect {|a| [a.name, a.id]}, {selected: "#{params.dig(:solution, :product_id).blank? ? 1 : params.dig(:solution, :product_id)}", include_blank: "Add a new product"}, {class: "w-full text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+
+              = f.select :product_id, Product.all.order('LOWER(name) ASC').collect {|a| [a.name, a.id]}, {selected: "#{params.dig(:solution, :product_id).nil? ? 1 : params.dig(:solution, :product_id)}", include_blank: "Add a new product"}, {class: "w-full text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
               #product_builder
                 = f.fields_for :product do |builder|
                   %div{class: "mt-4 flex items-center"}
-                    %div{class: "font-medium"}
+                    %div{class: ""}
                       Product name
                     %div{class: "ml-2 text-gray-600"}
                       = "- Required"
@@ -31,7 +33,7 @@
                     class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                     id: "product-name"
                   %div{class: "mt-4 flex items-center"}
-                    %div{class: "font-medium"}
+                    %div{class: ""}
                       Logo url
                     %div{class: "ml-2 text-gray-600"}
                       = "- Required"
@@ -42,10 +44,47 @@
                     placeholder: "https://"
                   %div{class: "text-gray-600 text-xs mt-1"}
                     Preview not available. Use a square image (atleast 60 x 60) for best results.
-              %div{class: "inline-flex items-center mt-3 ml-1"}
-                = f.check_box :is_creator, class: "form-checkbox rounded"
-                %div{class: "text-black text-sm ml-2"}
-                  Did you help make this product?
+
+            %div{class: "mt-6 text-base font-medium"}
+              What tier plan of the product are you using in your solution?
+            %div{class: "mt-4 w-full"}
+              = f.select :plan_id, {}, {selected: "#{params.dig(:solution, :plan_id).nil? ? 1 : params.dig(:solution, :plan_id)}", include_blank: "Add a new plan"}, {class: "w-full text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+              #plan_builder
+                = f.fields_for :plan do |builder|
+                  %div{class: "mt-4 flex items-center"}
+                    %div{class: ""}
+                      Plan name
+                    %div{class: "ml-2 text-gray-600"}
+                      = "- Required"
+                  = builder.text_field :name,
+                    class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                    id: "plan-name"
+                  %div{class: "mt-4 flex items-center"}
+                    %div{class: ""}
+                      Price per month (billed monthly)
+                    %div{class: "ml-2 text-gray-600"}
+                      = "- Required"
+                  %div{class: "flex items-center text-lg"}
+                    $
+                    %div{class: "w-20"}
+                      = builder.number_field :price_per_month, step: :any,
+                        class: "ml-1 mt-2 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                        id: "plan-price"
+                  %div{class: "text-gray-600 text-xs"}
+                    Enter 0 for a free plan.
+                  %div{class: "inline-flex items-center mt-2 ml-1"}
+                    = builder.check_box :is_price_per_user, id: "plan-per-user", class: "form-checkbox rounded"
+                    %div{class: "text-black text-sm ml-2"}
+                      This price is per user per month
+
+
+
+
+
+            %div{class: "inline-flex items-center mt-6 ml-1"}
+              = f.check_box :is_creator, class: "form-checkbox rounded"
+              %div{class: "text-black text-sm ml-2"}
+                I helped make this product
 
 
 
@@ -89,7 +128,7 @@
               %div{class: "ml-2 text-gray-600"}
                 = "- Optional"
             %div{class: "w-full mt-1"}
-              - options = @solution.group_list.pluck(:title) + Group.all.pluck(:title)
+              - options = @solution.group_list + Group.all.pluck(:title)
               -# - byebug
               = f.select :group_list, options, {}, id: "group_select", :multiple => true, class: "w-full"
               -# - niche_from_param = params[:code] ? (Industry.where(code: params[:code]).empty? ?  Occupation.where(code: params[:code]) : Industry.where(code: params[:code])) : nil
@@ -207,7 +246,7 @@
             %div{class: "mt-2"}
               General tags
             %div{class: "text-gray-600 text-xs mt-1"}
-              If a business/person from an unrelated industry/occupation would get value from your solution, what phrase would they search for to find a solution like yours?
+              If a business/person from an unrelated industry/occupation would get value from your solution, what phrase would they filter by to find a solution like yours?
               -# General tags make it easier to find your solution across different communities. Use words that make sense across many different industries / occupations.
             %div{class: "mt-1"}
               -# - options = Solution.general_tag_counts.collect {|t| [t.name, t.name] }
@@ -340,8 +379,22 @@
 
 
 :javascript
+  function updatePlanPreview() {
+    if ($('#solution_plan_id').val()){
+      $("#plan_builder").hide();
+      document.getElementById('plan-name').value = '';
+      document.getElementById('plan-price').value = '';
+      document.getElementById('plan-per-user').value = '';
+    } else  {
+      $("#plan_builder").show()
+    }
+  };
+  updatePlanPreview();
+  $('#solution_plan_id').on('change', updatePlanPreview);
+
   function updateProdcutPreview() {
     if ($('#solution_product_id').val()){
+      console.log("here");
       $("#product_builder").hide();
       document.getElementById('product-name').value = '';
       document.getElementById('thumbnail-url').value = '';
@@ -350,7 +403,22 @@
         document.getElementById("product_logo").src = data.thumbnail_url;
         document.getElementById("product_name").textContent = data.name;
         // JSON result in `data` variable
+
+        // This code in AJAX response!
+        $("#solution_plan_id").children().remove();
+        var listitems = [];
+
+        var selectedId = parseInt("#{params.dig(:solution, :plan_id).nil? ? 1 : params.dig(:solution, :plan_id)}");
+        listitems += `<option value>Add a new plan</option>`;
+        $.each(data.plans,function(key, value) {
+          listitems += `<option value="${value.id}" ${key + 1 == selectedId ? "selected" : ""}>${value.name} - $${value.price_per_month}${value.is_price_per_user ? " / user" : ""} / month</option>`;
+        });
+        $("#solution_plan_id").append(listitems);
+        updatePlanPreview();
       });
+
+
+
     } else  {
       $("#product_builder").show()
       document.getElementById("product_logo").src = "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png";
@@ -359,6 +427,8 @@
   };
   updateProdcutPreview();
   $('#solution_product_id').on('change', updateProdcutPreview);
+
+
 
 
 :javascript
@@ -378,3 +448,4 @@
       return event.preventDefault();
     });
   });
+= javascript_packs_with_chunks_tag 'select/community', 'data-turbolinks-track': 'reload'

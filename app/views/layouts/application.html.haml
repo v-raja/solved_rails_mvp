@@ -14,8 +14,8 @@
     = render 'layouts/rails_default'
     = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
-    - if @use_select_community
-      = javascript_packs_with_chunks_tag 'select/community', 'data-turbolinks-track': 'reload'
+    -# - if @use_select_community
+    -#   = javascript_packs_with_chunks_tag 'select/community', 'data-turbolinks-track': 'reload'
     = render 'application/favicon'
     = yield :head
   %body

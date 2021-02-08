@@ -48,17 +48,18 @@ $(document).on('turbolinks:load', function() {
 
     search.addWidgets([
       instantsearch.widgets.configure({
-        // attributesToSnippet: ['description:100'],
+        attributesToSnippet: ['description_text:60'],
+        // highlightedTagName: "mark",
         // hitsPerPage: 12,
         // filters: 'NOT categories:"Cell Phones"'
       }),
       instantsearch.widgets.searchBox({
         container: '#searchbox_posts',
-        placeholder: "Search for a problem by keywords (press enter to search)",
-        searchAsYouType: false,
+        placeholder: "Search for a problem by keywords",
+        searchAsYouType: true,
         cssClasses: {
           form: "relative flex items-center",
-          input: "block pl-9 pr-4 py-2 w-full shadow-none hover:shadow-md rounded-lg placeholder-gray-500 bg-white border border-gray-400 hover:border-transparent focus:outline-none focus:shadow-md focus:ring-transparent focus:border-transparent text-gray-900",
+          input: "block pl-9 pr-4 py-2 w-full shadow-none hover:shadow-md rounded-lg placeholder-gray-700 bg-white border-0 border-gray-400 hover:border-transparent focus:outline-none focus:shadow-md focus:ring-transparent focus:border-transparent text-gray-900",
           submit: "absolute inset-y-0 left-3 flex items-center",
           submitIcon: "h-4 w-4 text-gray-600 fill-current",
           reset: "hidden"
@@ -69,7 +70,7 @@ $(document).on('turbolinks:load', function() {
         container: '#hits',
         cssClasses: {
           root: "w-full",
-          list: "w-full grid grid-cols-1 gap-x-2 gap-y-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+          list: "w-full grid grid-cols-1 gap-x-2 gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4",
           // item: "m-0 p-0 px-5 bg-white overflow-x-auto border border-gray-400 w-full hover:border-gray-900 group",
           item: ""
         },
@@ -81,9 +82,10 @@ $(document).on('turbolinks:load', function() {
             // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
             // display_other_keywords: other_keywords !== "",
           }));
-          // console.log(itemz);
+          console.log(itemz);
           return itemz;
         },
+        escapeHTML: false,
         templates: {
           empty: 'No solutions have been found for "{{ query }}"',
           item: '<a href={{{url}}} target="_blank">'+
@@ -94,7 +96,7 @@ $(document).on('turbolinks:load', function() {
                             <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player relative">
                               <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
                                 {{#show_votes}}
-                                  <div class="absolute right-2 top-2 max-w-min max-h-min text-white font-bold text-sm p-2 bg-primary rounded-lg">
+                                  <div class="absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg">
                                     <div class="flex items-centerjustify-center place-self-center">
                                       {{{nb_votes}}}
                                       <div class="ml-0.5">
@@ -136,6 +138,11 @@ $(document).on('turbolinks:load', function() {
                     </div>` +
 
 
+                    `<div class="pt-2 text-gray-700 text-xs px-2 h-24 overflow-y-auto">
+
+                    {{{_highlightResult.description_text.value}}}
+                    </div>` +
+
 
 
                     '</div>' +
@@ -143,6 +150,7 @@ $(document).on('turbolinks:load', function() {
                 '</a>'
         },
       }),
+      //{{#helpers.snippet}}{ "attribute": "description_text", "highlightedTagName": "mark" }{{/helpers.snippet}}
 
     //   `<div class=" video aspect-w-7 aspect-h-4 mt-6 hidden">
     //   <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
@@ -175,16 +183,19 @@ $(document).on('turbolinks:load', function() {
             <span class="ml-1 hover:underline">{{label}}  ({{count}})</span>
           </a>
         `,
+        // searchableNoResults: `noResults`
         },
         placeholder: "Search for a tag",
         cssClasses: {
-          searchableForm: "border-0 flex-shrink-0 w-min",
-          searchableInput: "bg-transparent border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-3 border-secondary",
+          searchableForm: "border-0 flex-shrink-0",
+          searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
+          // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
           // root: the root element of the widget.
-          list: "mt-4 space-y-2",
-          // item: the list items. They contain the link and separator.
+          list: "mt-3 space-y-2",
+          item: "text-sm",
           // selectedItem: each selected item in the list.
-          // label: "{{{label}}}}1",
+          label: "text-sm",
+          noResults: "text-sm mt-2",
           // checkbox: each checkbox element (when using the default template).
           // labelText: each label text element.
           showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
@@ -197,6 +208,28 @@ $(document).on('turbolinks:load', function() {
           // searchableLoadingIndicator: the submit button element of the search box.
           // searchableLoadingIcon: the submit button icon of the search box.
         }
+      }),
+
+      instantsearch.widgets.currentRefinements({
+        container: '#current-refinements',
+        cssClasses: {
+          root: '',
+          item: 'text-sm rounded-md bg-gray-800 text-white font-semibold border px-3 py-2',
+          category: "ml-2",
+          label: "text-xs uppercase",
+          categoryLabel: "text-xs ml-1",
+          delete: "ml-1 text-xxs font-bold pt-0.5"
+        },
+        transformItems(items) {
+          var itemz = items.map(item => ({
+            ...item,
+            label: item.label === "_tags" ? "tags" : "communities",
+            // keyword_list: handleKeywords(item._highlightResult.keyword_list),
+            // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
+            // display_other_keywords: other_keywords !== "",
+          }));
+          return itemz;
+        },
       }),
 
       instantsearch.widgets.refinementList({
@@ -214,14 +247,32 @@ $(document).on('turbolinks:load', function() {
         },
         placeholder: "Search for a community",
         cssClasses: {
-          searchableForm: "border-0 flex-shrink-0 w-min",
-          searchableInput: "bg-transparent border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-3 border-secondary",
-          list: "mt-4 space-y-4",
-          searchableSubmit: "hidden",
-          searchableReset: "hidden",
-          item: "leading-none",
+          searchableForm: "border-0 flex-shrink-0",
+          // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
+          searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
+          // root: the root element of the widget.
+          list: "mt-3 space-y-3",
+          item: "text-sm leading-tight",
+          // selectedItem: each selected item in the list.
+          label: "leading-none",
+          // checkbox: each checkbox element (when using the default template).
+          // labelText: each label text element.
+          noResults: "text-sm mt-2",
           showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
-          disabledShowMore: "hidden"
+          disabledShowMore: "hidden",
+          // count: each count element (when using the default template).
+          // searchableRoot: "flex-shrink-0",
+          searchableSubmit: "hidden",
+          // searchableSubmitIcon: the reset button icon of the search box.
+          searchableReset: "hidden",
+          // searchableForm: "border-0 flex-shrink-0 w-min",
+          // searchableInput: "bg-transparent border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-3 border-secondary",
+          // list: "mt-4 space-y-4",
+          // searchableSubmit: "hidden",
+          // searchableReset: "hidden",
+          // item: "leading-none",
+          // showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          // disabledShowMore: "hidden"
         }
       }),
 
