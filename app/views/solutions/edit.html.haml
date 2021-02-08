@@ -269,7 +269,7 @@
       var selectedId = parseInt("#{params.dig(:solution, :plan_id).nil? ? 1 : params.dig(:solution, :plan_id)}");
       listitems += `<option value>Add a new plan</option>`;
       $.each(data.plans,function(key, value) {
-        listitems += `<option value="${value.id}" ${key + 1 == selectedId ? "selected" : ""}>${value.name} - $${value.price_per_month}${value.is_price_per_user ? " / user" : ""} / month</option>`;
+        listitems += `<option value="${value.id}" ${key + 1 == selectedId ? "selected" : ""}>${value.name} - $${parseFloat(value.price_per_month).toFixed(2)}${value.is_price_per_user ? " / user" : ""} / month</option>`;
       });
       $("#solution_plan_id").append(listitems);
       updatePlanPreview();

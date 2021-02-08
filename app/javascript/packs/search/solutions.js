@@ -218,12 +218,17 @@ $(document).on('turbolinks:load', function() {
           category: "ml-2",
           label: "text-xs uppercase",
           categoryLabel: "text-xs ml-1",
-          delete: "ml-1 text-xxs font-bold pt-0.5"
+          delete: "ml-1 text-xxs font-bold pt-1 pl-1 pr-3 focus:outline-none"
         },
         transformItems(items) {
+          const attributeDisplayValue = {
+            "_tags": "tags",
+            "communities.title": "communities"
+          };
+
           var itemz = items.map(item => ({
             ...item,
-            label: item.label === "_tags" ? "tags" : "communities",
+            label: attributeDisplayValue[item.label] ? attributeDisplayValue[item.label] : item.label,
             // keyword_list: handleKeywords(item._highlightResult.keyword_list),
             // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
             // display_other_keywords: other_keywords !== "",

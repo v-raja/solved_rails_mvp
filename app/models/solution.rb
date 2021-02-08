@@ -91,7 +91,7 @@ class Solution < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development? do
+  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development?, if: user_confimed? do
     attribute :created_at, :title, :is_creator, :comments_count, :description
 
     add_attribute :url
@@ -176,6 +176,8 @@ class Solution < ApplicationRecord
     self.niche_specific_tag_list + self.general_tag_list
   end
 
+
+
   def created_by_user?
     self.is_creator
   end
@@ -230,6 +232,23 @@ class Solution < ApplicationRecord
   # end
 
   private
+
+  def user_confimed
+    self.user.confirmed?
+  end
+
+  def user_confimed_changed?
+    self.user.confirmed_at_changed?
+  end
+
+
+  def _tags_changed?
+    general_tag_list_changed?
+  end
+
+  def should_generate_new_friendly_id?
+    title_changed? || super
+  end
 
   def url
     Rails.application.routes.url_helpers.solution_path(self.slug)

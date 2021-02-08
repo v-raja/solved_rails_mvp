@@ -5,9 +5,9 @@ class HomeController < ApplicationController
 
   def all
     if params[:tag]
-      @posts = Solution.tagged_with(params[:tag], on: :general_tags).includes([:user, :product])
+      @posts = Solution.tagged_with(params[:tag], on: :general_tags).includes([:user, :product, :plan])
     else
-      @posts = Solution.all.top.includes([:user, :product])
+      @posts = Solution.all.top.includes([:user, :product, :plan])
     end
   end
 
