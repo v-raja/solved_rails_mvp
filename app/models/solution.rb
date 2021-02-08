@@ -91,7 +91,7 @@ class Solution < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development?, if: user_confimed do
+  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development?, if: user_confirmed do
     attribute :created_at, :title, :is_creator, :comments_count, :description
 
     add_attribute :url
@@ -233,11 +233,11 @@ class Solution < ApplicationRecord
 
   private
 
-  def user_confimed
+  def user_confirmed
     self.user.confirmed?
   end
 
-  def user_confimed_changed?
+  def user_confirmed_changed?
     self.user.confirmed_at_changed?
   end
 
