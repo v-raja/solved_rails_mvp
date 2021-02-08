@@ -276,10 +276,16 @@ class Solution < ApplicationRecord
   end
 
   def plan_for_search
+    price = plan.price_per_month.to_f;
     plan.nil? ? {} : {
       name: plan.name,
-      price_per_month: plan.price_per_month,
-      is_price_per_user: plan.is_price_per_user
+      # price_per_user_per_month: plan.is_price_per_user ? price : nil,
+      # price_per_month: plan.is_price_per_user ? nil : price,
+      price: price,
+      is_price_per_user: plan.is_price_per_user,
+      price_facet: plan.is_price_per_user ? "Per user per month" : "Per month",
+      is_for_education: plan.is_for_education,
+      is_free: price == 0
     }
 
   end

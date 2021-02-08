@@ -838,6 +838,11 @@
     postcss "7.0.32"
     purgecss "^3.0.0"
 
+"@jinsung.lim/tailwindcss-filters@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@jinsung.lim/tailwindcss-filters/-/tailwindcss-filters-0.1.1.tgz#688d0af55182b45c85036752572415f82abfce05"
+  integrity sha512-t4JMY8uycn525G4FcBz5F9zoynAzdynoYabZ7Wzv+DNx0clY/ZUn/uBGAUNmJqAo59JhSdfUBHfH2ZEy08iXcw==
+
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@npmcli/move-file/-/move-file-1.0.1.tgz#de103070dac0f48ce49cf6693c23af59c0f70464"

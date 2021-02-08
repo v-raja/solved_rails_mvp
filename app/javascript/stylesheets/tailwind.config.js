@@ -237,6 +237,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@jinsung.lim/tailwindcss-filters'),
     // require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
   ],

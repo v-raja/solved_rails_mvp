@@ -17,7 +17,7 @@
             - niche = solution.industries.first || solution.occupations.first
             %div{class: "flex-shrink-0 "}
               = niche.title
-          %div{class: "text-xxs md:text-xs text-gray-700 flex items-center mr-6 overflow-x-scroll disable-scrollbars"}
+          %div{class: "text-xxs md:text-xs text-gray-700 flex items-center overflow-x-scroll disable-scrollbars"}
             %div{class: "flex-shrink-0 "}
               = solution.user.name
             %div{class: "mx-1"}
@@ -25,14 +25,14 @@
             %div{class: "flex-shrink-0 "}
               = time_ago_in_words(solution.created_at)
               ago
-            - if solution.plan
-              %div{class: "mx-1"}
-                &middot;
-              - if solution.plan.price_per_month == 0
-                Free
-              - else
-                %div{class: "flex-shrink-0 "}
-                  = "#{number_to_currency(solution.plan.price_per_month, precision: 0)}#{solution.plan.is_price_per_user ? " /u" : nil}/mo."
+            -# - if solution.plan
+            -#   %div{class: "mx-1"}
+            -#     &middot;
+            -#   - if solution.plan.price_per_month == 0
+            -#     Free
+            -#   - else
+            -#     %div{class: "flex-shrink-0 "}
+            -#       = "#{number_to_currency(solution.plan.price_per_month, precision: 0)} #{solution.plan.is_price_per_user ? "/u" : nil}/mo."
 
 
 

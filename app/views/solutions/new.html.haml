@@ -61,6 +61,10 @@
                     id: "plan-name"
                   %div{class: "mt-1 text-xs text-gray-600"}
                     Try to use the official name. Avoid adding words like "Plan", or "Tier".
+                  %div{class: "inline-flex items-center mt-2 ml-1"}
+                    = builder.check_box :is_for_education, id: "plan-per-user", class: "form-checkbox rounded"
+                    %div{class: "text-black text-sm ml-2"}
+                      This plan is for non-profits / educational use only
                   %div{class: "mt-4 flex items-center"}
                     %div{class: ""}
                       Price per month (billed monthly)

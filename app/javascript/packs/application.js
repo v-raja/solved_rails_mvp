@@ -74,8 +74,9 @@ $( document ).on('turbolinks:load', function() {
       } else {
         var upvotes = playerElements[n].dataset.votes;
         if (upvotes > 0) {
-          upvoteOrPlayButton.setAttribute('class', 'absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg');
-          upvoteOrPlayButton.innerHTML = `
+          var upvote = document.createElement('div');
+          upvote.setAttribute('class', 'absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg');
+          upvote.innerHTML = `
           <div class="flex items-centerjustify-center place-self-center">
             ${upvotes}
             <div class="ml-0.5">
@@ -83,6 +84,18 @@ $( document ).on('turbolinks:load', function() {
             </div>
           </div>
           `
+          // var price = document.createElement('div');
+          // price.setAttribute('class', 'absolute right-2 bottom-2 text-white font-bold text-sm p-2 bg-primary rounded-lg');
+          // price.innerHTML = `
+          //   <div class="flex items-centerjustify-center place-self-center">
+          //     ${upvotes}
+          //     <div class="ml-0.5">
+          //       ▲
+          //     </div>
+          //   </div>
+          // `
+          upvoteOrPlayButton.appendChild(upvote);
+          // upvoteOrPlayButton.appendChild(price);
         }
       }
 

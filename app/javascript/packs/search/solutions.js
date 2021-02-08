@@ -25,33 +25,11 @@ $(document).on('turbolinks:load', function() {
       indexName: gon.index_name + '_' + process.env.RAILS_ENV,
       // urlSync: true,
       routing: searchRouting,
-        // stateMapping: instantsearch.stateMappings.simple(),
-        // router: router
-      //   searchRouting
-      // }
-      // searchFunction(helper) {
-      //   if (helper.state.query.length < 2) {
-      //     document.querySelector('#app_body').style.display = '';
-      //     document.querySelector('#results').style.display = 'none';
-      //     return; // no search if less than 2 character
-      //   }
-
-      //   const container = document.querySelector('#results');
-      //   container.style.display = helper.state.query === '' ? 'none' : '';
-
-      //   const empty_search = document.querySelector('#app_body');
-      //   empty_search.style.display = helper.state.query === '' ? '' : 'none';
-
-      //   helper.search();
-      // }
     });
 
     search.addWidgets([
       instantsearch.widgets.configure({
         attributesToSnippet: ['description_text:60'],
-        // highlightedTagName: "mark",
-        // hitsPerPage: 12,
-        // filters: 'NOT categories:"Cell Phones"'
       }),
       instantsearch.widgets.searchBox({
         container: '#searchbox_posts',
@@ -71,16 +49,14 @@ $(document).on('turbolinks:load', function() {
         cssClasses: {
           root: "w-full",
           list: "w-full grid grid-cols-1 gap-x-2 gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4",
-          // item: "m-0 p-0 px-5 bg-white overflow-x-auto border border-gray-400 w-full hover:border-gray-900 group",
           item: ""
         },
         transformItems(items) {
           var itemz = items.map(item => ({
             ...item,
             show_votes: item.nb_votes > 0,
-            // keyword_list: handleKeywords(item._highlightResult.keyword_list),
-            // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
-            // display_other_keywords: other_keywords !== "",
+            price: item.product.plan.price === 0 ? "Free" : item.product.plan.is_price_per_user ? `\$${item.product.plan.price} /u/mo.` : `\$${item.product.plan.price} /mo.`,
+            educational_use: item.product.plan.is_for_education ? "(for Non-profit / Education)" : "",
           }));
           console.log(itemz);
           return itemz;
@@ -126,11 +102,10 @@ $(document).on('turbolinks:load', function() {
                                 {{{communities.0.title}}}
                               </div>
                             </div>
-                            <div class=" text-xxs md:text-xs text-gray-700 flex items-center mr-6 overflow-x-scroll disable-scrollbars">
+                            <div class=" text-xxs md:text-xs text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
                               <div class=" flex-shrink-0 ">
-                                {{{user.name}}}
+                                {{{user.name}}} · {{{price}}} {{{educational_use}}}
                               </div>
-
                             </div>
                           </div>
                         </div>
@@ -150,27 +125,7 @@ $(document).on('turbolinks:load', function() {
                 '</a>'
         },
       }),
-      //{{#helpers.snippet}}{ "attribute": "description_text", "highlightedTagName": "mark" }{{/helpers.snippet}}
 
-    //   `<div class=" video aspect-w-7 aspect-h-4 mt-6 hidden">
-    //   <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
-    //     <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player" data-id="{{{videos.0.youtube_id}}}">
-
-    //       <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
-    //         <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="h-full w-full object-cover cursor-pointer"/>
-    //         <div class="absolute w-16 inset-1/2 h-16 -m-8 cursor-pointer">
-    //           <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-black opacity-80 group-hover:opacity-100 group-hover:text-red-yt" viewBox="0 -77 512.00213 512">
-    //             <path d="m501.453125 56.09375c-5.902344-21.933594-23.195313-39.222656-45.125-45.128906-40.066406-10.964844-200.332031-10.964844-200.332031-10.964844s-160.261719 0-200.328125 10.546875c-21.507813 5.902344-39.222657 23.617187-45.125 45.546875-10.542969 40.0625-10.542969 123.148438-10.542969 123.148438s0 83.503906 10.542969 123.148437c5.90625 21.929687 23.195312 39.222656 45.128906 45.128906 40.484375 10.964844 200.328125 10.964844 200.328125 10.964844s160.261719 0 200.328125-10.546875c21.933594-5.902344 39.222656-23.195312 45.128906-45.125 10.542969-40.066406 10.542969-123.148438 10.542969-123.148438s.421875-83.507812-10.546875-123.570312zm0 0"></path><path d="m204.96875 256 133.269531-76.757812-133.269531-76.757813zm0 0" fill="#fff"></path>
-    //           </svg>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>` +
-
-
-
-      // <iframe allowfullscreen="1" class=" h-full w-full" frameborder="0" src="https://www.youtube-nocookie.com/embed/{{{videos.0.youtube_id}}}?rel=0"></iframe>
       instantsearch.widgets.refinementList({
         container: '#tags',
         attribute: '_tags',
@@ -184,30 +139,19 @@ $(document).on('turbolinks:load', function() {
             <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
           </div>
         `,
-        // searchableNoResults: `noResults`
         },
         placeholder: "Search for a tag",
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
-          // root: the root element of the widget.
           list: "mt-3 space-y-2",
           item: "",
-          // selectedItem: each selected item in the list.
           label: "",
           noResults: "text-sm mt-2",
-          // checkbox: each checkbox element (when using the default template).
-          // labelText: each label text element.
           showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
           disabledShowMore: "hidden",
-          // count: each count element (when using the default template).
-          // searchableRoot: "flex-shrink-0",
           searchableSubmit: "hidden",
-          // searchableSubmitIcon: the reset button icon of the search box.
           searchableReset: "hidden"
-          // searchableLoadingIndicator: the submit button element of the search box.
-          // searchableLoadingIcon: the submit button icon of the search box.
         }
       }),
 
@@ -224,19 +168,80 @@ $(document).on('turbolinks:load', function() {
         transformItems(items) {
           const attributeDisplayValue = {
             "_tags": "tags",
-            "communities.title": "communities"
+            "communities.title": "communities",
+            "product.plan.price": "price",
+            "product.plan.price_facet": "price",
+            "product.plan.is_free": "Show only free"
           };
 
           var itemz = items.map(item => ({
             ...item,
             label: attributeDisplayValue[item.label] ? attributeDisplayValue[item.label] : item.label,
-            // keyword_list: handleKeywords(item._highlightResult.keyword_list),
-            // other_keyword_list: otherKeywords(item._highlightResult.keyword_list),
-            // display_other_keywords: other_keywords !== "",
           }));
           return itemz;
         },
       }),
+
+
+      instantsearch.widgets.refinementList({
+        container: '#price_facet',
+        attribute: 'product.plan.price_facet',
+        operator: 'and',
+
+        templates: {
+          item:  `
+            <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
+              <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
+              <span class="ml-1 text-xs hover:underline">{{{label}}}</span>
+            </div>
+          `
+        },
+        cssClasses: {
+          searchableForm: "border-0 flex-shrink-0",
+          searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
+          list: "mt-3 space-y-2",
+          item: "",
+          noResults: "text-sm mt-2",
+          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          disabledShowMore: "hidden",
+          searchableSubmit: "hidden",
+          searchableReset: "hidden"
+
+        }
+      }),
+
+      instantsearch.widgets.rangeInput({
+        container: '#price_range',
+        attribute: 'product.plan.price',
+        templates: {
+          separatorText: 'to',
+          submitText: 'go',
+        },
+        cssClasses: {
+          form: "flex items-center",
+          inputMin: "appearance-none py-1 pr-0 flex-grow  bg-white text-sm w-full border-0 focus:outline-none focus:ring-0 ",
+          // label: "text-xs mx-5 flex-shrink-0",
+          inputMax: "appearance-none py-1 pr-0 flex-grow bg-white text-sm w-full border-0 focus:outline-none focus:ring-0 ",
+          submit: "text-xs p-2 flex-shrink-0 focus:outline-none",
+          separator: "text-xs mx-1 flex-shrink-0"
+          // submit: the submit button.
+        }
+      }),
+
+      instantsearch.widgets.toggleRefinement({
+        container: '#is_free',
+        attribute: 'product.plan.is_free',
+        templates: {
+          labelText:  "Show only free"
+        },
+        cssClasses: {
+          checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary hover:bg-white checked:border-transparent  w-4 h-4",
+          labelText: "ml-1 text-xs hover:underline",
+          root: "flex items-center cursor-pointer",
+        }
+      }),
+
+
 
       instantsearch.widgets.refinementList({
         container: '#communities',
@@ -255,37 +260,16 @@ $(document).on('turbolinks:load', function() {
         placeholder: "Search for a community",
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
-          // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          // root: the root element of the widget.
           list: "mt-3 space-y-3",
           item: "leading-tight",
-          // selectedItem: each selected item in the list.
           label: "leading-none",
-          // checkbox: each checkbox element (when using the default template).
-          // labelText: each label text element.
           noResults: "text-sm mt-2",
           showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
           disabledShowMore: "hidden",
-          // count: each count element (when using the default template).
-          // searchableRoot: "flex-shrink-0",
           searchableSubmit: "hidden",
-          // searchableSubmitIcon: the reset button icon of the search box.
           searchableReset: "hidden",
-          // searchableForm: "border-0 flex-shrink-0 w-min",
-          // searchableInput: "bg-transparent border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-3 border-secondary",
-          // list: "mt-4 space-y-4",
-          // searchableSubmit: "hidden",
-          // searchableReset: "hidden",
-          // item: "leading-none",
-          // showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
-          // disabledShowMore: "hidden"
         }
-      }),
-
-      instantsearch.widgets.rangeInput({
-        container: '#price_range',
-        attribute: 'product.plan.price_per_month',
       }),
 
       instantsearch.widgets.refinementList({
@@ -307,26 +291,13 @@ $(document).on('turbolinks:load', function() {
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          // searchableInput: "bg-transparent text-sm w-44 border-0 focus:outline-none focus:ring-0 focus:border-secondary border-b-2 border-secondary",
-          // root: the root element of the widget.
           list: "mt-3 space-y-2",
           item: "",
-          // selectedItem: each selected item in the list.
-          // label: "ml-1 hover:underline",
-
           noResults: "text-sm mt-2",
-
-
-          // labelText: each label text element.
           showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
           disabledShowMore: "hidden",
-          // count: each count element (when using the default template).
-          // searchableRoot: "flex-shrink-0",
           searchableSubmit: "hidden",
-          // searchableSubmitIcon: the reset button icon of the search box.
           searchableReset: "hidden"
-          // searchableLoadingIndicator: the submit button element of the search box.
-          // searchableLoadingIcon: the submit button icon of the search box.
         }
       }),
 
@@ -334,5 +305,6 @@ $(document).on('turbolinks:load', function() {
 
     search.start();
   }
+
 })
 
