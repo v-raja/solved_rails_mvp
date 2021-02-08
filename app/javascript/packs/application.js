@@ -74,7 +74,7 @@ $( document ).on('turbolinks:load', function() {
       } else {
         var upvotes = playerElements[n].dataset.votes;
         if (upvotes > 0) {
-          upvoteOrPlayButton.setAttribute('class', 'absolute right-2 top-2 max-w-min max-h-min text-white font-bold text-sm p-2 bg-primary rounded-lg');
+          upvoteOrPlayButton.setAttribute('class', 'absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg');
           upvoteOrPlayButton.innerHTML = `
           <div class="flex items-centerjustify-center place-self-center">
             ${upvotes}

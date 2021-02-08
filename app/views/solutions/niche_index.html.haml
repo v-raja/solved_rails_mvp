@@ -9,7 +9,7 @@
   - nb_followers = tmp[:nb_followers]
   %div{class: "mt-10 flex justify-center pb-10"}
     %div{class: "max-w-screen-lg w-full flex"}
-      %div{class: "w-full px-4"}
+      %div{class: "w-full px-4 pb-6 md:pb-0"}
         - if is_postable
           - if @solutions.any?
 
@@ -80,15 +80,16 @@
               -#   Invite your friends to unlock this community quicker 🔓
 
           - else
-            %div{class: "mt-20 px-20 text-lg text-center"}
-              = "Sign up and follow the #{@niche.title} community 👇"
+            %div{class: "w-full flex justify-center"}
+              %div{class: "mt-10 max-w-md w-full text-lg text-center"}
+                = "Sign up and follow the #{@niche.title} community 👇"
 
-            = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-4 w-full flex justify-center px-28"} do |f|
+            = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-6 md:mt-4 w-full flex justify-center flex-wrap px-10 sm:flex-nowrap md:px-28"} do |f|
               %input{type: "email", name: "user[email]",
                 placeholder: "Email",
                 autocomplete: "email",
-                class: "block text-gray-900 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
-              = f.submit "Sign Up & Follow", class: "flex-shrink-0 ml-2 py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+                class: "block text-gray-900 w-full max-w-xs sm:w-56 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+              = f.submit "Sign Up & Follow", class: "mt-2 sm:mt-0 flex-shrink-0 sm:ml-2 py-1 px-6 mx-8 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
 
 
 
