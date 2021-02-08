@@ -145,7 +145,7 @@ class Solution < ApplicationRecord
     end
 
     attribute :platforms do
-      platform_list.map {|p| p.titleize(except: ["macOS"]) }
+      platform_list.map {|p| p.in?(["macOS", "iOS"]) ? p : p.titleize }
     end
 
     tags do
