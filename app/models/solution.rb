@@ -145,7 +145,7 @@ class Solution < ApplicationRecord
     end
 
     attribute :platforms do
-      platform_list.map {|p| p.in?(["macOS", "iOS"]) ? p : p.titleize }
+      platform_list.map {|p| Solution.platform_name_stylized(p) }
     end
 
     tags do
@@ -156,6 +156,14 @@ class Solution < ApplicationRecord
     # rank by comments count, is is_creator
     # facet by tags, niche_specific tags, industries, occupations
     # searchableAttributes ['unordered(title)', 'unordered(description)']
+  end
+
+  def self.platform_name_stylized(tag)
+    name = {
+      'macos' => 'macOS',
+      'ios' => 'iOS'
+    }[tag]
+    return name.nil? ? tag.titleize : name
   end
 
 
