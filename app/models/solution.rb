@@ -161,7 +161,8 @@ class Solution < ApplicationRecord
   def self.platform_name_stylized(tag)
     name = {
       'macos' => 'macOS',
-      'ios' => 'iOS'
+      'ios' => 'iOS',
+      'api' => 'API'
     }[tag]
     return name.nil? ? tag.titleize : name
   end
