@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
 
   def home
-    @posts = Solution.by_communities(current_user.niche_list).top
+    @posts = Solution.by_communities(current_user.niche_list).top.includes([:user, :product, :plan])
     @is_solutions_page = true
     @is_top_results = true
   end

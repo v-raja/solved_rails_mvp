@@ -91,7 +91,7 @@ class Solution < ApplicationRecord
 
   include AlgoliaSearch
 
-  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development?, if: user_confirmed do
+  algoliasearch index_name: 'solutions', per_environment: true, raise_on_failure: Rails.env.development?, if: :user_confirmed do
     attribute :created_at, :title, :is_creator, :comments_count, :description
 
     add_attribute :url
