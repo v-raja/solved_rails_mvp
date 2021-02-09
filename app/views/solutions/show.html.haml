@@ -1,6 +1,6 @@
 -# = render 'layouts/header', render_shadow: false
 
-%div{class: "bg-gray-200 flex pt-4 flex-wrap justify-center pb-10 px-4"}
+%div{class: "bg-gray-200 flex pt-4 flex-wrap justify-center pb-10 md:pb-2 px-4"}
 
   -# Logo, problem, product, and posted_to banner
   %div{class: "max-w-screen-lg w-full flex-1 flex flex-wrap md:flex-nowrap overflow-hidden relative"}
@@ -23,127 +23,129 @@
             Learn More
       -# %div{class: "mt-8 aspect-w-7 aspect-h-4"}
       -#   %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
-      %div{class: "h-full flex flex-col justify-between"}
+      %div{class: "h-full flex flex-col"}
         %div
           %div{class: "mt-10 flex items-center space-x-6 overflow-x-auto"}
             -# md:space-x-0 md:block md:space-y-6
             = render @solution.youtube_urls, yt_button: true, cached: true
-          %div{class: "mt-2 flex space-x-2"}
-            - @solution.youtube_urls.each_with_index do |yt_utl, idx|
-              = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
-        %div{class: "pb-6 md:pb-1"}
+          - if @solution.youtube_urls.count > 1
+            %div{class: "mt-2 flex space-x-2"}
+              - @solution.youtube_urls.each_with_index do |yt_utl, idx|
+                = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
+        %div{class: "mt-2 pb-6 md:pb-4"}
           %div{class: "mt-6 md:mt-10 text-xs font-semibold text-gray-600"}
             Posted to
-          %div{class: "mt-2 flex text-sm flex-col space-y-1 max-h-48 overflow-y-auto"}
+          %div{class: "mt-1 flex text-sm flex-col space-y-1 max-h-40 overflow-y-auto"}
             - if @solution.groups.any?
               - @solution.groups.each do |groups|
                 -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                = link_to "#{groups.title} (List)", groups, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+                = link_to "#{groups.title} (List)", groups, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
             - if @solution.industries.any?
               - @solution.industries.each do |industry|
                 -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
-                = link_to "#{industry.title} (Industry)", industry, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+                = link_to "#{industry.title} (Industry)", industry, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
             - if @solution.occupations.any?
               - @solution.occupations.each do |occupation|
                 -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                = link_to "#{occupation.title} (Occupation)", occupation, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+                = link_to "#{occupation.title} (Occupation)", occupation, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
 
 
-    %div{class: "w-full flex flex-col p-4 bg-white border rounded border-gray-300 md:ml-4 xl:ml-10"}
-      %div{class: "w-full flex flex-col justify-between"}
-        %div{class: "flex items-center w-full justify-between"}
-          %div{class: "flex flex-col flex-1 mr-6 w-4/5"}
-            %div{class: "flex-shrink font-medium md:text-sm lg:text-base"}
-              %h1= @solution.title
+    %div{class: "w-full md:ml-4 xl:ml-10"}
+      %div{class: "bg-white flex flex-col border p-4 rounded border-gray-300"}
+        %div{class: "w-full flex flex-col justify-between"}
+          %div{class: "flex items-center w-full justify-between"}
+            %div{class: "flex flex-col flex-1 mr-6 w-4/5"}
+              %div{class: "flex-shrink font-medium md:text-sm lg:text-base"}
+                %h1= @solution.title
 
-            %div{class: "w-auto md:w-64 lg:max-w-md lg:w-full xl:max-w-lg overflow-x-auto disable-scrollbars flex items-center mt-1 text-xxs text-gray-600 space-x-1"}
-              - tags_present = @solution.general_tags.present? || @solution.niche_specific_tags.present?
-              - if tags_present
-                %div
-                  Tags
-              - @solution.niche_specific_tags.each do |tag|
-                %div{class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                  = tag.name
-              - @solution.general_tags.each do |tag|
-                = link_to tag.name, search_solutions_path(tags: tag.name), class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"
-              - if tags_present
-                %div{class: "mx-1"}
-                  &middot;
-              %div{class: "text-gray-600 text-xxs flex-shrink-0"}
-                by
-                = @solution.user.name
-              - if policy(@solution).update?
-                %div{class: "mx-1 text-gray-600"}
-                  &middot;
-                = link_to "edit", edit_solution_path(@solution), class: " text-gray-600 text-xxs", "data-turbolinks": false
-              - if policy(@solution).destroy?
-                %div{class: "mx-1 text-gray-600"}
-                  &middot;
-                = link_to "delete", solution_path(@solution), method: :delete, class: "underline text-red-500 text-xxs"
-          - path = !user_signed_in? ? new_user_session_path : current_user.voted_up_on?(@solution) ? remove_upvote_solution_path(@solution) : upvote_solution_path(@solution)
-          = link_to path do
-            %div{class: 'text-white font-bold text-lg leading-none py-2 px-3 bg-primary rounded-lg group'}
-              %div{class: "place-self-center"}
-                - upvotes = upvote_count(@solution)
-                - if upvotes > 0
-                  %div{class: "py-1 flex items-center"}
-                    = upvotes
-                    %div{class: "ml-0.5 group-hover:animate-bounce"}
+              %div{class: "w-auto md:w-64 lg:max-w-md lg:w-full xl:max-w-lg overflow-x-auto disable-scrollbars flex items-center mt-1 text-xxs text-gray-600 space-x-1"}
+                - tags_present = @solution.general_tags.present? || @solution.niche_specific_tags.present?
+                - if tags_present
+                  %div
+                    Tags
+                - @solution.niche_specific_tags.each do |tag|
+                  %div{class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+                    = tag.name
+                - @solution.general_tags.each do |tag|
+                  = link_to tag.name, search_solutions_path(tags: tag.name), class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"
+                - if tags_present
+                  %div{class: "mx-1"}
+                    &middot;
+                %div{class: "text-gray-600 text-xxs flex-shrink-0"}
+                  by
+                  = @solution.user.name
+                - if policy(@solution).update?
+                  %div{class: "mx-1 text-gray-600"}
+                    &middot;
+                  = link_to "edit", edit_solution_path(@solution), class: " text-gray-600 text-xxs", "data-turbolinks": false
+                - if policy(@solution).destroy?
+                  %div{class: "mx-1 text-gray-600"}
+                    &middot;
+                  = link_to "delete", solution_path(@solution), method: :delete, class: "underline text-red-500 text-xxs"
+            - path = !user_signed_in? ? new_user_session_path : current_user.voted_up_on?(@solution) ? remove_upvote_solution_path(@solution) : upvote_solution_path(@solution)
+            = link_to path do
+              %div{class: 'text-white font-bold text-lg leading-none py-2 px-3 bg-primary rounded-lg group'}
+                %div{class: "place-self-center"}
+                  - upvotes = upvote_count(@solution)
+                  - if upvotes > 0
+                    %div{class: "py-1 flex items-center"}
+                      = upvotes
+                      %div{class: "ml-0.5 group-hover:animate-bounce"}
+                        ▲
+                  - else
+                    %div{class: "p-1 text-xl group-hover:animate-bounce"}
                       ▲
-                - else
-                  %div{class: "p-1 text-xl group-hover:animate-bounce"}
-                    ▲
-        %div{class: "text-xs flex-1 text-gray-700 mt-4 max-h-36 overflow-y-auto"}
-          = @solution.description_safe_html.html_safe
+          %div{class: "text-xs flex-1 text-gray-700 mt-4 max-h-36 overflow-y-auto"}
+            = @solution.description_safe_html.html_safe
 
 
-      %div{class: "mt-4 w-full md:mr-8"}
-        -# Discussion header
-        -# %div{class: "flex justify-between"}
-        -#   %div{class: "uppercase font-medium text-gray-700 text-xs"}
-        -#     Discussion
-        -#   -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
-        -#   - if user_signed_in?
-        -#     - if current_user.following?(@solution)
-        -#       = link_to "Following", unfollow_solution_path(@solution), class: "flex-shrink-0 border-b-0 text-gray-700 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
-        -#     - else
-        -#       = link_to "Follow Discussion", follow_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+        %div{class: "mt-4 w-full md:mr-8"}
+          -# Discussion header
+          -# %div{class: "flex justify-between"}
+          -#   %div{class: "uppercase font-medium text-gray-700 text-xs"}
+          -#     Discussion
+          -#   -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
+          -#   - if user_signed_in?
+          -#     - if current_user.following?(@solution)
+          -#       = link_to "Following", unfollow_solution_path(@solution), class: "flex-shrink-0 border-b-0 text-gray-700 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+          -#     - else
+          -#       = link_to "Follow Discussion", follow_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
 
-        -# Discussion section
-        %div{class: "bg-transparent rounded-sm flex flex-wrap w-full "}
-          %div{class: "mb-4 border-b border-gray-200 pt-4 pb-4 flex w-full"}
-            - if user_signed_in?
-              -# %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-              -#   = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
-              %div{class: "text-xs text-gray-600 w-full"}
-                = form_for @new_comment, html: { class: "flex w-full flex-wrap" } do |f|
-                  %textarea{rows: "4", name: "comment[body]",
-                  class: "block text-gray-900 w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                  placeholder: "Let #{@solution.user.name.split[0]} know if you found the solution useful or have any questions..."}
-                  = f.hidden_field :commentable_id, value: @new_comment.commentable_id
-                  = f.hidden_field :commentable_type, value: @new_comment.commentable_type
-                  = f.submit "Comment", class: "cursor-pointer mt-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-2.5 py-1.5 uppercase"
+          -# Discussion section
+          %div{class: "bg-transparent rounded-sm flex flex-wrap w-full "}
+            %div{class: "mb-4 border-b border-gray-200 pt-4 pb-4 flex w-full"}
+              - if user_signed_in?
+                -# %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
+                -#   = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
+                %div{class: "text-xs text-gray-600 w-full"}
+                  = form_for @new_comment, html: { class: "flex w-full flex-wrap" } do |f|
+                    %textarea{rows: "4", name: "comment[body]",
+                    class: "block text-gray-900 w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                    placeholder: "Let #{@solution.user.name.split[0]} know if you found the solution useful or have any questions..."}
+                    = f.hidden_field :commentable_id, value: @new_comment.commentable_id
+                    = f.hidden_field :commentable_type, value: @new_comment.commentable_type
+                    = f.submit "Comment", class: "cursor-pointer mt-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-2.5 py-1.5 uppercase"
+              - else
+                %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
+                  %div{class: "text-base md:text-sm lg:text-base text-gray-600 font-medium pr-4"}
+                    Log in or sign up to join the discussion
+                  %div{class: "flex-shrink-0 flex items-center"}
+                    = link_to new_user_session_path do
+                      %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
+                        Log In
+                    = link_to new_user_registration_path do
+                      %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
+                        Sign Up
+            - if @solution.root_comments.any?
+              - @solution.root_comments.includes(:user).each do |comment|
+                = render 'comments/comment', comment: comment, new_comment: @new_comment, cached: true
+
             - else
-              %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
-                %div{class: "text-base md:text-sm lg:text-base text-gray-600 font-medium pr-4"}
-                  Log in or sign up to join the discussion
-                %div{class: "flex-shrink-0 flex items-center"}
-                  = link_to new_user_session_path do
-                    %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
-                      Log In
-                  = link_to new_user_registration_path do
-                    %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
-                      Sign Up
-          - if @solution.root_comments.any?
-            - @solution.root_comments.includes(:user).each do |comment|
-              = render 'comments/comment', comment: comment, new_comment: @new_comment, cached: true
-
-          - else
-            %div{class: "w-full flex flex-wrap justify-between text-center py-7"}
-              %div{class: "text-3xl w-full"}
-                💬
-              %div{class: "mt-1 text-base font-medium w-full"}
-                Be the first to comment
+              %div{class: "w-full flex flex-wrap justify-between text-center py-7"}
+                %div{class: "text-3xl w-full"}
+                  💬
+                %div{class: "mt-1 text-base font-medium w-full"}
+                  Be the first to comment
 
 
   -# -# 2 Column, Left Column

@@ -16,7 +16,7 @@
 
           %div{class: "text-xs text-gray-600"}
             = comment.user.bio
-      %div{class: "ml-10 text-sm mt-1 text-gray-900 mr-4", data: { toggle: { target: 'toggleable' } }}
+      %div{class: "ml-8 text-sm mt-1 text-gray-900 mr-4", data: { toggle: { target: 'toggleable' } }}
         - if user_signed_in?
           = render 'comments/signed_in_body', comment: comment, new_comment: new_comment, cached: true
         - else
