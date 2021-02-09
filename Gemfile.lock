@@ -79,6 +79,7 @@ GEM
     algoliasearch-rails (1.25.0)
       algoliasearch (>= 1.26.0, < 2.0.0)
       json (>= 1.5.1)
+    analytics-ruby (2.2.8)
     ancestry (3.2.1)
       activerecord (>= 4.2.0)
     annotate (3.1.1)
@@ -355,6 +356,7 @@ DEPENDENCIES
   acts_as_votable
   addressable
   algoliasearch-rails
+  analytics-ruby
   ancestry
   annotate
   authtrail

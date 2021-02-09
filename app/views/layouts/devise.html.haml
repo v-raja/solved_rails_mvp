@@ -16,7 +16,7 @@
   %body
     = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
     -# = debug(params) if Rails.env.development?
-    #app{class: "min-h-screen bg-gray-fb bg-opacity-60 antialiased font-sans"}
+    #app{class: "min-h-screen bg-gray-200 antialiased font-sans"}
       %div{class: "fixed inset-0 px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50"}
         %div{class: "flex flex-col items-end justify-center"}
           - flash.each do |type, data|
