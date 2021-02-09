@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :feedbacks, only: :create
   resources :lists
   match '/404', via: :all, to: 'errors#not_found'
   match '/422', via: :all, to: 'errors#unprocessable_entity'

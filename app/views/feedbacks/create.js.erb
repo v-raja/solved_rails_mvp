@@ -1,0 +1,10 @@
+
+
+<% if @feedback.errors.any? %>
+  alert("Add a description to send feedback.");
+<% else %>
+
+  var feedback_box = document.querySelector("#feedback_box");
+
+  feedback_box.innerHTML = "Thanks for your feedback!";
+<% end %>

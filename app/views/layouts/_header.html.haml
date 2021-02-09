@@ -37,7 +37,7 @@
       = link_to root_path do
         = svg_tag 'safari-pinned-tab', class: "text-primary h-8 w-8 object-cover md:hidden"
 
-      %div{c: "justify-self-center flex-shrink ml-4 w-full md:w-1/2"}
+      %div{c: "justify-self-center flex-shrink ml-2 w-full md:w-1/2"}
         #searchbox_navbar
 
       -# - if params[:controller] != "search"
@@ -74,10 +74,33 @@
           -# - else
           -#   - if params[:action] != "all"
           -#     = link_to "All" , all_path, class: "flex-shrink-0 text-sm leading-none px-2 py-2 block rounded hover:bg-gray-200 font-semibold text-gray-900 border border-white"
-      %div{class: "flex-shrink-0 md:ml-7 flex items-center"}
-        %div{class: "md:block relative text-gray-900 mt-1.5 md:mt-1 mx-3 md:mx-0 md:mr-7", "data-controller": "dropdown", "data-dropdown-active-class": "", "data-dropdown-active-target": '#activeTarget2'}
+      %div{class: "flex-shrink-0 md:ml-4 flex items-center space-x-0 md:space-x-2 md:mr-7"}
+
+
+        %div{class: "md:block relative text-gray-900 mt-1.5 md:mt-1 mx-2", "data-controller": "dropdown", "data-dropdown-active-class": "", "data-dropdown-active-target": '#activeTarget4'}
           %div{"data-action": "click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none  -m-1 p-1 md:-m-2 md:p-2 rounded-full hover:bg-gray-200"}
-            %div{id: "activeTarget2", class: "w-7 h-7 text-gray-800 rounded-full "}
+            %div{id: "activeTarget4", class: "w-6 h-6 text-gray-800 rounded-full "}
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              </svg>
+
+
+          %div{"data-dropdown-target": "menu", class: "absolute right-0 md:right-0 hidden mt-2.5"}
+
+            = form_with url: :feedbacks, method: :post, remote: true, html: {class: "rounded border border-gray-300 bg-white w-64 sm:w-80 p-4"} do |f|
+              %div{id: "feedback_box", class: "space-y-2 text-xs"}
+                %textarea{rows: "4", name: "feedback[description]",
+                      class: "w-full block text-gray-900 text-xs rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                      placeholder: "What would you like us to change or create?"}
+                %input{type: "email", name: "feedback[email]",
+                  placeholder: "Email (if you're fine with us contacting you)",
+                  autocomplete: "email",
+                  class: "block text-xs w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+                = f.submit "Send feedback", class: "mt-2 sm:mt-0 flex-shrink-0 py-2 px-3 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+
+        %div{class: "hidden md:block relative text-gray-900 mt-1.5 md:mt-1", "data-controller": "dropdown", "data-dropdown-active-class": "", "data-dropdown-active-target": '#activeTarget2'}
+          %div{"data-action": "click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none  -m-1 p-1 md:-m-2 md:p-2 rounded-full hover:bg-gray-200"}
+            %div{id: "activeTarget2", class: "w-6 h-6 text-gray-800 rounded-full "}
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
@@ -106,11 +129,11 @@
           = link_to new_user_session_path do
             %div{class: "md:hidden -m-1 p-1 rounded-full text-gray-800 active:bg-gray-200 transition hover:bg-gray-200 cursor-pointer "}
               - active = params[:controller] == "registrations" && params[:action] == "edit"
-              %div{class: "w-7 h-7 #{active ? "text-secondary" : nil}"}
+              %div{class: "w-6 h-6 #{active ? "text-secondary" : nil}"}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-          %div{class: "hidden md:block space-x-2 mr-7"}
+          %div{class: "hidden md:block lg:space-x-1 mr-7 text-sm lg:text-base"}
             = link_to "Log In", new_user_session_path, class: "text-gray-900 font-semibold py-2 px-2 hover:bg-gray-200 rounded"
             = link_to "Sign Up", new_user_registration_path, class: "rounded font-semibold text-white py-2 px-2 bg-secondary hover:bg-opacity-90"
 
