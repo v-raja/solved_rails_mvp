@@ -39,3 +39,22 @@
   width: 100%;
   margin: 40px 0px 0px;
 }
+
+
+.read-more-sol-desc {
+  position: relative;
+}
+
+.read-more-sol-desc::before {
+  // background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1));
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -o-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  background-image: -ms-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 70%, #fff 100%);
+  content: "\00a0";
+  height: 50%;
+  position: absolute;
+  width: 100%;
+  margin: 40px 0px 0px;
+}

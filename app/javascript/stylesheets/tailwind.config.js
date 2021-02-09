@@ -43,6 +43,9 @@ module.exports = {
       '8': '8px',
     },
     extend: {
+      screens: {
+        'mdlg': '896px'
+      },
       lineHeight: {
         '2': '0.5rem',
       },

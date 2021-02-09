@@ -171,7 +171,7 @@ $(document).on('turbolinks:load', function() {
             "communities.title": "communities",
             "product.plan.price": "price",
             "product.plan.price_facet": "price",
-            "product.plan.is_free": "Show only free"
+            "product.plan.is_free": "Only free"
           };
 
           var itemz = items.map(item => ({

@@ -72,12 +72,12 @@ $( document ).on('turbolinks:load', function() {
         upvoteOrPlayButton.setAttribute('class', 'absolute w-16 inset-1/2 h-16 -m-8 cursor-pointer');
 
       } else {
-        var upvotes = playerElements[n].dataset.votes;
+      var upvotes = playerElements[n].dataset.votes;
         if (upvotes > 0) {
           var upvote = document.createElement('div');
           upvote.setAttribute('class', 'absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg');
           upvote.innerHTML = `
-          <div class="flex items-centerjustify-center place-self-center">
+          <div class="flex place-self-center">
             ${upvotes}
             <div class="ml-0.5">
               ▲

@@ -1,218 +1,288 @@
 -# = render 'layouts/header', render_shadow: false
 
-%div{class: "mt-10 flex flex-wrap justify-center pb-20 px-4"}
+%div{class: "bg-gray-200 flex pt-4 flex-wrap justify-center pb-10 px-4"}
 
   -# Logo, problem, product, and posted_to banner
-  %div{class: "max-w-screen-lg w-full relative flex overflow-hidden"}
-    %div{class: "w-full flex"}
-      %div{class: "w-28 h-28 flex-shrink-0"}
-        = image_tag @solution.product.thumbnail_url, class: "object-cover rounded-full"
-      %div{class: "ml-4 w-full flex flex-col justify-between"}
+  %div{class: "max-w-screen-lg w-full flex-1 flex flex-wrap md:flex-nowrap overflow-hidden relative"}
+    %div{class: "w-full md:w-2/5 lg:w-2/6 flex-shrink-0 mt-4 flex flex-col"}
+      %div{class: "flex items-center"}
+        %div{class: "w-14 h-14 flex-shrink-0"}
+          = image_tag @solution.product.thumbnail_url, class: "object-cover rounded-full"
+        %div{class: "ml-2 text-lg font-bold"}
+          = @solution.product.name
+      %div{class: "flex flex-wrap items-end w-full justify-between space-y-2"}
+        %div{class: "flex-shrink-1 mr-2"}
+          %div{class: "mt-3 text-xs font-semibold text-gray-600"}
+            Plan used in this solution
+          %div{class: "flex text-sm items-end"}
+            = "#{@solution.plan.name}"
+            %div{class: "ml-3 text-xs text-gray-700"}
+              = "#{number_to_currency(@solution.plan.price_per_month, precision: 2)} #{@solution.plan.is_price_per_user ? "/u" : nil}/mo."
+        = link_to "#{@solution.get_it_url.strip}?ref=solvedappio", target: :_blank do
+          %div{class: "text-sm flex-shrink-0 bg-secondary p-2 rounded text-white font-medium leading-none"}
+            Learn More
+      -# %div{class: "mt-8 aspect-w-7 aspect-h-4"}
+      -#   %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+      %div{class: "h-full flex flex-col justify-between"}
         %div
-          %div{class: "w-full font-medium"}
-            %h1= @solution.title
-          %div{class: "mt-1 text-gray-700 text-sm leading-none"}
-            = link_to "with #{@solution.product.name}", @solution.product, class: "hover:text-black"
-        -# %div
-        %div{class: "overflow-auto disable-scrollbars"}
-          - if @solution.general_tags.present? || @solution.niche_specific_tags.present?
-            %div{class: "flex-shrink-0 mt-1 w-max text-xs text-gray-600 flex flex-wrap items-center"}
-              Tags
+          %div{class: "mt-10 flex items-center space-x-6 overflow-x-auto"}
+            -# md:space-x-0 md:block md:space-y-6
+            = render @solution.youtube_urls, yt_button: true, cached: true
+          %div{class: "mt-2 flex space-x-2"}
+            - @solution.youtube_urls.each_with_index do |yt_utl, idx|
+              = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
+        %div{class: "pb-6 md:pb-1"}
+          %div{class: "mt-6 md:mt-10 text-xs font-semibold text-gray-600"}
+            Posted to
+          %div{class: "mt-2 flex text-sm flex-col space-y-1 max-h-48 overflow-y-auto"}
+            - if @solution.groups.any?
+              - @solution.groups.each do |groups|
+                -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+                = link_to "#{groups.title} (List)", groups, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+            - if @solution.industries.any?
+              - @solution.industries.each do |industry|
+                -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
+                = link_to "#{industry.title} (Industry)", industry, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+            - if @solution.occupations.any?
+              - @solution.occupations.each do |occupation|
+                -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+                = link_to "#{occupation.title} (Occupation)", occupation, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+
+
+    %div{class: "w-full flex flex-col p-4 bg-white border rounded border-gray-300 md:ml-4 xl:ml-10"}
+      %div{class: "w-full flex flex-col justify-between"}
+        %div{class: "flex items-center w-full justify-between"}
+          %div{class: "flex flex-col flex-1 mr-6 w-4/5"}
+            %div{class: "flex-shrink font-medium md:text-sm lg:text-base"}
+              %h1= @solution.title
+
+            %div{class: "w-auto md:w-64 lg:max-w-md lg:w-full xl:max-w-lg overflow-x-auto disable-scrollbars flex items-center mt-1 text-xxs text-gray-600 space-x-1"}
+              - tags_present = @solution.general_tags.present? || @solution.niche_specific_tags.present?
+              - if tags_present
+                %div
+                  Tags
               - @solution.niche_specific_tags.each do |tag|
-                %div{class: "ml-1 text-gray-600 text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+                %div{class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
                   = tag.name
               - @solution.general_tags.each do |tag|
-                = link_to tag.name, search_solutions_path(tags: tag.name), class: "ml-1 text-gray-600 text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"
+                = link_to tag.name, search_solutions_path(tags: tag.name), class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"
+              - if tags_present
+                %div{class: "mx-1"}
+                  &middot;
+              %div{class: "text-gray-600 text-xxs flex-shrink-0"}
+                by
+                = @solution.user.name
+              - if policy(@solution).update?
+                %div{class: "mx-1 text-gray-600"}
+                  &middot;
+                = link_to "edit", edit_solution_path(@solution), class: " text-gray-600 text-xxs", "data-turbolinks": false
+              - if policy(@solution).destroy?
+                %div{class: "mx-1 text-gray-600"}
+                  &middot;
+                = link_to "delete", solution_path(@solution), method: :delete, class: "underline text-red-500 text-xxs"
+          - path = !user_signed_in? ? new_user_session_path : current_user.voted_up_on?(@solution) ? remove_upvote_solution_path(@solution) : upvote_solution_path(@solution)
+          = link_to path do
+            %div{class: 'text-white font-bold text-lg leading-none py-2 px-3 bg-primary rounded-lg group'}
+              %div{class: "place-self-center"}
+                - upvotes = upvote_count(@solution)
+                - if upvotes > 0
+                  %div{class: "py-1 flex items-center"}
+                    = upvotes
+                    %div{class: "ml-0.5 group-hover:animate-bounce"}
+                      ▲
+                - else
+                  %div{class: "p-1 text-xl group-hover:animate-bounce"}
+                    ▲
+        %div{class: "text-xs flex-1 text-gray-700 mt-4 max-h-36 overflow-y-auto"}
+          = @solution.description_safe_html.html_safe
 
 
-    %div{class: "w-1/3 flex-shrink-0 flex flex-wrap"}
+      %div{class: "mt-4 w-full md:mr-8"}
+        -# Discussion header
+        -# %div{class: "flex justify-between"}
+        -#   %div{class: "uppercase font-medium text-gray-700 text-xs"}
+        -#     Discussion
+        -#   -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
+        -#   - if user_signed_in?
+        -#     - if current_user.following?(@solution)
+        -#       = link_to "Following", unfollow_solution_path(@solution), class: "flex-shrink-0 border-b-0 text-gray-700 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+        -#     - else
+        -#       = link_to "Follow Discussion", follow_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
 
-  -# 2 Column, Left Column
-  %div{class: "mt-8 max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
-    %div{class: "w-full md:mr-8"}
-      -# Gallery
-      %div{class: "bg-white p-4 block border border-gray-300"}
-        %div{class: "aspect-w-7 aspect-h-4"}
-          %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
-            = render @solution.youtube_urls, yt_button: true, cached: true
+        -# Discussion section
+        %div{class: "bg-transparent rounded-sm flex flex-wrap w-full "}
+          %div{class: "mb-4 border-b border-gray-200 pt-4 pb-4 flex w-full"}
+            - if user_signed_in?
+              -# %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
+              -#   = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
+              %div{class: "text-xs text-gray-600 w-full"}
+                = form_for @new_comment, html: { class: "flex w-full flex-wrap" } do |f|
+                  %textarea{rows: "4", name: "comment[body]",
+                  class: "block text-gray-900 w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                  placeholder: "Let #{@solution.user.name.split[0]} know if you found the solution useful or have any questions..."}
+                  = f.hidden_field :commentable_id, value: @new_comment.commentable_id
+                  = f.hidden_field :commentable_type, value: @new_comment.commentable_type
+                  = f.submit "Comment", class: "cursor-pointer mt-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-2.5 py-1.5 uppercase"
+            - else
+              %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
+                %div{class: "text-base md:text-sm lg:text-base text-gray-600 font-medium pr-4"}
+                  Log in or sign up to join the discussion
+                %div{class: "flex-shrink-0 flex items-center"}
+                  = link_to new_user_session_path do
+                    %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
+                      Log In
+                  = link_to new_user_registration_path do
+                    %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
+                      Sign Up
+          - if @solution.root_comments.any?
+            - @solution.root_comments.includes(:user).each do |comment|
+              = render 'comments/comment', comment: comment, new_comment: @new_comment, cached: true
 
-        %div{class: "mt-2 flex space-x-2"}
-          - @solution.youtube_urls.each_with_index do |yt_utl, idx|
-            = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
-        %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm"}
+          - else
+            %div{class: "w-full flex flex-wrap justify-between text-center py-7"}
+              %div{class: "text-3xl w-full"}
+                💬
+              %div{class: "mt-1 text-base font-medium w-full"}
+                Be the first to comment
+
+
+  -# -# 2 Column, Left Column
+  -# %div{class: "mt-8 max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
+  -#   %div{class: "w-full md:mr-8"}
+  -#     -# Gallery
+  -#     %div{class: "bg-white p-4 block border border-gray-300"}
+  -#       %div{class: "aspect-w-7 aspect-h-4"}
+  -#         %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+  -#           = render @solution.youtube_urls, yt_button: true, cached: true
+
+  -#       %div{class: "mt-2 flex space-x-2"}
+  -#         - @solution.youtube_urls.each_with_index do |yt_utl, idx|
+  -#           = image_tag "https://img.youtube.com/vi/#{yt_utl.youtube_id}/default.jpg", class: "cursor-pointer w-24 h-14 object-cover", onclick: "document.getElementById(\"#{idx}-video\").scrollIntoView({behavior: \"smooth\"});"
+  -#       %div{class: "mt-4 pt-4 border-t border-gray-200 text-sm h-40 overflow-y-auto"}
           -# - if policy(@solution).update?
           -#   %div{class: "flex float-right"}
           -#     = link_to "Edit", edit_solution_path(@solution), class: "text-blue-600 hover:text-blue-700 hover:underline"
           -#     - if policy(@solution).destroy?
           -#       %div{class: "ml-2"}
           -#         = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
-          = @solution.description_safe_html.html_safe
-          -# %div{class: "mt-3 text-sm"}
-          -#   Have a question about this solution? Discuss below.
-        - if policy(@solution).update?
-          %div{class: "flex mt-4 items-center"}
-            = link_to "Edit", edit_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide", "data-turbolinks": false
-            -# "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
-            - if policy(@solution).destroy?
-              %div{class: "ml-2"}
-                = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
+  -#         = @solution.description_safe_html.html_safe
+  -#         -# %div{class: "mt-3 text-sm"}
+  -#         -#   Have a question about this solution? Discuss below.
+  -#       - if policy(@solution).update?
+  -#         %div{class: "flex mt-4 items-center"}
+  -#           = link_to "Edit", edit_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide", "data-turbolinks": false
+  -#           -# "text-gray-800 text-xs border-2 border-gray-800 px-2 py-1.5 uppercase tracking-wide font-semibold hover:bg-secondary hover:text-white rounded"
+  -#           - if policy(@solution).destroy?
+  -#             %div{class: "ml-2"}
+  -#               = link_to "Delete", solution_path(@solution), method: :delete, class: "text-red-600 hover:text-red-700 hover:underline"
 
-        -# = <iframe width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{video_id}"       frameborder="0"></iframe>
-
-
-
-    %div{class: "flex-shrink-0 flex flex-col w-full md:w-1/3"}
-      %div{class: "mt-3 flex md:mt-0"}
-        %div{class: "w-2/5 flex-shrink-0"}
-          = link_to "#{@solution.get_it_url.strip}?ref=solvedappio", target: :_blank do
-            %div{class: "uppercase py-4 bg-white text-gray-900 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm hover:bg-gray-100 hover:bg-opacity-20"}
-              GET IT
-
-        %div{class: "ml-4 w-full", id: "upvote_button"}
-          - if user_signed_in?
-            - if current_user.voted_up_on? @solution
-              = render partial: 'solutions/upvoted', locals: { solution: @solution }, cached: true
-            - else
-              = render partial: 'solutions/upvote', locals: { solution: @solution }, cached: true
-          - else
-            = link_to new_user_session_path do
-              %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm group"}
-                - vote_count = upvote_count(@solution)
-                = "#{vote_count > 0 ? " #{vote_count}" : nil}"
-                %div{class: "ml-1 group-hover:animate-bounce"}
-                  ▲
-                %div{class: "ml-2 flex items-center"}
-                  upvote
-                  -# %div{class: "ml-2"}
-                  -#   = "#{vote_count > 0 ? " #{vote_count}" : ""}"
+  -#       -# = <iframe width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{video_id}"       frameborder="0"></iframe>
 
 
-      -# Maker / Hunter
-      %div{class: "mt-4 px-4 pt-4 pb-6 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
-        - if @solution.created_by_user?
-          %div{class: "w-full text-gray-600 text-xs uppercase"}
-            Created by
-        - else
-          %div{class: "w-full text-gray-600 text-xs uppercase"}
-            Solved by
-        %div{class: "mt-4 w-full flex"}
-          -# = link_to @solution.user do
-          - if @solution.user.bio.blank?
-            %div{class: " flex items-center"}
-              -# = link_to @solution.user do
-              %div{class: "w-8 h-8 flex-shrink-0"}
-                = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
-              %div{class: "ml-2 w-full text-md text-black font-medium"}
-                = @solution.user.name
-          - else
-            %div{class: " flex"}
-              %div{class: "w-8 h-8 flex-shrink-0"}
-                = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
-              %div{class: "ml-2 flex flex-wrap justify-between"}
-                %div{class: "w-full text-sm text-black font-medium"}
-                  = @solution.user.name
-                %div{class: "text-xs text-gray-600"}
-                  = @solution.user.bio
 
-          -# %div{class: "w-8 h-8 flex-shrink-0"}
-          -#   = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
-          -# %div{class: "ml-2 flex flex-wrap justify-between"}
-          -#   %div{class: "w-full text-xs text-black font-medium"}
-          -#     = @solution.user.name
-          -#   %div{class: "text-xs text-gray-600"}
-          -#     = @solution.user.bio
+  -#   %div{class: "flex-shrink-0 flex flex-col w-full md:w-1/3"}
+  -#     %div{class: "mt-3 flex md:mt-0"}
+  -#       %div{class: "w-2/5 flex-shrink-0"}
+  -#         = link_to "#{@solution.get_it_url.strip}?ref=solvedappio", target: :_blank do
+  -#           %div{class: "uppercase py-4 bg-white text-gray-900 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm hover:bg-gray-100 hover:bg-opacity-20"}
+  -#             GET IT
+
+  -#       %div{class: "ml-4 w-full", id: "upvote_button"}
+  -#         - if user_signed_in?
+  -#           - if current_user.voted_up_on? @solution
+  -#             = render partial: 'solutions/upvoted', locals: { solution: @solution }, cached: true
+  -#           - else
+  -#             = render partial: 'solutions/upvote', locals: { solution: @solution }, cached: true
+  -#         - else
+  -#           = link_to new_user_session_path do
+  -#             %div{class: "text-white bg-primary uppercase py-4 font-medium flex items-center justify-center border border-gray-300 rounded-sm leading-none text-sm group"}
+  -#               - vote_count = upvote_count(@solution)
+  -#               = "#{vote_count > 0 ? " #{vote_count}" : nil}"
+  -#               %div{class: "ml-1 group-hover:animate-bounce"}
+  -#                 ▲
+  -#               %div{class: "ml-2 flex items-center"}
+  -#                 upvote
+  -#                 -# %div{class: "ml-2"}
+  -#                 -#   = "#{vote_count > 0 ? " #{vote_count}" : ""}"
 
 
-      %div{class: "mt-4 px-4 pt-4 pb-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
-        %div{class: "w-full uppercase text-gray-600 text-xs"}
-          Posted To
-        %div{class: "mt-3 flex flex-col space-y-2"}
-          - if @solution.industries.any?
-            - @solution.industries.each do |industry|
-              -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
-              = link_to "#{industry.title} (Industry)", industry, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
-          - if @solution.occupations.any?
-            - @solution.occupations.each do |occupation|
-              -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-              = link_to "#{occupation.title} (Occupation)", occupation, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
-          - if @solution.groups.any?
-            - @solution.groups.each do |groups|
-              -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-              = link_to "#{groups.title} (List)", groups, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+  -#     -# Maker / Hunter
+  -#     %div{class: "mt-4 px-4 pt-4 pb-6 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+  -#       - if @solution.created_by_user?
+  -#         %div{class: "w-full text-gray-600 text-xs uppercase"}
+  -#           Created by
+  -#       - else
+  -#         %div{class: "w-full text-gray-600 text-xs uppercase"}
+  -#           Solved by
+  -#       %div{class: "mt-4 w-full flex"}
+  -#         -# = link_to @solution.user do
+  -#         - if @solution.user.bio.blank?
+  -#           %div{class: " flex items-center"}
+  -#             -# = link_to @solution.user do
+  -#             %div{class: "w-8 h-8 flex-shrink-0"}
+  -#               = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
+  -#             %div{class: "ml-2 w-full text-md text-black font-medium"}
+  -#               = @solution.user.name
+  -#         - else
+  -#           %div{class: " flex"}
+  -#             %div{class: "w-8 h-8 flex-shrink-0"}
+  -#               = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
+  -#             %div{class: "ml-2 flex flex-wrap justify-between"}
+  -#               %div{class: "w-full text-sm text-black font-medium"}
+  -#                 = @solution.user.name
+  -#               %div{class: "text-xs text-gray-600"}
+  -#                 = @solution.user.bio
 
-          -# = link_to @solution.user do
-          -# %div{class: "w-8 h-8 flex-shrink-0"}
-          -#   = image_tag @solution.user.thumbnail_url, class: "rounded-full object-fill"
-          -# %div{class: "ml-2 flex flex-wrap justify-between"}
-          -#   %div{class: "w-full text-xs text-black font-medium"}
-          -#     = @solution.user.name
-          -#   %div{class: "text-xs text-gray-600"}
-          -#     = "#{@solution.user.role} @ #{@solution.user.company}"
-        -# %div{class: "mt-6 w-full uppercase text-gray-600 text-xs"}
-        -#   Product
-        -# %div{class: "mt-4 w-full flex"}
-        -#   %div{class: "w-8 h-8 flex-shrink-0"}
-        -#     = image_tag @solution.product.thumbnail_url, class: "rounded-full object-fill"
-        -#   %div{class: "ml-2 flex flex-wrap justify-between"}
-        -#     %div{class: "bg-white w-1"}
-        -#     %div{class: "w-full text-sm text-black leading-none"}
-        -#       = @solution.product.name
-
-  -# 2 Column, Left Column
-  %div{class: "mt-10 max-w-screen-lg w-full relative flex flex-wrap md:flex md:flex-nowrap"}
-    -# md: "flex flex-wrap"}
-    %div{class: "w-full md:mr-8"}
-      -# Discussion header
-      %div{class: "flex justify-between"}
-        %div{class: "uppercase font-medium text-gray-700 text-xs"}
-          Discussion
-        -# %div{class: "uppercase font-medium text-blue-600 text-xs"}
-        - if user_signed_in?
-          - if current_user.following?(@solution)
-            = link_to "Following", unfollow_solution_path(@solution), class: "flex-shrink-0 border-b-0 text-gray-700 border-secondary px-0.5 text-sm font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
-          - else
-            = link_to "Follow Discussion", follow_solution_path(@solution), class: "border-b-3 border-secondary px-0.5 text-sm font-medium leading-none transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
-
-      -# Discussion section
-      %div{class: "mt-6 bg-white rounded-sm p-4 flex flex-wrap w-full border border-gray-300"}
-        %div{class: "mb-4 border-b border-gray-200 pt-4 pb-6 flex w-full"}
-          - if user_signed_in?
-            %div{class: "w-8 h-8 flex-shrink-0 mt-1"}
-              = image_tag current_user.thumbnail_url, class: "rounded-full object-cover"
-            %div{class: "ml-2 text-xs text-gray-600 w-full"}
-              = form_for @new_comment, html: { class: "flex w-full items-end" } do |f|
-                %textarea{rows: "1", name: "comment[body]",
-                class: "block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                placeholder: "What would you like more clarification on?"}
-                = f.hidden_field :commentable_id, value: @new_comment.commentable_id
-                = f.hidden_field :commentable_type, value: @new_comment.commentable_type
-                = f.submit "Comment", class: "cursor-pointer ml-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-3 py-2 uppercase"
-          - else
-            %div{class: "border border-gray-300 flex justify-between w-full p-4 items-center rounded-md"}
-              %div{class: "text-base text-gray-600 font-medium pr-4"}
-                Log in or sign up to join the discussion
-              %div{class: "flex-shrink-0 flex items-center"}
-                = link_to new_user_session_path do
-                  %button{class: "bg-primary px-2 py-2 text-sm font-medium text-white rounded-md"}
-                    Log In
-                = link_to new_user_registration_path do
-                  %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
-                    Sign Up
-        - if @solution.root_comments.any?
-          - @solution.root_comments.includes(:user).each do |comment|
-            = render 'comments/comment', comment: comment, new_comment: @new_comment, cached: true
-
-        - else
-          %div{class: "w-full flex flex-wrap justify-between text-center py-10"}
-            %div{class: "text-3xl w-full"}
-              💬
-            %div{class: "mt-1 text-base font-medium w-full"}
-              Be the first to comment
-
-            -# %div{class: "border border-gray-300"}
-            -#   What did you like about the solution? What would you like more clarification on?
+  -#         -# %div{class: "w-8 h-8 flex-shrink-0"}
+  -#         -#   = image_tag @solution.user.thumbnail_url, class: "rounded-full object-cover"
+  -#         -# %div{class: "ml-2 flex flex-wrap justify-between"}
+  -#         -#   %div{class: "w-full text-xs text-black font-medium"}
+  -#         -#     = @solution.user.name
+  -#         -#   %div{class: "text-xs text-gray-600"}
+  -#         -#     = @solution.user.bio
 
 
-    %div{class: "w-1/3 flex-shrink-0 flex flex-col mt-8"}
-      -# %div{class: "uppercase p-2 rounded bg-primary font-medium bg-secondary text-sm text-center text-white w-1/2 border border-gray-300"}
-      -#   Follow Discussion
+  -#     %div{class: "mt-4 px-4 pt-4 pb-4 w-full text-sm bg-white rounded-sm flex flex-wrap border border-gray-300"}
+  -#       %div{class: "w-full uppercase text-gray-600 text-xs"}
+  -#         Posted To
+  -#       %div{class: "mt-3 flex flex-col space-y-2"}
+  -#         - if @solution.industries.any?
+  -#           - @solution.industries.each do |industry|
+  -#             -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
+  -#             = link_to "#{industry.title} (Industry)", industry, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+  -#         - if @solution.occupations.any?
+  -#           - @solution.occupations.each do |occupation|
+  -#             -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+  -#             = link_to "#{occupation.title} (Occupation)", occupation, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+  -#         - if @solution.groups.any?
+  -#           - @solution.groups.each do |groups|
+  -#             -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+  -#             = link_to "#{groups.title} (List)", groups, class: "text-gray-700 text-sm mt-1 hover:text-black hover:bg-gray-200 p-1.5"
+
+  -#         -# = link_to @solution.user do
+  -#         -# %div{class: "w-8 h-8 flex-shrink-0"}
+  -#         -#   = image_tag @solution.user.thumbnail_url, class: "rounded-full object-fill"
+  -#         -# %div{class: "ml-2 flex flex-wrap justify-between"}
+  -#         -#   %div{class: "w-full text-xs text-black font-medium"}
+  -#         -#     = @solution.user.name
+  -#         -#   %div{class: "text-xs text-gray-600"}
+  -#         -#     = "#{@solution.user.role} @ #{@solution.user.company}"
+  -#       -# %div{class: "mt-6 w-full uppercase text-gray-600 text-xs"}
+  -#       -#   Product
+  -#       -# %div{class: "mt-4 w-full flex"}
+  -#       -#   %div{class: "w-8 h-8 flex-shrink-0"}
+  -#       -#     = image_tag @solution.product.thumbnail_url, class: "rounded-full object-fill"
+  -#       -#   %div{class: "ml-2 flex flex-wrap justify-between"}
+  -#       -#     %div{class: "bg-white w-1"}
+  -#       -#     %div{class: "w-full text-sm text-black leading-none"}
+  -#       -#       = @solution.product.name
+
+  -# -# 2 Column, Left Column
+
+  -# -#         -# %div{class: "border border-gray-300"}
+  -# -#         -#   What did you like about the solution? What would you like more clarification on?
+
+
+  -# -# %div{class: "w-1/3 flex-shrink-0 flex flex-col mt-8"}
+  -# -#   -# %div{class: "uppercase p-2 rounded bg-primary font-medium bg-secondary text-sm text-center text-white w-1/2 border border-gray-300"}
+  -# -#   -#   Follow Discussion
