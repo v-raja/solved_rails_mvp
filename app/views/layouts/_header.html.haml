@@ -88,17 +88,47 @@
 
           %div{"data-dropdown-target": "menu", class: "absolute right-0 md:right-0 hidden mt-2.5"}
 
-            = form_with url: :feedbacks, method: :post, remote: true, html: {class: "rounded border border-gray-300 bg-white w-64 sm:w-80 p-4"} do |f|
+            = form_with url: :feedbacks, method: :post, remote: true, html: {class: "rounded border border-gray-300 bg-white w-64 sm:w-80 p-4 shadow-md"} do |f|
               %div{id: "feedback_box", class: "space-y-2 text-xs"}
-                %textarea{rows: "4", name: "feedback[description]",
-                      class: "w-full block text-gray-900 text-xs rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                %div{class: "w-full text-center font-medium"}
+                  Are you happy with solved?
+                %div{class: "w-full flex items-center justify-center space-x-4", id: "happy_value"}
+                  %div{class: "flex items-center space-x-1"}
+                    = radio_button("feedback", "is_happy_user", true)
+                    %div
+                      Yes
+                  %div{class: "flex items-center space-x-1"}
+                    = radio_button("feedback", "is_happy_user", false)
+                    %div
+                      No / Meh
+                  -# %div{class: "flex items-center space-x-1"}
+                  -#   = radio_button("feedback", "is_happy_user", false)
+                  -#   %div
+                  -#     Meh
+                %textarea{rows: "4", name: "feedback[description]", id: "description",
+                      class: "hidden w-full block text-gray-900 text-xs rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
                       placeholder: "Let us know what we could create, change or be doing better!"}
-                %input{type: "email", name: "feedback[email]",
-                  placeholder: "Email (if you're fine with us contacting you)",
-                  autocomplete: "email",
-                  class: "block text-xs w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
-                = f.submit "Send feedback", class: "mt-2 sm:mt-0 flex-shrink-0 py-2 px-3 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
-
+                %div{class: "w-full hidden", id: "email"}
+                  %div{class: ""}
+                    Could we please contact you to find out more?
+                  %input{type: "email", name: "feedback[email]",
+                    placeholder: "Email (optional)",
+                    autocomplete: "email",
+                    class: "block text-xs w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+                = f.submit "Send", id: "submit", class: "hidden mt-2 sm:mt-0 flex-shrink-0 py-2 px-3 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+        :javascript
+          $("#happy_value input:radio").change(function(){
+            if ($(this).val() === "true") {
+              $("#description").attr("placeholder", "What makes you happy?");
+              $("#description").show();
+              $("#email").hide();
+              $("#submit").show();
+            } else if ($(this).val() === "false") {
+              $("#description").attr("placeholder", "What would you change? What (one) feature would make solved more useful for you?");
+              $("#email").show();
+              $("#submit").show();
+            }
+          });
         %div{class: "hidden md:block relative text-gray-900 mt-1.5 md:mt-1", "data-controller": "dropdown", "data-dropdown-active-class": "", "data-dropdown-active-target": '#activeTarget2'}
           %div{"data-action": "click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none  -m-1 p-1 md:-m-2 md:p-2 rounded-full hover:bg-gray-200"}
             %div{id: "activeTarget2", class: "w-6 h-6 text-gray-800 rounded-full "}

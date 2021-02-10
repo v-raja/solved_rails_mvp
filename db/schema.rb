@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_170931) do
+ActiveRecord::Schema.define(version: 2021_02_10_180441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 2021_02_08_170931) do
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["discarded_at"], name: "index_comments_on_discarded_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.text "description"
+    t.text "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_happy_user", default: false
   end
 
   create_table "follows", force: :cascade do |t|
