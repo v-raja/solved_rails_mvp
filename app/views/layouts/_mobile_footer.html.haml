@@ -22,7 +22,7 @@
               </svg>
           %div{class: "text-xxs mt-0.5 #{active ? "text-black font-semibold" : nil}"}
             Home
-    = link_to search_solutions_path do
+    = link_to search_solutions_path, "data-turbolinks": false do
       - active = params[:controller] == "search" && params[:action] == "solutions"
       %div{class: "group text-gray-800 transition cursor-pointer flex flex-col items-center"}
         %div{class: "-m-2 p-2 group-hover:bg-gray-200 rounded-full"}

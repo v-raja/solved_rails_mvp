@@ -3,6 +3,7 @@ import searchRouting from '../../src/search_routing';
 
 $(document).on('turbolinks:load', function() {
   if (document.getElementById("searchbox_posts")) {
+    var indexName = gon.index_name + '_' + process.env.RAILS_ENV;
     var searchClient;
     if (gon.ffi) {
       searchClient = algoliasearch(
@@ -22,14 +23,29 @@ $(document).on('turbolinks:load', function() {
 
     const search = instantsearch({
       searchClient,
-      indexName: gon.index_name + '_' + process.env.RAILS_ENV,
+      indexName: indexName,
       // urlSync: true,
       routing: searchRouting,
     });
 
+    function debounce(fn, delay) {
+      let timerId;
+      return function(...args) {
+        if (timerId) {
+          clearTimeout(timerId);
+        }
+        timerId = setTimeout(() => {
+          fn(...args);
+          timerId = null;
+        }, delay);
+      };
+    }
+
     search.addWidgets([
       instantsearch.widgets.configure({
         attributesToSnippet: ['description_text:60'],
+        clickAnalytics: true,
+        // enablePersonalization: true,
       }),
       instantsearch.widgets.searchBox({
         container: '#searchbox_posts',
@@ -57,6 +73,16 @@ $(document).on('turbolinks:load', function() {
             show_votes: item.nb_votes > 0,
             price: item.product.plan.price === 0 ? "Free" : item.product.plan.is_price_per_user ? `\$${item.product.plan.price} /u/mo.` : `\$${item.product.plan.price} /mo.`,
             educational_use: item.product.plan.is_for_education ? "(for Non-profit / Education)" : "",
+            product_clicked_payload: encodeURIComponent(
+              JSON.stringify({
+                objectID: item.objectID,
+                position: item.__position,
+
+                index: indexName,
+                queryID: item.__queryID
+              })
+            ),
+
           }));
           console.log(itemz);
           return itemz;
@@ -64,7 +90,7 @@ $(document).on('turbolinks:load', function() {
         escapeHTML: false,
         templates: {
           empty: 'No solutions have been found for "{{ query }}"',
-          item: '<a href={{{url}}} target="_blank">'+
+          item: '<div class="btn-favorite" data-product-clicked-payload="{{{product_clicked_payload}}}">' +
                   '<div class="">' +
                       `<div class=" flex flex-col">
                         <div class=" video aspect-w-7 aspect-h-4 ">
@@ -122,7 +148,7 @@ $(document).on('turbolinks:load', function() {
 
                     '</div>' +
                   '</div>' +
-                '</a>'
+                '</div>'
         },
       }),
 
@@ -301,9 +327,107 @@ $(document).on('turbolinks:load', function() {
         }
       }),
 
+      instantsearch.connectors.connectHits(
+        // debouncing is optional
+        debounce(({ hits }) => {
+          const solutions = hits.map(hit => ({
+            objectID: hit.objectID,
+            // ...
+          }));
+          solutions.length > 0 &&
+            analytics.track("Product List Viewed", {
+              solutions
+            });
+        }, 500)
+      )(),
+
     ]);
 
+
+
     search.start();
+
+    // platform, tags, communities, price_facet
+    document.querySelector("#tags").addEventListener("click", event => {
+      const elem = event.target;
+      if (elem.matches("input[type=checkbox]") && elem.checked) {
+        // This sends an event when a filter is checked.
+        const payload = {
+          filters: [
+            {
+              type: "_tags",
+              value: elem.value
+            }
+          ],
+          index: indexName
+        };
+        analytics.track("Product List Filtered", payload);
+      }
+    });
+
+
+    document.querySelector("#communities").addEventListener("click", event => {
+      const elem = event.target;
+      if (elem.matches("input[type=checkbox]") && elem.checked) {
+        // This sends an event when a filter is checked.
+        const payload = {
+          filters: [
+            {
+              type: "communities.title",
+              value: elem.value
+            }
+          ],
+          index: indexName
+        };
+        analytics.track("Product List Filtered", payload);
+      }
+    });
+
+    document.querySelector("#platforms").addEventListener("click", event => {
+      const elem = event.target;
+      if (elem.matches("input[type=checkbox]") && elem.checked) {
+        // This sends an event when a filter is checked.
+        const payload = {
+          filters: [
+            {
+              type: "platforms",
+              value: elem.value
+            }
+          ],
+          index: indexName
+        };
+        analytics.track("Product List Filtered", payload);
+      }
+    });
+
+    document.querySelector("#price_facet").addEventListener("click", event => {
+      const elem = event.target;
+      if (elem.matches("input[type=checkbox]") && elem.checked) {
+        // This sends an event when a filter is checked.
+        const payload = {
+          filters: [
+            {
+              type: "product.plan.price_facet",
+              value: elem.value
+            }
+          ],
+          index: indexName
+        };
+        analytics.track("Product List Filtered", payload);
+      }
+    });
+
+    document.addEventListener("click", event => {
+      const elem = event.target.closest(".btn-favorite");
+      if (elem !== null && elem.matches(".btn-favorite")) {
+        const payload = JSON.parse(
+          decodeURIComponent(
+            elem.getAttribute("data-product-clicked-payload")
+          )
+        );
+        analytics.track("Product Clicked", payload);
+      }
+    });
   }
 
 })

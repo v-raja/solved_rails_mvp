@@ -18,9 +18,6 @@ module PhApp
     config.time_zone = 'Abu Dhabi'
     config.active_job.queue_adapter = :sidekiq
 
-    analytics = Segment::Analytics.new(write_key: ENV['SEGMENT_WRITE_KEY'],
-                  on_error: Proc.new { |status, msg| print msg })
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

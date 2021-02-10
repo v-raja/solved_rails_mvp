@@ -80,8 +80,9 @@
         %div{class: "md:block relative text-gray-900 mt-1.5 md:mt-1 mx-2", "data-controller": "dropdown", "data-dropdown-active-class": "", "data-dropdown-active-target": '#activeTarget4'}
           %div{"data-action": "click->dropdown#toggle click@window->dropdown#hide", role: "button", class: "inline-block select-none  -m-1 p-1 md:-m-2 md:p-2 rounded-full hover:bg-gray-200"}
             %div{id: "activeTarget4", class: "w-6 h-6 text-gray-800 rounded-full "}
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+              <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
               </svg>
 
 
@@ -91,7 +92,7 @@
               %div{id: "feedback_box", class: "space-y-2 text-xs"}
                 %textarea{rows: "4", name: "feedback[description]",
                       class: "w-full block text-gray-900 text-xs rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                      placeholder: "What would you like us to change or create?"}
+                      placeholder: "Let us know what we could create, change or be doing better!"}
                 %input{type: "email", name: "feedback[email]",
                   placeholder: "Email (if you're fine with us contacting you)",
                   autocomplete: "email",

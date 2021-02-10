@@ -12,10 +12,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_current_user
-    gon.ffi = user_signed_in?
+    # gon.ffi = user_signed_in?
+    gon.test = user_signed_in? ? Base64.encode64(JSON.dump({
+      name: current_user.name,
+      email: current_user.email
+    })) : nil
     gon.page_id = user_signed_in? ? Base64.encode64(current_user.id.to_s) : nil
-    gon.ldap = user_signed_in? ? Base64.encode64(current_user.name) : nil
-    gon.udap = user_signed_in? ? Base64.encode64(current_user.email) : nil
+    # gon.ldap = user_signed_in? ? Base64.encode64(current_user.name) : nil
+    # gon.udap = user_signed_in? ? Base64.encode64(current_user.email) : nil
     # byebug
   end
 
