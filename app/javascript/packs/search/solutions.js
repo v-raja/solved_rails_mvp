@@ -12,7 +12,7 @@ $(document).on('turbolinks:load', function() {
     "product.plan.is_free": "is free"
   };
 
-  function ProductListFilteredEventWithItems(items) {
+  function SolutionListFilteredEventWithItems(items) {
     if (Array.isArray(items) && items.length) {
       const payload = {
         filters: items.map((item) => ({
@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', function() {
         })),
         index: indexName
       };
-      analytics.track("Product List Filtered (Aggregate)", payload);
+      analytics.track("Solution List Filtered (Aggregate)", payload);
     }
 
   }
@@ -67,6 +67,7 @@ $(document).on('turbolinks:load', function() {
       };
     }
 
+    let timerId;
     search.addWidgets([
       instantsearch.widgets.configure({
         attributesToSnippet: ['description_text:60'],
@@ -75,7 +76,12 @@ $(document).on('turbolinks:load', function() {
       }),
       instantsearch.widgets.searchBox({
         container: '#searchbox_posts',
+        showLoadingIndicator: true,
         placeholder: "What daily task do you find painful?",
+        queryHook(query, refine) {
+          clearTimeout(timerId);
+          timerId = setTimeout(() => refine(query), 400);
+        },
         searchAsYouType: true,
         cssClasses: {
           form: "relative flex items-center",
@@ -94,6 +100,17 @@ $(document).on('turbolinks:load', function() {
           item: ""
         },
         transformItems(items) {
+
+          const solutions = items.map(hit => ({
+                                      objectID: hit.objectID,
+                                    }));
+
+          if  (solutions.length > 0) {
+            analytics.track("Solution List Viewed", {
+              solutions
+            });
+          }
+
           var itemz = items.map(item => ({
             ...item,
             show_votes: item.nb_votes > 0,
@@ -110,6 +127,9 @@ $(document).on('turbolinks:load', function() {
             ),
 
           }));
+
+
+
           // console.log(itemz);
           return itemz;
         },
@@ -214,7 +234,7 @@ $(document).on('turbolinks:load', function() {
           delete: "ml-1 text-xxs font-bold pt-1 pl-1 pr-3 focus:outline-none"
         },
         transformItems(items) {
-          ProductListFilteredEventWithItems(items);
+          SolutionListFilteredEventWithItems(items);
 
 
           const attributeDisplayValue = {
@@ -348,20 +368,6 @@ $(document).on('turbolinks:load', function() {
         }
       }),
 
-      instantsearch.connectors.connectHits(
-        // debouncing is optional
-        debounce(({ hits }) => {
-          const solutions = hits.map(hit => ({
-            objectID: hit.objectID,
-            // ...
-          }));
-          solutions.length > 0 &&
-            analytics.track("Product List Viewed", {
-              solutions
-            });
-        }, 500)
-      )(),
-
     ]);
 
 
@@ -369,7 +375,7 @@ $(document).on('turbolinks:load', function() {
     search.start();
 
     // platform, tags, communities, price_facet
-    function ProductListFilteredEvent(event, type) {
+    function SolutionListFilteredEvent(event, type) {
       const elem = event.target;
       if (elem.matches("input[type=checkbox]") && elem.checked) {
         // This sends an event when a filter is checked.
@@ -382,28 +388,28 @@ $(document).on('turbolinks:load', function() {
           ],
           index: indexName
         };
-        analytics.track("Product List Filtered", payload);
+        analytics.track("Solution List Filtered", payload);
       }
     }
 
     document.querySelector("#tags").addEventListener("click", event => {
-      ProductListFilteredEvent(event, "tags");
+      SolutionListFilteredEvent(event, "tags");
     });
 
     document.querySelector("#communities").addEventListener("click", event => {
-      ProductListFilteredEvent(event, "communities");
+      SolutionListFilteredEvent(event, "communities");
     });
 
     document.querySelector("#platforms").addEventListener("click", event => {
-      ProductListFilteredEvent(event, "platforms");
+      SolutionListFilteredEvent(event, "platforms");
     });
 
     document.querySelector("#price_facet").addEventListener("click", event => {
-      ProductListFilteredEvent(event, "price type");
+      SolutionListFilteredEvent(event, "price type");
     });
 
     document.querySelector("#is_free").addEventListener("click", event => {
-      ProductListFilteredEvent(event, "is free");
+      SolutionListFilteredEvent(event, "is free");
     });
 
 
@@ -415,7 +421,7 @@ $(document).on('turbolinks:load', function() {
             elem.getAttribute("data-product-clicked-payload")
           )
         );
-        analytics.track("Product Clicked", payload);
+        analytics.track("Solution Clicked", payload);
       } else if (event.target !== null && event.target.matches(".btn-video")) {
         const payload = JSON.parse(
           decodeURIComponent(
