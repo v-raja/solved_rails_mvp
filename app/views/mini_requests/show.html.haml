@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Description:
+  = @mini_request.description
+%p
+  %b Email:
+  = @mini_request.email
+%p
+  %b User:
+  = @mini_request.user
+
+= link_to 'Edit', edit_mini_request_path(@mini_request)
+\|
+= link_to 'Back', mini_requests_path

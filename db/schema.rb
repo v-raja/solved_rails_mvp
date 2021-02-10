@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_180441) do
+ActiveRecord::Schema.define(version: 2021_02_10_220335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -176,6 +176,15 @@ ActiveRecord::Schema.define(version: 2021_02_10_180441) do
     t.index ["identity"], name: "index_login_activities_on_identity"
     t.index ["ip"], name: "index_login_activities_on_ip"
     t.index ["user_type", "user_id"], name: "index_login_activities_on_user_type_and_user_id"
+  end
+
+  create_table "mini_requests", force: :cascade do |t|
+    t.text "description"
+    t.text "email"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_mini_requests_on_user_id"
   end
 
   create_table "notable_jobs", force: :cascade do |t|
@@ -456,6 +465,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_180441) do
   add_foreign_key "group_solutions", "groups"
   add_foreign_key "group_solutions", "solutions"
   add_foreign_key "industries", "industry_categories"
+  add_foreign_key "mini_requests", "users"
   add_foreign_key "occupations", "occupation_categories"
   add_foreign_key "plans", "products"
   add_foreign_key "requests", "users"

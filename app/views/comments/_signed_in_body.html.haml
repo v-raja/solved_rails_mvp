@@ -13,7 +13,7 @@
         = link_to "Delete", comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "p-1 -ml-1 transition font-semibold hover:text-secondary hover:bg-gray-100 rounded-sm"
     - if policy(comment).really_destroy?
       = link_to "Destroy", really_destroy_comment_path(comment), method: :delete, data: { confirm: 'Are you REALLY sure?' }, class: "p-1 -ml-1 transition uppercase text-secondary font-semibold hover:bg-gray-200 rounded-sm"
-    %div{class: ""}
+    %div{class: "flex-shrink-0"}
       = "#{time_ago_in_words(comment.created_at)} ago"
   %div{class: "mt-2 hidden", data: { toggle: { target: 'toggleable' } }}
 

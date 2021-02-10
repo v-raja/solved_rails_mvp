@@ -1,0 +1,11 @@
+<% if @mini_request.errors.any? %>
+  alert("Add a description and email to send a request");
+<% else %>
+
+  var request_box = document.querySelector("#request_box");
+
+  request_box.innerHTML = "Thanks for the request!";
+
+  var request_box_mobile = document.querySelector("#request_box_mobile");
+  request_box_mobile.innerHTML = "Thanks for the request!";
+<% end %>

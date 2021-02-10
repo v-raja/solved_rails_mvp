@@ -66,6 +66,7 @@ class User < ApplicationRecord
 
   has_many :solutions
   has_many :requests
+  has_many :mini_requests
   # , dependent: :destroy
 
   after_save { solutions.each(&:touch) }

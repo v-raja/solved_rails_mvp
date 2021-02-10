@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mini_requests, only: :create
   resources :feedbacks, only: :create
   resources :lists
   match '/404', via: :all, to: 'errors#not_found'
@@ -23,14 +24,14 @@ Rails.application.routes.draw do
 
   get 'home', to: 'home#home'
   get 'recent', to: 'home#recent'
-  get 'requests', to: 'home#requests'
-  get 'requests/recent', to: 'home#requests_recent'
+  # get 'requests', to: 'home#requests'
+  # get 'requests/recent', to: 'home#requests_recent'
   get 'all', to: 'home#all'
   # get '/search/requests', to: 'search#requests'
 
   resources :industries, only: [], type: "Industry", path: "/i" do
     get "/", to: "solutions#niche_index"
-    get "/requests", to: "requests#niche_index"
+    # get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
     member do
       get 'follow'
@@ -40,7 +41,7 @@ Rails.application.routes.draw do
 
   resources :occupations, only: [], type: "Occupation", path: "/o" do
     get "/", to: "solutions#niche_index"
-    get "/requests", to: "requests#niche_index"
+    # get "/requests", to: "requests#niche_index"
     get "/search", to: "search#niche_index"
     member do
       get 'follow'

@@ -282,12 +282,12 @@ $(document).on('turbolinks:load', function() {
           submitText: 'go',
         },
         cssClasses: {
-          form: "flex items-center",
-          inputMin: "appearance-none py-1 pr-0 flex-grow  bg-white text-sm w-full border-0 focus:outline-none focus:ring-0 ",
-          // label: "text-xs mx-5 flex-shrink-0",
-          inputMax: "appearance-none py-1 pr-0 flex-grow bg-white text-sm w-full border-0 focus:outline-none focus:ring-0 ",
-          submit: "text-xs p-2 flex-shrink-0 focus:outline-none",
-          separator: "text-xs mx-1 flex-shrink-0"
+          form: "flex items-center w-56 lg:w-44 justify-between",
+          inputMin: "appearance-none py-1 pr-0 w-full flex-grow bg-white text-sm border-0 focus:outline-none focus:ring-0 ",
+          label: "w-full",
+          inputMax: "appearance-none py-1 pr-0 w-full flex-grow bg-white text-sm border-0 focus:outline-none focus:ring-0 ",
+          submit: "text-xs underline p-2 flex-shrink-0 focus:outline-none",
+          separator: "text-xs mx-2 flex-shrink-0"
           // submit: the submit button.
         }
       }),

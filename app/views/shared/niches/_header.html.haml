@@ -68,7 +68,7 @@
     %div{class: "flex max-w-sm justify-between items-center mb-3 mt-6"}
       %nav{class: "h-full text-base space-x-4"}
         = link_to_unless_current("Solutions", niche, class: "#{inactive}") do link_to 'Solutions', niche, class: "#{active}" end
-        = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
+        -# = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
         = link_to_unless_current("Search", search_solutions_path(communities: niche.title), class: "#{inactive}") do link_to("Search", [niche, :search], class: "#{active}") end
 
       -# %nav{class: "space-x-2 flex items-center text-sm"}

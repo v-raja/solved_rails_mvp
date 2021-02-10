@@ -1,0 +1,25 @@
+%h1 Listing mini_requests
+
+%table
+  %thead
+    %tr
+      %th Description
+      %th Email
+      %th User
+      %th
+      %th
+      %th
+
+  %tbody
+    - @mini_requests.each do |mini_request|
+      %tr
+        %td= mini_request.description
+        %td= mini_request.email
+        %td= mini_request.user
+        %td= link_to 'Show', mini_request
+        %td= link_to 'Edit', edit_mini_request_path(mini_request)
+        %td= link_to 'Destroy', mini_request, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Mini request', new_mini_request_path
