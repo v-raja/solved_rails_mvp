@@ -95,8 +95,8 @@ $(document).on('turbolinks:load', function() {
       instantsearch.widgets.hits({
         cssClasses: {
           root: "w-full",
-          list: "w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4",
-          item: "bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100 px-6 py-4",
+          list: "w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-4",
+          item: "bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100 px-3 py-3",
         },
         transformItems(items) {
           var itemz = items.map(item => ({
@@ -113,21 +113,35 @@ $(document).on('turbolinks:load', function() {
           empty: 'No communities have been found for "{{ query }}"',
           item: '<a href={{{url}}}>'+
                   '<div class="flex flex-col text-black">' +
-                    '<div class="w-full text-sm uppercase mt-1 text-gray-900">' +
+                    '<div class="w-full text-xxs uppercase mt-1 text-gray-900">' +
                       '{{{type}}}' +
                     '</div>' +
-                    '<div class="w-full text-black leading-tight text-base font-medium mt-1">' +
+                    '<div class="w-full text-black leading-tight text-sm sm:text-sm font-medium mt-1">' +
                       '{{{_highlightResult.title.value}}}' +
                     '</div>' +
-                    '<div class="w-full text-xs mt-3 mb-1 text-gray-700">' +
-                      'Relevant keywords' +
-                    '</div>' +
-                    '<div class="w-full text-sm list-disc list-inside space-y-0.5">' +
-                      '{{{keyword_list}}}' +
+                    '<div data-controller="toggle w-full">' +
+                      '<div class="-ml-3 lg:-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                        '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                            '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
+                          '</svg>' +
+                        '</div>' +
+                        '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
+                          '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
+                          '</svg>' +
+                        '</div>' +
+                        '<div class="">' +
+                          'Relevant keywords' +
+                        '</div>' +
+                      '</div>' +
+                      '<div class="w-full text-xs  space-y-2.5 leading-tight" data-toggle-target="toggleable">' +
+                        '{{{keyword_list}}}' +
+                      '</div>' +
                     '</div>' +
                     '{{#display_other_keywords}}' +
                       '<div data-controller="toggle w-full">' +
-                        '<div class="-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                        '<div class="-ml-3 lg:-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                           '<div class="w-4 h-4" data-toggle-target="toggleable">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                               '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
@@ -142,13 +156,13 @@ $(document).on('turbolinks:load', function() {
                             'Other keywords' +
                           '</div>' +
                         '</div>' +
-                        '<div class="w-full text-sm list-disc list-inside space-y-0.5 hidden" data-toggle-target="toggleable">' +
+                        '<div class="w-full text-xs  space-y-2.5 leading-tight hidden" data-toggle-target="toggleable">' +
                           '{{{other_keyword_list}}}' +
                         '</div>' +
                       '</div>' +
                     '{{/display_other_keywords}}' +
                     '<div data-controller="toggle">' +
-                      '<div class="-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                      '<div class="-ml-3 lg:-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                         '<div class="w-4 h-4" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
@@ -163,7 +177,7 @@ $(document).on('turbolinks:load', function() {
                           'Description' +
                         '</div>' +
                       '</div>' +
-                      '<div class="w-full text-sm pb-2 hidden" data-toggle-target="toggleable">' +
+                      '<div class="w-full text-xs pb-2 hidden" data-toggle-target="toggleable">' +
                         '{{{_snippetResult.description.value}}}' +
                       '</div>' +
                     '</div>' +

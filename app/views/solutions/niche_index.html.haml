@@ -62,16 +62,16 @@
 
         - else
           -# Niche is not postable to
-          %div{class: "w-full flex flex-col items-center"}
-            %div{class: "mt-4 w-full leading-none text-center"}
-              %div{class: "font-semibold text-xl"}
-                This community is currently locked 🔒
-            %div{class: "mt-6 text-6xl text-secondary diagonal-fractions"}
-              = "#{40 - nb_followers}/40"
-            -# %div{class: "ml-2 text-lg"}
-            %div{class: "mt-2 text-xl"}
-              followers needed to unlock
-            -# (Posting is allowed once a community has 40 followers. This community )
+          -# %div{class: "w-full flex flex-col items-center"}
+          -#   %div{class: "mt-4 w-full leading-none text-center"}
+          -#     %div{class: "font-semibold text-xl"}
+          -#       This community is currently locked 🔒
+          -#   %div{class: "mt-6 text-6xl text-secondary diagonal-fractions"}
+          -#     = "#{40 - nb_followers}/40"
+          -#   -# %div{class: "ml-2 text-lg"}
+          -#   %div{class: "mt-2 text-xl"}
+          -#     followers needed to unlock
+          -#   -# (Posting is allowed once a community has 40 followers. This community )
 
           - if user_signed_in?
             -# = "#{link_to "Follow", [:follow, @niche], class: "user-link px-1"}"
@@ -85,14 +85,14 @@
           - else
             %div{class: "w-full flex justify-center"}
               %div{class: "mt-10 max-w-md w-full text-lg text-center"}
-                = "Sign up and follow the #{@niche.title} community 👇"
+                = "Sign up and get notified when solutions are posted to the #{@niche.title} community 👇"
 
             = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-6 md:mt-4 w-full flex justify-center flex-wrap px-10 sm:flex-nowrap md:px-28"} do |f|
               %input{type: "email", name: "user[email]",
                 placeholder: "Email",
                 autocomplete: "email",
                 class: "block text-gray-900 w-full max-w-xs sm:w-56 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
-              = f.submit "Sign Up & Follow", class: "mt-2 sm:mt-0 flex-shrink-0 sm:ml-2 py-1 px-6 mx-8 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+              = f.submit "Sign Up & Get Notified", class: "mt-2 sm:mt-0 flex-shrink-0 sm:ml-2 py-2 px-6 mx-8 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
 
 
 

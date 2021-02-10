@@ -36,10 +36,10 @@
           #app_body{class: "overflow-y-auto w-full"}
             = yield
 
-          #results{class: "overflow-y-auto hidden px-8 mt-4 w-full"}
-            %div{class: "font-m text-2xl"}
-              Choose your industry or occupation below 👇
+          #results{class: "overflow-y-auto hidden px-2 mt-4 w-full"}
             %div{class: "text-lg"}
+              Choose your industry or occupation below 👇
+            %div{class: "text-base"}
               = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
             #hits{class: "mt-6 mb-10 w-full"}
 

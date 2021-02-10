@@ -96,7 +96,7 @@ $(document).on('turbolinks:load', function() {
         container: '#hits',
         cssClasses: {
           root: "w-full",
-          list: "w-full grid grid-cols-1 gap-x-2 gap-y-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4",
+          list: "w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 xl:grid-cols-4",
           item: ""
         },
         transformItems(items) {
