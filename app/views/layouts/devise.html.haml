@@ -5,16 +5,16 @@
     = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload'
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
-    %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
-    %title solved - Find better solutions to your problems
     <meta name="robots" content="noindex, nofollow">
+    <meta name="turbolinks-cache-control" content="no-preview">
+    %link{href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:900,800,700,600,500,400", rel: "stylesheet"}
+    %title solved - Find the best new solutions for your industry / occupation
     = render 'layouts/rails_default'
     = render 'layouts/shim'
     = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
-
     = yield :head
   %body
-    = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
+
     -# = debug(params) if Rails.env.development?
     #app{class: "min-h-screen bg-gray-200 antialiased font-sans"}
       %div{class: "fixed inset-0 px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50"}

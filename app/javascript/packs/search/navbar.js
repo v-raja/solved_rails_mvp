@@ -34,12 +34,12 @@ $(document).on('turbolinks:load', function() {
     };
 
     var searchClient;
-    if (gon.ffi) {
+    if (gon.pxmalz) {
       searchClient = algoliasearch(
         process.env.ALGOLIA_APP_ID,
         process.env.ALGOLIA_SEARCH_KEY, {
           headers: {
-            'X-Algolia-UserToken': gon.current_user_id
+            'X-Algolia-UserToken': atob(gon.pxmalz)
           }
         }
       );

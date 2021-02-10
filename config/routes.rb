@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   match '/500', via: :all, to: 'errors#server_error'
   get "/robots.:format", to: "errros#robots"
 
-  devise_for :users, controllers: { confirmations: 'confirmations', invitations: 'users/invitations', registrations: 'users/registrations' }
+  devise_for :users, controllers: { confirmations: 'confirmations', invitations: 'users/invitations', registrations: 'users/registrations', sessions: 'users/sessions' }
 
   authenticate :user, -> (user) { user.admin? } do
     mount PgHero::Engine, at: "pghero"

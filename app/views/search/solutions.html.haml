@@ -18,6 +18,8 @@
     div.parentNode.replaceChild(iframe, div);
   }
 
+  analytics.page('Search Solutions')
+
 
 %div{class: "flex justify-center pb-4 md:pb-6 bg-opacity-5 "}
 %div{class: " w-full flex flex-col bg-opacity-5  items-center overflow-hidden", "data-controller": 'toggle'}
@@ -36,8 +38,10 @@
     %div{class: "md:mt-6 flex flex-wrap justify-center pb-20 w-full"}
       %div{class: "w-full flex flex-wrap lg:flex-nowrap lg:items-start"}
         %div{"data-toggle-target": 'toggleable', class: "hidden lg:flex flex-col w-full lg:w-min pt-6 pb-10 md:py-0 md:pb-8 flex-shrink-0 bg-opacity-5 lg:bg-transparent px-4  space-y-10 lg:space-y-8"}
-          %div{class: "text-sm uppercase font-semibold mb-2"}
-            Filters
+          %div{class: "w-full flex items-center justify-between mb-2"}
+            %div{class: "text-sm uppercase font-semibold p-0 m-0 leading-none"}
+              Filters
+            #clear_refinements
           %div{class: "grid md:grid-cols-2 lg:flex lg:flex-col gap-6"}
             %div{"data-controller": "toggle"}
               %div{class: "w-full flex items-center justify-between border-b border-gray-400 cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle'}
@@ -50,7 +54,7 @@
 
               #price_facet{class: "mt-2 w-full hidden", "data-toggle-target": 'toggleable'}
               #price_range{class: "mt-2 w-full hidden", "data-toggle-target": 'toggleable'}
-              #is_free{class: "mt-2 w-full hidden", "data-toggle-target": 'toggleable'}
+              #is_free{class: "mt-4 w-full hidden", "data-toggle-target": 'toggleable'}
 
 
             %div{"data-controller": "toggle"}

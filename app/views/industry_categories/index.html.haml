@@ -1,9 +1,8 @@
+:javascript
+  analytics.page('Explore - Industries');
 
 = render 'shared/explore/header'
--# Nav bar
--# Header
--# Main: Children
--# Side-bar: popular industries, new requests, new solutions
+
 
 - cache @industry_categories do
   %div{class: "flex flex-wrap justify-center pb-10"}
@@ -14,17 +13,7 @@
       Suggest a new industry:
       = f.text_field :community, placeholder: "New industry", class: "ml-4 block text-sm leading-none text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
       = f.submit "Suggest", class: "text-sm flex-shrink-0 ml-2 py-1.5 px-2.5 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
-    -# %div{c: "max-w-screen-lg w-full text-gray-700 tracking-wider"}
-    -#   - letter = (params[:type] == "IndustryCategory" ? 'i' : 'o')
-    -#   = "#{letter}/#{@category.slug}"
-    -# %div{class: "mt-4 max-w-screen-lg w-full text-base flex items-center"}
-    -#   %div{class: "font-source font-bold text-primary text-lg"}
-    -#     solved
-    -#   %div{class: "ml-1 text-base"}
-    -#     uses the North American Industry Classifcation System (NAICS) to categorise
-    -#     industries. There are six levels of classification,
-    -# %div{class: "text-base max-w-screen-lg w-full"}
-    -#   and solutions and requests are posted to the sixth level.
+
     %div{class: "mt-6 max-w-screen-lg px-4 lg:px-0 w-full flex"}
       %div{class: "w-1/2 flex-shrink-0 flex flex-wrap"}
         = render "industry_categories/expand_group", group: @industry_categories.second

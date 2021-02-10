@@ -28,6 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   after_signup_path(":)")
   # end
 
+
   def after_sign_up_path_for(resource)
     after_signup_path(":)")
   end

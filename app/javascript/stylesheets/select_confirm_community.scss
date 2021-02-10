@@ -46,12 +46,12 @@
 // }
 
 .select2-dropdown .select2-dropdown--below {
-	// @apply bg-gray-fb border-0;
+	// @apply bg-gray-200 border-0;
 }
 
 #select2-select_confirm_community-results {
 	// background for everything!
-	@apply grid grid-cols-3 gap-4 bg-gray-fb bg-opacity-60;
+	@apply grid grid-cols-3 gap-4 bg-gray-200;
 }
 
 .select2-results {

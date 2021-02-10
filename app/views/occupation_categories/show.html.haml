@@ -1,4 +1,5 @@
-- set_meta_tags canonical: occupation_category_url(@occupation_category)
+:javascript
+  analytics.page('Occupation Category - #{@occupation_category.title}');
 
 = render 'shared/explore/header'
 -# Side-bar: popular industries, new requests, new solutions
@@ -37,3 +38,5 @@
   if (height > window.innerHeight) {
     container_elem.classList.add("container-overflow")
   }
+
+

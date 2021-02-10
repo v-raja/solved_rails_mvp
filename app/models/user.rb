@@ -142,6 +142,15 @@ class User < ApplicationRecord
   #   end
   # end
 
+  def traits
+    {
+      name: self.name,
+      email: self.email,
+      createdAt: self.created_at.to_time.iso8601,
+      title: self.bio
+    }
+  end
+
   protected
 
   def send_devise_notification(notification, *args)

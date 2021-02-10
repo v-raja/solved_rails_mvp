@@ -137,5 +137,4 @@ $( document ).on('turbolinks:load', function() {
   //   });
   // }
 
-  // document.addEventListener('DOMContentLoaded', initYouTubeVideos);
 })

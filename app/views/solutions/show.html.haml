@@ -1,4 +1,6 @@
 -# = render 'layouts/header', render_shadow: false
+:javascript
+  analytics.page("Solution - #{@solution.title}");
 
 %div{class: "bg-gray-200 flex pt-4 flex-wrap justify-center pb-10 md:pb-2 px-4"}
 

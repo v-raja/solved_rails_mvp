@@ -1,22 +1,9 @@
-document.addEventListener("turbolinks:load", function(event) {
-  // if (gon.ffi) {
-  //   analytics.identify(
-  //     atob(gon.page_id),
-  //     {
-  //       name: atob(gon.ldap),
-  //       email: atob(gon.udap),
-  //     }
-  //   );
-  // }
-  if (event.data.timing.visitStart) {
+$(document).on("turbolinks:load", function(event) {
 
-    if (gon.page_id) {
+  if (gon.ffi) {
       analytics.identify(
-        atob(gon.page_id),
-        JSON.parse(atob(gon.test))
+        atob(gon.pxmalz),
+        JSON.parse(atob(gon.ffi))
       );
     }
-
-    analytics.page();
-  }
 })

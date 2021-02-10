@@ -2,15 +2,41 @@ import searchRouting from '../../src/search_routing';
 
 
 $(document).on('turbolinks:load', function() {
+  var indexName = gon.index_name + '_' + process.env.RAILS_ENV;
+
+  const attributeDisplayValue = {
+    "_tags": "tags",
+    "communities.title": "communities",
+    "product.plan.price": "price",
+    "product.plan.price_facet": "price type",
+    "product.plan.is_free": "is free"
+  };
+
+  function ProductListFilteredEventWithItems(items) {
+    if (Array.isArray(items) && items.length) {
+      const payload = {
+        filters: items.map((item) => ({
+          type: attributeDisplayValue[item.attribute] ? attributeDisplayValue[item.attribute] : item.attribute,
+          value: item.refinements.map((refinement) => (
+            refinement.label
+          ))
+        })),
+        index: indexName
+      };
+      analytics.track("Product List Filtered (Aggregate)", payload);
+    }
+
+  }
+
   if (document.getElementById("searchbox_posts")) {
-    var indexName = gon.index_name + '_' + process.env.RAILS_ENV;
     var searchClient;
-    if (gon.ffi) {
+
+    if (gon.pxmalz) {
       searchClient = algoliasearch(
         process.env.ALGOLIA_APP_ID,
         process.env.ALGOLIA_SEARCH_KEY, {
           headers: {
-            'X-Algolia-UserToken': gon.current_user_id
+            'X-Algolia-UserToken': atob(gon.pxmalz)
           }
         }
       );
@@ -84,13 +110,13 @@ $(document).on('turbolinks:load', function() {
             ),
 
           }));
-          console.log(itemz);
+          // console.log(itemz);
           return itemz;
         },
         escapeHTML: false,
         templates: {
           empty: 'No solutions have been found for "{{ query }}"',
-          item: '<div class="btn-favorite" data-product-clicked-payload="{{{product_clicked_payload}}}">' +
+          item: '<div>' +
                   '<div class="">' +
                       `<div class=" flex flex-col">
                         <div class=" video aspect-w-7 aspect-h-4 ">
@@ -107,12 +133,12 @@ $(document).on('turbolinks:load', function() {
                                     </div>
                                   </div>
                                 {{/show_votes}}
-                                <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="h-full w-full object-cover cursor-pointer"/>
+                                <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}"/>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <a href="{{{url}}}">
+                        <a href="{{{url}}}" class="btn-favorite" data-product-clicked-payload="{{{product_clicked_payload}}}">
                           <div class=" flex mt-2">
                             <div class=" flex-shrink-0">
                               <img class="w-8 h-8 object-cover rounded-full" src="{{{product.thumbnail_url}}}">
@@ -120,7 +146,7 @@ $(document).on('turbolinks:load', function() {
                             <div class=" flex-grow flex flex-wrap ml-2">
                               <div class=" w-full text-xs md:text-sm font-medium two-lines-only">
                                 <div class=" flex-shrink-0 ">
-                                  {{{_highlightResult.title.value}}}
+                                {{{_highlightResult.title.value}}}
                                 </div>
                               </div>
                             <div class=" mt-1 text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
@@ -139,9 +165,9 @@ $(document).on('turbolinks:load', function() {
                     </div>` +
 
 
-                    `<div class="pt-2 text-gray-700 text-xs px-2 h-24 overflow-y-auto">
+                    `<div class="pt-2 text-gray-700 text-xs px-2 h-24 overflow-y-auto btn-desc-scroll" data-product-clicked-payload="{{{product_clicked_payload}}}">
 
-                    {{{_highlightResult.description_text.value}}}
+                      {{{_highlightResult.description_text.value}}}
                     </div>` +
 
 
@@ -157,24 +183,20 @@ $(document).on('turbolinks:load', function() {
         attribute: '_tags',
         searchable: true,
         showMore: true,
-        limit: 8,
+        limit: 6,
         templates: {
-          item: `
-          <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
-            <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
-            <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
-          </div>
-        `,
         },
         placeholder: "Search for a tag",
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          list: "mt-3 space-y-2",
-          item: "",
-          label: "",
+          list: "mt-3 spacey-y-2",
+          count: "hidden",
+          item: "flex items-center cursor-pointer",
+          checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
+          labelText: "ml-1 leading-tight text-xs cursor-pointer hover:underline",
           noResults: "text-sm mt-2",
-          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          showMore: "ml-6 lowercase text-xs mt-2 underline hover:underline focus:outline-none",
           disabledShowMore: "hidden",
           searchableSubmit: "hidden",
           searchableReset: "hidden"
@@ -192,6 +214,9 @@ $(document).on('turbolinks:load', function() {
           delete: "ml-1 text-xxs font-bold pt-1 pl-1 pr-3 focus:outline-none"
         },
         transformItems(items) {
+          ProductListFilteredEventWithItems(items);
+
+
           const attributeDisplayValue = {
             "_tags": "tags",
             "communities.title": "communities",
@@ -213,26 +238,19 @@ $(document).on('turbolinks:load', function() {
         container: '#price_facet',
         attribute: 'product.plan.price_facet',
         operator: 'and',
-
-        templates: {
-          item:  `
-            <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
-              <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
-              <span class="ml-1 text-xs hover:underline">{{{label}}}</span>
-            </div>
-          `
-        },
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          list: "mt-3 space-y-2",
-          item: "",
+          list: "mt-3 spacey-y-2",
+          count: "hidden",
+          item: "flex items-center cursor-pointer",
+          checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
+          labelText: "ml-1 leading-tight text-xs cursor-pointer hover:underline",
           noResults: "text-sm mt-2",
-          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          showMore: "ml-6 lowercase text-xs mt-2 underline hover:underline focus:outline-none",
           disabledShowMore: "hidden",
           searchableSubmit: "hidden",
           searchableReset: "hidden"
-
         }
       }),
 
@@ -275,26 +293,20 @@ $(document).on('turbolinks:load', function() {
         searchable: true,
         showMore: true,
         limit: 6,
-        templates: {
-          item: `
-          <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
-            <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
-            <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
-          </div>
-        `,
-        },
-        placeholder: "Search for a community",
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          list: "mt-3 space-y-3",
-          item: "leading-tight",
-          label: "leading-none",
+          list: "mt-3 space-y-2",
+          count: "hidden",
+          item: "cursor-pointer",
+          label: "flex items-center",
+          checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
+          labelText: "ml-2 text-xs cursor-pointer hover:underline leading-tight",
           noResults: "text-sm mt-2",
-          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          showMore: "ml-6 lowercase text-xs mt-2 underline hover:underline focus:outline-none",
           disabledShowMore: "hidden",
           searchableSubmit: "hidden",
-          searchableReset: "hidden",
+          searchableReset: "hidden"
         }
       }),
 
@@ -305,25 +317,34 @@ $(document).on('turbolinks:load', function() {
         showMore: true,
         limit: 4,
         templates: {
-          item: `
-          <div class="{{#isRefined}}font-medium{{/isRefined}} flex items-center cursor-pointer">
-            <input type="checkbox" class="cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4" value="{{value}}" {{#isRefined}}checked="true"{{/isRefined}}/>
-            <span class="ml-1 text-xs hover:underline">{{label}}  ({{count}})</span>
-          </div>
-        `,
-        searchableNoResults: `noResults`
+          searchableNoResults: `No results`
         },
         placeholder: "Search for a platform",
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          list: "mt-3 space-y-2",
-          item: "",
+          list: "mt-3 spacey-y-2",
+          count: "hidden",
+          item: "flex items-center cursor-pointer",
+          checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
+          labelText: "ml-1 leading-tight text-xs cursor-pointer hover:underline",
           noResults: "text-sm mt-2",
-          showMore: "text-sm mt-4 underline font-medium hover:underline focus:outline-none",
+          showMore: "ml-6 lowercase text-xs mt-2 underline hover:underline focus:outline-none",
           disabledShowMore: "hidden",
           searchableSubmit: "hidden",
           searchableReset: "hidden"
+        }
+      }),
+
+      instantsearch.widgets.clearRefinements({
+        container: '#clear_refinements',
+        templates: {
+          resetLabel: "clear"
+        },
+        cssClasses: {
+          root: "p-0 m-0 leading-none",
+          button: "text-xs underline m-0 p-0 leading-none pl-3 focus:outline-none",
+          disabeldButton: "hidden"
         }
       }),
 
@@ -348,14 +369,14 @@ $(document).on('turbolinks:load', function() {
     search.start();
 
     // platform, tags, communities, price_facet
-    document.querySelector("#tags").addEventListener("click", event => {
+    function ProductListFilteredEvent(event, type) {
       const elem = event.target;
       if (elem.matches("input[type=checkbox]") && elem.checked) {
         // This sends an event when a filter is checked.
         const payload = {
           filters: [
             {
-              type: "_tags",
+              type: type,
               value: elem.value
             }
           ],
@@ -363,59 +384,28 @@ $(document).on('turbolinks:load', function() {
         };
         analytics.track("Product List Filtered", payload);
       }
+    }
+
+    document.querySelector("#tags").addEventListener("click", event => {
+      ProductListFilteredEvent(event, "tags");
     });
 
-
     document.querySelector("#communities").addEventListener("click", event => {
-      const elem = event.target;
-      if (elem.matches("input[type=checkbox]") && elem.checked) {
-        // This sends an event when a filter is checked.
-        const payload = {
-          filters: [
-            {
-              type: "communities.title",
-              value: elem.value
-            }
-          ],
-          index: indexName
-        };
-        analytics.track("Product List Filtered", payload);
-      }
+      ProductListFilteredEvent(event, "communities");
     });
 
     document.querySelector("#platforms").addEventListener("click", event => {
-      const elem = event.target;
-      if (elem.matches("input[type=checkbox]") && elem.checked) {
-        // This sends an event when a filter is checked.
-        const payload = {
-          filters: [
-            {
-              type: "platforms",
-              value: elem.value
-            }
-          ],
-          index: indexName
-        };
-        analytics.track("Product List Filtered", payload);
-      }
+      ProductListFilteredEvent(event, "platforms");
     });
 
     document.querySelector("#price_facet").addEventListener("click", event => {
-      const elem = event.target;
-      if (elem.matches("input[type=checkbox]") && elem.checked) {
-        // This sends an event when a filter is checked.
-        const payload = {
-          filters: [
-            {
-              type: "product.plan.price_facet",
-              value: elem.value
-            }
-          ],
-          index: indexName
-        };
-        analytics.track("Product List Filtered", payload);
-      }
+      ProductListFilteredEvent(event, "price type");
     });
+
+    document.querySelector("#is_free").addEventListener("click", event => {
+      ProductListFilteredEvent(event, "is free");
+    });
+
 
     document.addEventListener("click", event => {
       const elem = event.target.closest(".btn-favorite");
@@ -426,6 +416,13 @@ $(document).on('turbolinks:load', function() {
           )
         );
         analytics.track("Product Clicked", payload);
+      } else if (event.target !== null && event.target.matches(".btn-video")) {
+        const payload = JSON.parse(
+          decodeURIComponent(
+            event.target.getAttribute("data-product-clicked-payload")
+          )
+        );
+        analytics.track("Video Clicked", payload);
       }
     });
   }

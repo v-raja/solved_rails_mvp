@@ -1,3 +1,6 @@
+:javascript
+  analytics.page('#{@niche.class.to_s} Requests - #{@niche.title}');
+
 -# = render 'layouts/header'
 %div{class: "w-full", "data-controller": 'toggle'}
   - @current_user_is_following_niche = user_signed_in? ? current_user.following?(@niche) : false
