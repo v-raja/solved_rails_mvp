@@ -120,7 +120,7 @@ $(document).on('turbolinks:load', function() {
                       '{{{_highlightResult.title.value}}}' +
                     '</div>' +
                     '<div data-controller="toggle w-full">' +
-                      '<div class="-ml-3 lg:-ml-1 mb-1 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                      '<div class="-ml-1 mb-2 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                         '<div class="hidden w-3 h-3" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
@@ -141,7 +141,7 @@ $(document).on('turbolinks:load', function() {
                     '</div>' +
                     '{{#display_other_keywords}}' +
                       '<div data-controller="toggle w-full">' +
-                        '<div class="-ml-3 lg:-ml-1 mb-1 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                        '<div class="-ml-1 mb-2 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                           '<div class="w-3 h-3" data-toggle-target="toggleable">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                               '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
@@ -162,7 +162,7 @@ $(document).on('turbolinks:load', function() {
                       '</div>' +
                     '{{/display_other_keywords}}' +
                     '<div data-controller="toggle">' +
-                      '<div class="-ml-3 lg:-ml-1 mb-1 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                      '<div class="-ml-1 mb-2 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
                         '<div class="w-3 h-3" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
