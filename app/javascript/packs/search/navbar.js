@@ -96,7 +96,7 @@ $(document).on('turbolinks:load', function() {
         cssClasses: {
           root: "w-full",
           list: "w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-4",
-          item: "bg-white w-full mt-0 border border-gray-400 shadow-none hover:bg-blue-100 px-3 py-3",
+          item: "bg-white w-full mt-0 border border-gray-400 shadow-none px-3 py-3",
         },
         transformItems(items) {
           var itemz = items.map(item => ({
@@ -120,13 +120,13 @@ $(document).on('turbolinks:load', function() {
                       '{{{_highlightResult.title.value}}}' +
                     '</div>' +
                     '<div data-controller="toggle w-full">' +
-                      '<div class="-ml-3 lg:-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
-                        '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                      '<div class="-ml-3 lg:-ml-1 mb-1 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                        '<div class="hidden w-3 h-3" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
                           '</svg>' +
                         '</div>' +
-                        '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                        '<div class="w-3 h-3" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                           '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
                           '</svg>' +
@@ -141,13 +141,13 @@ $(document).on('turbolinks:load', function() {
                     '</div>' +
                     '{{#display_other_keywords}}' +
                       '<div data-controller="toggle w-full">' +
-                        '<div class="-ml-3 lg:-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
-                          '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                        '<div class="-ml-3 lg:-ml-1 mb-1 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                          '<div class="w-3 h-3" data-toggle-target="toggleable">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                               '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
                             '</svg>' +
                           '</div>' +
-                          '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                          '<div class="hidden w-3 h-3" data-toggle-target="toggleable">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
                             '</svg>' +
@@ -162,13 +162,13 @@ $(document).on('turbolinks:load', function() {
                       '</div>' +
                     '{{/display_other_keywords}}' +
                     '<div data-controller="toggle">' +
-                      '<div class="-ml-3 lg:-ml-4 mb-1 w-full text-xs mt-3 text-gray-700 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
-                        '<div class="w-4 h-4" data-toggle-target="toggleable">' +
+                      '<div class="-ml-3 lg:-ml-1 mb-1 w-full text-xs mt-3 text-gray-600 hover:text-black hover:font-medium flex items-center" data-action="click->toggle#toggle touch->toggle#toggle">' +
+                        '<div class="w-3 h-3" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                             '<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />' +
                           '</svg>' +
                         '</div>' +
-                        '<div class="hidden w-4 h-4" data-toggle-target="toggleable">' +
+                        '<div class="hidden w-3 h-3" data-toggle-target="toggleable">' +
                           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">' +
                           '<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />' +
                           '</svg>' +

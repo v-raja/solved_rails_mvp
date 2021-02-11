@@ -76,9 +76,15 @@
           - if user_signed_in?
             -# = "#{link_to "Follow", [:follow, @niche], class: "user-link px-1"}"
             - if !@current_user_is_following_niche
-              %div{class: "mt-10 w-full text-center"}
-                = link_to "Follow community", [:follow, @niche], class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-xl font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
+              %div{class: "w-full flex flex-col items-center"}
+                %div{class: "mt-10 max-w-md w-full text-lg text-center"}
+                  = "Follow to get notified when solutions are posted to the #{@niche.title} community 👇"
+                %div{class: "mt-6 md:mt-4 max-w-md w-full text-lg text-center"}
+                  = link_to "Follow community", [:follow, @niche], class: "flex-shrink-0 border-b-3 border-secondary px-0.5 text-xl font-medium leading-4 transition-all hover:bg-secondary hover:text-white pt-1 tracking-wide"
             - else
+              %div{class: "w-full flex flex-col items-center"}
+                %div{class: "mt-10 max-w-md w-full text-lg text-center"}
+                  = "No solutions for the #{@niche.title} comunity yet 😔"
               -# %div{class: "mt-10 w-full text-center text-xl"}
               -#   Invite your friends to unlock this community quicker 🔓
 
