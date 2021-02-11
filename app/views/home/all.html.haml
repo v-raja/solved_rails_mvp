@@ -10,43 +10,25 @@
     console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
   }
 
-%div{class: "bg-white lg:w-5/6 rounded border border-gray-400 m-4 p-4 mb-8 #{cookies[:closeInfo] ? 'hidden' : nil}", "data-toggle-target": 'toggleable', "data-controller": "toggle"}
-  %div{class: "text-lg flex items-center w-full justify-between font-medium"}
+%div{class: "bg-white lg:w-1/2 lg:mx-auto rounded border border-gray-400 m-4 p-4 mb-8 #{cookies[:closeInfo1] ? 'hidden' : nil}", "data-toggle-target": 'toggleable', "data-controller": "toggle"}
+  %div{class: "text-base flex items-center w-full justify-between font-medium"}
     Hello! 👋
     -# %div
-    %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo', true, 10);"}
+    %div{class: "w-4 h-4  text-gray-600 hover:text-black cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle', onclick: "document.cookie = setCookie('closeInfo1', true, 10);"}
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
 
-  %div{class: "py-1 w-full rounded-lg mt-1 text-base pr-6"}
-    -# %div{class: "font-medium"}
-    -#   👋 Hello
-    -# %div{class: "inline-flex items-center"}
-    -#   Welcome to solved,
-    %div{class: ""}
-      Welcome to solved, a place to find the best new solutions for your industry / occupation.
-    %div{class: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-4 gap-x-8 text-sm"}
+  %div{class: "py-1 w-full rounded-lg mt-1 text-base px-auto space-y-2"}
 
-      %div{class: "flex"}
-        %div{class: 'text-lg'}
-          🤓
-        %div{class: "ml-1.5"}
-          Solutions here are focused on people showing how they apply a prodcut in their daily workflow to solve a problem.<br/><br/>
-      %div{class: "flex"}
-        %div{class: 'text-lg'}
-          🚫
-        %div{class: "ml-1.5"}
-          Solutions that vaguely talk about benefits or superficially demonstrate features are highly discouraged. Please help the community out by flagging such solutions.<br/><br/>
-      %div{class: "flex"}
-        %div{class: 'text-lg'}
-          ❤️
-        %div{class: "ml-1.5"}
-          Help others by showing them your favorite solutions.
-          %div{class: 'text-sm'}
-            (We allow affiliate links, but encourage you to only recommend products you use!)
+    %div{class: "text-sm"}
+      Welcome to solved, a place to learn about solutions from others in your industry / occupation. <br/>
+    %div{class: "text-sm"}
+      🔍 Search for your industry / occupation above and find out how others in your field are solving their problems.
 
-
+      -# learn about new ways of solving problems from others in your field.
+    %div{class: "text-sm"}
+      👇 Alternatively, browse below to see popular solutions from all industries and occupations across solved.
 
 %div{class: "mt-4 mb-10 px-4"}
   %div{class: "text-2xl font-bold"}

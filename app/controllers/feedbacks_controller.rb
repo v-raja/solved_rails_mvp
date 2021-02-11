@@ -26,6 +26,9 @@ class FeedbacksController < ApplicationController
   def create
     @feedback = Feedback.new(feedback_params)
     authorize @feedback
+    if user_signed_in?
+      @feedback.user = current_user
+    end
     respond_to do |format|
       if @feedback.save
         format.js
@@ -67,6 +70,6 @@ class FeedbacksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def feedback_params
-      params.require(:feedback).permit(:description, :email)
+      params.require(:feedback).permit(:description, :email, :is_happy_user)
     end
 end

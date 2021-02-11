@@ -108,13 +108,14 @@
                 %textarea{rows: "4", name: "feedback[description]", id: "description",
                       class: "hidden mt-2 placeholder-gray-600 w-full block text-gray-900 text-xs rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
                       placeholder: "Let us know what we could create, change or be doing better!"}
-                %div{class: "w-full hidden mb-2", id: "email"}
-                  %div{class: ""}
-                    Could we please contact you to find out more?
-                  %input{type: "email", name: "feedback[email]",
-                    placeholder: "Email (optional)",
-                    autocomplete: "email",
-                    class: "block text-xs placeholder-gray-600 w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+                - if !user_signed_in?
+                  %div{class: "w-full hidden mb-2", id: "email"}
+                    %div{class: ""}
+                      Could we please contact you to find out more?
+                    %input{type: "email", name: "feedback[email]",
+                      placeholder: "Email (optional)",
+                      autocomplete: "email",
+                      class: "block text-xs placeholder-gray-600 w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
                 = f.submit "Send", id: "submit", class: "hidden mt-2 sm:mt-0 flex-shrink-0 py-2 px-3 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
         :javascript
           $("#happy_value input:radio").change(function(){
@@ -145,7 +146,7 @@
               %div{id: "request_box", class: "text-xs"}
                 %div{class: "w-full"}
                   solved is new so you're unlikely to currently find interesting solutions for your industry / occupation, but we're keen to help. <br/><br/>
-                  Let us know who you are / what you do and we'll send you an email with interesting solutions for you. The more context you give us about a daily task you do that you find painful, the better.<br/>
+                  Let us know who you are / what you do and we'll send you an email with interesting solutions for you.<br/>
                   (if you have have a problem in mind, let us know)
 
 
@@ -156,7 +157,7 @@
                   %input{type: "email", name: "mini_request[email]",
                     placeholder: "Email",
                     autocomplete: "email",
-                    class: "block placeholder-gray-600 text-xs w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+                    class: "mt-2 block placeholder-gray-600 text-xs w-full text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
                 = f.submit "Send", class: "mt-2 flex-shrink-0 py-2 px-3 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
 
 
