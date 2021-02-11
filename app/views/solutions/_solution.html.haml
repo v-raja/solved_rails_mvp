@@ -22,17 +22,21 @@
               = solution.user.name
             %div{class: "mx-1"}
               &middot;
-            %div{class: "flex-shrink-0 "}
-              = time_ago_in_words(solution.created_at)
-              ago
+            -# %div{class: "flex-shrink-0 "}
+            -#   = time_ago_in_words(solution.created_at)
+            -#   ago
             -# - if solution.plan
-            -#   %div{class: "mx-1"}
-            -#     &middot;
-            -#   - if solution.plan.price_per_month == 0
-            -#     Free
-            -#   - else
-            -#     %div{class: "flex-shrink-0 "}
-            -#       = "#{number_to_currency(solution.plan.price_per_month, precision: 0)} #{solution.plan.is_price_per_user ? "/u" : nil}/mo."
+            -# %div{class: "mx-1"}
+            -#   &middot;
+
+            - if solution.plan.price_per_month == 0
+              %div{class: "flex-shrink-0 "}
+                Free
+                - if solution.plan.is_for_education
+                  (for Non-profit / Education)
+            - else
+              %div{class: "flex-shrink-0 "}
+                = "#{number_to_currency(solution.plan.price_per_month, precision: 0)} #{solution.plan.is_price_per_user ? "/u" : nil}/mo."
 
 
 
