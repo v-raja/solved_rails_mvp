@@ -87,7 +87,7 @@
                       This price is per user per month
 
             %div{class: "mt-6 text-sm font-medium"}
-              What platform are you using the product on?
+              What platform are you using the product on in your solution?
             %div{class: "mt-1"}
               - options = @solution.platform_list + Solution.platform_counts.pluck(:name)
               = f.select :platform_list, options, {}, id: "platform_select", :multiple => true, class: "w-full"
@@ -134,20 +134,20 @@
             -# %div{class: "text-gray-600 text-xs mt-1"}
             -#   Please refresh the page if the box above looks funky 🤪
 
-            %div{class: "mt-6 flex items-center"}
-              %div{class: "font-medium"}
-                Which lists is your solution relevant to?
-              %div{class: "ml-2 text-gray-600"}
-                = "- Optional"
-            %div{class: "w-full mt-1"}
-              - options = @solution.group_list + Group.all.pluck(:title)
-              -# - byebug
-              = f.select :group_list, options, {}, id: "group_select", :multiple => true, class: "w-full"
-              -# - niche_from_param = params[:code] ? (Industry.where(code: params[:code]).empty? ?  Occupation.where(code: params[:code]) : Industry.where(code: params[:code])) : nil
-              -# - options = options_for_select (@solution.list_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
-              -# = f.select :list_list,  options, {}, {multiple: true, id: "select_community", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
-            %div{class: "text-gray-600 text-xs mt-2"}
-              Some solutions apply generally to businesses / individuals with a common interest (ex: Small and Medium-sized Businesses / Indie Hackers). In that case, post to a relevant list.
+            -# %div{class: "mt-6 flex items-center"}
+            -#   %div{class: "font-medium"}
+            -#     Which lists is your solution relevant to?
+            -#   %div{class: "ml-2 text-gray-600"}
+            -#     = "- Optional"
+            -# %div{class: "w-full mt-1"}
+            -#   - options = @solution.group_list + Group.all.pluck(:title)
+            -#   -# - byebug
+            -#   = f.select :group_list, options, {}, id: "group_select", :multiple => true, class: "w-full"
+            -#   -# - niche_from_param = params[:code] ? (Industry.where(code: params[:code]).empty? ?  Occupation.where(code: params[:code]) : Industry.where(code: params[:code])) : nil
+            -#   -# - options = options_for_select (@solution.list_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
+            -#   -# = f.select :list_list,  options, {}, {multiple: true, id: "select_community", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
+            -# %div{class: "text-gray-600 text-xs mt-2"}
+            -#   Some solutions apply generally to businesses / individuals with a common interest (ex: Small and Medium-sized Businesses / Indie Hackers). In that case, post to a relevant list.
 
 
 
@@ -237,43 +237,52 @@
 
             %div{class: "mt-4 flex items-center"}
               %div{class: "font-medium"}
-                Description
+                Description (only for search)
               %div{class: "ml-2 text-gray-600"}
-                = "- Required"
+                = "- Optional"
             = f.text_area :description,
                 class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                 placeholder: "",
                 data: {action: "change->data-binding#update"}, "data-binding-target": "description", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-debug": "true", "data-binding-initial": "#{params.dig(:solution, :description).blank? ? "false" : "true"}",
-                rows: "6"
-            %div{class: "mt-1 text-xs"}
-              Formatting: [this will be a link](https://www.example.com), **<strong>bold</strong>**, *<em>italic</em>*
+                rows: "3"
+            -# %div{class: "mt-1 text-xs"}
+            -#   Formatting: [this will be a link](https://www.example.com), **<strong>bold</strong>**, *<em>italic</em>*
+            - if user_signed_in? && current_user.admin?
+              %div{class: "mt-4 flex items-center"}
+                %div{class: "font-medium"}
+                  Demoer name
+                %div{class: "ml-2 text-gray-600"}
+                  = "- Optional"
+              = f.text_field :demoer_name,
+                  class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                  placeholder: ""
 
-          %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
-            %div{class: "flex items-center"}
-              %div{class: "font-semibold"}
-                Tags
-              -# %div{class: "ml-2 text-gray-600"}
-              -#   = "- Required"
+          -# %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
+          -#   %div{class: "flex items-center"}
+          -#     %div{class: "font-semibold"}
+          -#       Tags
+          -#     -# %div{class: "ml-2 text-gray-600"}
+          -#     -#   = "- Required"
 
-            %div{class: "mt-2"}
-              General tags
-            %div{class: "text-gray-600 text-xs mt-1"}
-              If a business/person from an unrelated industry/occupation would get value from your solution, what phrase would they filter by to find a solution like yours?
-              -# General tags make it easier to find your solution across different communities. Use words that make sense across many different industries / occupations.
-            %div{class: "mt-1"}
-              -# - options = Solution.general_tag_counts.collect {|t| [t.name, t.name] }
-              -# - options.concat{ @solution.general_tag_list.collect { |t| [t, t, {'selected' => 'selected'}] } }
-              - options = @solution.general_tag_list + Solution.general_tag_counts.pluck(:name)
-              -# - byebug
-              = f.select :general_tag_list, options, {}, id: "general_tags", :multiple => true, class: "w-full"
+          -#   %div{class: "mt-2"}
+          -#     General tags
+          -#   %div{class: "text-gray-600 text-xs mt-1"}
+          -#     If a business/person from an unrelated industry/occupation would get value from your solution, what phrase would they filter by to find a solution like yours?
+          -#     -# General tags make it easier to find your solution across different communities. Use words that make sense across many different industries / occupations.
+          -#   %div{class: "mt-1"}
+          -#     -# - options = Solution.general_tag_counts.collect {|t| [t.name, t.name] }
+          -#     -# - options.concat{ @solution.general_tag_list.collect { |t| [t, t, {'selected' => 'selected'}] } }
+          -#     - options = @solution.general_tag_list + Solution.general_tag_counts.pluck(:name)
+          -#     -# - byebug
+          -#     = f.select :general_tag_list, options, {}, id: "general_tags", :multiple => true, class: "w-full"
 
-            %div{class: "mt-3"}
-              Community-specific tags
-            %div{class: "text-gray-600 text-xs mt-1"}
-              Words that make sense in the context of the industry / occupation you're posting to.
-            %div{class: "mt-1"}
-              - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
-              = f.select :niche_specific_tag_list, options, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
+          -#   %div{class: "mt-3"}
+          -#     Community-specific tags
+          -#   %div{class: "text-gray-600 text-xs mt-1"}
+          -#     Words that make sense in the context of the industry / occupation you're posting to.
+          -#   %div{class: "mt-1"}
+          -#     - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
+          -#     = f.select :niche_specific_tag_list, options, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
 
           %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
             %div{class: "flex items-center"}
@@ -313,16 +322,17 @@
                 Description
               -# %div{class: "mt-1 leading-tight pl-2"}
               %ul.mt-2.list-disc.list-inside.space-y-1.leading-relaxed
-                Keep it short. Try to only include details about:
-                .mt-1.space-y-1
-                  %li
-                    = "Who are you (alternatively, who is your solution for)?"
-                    %div.pl-5
-                      This helps pepole understand what you're looking for in your solution, which helps them understand if the same applies to them.
-                  -# whether the reason you chose the solution would apply to them."
-                  %li= "What problem are you trying to solve?"
-                  %li= "What one thing do you love the most about your solution, and what isn't so great? Including the not so great points helps others make better informed decisions."
-                  -# %li= "What would people search to find a solution like this?"
+                Use this space to list keywords and questions people would use to search for your solution. This is not shown anywhere.
+                -# Keep it short. Try to only include details about:
+                -# .mt-1.space-y-1
+                -#   %li
+                -#     = "Who are you (alternatively, who is your solution for)?"
+                -#     %div.pl-5
+                -#       This helps pepole understand what you're looking for in your solution, which helps them understand if the same applies to them.
+                -#   -# whether the reason you chose the solution would apply to them."
+                -#   %li= "What problem are you trying to solve?"
+                -#   %li= "What one thing do you love the most about your solution, and what isn't so great? Including the not so great points helps others make better informed decisions."
+                -#   -# %li= "What would people search to find a solution like this?"
               %div{class: "mt-4 font-medium uppercase"}
                 Video & First Comment
               %ul{class: "mt-2 list-disc list-inside space-y-2 leading-relaxed"}
@@ -345,7 +355,7 @@
                 -# Has the product saved you time / money, helped you earn more money, or made you happier? Putting a figure / percentage helps people understand impact better.
 
                 %li
-                  Use the first comment to include details missed in your video / description, and to get the conversation started.
+                  Use the first comment to include details missed in your video, and to get the conversation started.
 
       %div{class: "mt-20 text-2xl font-bold"}
         💬 Get the discussion going

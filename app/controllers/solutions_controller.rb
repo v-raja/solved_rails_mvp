@@ -271,7 +271,7 @@ class SolutionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solution_params
-      params.require(:solution).permit(:title, :description, :product_id, :plan_id, :is_creator, :get_it_url, comment_threads_attributes: [:user_id, :body],
+      params.require(:solution).permit(:title, :description, :demoer_name, :product_id, :plan_id, :is_creator, :get_it_url, comment_threads_attributes: [:user_id, :body],
             general_tag_list: [], platform_list: [], group_list: [], niche_specific_tag_list: [], niche_list: [], product_attributes: [:name, :thumbnail_url], plan_attributes: [:name, :price_per_month, :is_price_per_user], youtube_urls_attributes: [:_destroy, :id, :url])
     end
 

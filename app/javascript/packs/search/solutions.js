@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
   var indexName = gon.index_name + '_' + process.env.RAILS_ENV;
 
   const attributeDisplayValue = {
-    "_tags": "tags",
+    // "_tags": "tags",
     "communities.title": "communities",
     "product.plan.price": "price",
     "product.plan.price_facet": "price type",
@@ -70,7 +70,7 @@ $(document).on('turbolinks:load', function() {
     let timerId;
     search.addWidgets([
       instantsearch.widgets.configure({
-        attributesToSnippet: ['description_text:60'],
+        // attributesToSnippet: ['description_text:60'],
         clickAnalytics: true,
         // enablePersonalization: true,
       }),
@@ -185,10 +185,10 @@ $(document).on('turbolinks:load', function() {
                     </div>` +
 
 
-                    `<div class="pt-2 text-gray-700 text-xs px-2 h-24 overflow-y-auto btn-desc-scroll" data-product-clicked-payload="{{{product_clicked_payload}}}">
+                    // `<div class="pt-2 text-gray-700 text-xs px-2 h-24 overflow-y-auto btn-desc-scroll" data-product-clicked-payload="{{{product_clicked_payload}}}">
 
-                      {{{_highlightResult.description_text.value}}}
-                    </div>` +
+                    //   {{{_highlightResult.description_text.value}}}
+                    // </div>` +
 
 
 
@@ -198,30 +198,30 @@ $(document).on('turbolinks:load', function() {
         },
       }),
 
-      instantsearch.widgets.refinementList({
-        container: '#tags',
-        attribute: '_tags',
-        searchable: true,
-        showMore: true,
-        limit: 6,
-        templates: {
-        },
-        placeholder: "Search for a tag",
-        cssClasses: {
-          searchableForm: "border-0 flex-shrink-0",
-          searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          list: "mt-3 spacey-y-2",
-          count: "hidden",
-          item: "flex items-center cursor-pointer",
-          checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
-          labelText: "ml-1 leading-tight text-xs cursor-pointer hover:underline",
-          noResults: "text-sm mt-2",
-          showMore: "ml-6 lowercase text-xs mt-2 underline hover:underline focus:outline-none",
-          disabledShowMore: "hidden",
-          searchableSubmit: "hidden",
-          searchableReset: "hidden"
-        }
-      }),
+      // instantsearch.widgets.refinementList({
+      //   container: '#tags',
+      //   attribute: '_tags',
+      //   searchable: true,
+      //   showMore: true,
+      //   limit: 6,
+      //   templates: {
+      //   },
+      //   placeholder: "Search for a tag",
+      //   cssClasses: {
+      //     searchableForm: "border-0 flex-shrink-0",
+      //     searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
+      //     list: "mt-3 spacey-y-2",
+      //     count: "hidden",
+      //     item: "flex items-center cursor-pointer",
+      //     checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
+      //     labelText: "ml-1 leading-tight text-xs cursor-pointer hover:underline",
+      //     noResults: "text-sm mt-2",
+      //     showMore: "ml-6 lowercase text-xs mt-2 underline hover:underline focus:outline-none",
+      //     disabledShowMore: "hidden",
+      //     searchableSubmit: "hidden",
+      //     searchableReset: "hidden"
+      //   }
+      // }),
 
       instantsearch.widgets.currentRefinements({
         container: '#current-refinements',
@@ -238,7 +238,7 @@ $(document).on('turbolinks:load', function() {
 
 
           const attributeDisplayValue = {
-            "_tags": "tags",
+            // "_tags": "tags",
             "communities.title": "communities",
             "product.plan.price": "price",
             "product.plan.price_facet": "price",
@@ -392,9 +392,9 @@ $(document).on('turbolinks:load', function() {
       }
     }
 
-    document.querySelector("#tags").addEventListener("click", event => {
-      SolutionListFilteredEvent(event, "tags");
-    });
+    // document.querySelector("#tags").addEventListener("click", event => {
+    //   SolutionListFilteredEvent(event, "tags");
+    // });
 
     document.querySelector("#communities").addEventListener("click", event => {
       SolutionListFilteredEvent(event, "communities");

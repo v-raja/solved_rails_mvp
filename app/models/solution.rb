@@ -40,7 +40,7 @@ class Solution < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  validates_presence_of :title, :description, :youtube_urls, :product
+  validates_presence_of :title, :youtube_urls, :product
   validate :atleast_one_niche
   # validates_length_of :description
 

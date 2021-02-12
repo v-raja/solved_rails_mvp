@@ -19,7 +19,7 @@
               = niche.title
           %div{class: "text-xxs md:text-xs text-gray-700 flex items-center overflow-x-scroll disable-scrollbars"}
             %div{class: "flex-shrink-0 "}
-              = solution.user.name
+              = solution.demoer_name.blank? ? solution.user.name : solution.demoer_name
             %div{class: "mx-1"}
               &middot;
             -# %div{class: "flex-shrink-0 "}

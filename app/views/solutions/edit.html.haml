@@ -61,7 +61,7 @@
                       This price is per user per month
 
             %div{class: "mt-6 text-sm font-medium"}
-              What platform are you using the product on?
+              What platform are you using the product on in your solution?
             %div{class: "mt-1"}
               - options = @solution.platform_list + Solution.platform_counts.pluck(:name)
               = f.select :platform_list, options, {}, id: "platform_select", :multiple => true, class: "w-full"
@@ -86,21 +86,21 @@
               = "Unsure of what communities to post to? #{link_to "Explore", industry_categories_path, target: "_blank", class: "px-0.5 -mx-0.5 border-b-3 border-secondary transition hover:bg-secondary hover:text-white"} or search to find relevant communities.".html_safe
             -# %div{class: "text-gray-600 text-xs mt-1"}
             -#   Please refresh the page if the box above looks funky 🤪
-            %div{class: "mt-6 flex items-center"}
-              %div{class: "font-medium"}
-                Which lists is your solution relevant to?
-              %div{class: "ml-2 text-gray-600"}
-                = "- Optional"
-            %div{class: "w-full mt-1"}
-              - options = (@solution.group_list + Group.all.pluck(:title)).uniq
-              -# - byebug
-              = f.select :group_list, options, {}, id: "group_select", :multiple => true, class: "w-full"
+            -# %div{class: "mt-6 flex items-center"}
+            -#   %div{class: "font-medium"}
+            -#     Which lists is your solution relevant to?
+            -#   %div{class: "ml-2 text-gray-600"}
+            -#     = "- Optional"
+            -# %div{class: "w-full mt-1"}
+            -#   - options = (@solution.group_list + Group.all.pluck(:title)).uniq
+            -#   -# - byebug
+            -#   = f.select :group_list, options, {}, id: "group_select", :multiple => true, class: "w-full"
 
-              -# - niche_from_param = params[:code] ? (Industry.where(code: params[:code]).empty? ?  Occupation.where(code: params[:code]) : Industry.where(code: params[:code])) : nil
-              -# - options = options_for_select (@solution.list_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
-              -# = f.select :list_list,  options, {}, {multiple: true, id: "select_community", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
-            %div{class: "text-gray-600 text-xs mt-2"}
-              Some solutions apply generally to businesses / individuals with a common interest (ex: Small and Medium-sized Businesses / Indie Hackers). In that case, post to a relevant list.
+            -#   -# - niche_from_param = params[:code] ? (Industry.where(code: params[:code]).empty? ?  Occupation.where(code: params[:code]) : Industry.where(code: params[:code])) : nil
+            -#   -# - options = options_for_select (@solution.list_list).map{ |n| [n.title, n.code, { title: n.title, 'selected' => 'selected' }] }
+            -#   -# = f.select :list_list,  options, {}, {multiple: true, id: "select_community", class: "w-full mt-1 border-gray-300 shadow-sm rounded-md text-gray-900"}
+            -# %div{class: "text-gray-600 text-xs mt-2"}
+            -#   Some solutions apply generally to businesses / individuals with a common interest (ex: Small and Medium-sized Businesses / Indie Hackers). In that case, post to a relevant list.
 
 
             %div{class: "mt-6 flex items-center"}
@@ -172,38 +172,48 @@
 
             %div{class: "mt-4 flex items-center"}
               %div{class: "font-medium"}
-                Description
+                Description (only for search)
               %div{class: "ml-2 text-gray-600"}
-                = "- Required"
+                = "- Optional"
             = f.text_area :description,
                 class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                 placeholder: "Manage / Organise / Increase / Improve / Simplify ...",
-                rows: "6"
-            %div{class: "mt-1 text-xs"}
-              Formatting: [this will be a link](https://www.example.com), **<strong>bold</strong>**, *<em>italic</em>*
+                rows: "3"
+            -# %div{class: "mt-1 text-xs"}
+            -#   Formatting: [this will be a link](https://www.example.com), **<strong>bold</strong>**, *<em>italic</em>*
+
+            - if user_signed_in? && current_user.admin?
+              %div{class: "mt-4 flex items-center"}
+                %div{class: "font-medium"}
+                  Demoer name
+                %div{class: "ml-2 text-gray-600"}
+                  = "- Optional"
+              = f.text_field :demoer_name,
+                  class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
+                  placeholder: ""
 
 
-          %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
-            %div{class: "flex items-center"}
-              %div{class: "font-semibold"}
-                Tags
-              -# %div{class: "ml-2 text-gray-600"}
-              -#   = "- Required"
-            %div{class: "mt-2"}
-              General tags
-            %div{class: "text-gray-600 text-xs mt-1"}
-              Words that make sense across many different industries / occupations.
-            %div{class: "mt-1"}
-              - options = @solution.general_tag_list + Solution.general_tag_counts.pluck(:name)
-              = f.select :general_tag_list, options, {}, id: "general_tags", :multiple => true, class: "w-full"
+          -# %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
+          -#   %div{class: "flex items-center"}
+          -#     %div{class: "font-semibold"}
+          -#       Tags
+          -#     -# %div{class: "ml-2 text-gray-600"}
+          -#     -#   = "- Required"
+          -#   %div{class: "mt-2"}
+          -#     General tags
+          -#   %div{class: "text-gray-600 text-xs mt-1"}
+          -#     Words that make sense across many different industries / occupations.
+          -#   %div{class: "mt-1"}
+          -#     - options = @solution.general_tag_list + Solution.general_tag_counts.pluck(:name)
+          -#     = f.select :general_tag_list, options, {}, id: "general_tags", :multiple => true, class: "w-full"
 
-            %div{class: "mt-3"}
-              Community-specific tags
-            %div{class: "text-gray-600 text-xs mt-1"}
-              Words that make sense in the context of the industry / occupation you're posting to.
-            %div{class: "mt-1"}
-              - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
-              = f.select :niche_specific_tag_list, options, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
+          -#   %div{class: "mt-3"}
+          -#     Community-specific tags
+          -#   %div{class: "text-gray-600 text-xs mt-1"}
+          -#     Words that make sense in the context of the industry / occupation you're posting to.
+          -#   %div{class: "mt-1"}
+          -#     - options = @solution.niche_specific_tag_list + Solution.niche_specific_tag_counts.pluck(:name)
+          -#     = f.select :niche_specific_tag_list, options, {}, id: "niche_specific_tags", :multiple => true, class: "w-full"
 
           %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
             %div{class: "flex items-center"}
@@ -219,19 +229,64 @@
 
 
         %div{class: "w-full"}
-          %div{class: "px-4 py-8 bg-white rounded-sm text-sm border border-gray-400 flex flex-wrap"}
+          %div{class: "px-4 py-8 bg-white rounded-sm text-sm border border-gray-400"}
             %div{class: "w-full text-lg font-medium"}
               Tips! 👇
-              %ul{class: "mt-1 pl-2 text-sm font-normal text-gray-800 list-disc list-inside"}
-                %li
-                  Try to include a video.
-                  %div.pl-5
-                    ="Videos make it easier for others to understand what you're trying to convey. They also help others visulise how they could apply your solution."
-                <br/>
-                %li
-                  ="Put yourself in the shoes of the people you want to help."
-                  %div.pl-5
-                    ="Understand their concerns of investing time and money on your solution, only for it to not work out for them. What could you tell or show to convince them that it's worth giving your solution a shot?"
+            %ul{class: "mt-3 list-disc list-inside leading-relaxed"}
+              -# %li
+              -#   Try to include a video.
+              -#   %div.pl-5
+              -#     Videos make it easier for others to understand what you're trying to convey. They also help people visualize how they could apply your solution in their daily life.
+              %li
+                This is your space.
+                -# Your solution doesn't have to be perfect.
+                %div.pl-5
+                  Your solution doesn't have to be the best one for your problem. If you're satisfied with how you solve your problem and would recommend the product, it's worth sharing with the community.
+              %li
+                Only recommend products you've used for a while.
+                -# Your solution doesn't have to be perfect.
+                %div.pl-5
+                  -# If your content is reported to be not genunine, your post will be removed.
+                  We allow affiliate links for you to get compensated for your time and effort in making a video to show how use a product in your daily workflow. If your content is reported as not genuine, your post will be removed.
+            %div{class: "text-sm font-normal"}
+              %div{class: "mt-4 font-medium uppercase"}
+                Description
+              -# %div{class: "mt-1 leading-tight pl-2"}
+              %ul.mt-2.list-disc.list-inside.space-y-1.leading-relaxed
+                Use this space to list keywords and questions people would use to search for your solution. This is not shown anywhere.
+                -# Keep it short. Try to only include details about:
+                -# .mt-1.space-y-1
+                -#   %li
+                -#     = "Who are you (alternatively, who is your solution for)?"
+                -#     %div.pl-5
+                -#       This helps pepole understand what you're looking for in your solution, which helps them understand if the same applies to them.
+                -#   -# whether the reason you chose the solution would apply to them."
+                -#   %li= "What problem are you trying to solve?"
+                -#   %li= "What one thing do you love the most about your solution, and what isn't so great? Including the not so great points helps others make better informed decisions."
+                -#   -# %li= "What would people search to find a solution like this?"
+              -# %div{class: "mt-4 font-medium uppercase"}
+              -#   Video & First Comment
+              -# %ul{class: "mt-2 list-disc list-inside space-y-2 leading-relaxed"}
+              -#   %li
+              -#     Try to show, don't tell.
+              -#     %div{class: "ml-5"}
+              -#       Give a visual example of how you use the product to solve your problem. Use a real life scenario, not a hypothetical one. <br/>Exception: if you're the maker of the product, you can use a hypothetical scenario (not recommended though).
+
+                    -# This helps people visualise how they can apply your solution to their problem.
+                -# %li
+                -#   If you're the maker of the product:
+                -#   %div{class: "ml-5"}
+                -#     Put yourself in the shoes of the people you want to help. Understand their concerns of investing their time and money on your solution, only for it to not work out for them.
+                -#     <br/>
+                -#     What could you tell or show to convince them that it's worth giving your solution a shot?
+                -# %li
+                -#   If you're not the maker of the product:
+                -#   %div{class: "ml-5"}
+                -#     Give an honest review. Including the not so great points helps others make a better informed decision, and makes you come off as trustworthy.
+                -# Has the product saved you time / money, helped you earn more money, or made you happier? Putting a figure / percentage helps people understand impact better.
+
+                -# %li
+                  -# Use the first comment to include details missed in your video, and to get the conversation started.
 
 
       = f.submit "Post →", class: "my-12 w-full text-sm font-semibold text-white bg-primary rounded-sm py-4 uppercase cursor-pointer hover:bg-opacity-90"

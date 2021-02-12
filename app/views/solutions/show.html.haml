@@ -61,25 +61,25 @@
                 %h1= @solution.title
 
               %div{class: "w-auto md:w-64 lg:max-w-md lg:w-full xl:max-w-lg overflow-x-auto disable-scrollbars flex items-center mt-1 text-xxs text-gray-600 space-x-1"}
-                - tags_present = @solution.general_tags.present? || @solution.niche_specific_tags.present?
-                - if tags_present
-                  %div
-                    Tags
-                - @solution.niche_specific_tags.each do |tag|
-                  %div{class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                    = tag.name
-                - @solution.general_tags.each do |tag|
-                  = link_to tag.name, search_solutions_path(tags: tag.name), class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"
-                - if tags_present
-                  %div{class: "mx-1"}
-                    &middot;
-                %div{class: "text-gray-600 text-xxs flex-shrink-0"}
-                  by
-                  = @solution.user.name
+                -# - tags_present = @solution.general_tags.present? || @solution.niche_specific_tags.present?
+                -# - if tags_present
+                -#   %div
+                -#     Tags
+                -# - @solution.niche_specific_tags.each do |tag|
+                -#   %div{class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
+                -#     = tag.name
+                -# - @solution.general_tags.each do |tag|
+                -#   = link_to tag.name, search_solutions_path(tags: tag.name), class: "flex-shrink-0 border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"
+                -# - if tags_present
+                -#   %div{class: "mx-1"}
+                -#     &middot;
+                -# %div{class: "text-gray-600 text-xxs flex-shrink-0"}
+                -#   by
+                -#   = @solution.user.name
                 - if policy(@solution).update?
                   %div{class: "mx-1 text-gray-600"}
                     &middot;
-                  = link_to "edit", edit_solution_path(@solution), class: " text-gray-600 text-xxs", "data-turbolinks": false
+                  = link_to "edit", edit_solution_path(@solution), class: "hover:underline text-gray-600 text-xxs", "data-turbolinks": false
                 - if policy(@solution).destroy?
                   %div{class: "mx-1 text-gray-600"}
                     &middot;
@@ -97,8 +97,8 @@
                   - else
                     %div{class: "p-1 text-xl group-hover:animate-bounce"}
                       ▲
-          %div{class: "text-xs flex-1 text-gray-700 mt-4 max-h-36 overflow-y-auto"}
-            = @solution.description_safe_html.html_safe
+          -# %div{class: "text-xs flex-1 text-gray-700 mt-4 max-h-36 overflow-y-auto"}
+          -#   = @solution.description_safe_html.html_safe
 
 
         %div{class: "mt-4 w-full md:mr-8"}
@@ -123,7 +123,7 @@
                   = form_for @new_comment, html: { class: "flex w-full flex-wrap" } do |f|
                     %textarea{rows: "4", name: "comment[body]",
                     class: "block text-gray-900 w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
-                    placeholder: "Let #{@solution.user.name.split[0]} know if you found the solution useful or have any questions..."}
+                    placeholder: "Let #{@solution.demoer_name.blank? ? @solution.user.name.split[0] : @solution.demoer_name.split[0]} know if you found the solution useful or have any questions..."}
                     = f.hidden_field :commentable_id, value: @new_comment.commentable_id
                     = f.hidden_field :commentable_type, value: @new_comment.commentable_type
                     = f.submit "Comment", class: "cursor-pointer mt-2 my-1 text-xs font-medium text-white bg-primary rounded-sm px-2.5 py-1.5 uppercase"
