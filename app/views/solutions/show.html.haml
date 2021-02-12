@@ -29,7 +29,7 @@
         %div
           %div{class: "mt-10 flex items-center space-x-6 overflow-x-auto"}
             -# md:space-x-0 md:block md:space-y-6
-            = render @solution.youtube_urls, yt_button: true, cached: true
+            = render @solution.youtube_urls, yt_button: true, render_video: true, cached: true
           - if @solution.youtube_urls.count > 1
             %div{class: "mt-2 flex space-x-2"}
               - @solution.youtube_urls.each_with_index do |yt_utl, idx|

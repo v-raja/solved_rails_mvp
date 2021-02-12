@@ -1,9 +1,18 @@
 -# - byebug
+
 %div{id: "#{defined?(youtube_url_iteration.index) ? "#{youtube_url_iteration.index}-video" : nil}",
-      class: "aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player relative",
+      class: "aspect-w-16 aspect-h-9 w-full flex-shrink-0 #{defined?(render_video) ? "#{render_video ? "youtube-player" : nil}" : nil} relative",
       "data-id": "#{youtube_url.youtube_id}",
       "data-votes": upvote_count(youtube_url.solution),
       "data-yt-button": "#{defined?(yt_button) ? yt_button : false}"}
+  = image_tag "//img.youtube.com/vi/#{youtube_url.youtube_id}/sddefault.jpg", class: "h-full w-full object-cover cursor-pointer"
+  -# %div{class: "group", "data-id": "cDhfm7WqSvo"}
+  -#   %div{class: "absolute p-2 text-sm font-bold text-white rounded-lg right-2 top-2 bg-primary"}
+  -#     %div{class: "flex place-self-center"}
+  -#       1
+  -#       %div{class: "ml-0.5"}
+  -#         ▲
+
   -# %div{class: "youtube-player",
 
   -# %iframe{class: "h-full w-full",
