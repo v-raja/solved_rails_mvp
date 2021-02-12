@@ -227,10 +227,10 @@ class SolutionsController < ApplicationController
   # PATCH/PUT /solutions/1.json
   def update
     authorize @solution
-    if solution_params[:plan_id].blank?
-      @solution.build_plan(plans_params)
-      @solution.plan.product = @solution.product
-    end
+    # if solution_params[:plan_id].blank?
+    #   @solution.build_plan(plans_params)
+    #   @solution.plan.product = @solution.product
+    # end
 
     respond_to do |format|
       if @solution.update(solution_params)

@@ -60,6 +60,7 @@
                     %div{class: "ml-2 text-gray-600"}
                       = "- Required"
                   = builder.text_field :name,
+                    data: {action: "change->data-binding#update"}, "data-binding-target": "plan-name", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-initial": "#{params.dig(:solution, :plan_attributes, :name).blank? ? "false" : "true"}",
                     class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                     id: "plan-name"
                   %div{class: "mt-1 text-xs text-gray-600"}
@@ -179,40 +180,62 @@
         -# Words that only make sense in the context of the industries / occupations you're posting to.
 
         %div{class: "w-full place-self-center flex flex-col"}
-          %div{class: "mt-2 bg-white px-5 border border-gray-400 w-full",
-              hover: "border-gray-900"}
-            %div{class: "flex flex-col rounded-sm py-5"}
-              %div{class: "w-full flex items-stretch"}
-                %div{class: "w-16 h-16 flex-shrink-0"}
-                  = image_tag "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png", id: "product_logo", class: "object-cover"
-                %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
-                  %div{class: "font-semibold text-sm two-lines-only "}
-                    %div{data: { binding: { ref: "problem-title"} } }
-                      %div{class: "italic"}
-                        Manage / Organise / Increase / Improve / Simplify ...
-
-                  %div{class: "text-xs text-gray-600 flex flex-wrap"}
-                    %div{class: "leading-none flex items-center"}
-                      with
-                      %div{id: "product_name", class: "ml-1", data: { binding: { ref: "product-name"} } }
-                        %div{class: "italic"}
-                          Product name
-                    .mx-1
-                      &middot;
-                    .hover:text-black.flex-shrink-0
-                      - if user_signed_in?
-                        = current_user.name
-                      - else
-                        Your name
-                    .ml-2.flex-shrink-0.hover:underline.hover:text-black
-                      just now
-                %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none transition hover:text-primary"}
-                  %div{class: "text-sm leading-none"}
-                    ▲
-                  %div{class: "mt-1 font-semibold"}
-                    3
-          %div{class: "px- mt-1 text-sm text-gray-600"}
+          %div{class: "px- mb-3 text-sm text-gray-600"}
             Preview
+          %div{class: "flex items-center"}
+            %div{class: "w-14 h-14 flex-shrink-0"}
+              = image_tag "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png", id: "product_logo", class: "object-cover rounded-full"
+            %div{class: "ml-2 text-lg font-bold"}
+              %div{id: "product_name", data: { binding: { ref: "product-name"} } }
+                %div{class: "italic"}
+                  Product name
+          %div{class: "mt-6 flex flex-wrap items-end w-full justify-between space-y-2"}
+            %div{class: "flex-shrink-1 mr-2"}
+              %div{class: "text-xs font-semibold text-gray-600"}
+                Plan used in this solution
+              %div{class: "flex text-sm items-end"}
+                %div{id: "plan_name", data: { binding: { ref: "plan-name"} } }
+                  %div{class: "italic"}
+                    Plan name
+                -# %div{class: "ml-3 text-xs text-gray-700"}
+                -#   = "#{number_to_currency(@solution.plan.price_per_month, precision: 2)} #{@solution.plan.is_price_per_user ? "/u" : nil}/mo."
+            %div{class: "text-sm flex-shrink-0 bg-secondary p-2 rounded text-white font-medium leading-none"}
+              Learn More
+
+
+          -# %div{class: "mt-2 bg-white px-5 border border-gray-400 w-full",
+          -#     hover: "border-gray-900"}
+          -#   %div{class: "flex flex-col rounded-sm py-5"}
+          -#     %div{class: "w-full flex items-stretch"}
+          -#       %div{class: "w-16 h-16 flex-shrink-0"}
+          -#         -# = image_tag "https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png", id: "product_logo", class: "object-cover"
+          -#       %div{class: "pl-3 flex-grow w-min flex flex-col justify-between"}
+          -#         %div{class: "font-semibold text-sm two-lines-only "}
+          -#           %div{data: { binding: { ref: "problem-title"} } }
+          -#             %div{class: "italic"}
+          -#               Manage / Organise / Increase / Improve / Simplify ...
+
+          -#         %div{class: "text-xs text-gray-600 flex flex-wrap"}
+          -#           %div{class: "leading-none flex items-center"}
+          -#             with
+          -#             %div{id: "product_name", class: "ml-1", data: { binding: { ref: "product-name"} } }
+          -#               %div{class: "italic"}
+          -#                 Product name
+          -#           .mx-1
+          -#             &middot;
+          -#           .hover:text-black.flex-shrink-0
+          -#             - if user_signed_in?
+          -#               = current_user.name
+          -#             - else
+          -#               Your name
+          -#           .ml-2.flex-shrink-0.hover:underline.hover:text-black
+          -#             just now
+          -#       %div{class: "ml-10 text-gray-900 place-self-center flex-shrink-0 flex flex-col items-center justify-center w-14 h-16 rounded-sm border border-gray-300 leading-none transition hover:text-primary"}
+          -#         %div{class: "text-sm leading-none"}
+          -#           ▲
+          -#         %div{class: "mt-1 font-semibold"}
+          -#           3
+
 
       %div{class: "mt-20 text-2xl font-bold"}
         🤓 Tell us about your solution
@@ -407,8 +430,11 @@
       document.getElementById('plan-name').value = '';
       document.getElementById('plan-price').value = '';
       document.getElementById('plan-per-user').value = '';
+      var e = document.getElementById("solution_plan_id");
+      document.getElementById("plan_name").textContent = e.options[e.selectedIndex].text;
     } else  {
-      $("#plan_builder").show()
+      $("#plan_builder").show();
+      document.getElementById("plan_name").textContent = "Add a new plan";
     }
   };
   updatePlanPreview();
@@ -416,7 +442,6 @@
 
   function updateProdcutPreview() {
     if ($('#solution_product_id').val()){
-      console.log("here");
       $("#product_builder").hide();
       document.getElementById('product-name').value = '';
       document.getElementById('thumbnail-url').value = '';
@@ -433,7 +458,11 @@
         var selectedId = parseInt("#{params.dig(:solution, :plan_id).nil? ? 1 : params.dig(:solution, :plan_id)}");
         listitems += `<option value>Add a new plan</option>`;
         $.each(data.plans,function(key, value) {
-          listitems += `<option value="${value.id}" ${key + 1 == selectedId ? "selected" : ""}>${value.name} - $${parseFloat(value.price_per_month).toFixed(2)}${value.is_price_per_user ? " / user" : ""} / month</option>`;
+          if (key == 0 && "#{params.dig(:solution, :plan_id).nil?}" === "true") {
+            listitems += `<option value="${value.id}" selected>${value.name} - $${parseFloat(value.price_per_month).toFixed(2)}${value.is_price_per_user ? " / user" : ""} / month</option>`;
+          } else {
+            listitems += `<option value="${value.id}" ${value.id == selectedId ? "selected" : ""}>${value.name} - $${parseFloat(value.price_per_month).toFixed(2)}${value.is_price_per_user ? " / user" : ""} / month</option>`;
+          }
         });
         $("#solution_plan_id").append(listitems);
         updatePlanPreview();
