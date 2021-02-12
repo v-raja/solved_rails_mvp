@@ -100,32 +100,32 @@
     -#           %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
     -#             = "#{c.title} (#{c.class.to_s})"
 
-    %div{class: "border-b border-gray-300 py-2"}
-      %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
-        Popular Lists
+    -# %div{class: "border-b border-gray-300 py-2"}
+    -#   %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
+    -#     Popular Lists
 
-      - cache(:popular_lists, expires_in: 10.minutes) do
-        - groups = Group.all
-        - groups.each do |group|
-          = link_to group do
-            %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
-              = image_tag "https://avatar.oxro.io/avatar.svg?name=#{group.title[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
-              %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
-                = group.title
+    -#   - cache(:popular_lists, expires_in: 10.minutes) do
+    -#     - groups = Group.all
+    -#     - groups.each do |group|
+    -#       = link_to group do
+    -#         %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
+    -#           = image_tag "https://avatar.oxro.io/avatar.svg?name=#{group.title[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
+    -#           %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
+    -#             = group.title
 
-    %div{class: "border-b border-gray-300 py-2"}
-      %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
-        Popular Tags
+    -# %div{class: "border-b border-gray-300 py-2"}
+    -#   %div{class: "py-2 text-gray-800 uppercase px-8 text-sm font-semibold"}
+    -#     Popular Tags
 
-      - cache(:popular_tags, expires_in: 10.minutes) do
-        %div{class: "grid grid-cols-1 sm:grid-cols-2"}
-          - tags = Solution.general_tag_counts.order("taggings_count desc").limit(6)
-          - tags.each do |tag|
-            = link_to search_solutions_path(tags: tag.name), "data-turbolinks": false do
-              %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
-                = image_tag "https://avatar.oxro.io/avatar.svg?name=#{tag.name[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
-                %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
-                  = tag.name.titleize
+    -#   - cache(:popular_tags, expires_in: 10.minutes) do
+    -#     %div{class: "grid grid-cols-1 sm:grid-cols-2"}
+    -#       - tags = Solution.general_tag_counts.order("taggings_count desc").limit(6)
+    -#       - tags.each do |tag|
+    -#         = link_to search_solutions_path(tags: tag.name), "data-turbolinks": false do
+    -#           %div{class: "px-8 py-4  text-gray-800 active:bg-gray-200 transition hover:bg-gray-100 cursor-pointer flex items-center"}
+    -#             = image_tag "https://avatar.oxro.io/avatar.svg?name=#{tag.name[0].upcase}&background=#{random_thumbnail_bg_color}&length=1&caps=1", class: "w-5 h-5 rounded-full"
+    -#             %div{class: "ml-2 text-base flex-shrink-0 active:text-black active:font-semibold"}
+    -#               = tag.name.titleize
 
 
 -# Sidebar

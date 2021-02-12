@@ -7,21 +7,18 @@
             = render solution.youtube_urls.first
 
       %div{class: "flex mt-2"}
-        %div{class: "flex-shrink-0"}
-          = image_tag solution.product.thumbnail_url, class: "w-8 h-8 object-cover rounded-full"
+        -# %div{class: "flex-shrink-0"}
+        -#   = image_tag solution.product.thumbnail_url, class: "w-8 h-8 object-cover rounded-full"
         %div{class: "flex-grow flex flex-wrap ml-2"}
-          %div{class: "w-full text-xs md:text-sm font-medium two-lines-only"}
+          %div{class: "w-full text-xs md:text-xssm font-medium two-lines-only"}
             %div{class: "flex-shrink-0 "}
               = solution.title
-          %div{class: "mt-1 text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-6 overflow-x-scroll disable-scrollbars"}
-            - niche = solution.industries.first || solution.occupations.first
-            %div{class: "flex-shrink-0 "}
-              = niche.title
-          %div{class: "text-xxs md:text-xs text-gray-700 flex items-center overflow-x-scroll disable-scrollbars"}
-            %div{class: "flex-shrink-0 "}
-              = solution.demoer_name.blank? ? solution.user.name : solution.demoer_name
-            %div{class: "mx-1"}
-              &middot;
+
+          %div{class: "mt-1 text-xxs md:text-xs text-gray-700 flex items-center overflow-x-scroll disable-scrollbars"}
+            -# %div{class: "flex-shrink-0 "}
+            -#   = solution.demoer_name.blank? ? solution.user.name : solution.demoer_name
+            -# %div{class: "mx-1"}
+            -#   &middot;
             -# %div{class: "flex-shrink-0 "}
             -#   = time_ago_in_words(solution.created_at)
             -#   ago
@@ -29,6 +26,15 @@
             -# %div{class: "mx-1"}
             -#   &middot;
 
+            %div{class: "flex-shrink-0 "}
+              = solution.product.name
+            %div{class: "mx-1"}
+              &middot;
+
+            -# %div{class: "flex-shrink-0 "}
+            -#   = solution.plan.name
+            -# %div{class: "mx-1"}
+            -#   &middot;
             - if solution.plan.price_per_month == 0
               %div{class: "flex-shrink-0 "}
                 Free
@@ -39,6 +45,9 @@
                 = "#{number_to_currency(solution.plan.price_per_month, precision: 0)} #{solution.plan.is_price_per_user ? "/u" : nil}/mo."
 
 
-
+          %div{class: "text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-6 overflow-x-scroll disable-scrollbars"}
+            - niche = solution.industries.first || solution.occupations.first
+            %div{class: "flex-shrink-0 "}
+              = niche.title
 
 

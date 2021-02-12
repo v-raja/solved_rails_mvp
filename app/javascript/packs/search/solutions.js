@@ -160,23 +160,20 @@ $(document).on('turbolinks:load', function() {
                         </div>
                         <a href="{{{url}}}" class="btn-favorite" data-product-clicked-payload="{{{product_clicked_payload}}}">
                           <div class=" flex mt-2">
-                            <div class=" flex-shrink-0">
-                              <img class="w-8 h-8 object-cover rounded-full" src="{{{product.thumbnail_url}}}">
-                            </div>
-                            <div class=" flex-grow flex flex-wrap ml-2">
-                              <div class=" w-full text-xs md:text-sm font-medium two-lines-only">
+                            <div class=" flex-grow flex flex-wrap ml-1">
+                              <div class=" w-full text-xs md:text-xssm font-medium two-lines-only">
                                 <div class=" flex-shrink-0 ">
                                 {{{_highlightResult.title.value}}}
                                 </div>
                               </div>
-                            <div class=" mt-1 text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
+                            <div class="mt-1 text-xxs md:text-xs text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
                               <div class=" flex-shrink-0 ">
-                                {{{communities.0.title}}}
+                                {{{product.name}}} · {{{price}}} {{{educational_use}}}
                               </div>
                             </div>
-                            <div class=" text-xxs md:text-xs text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
+                            <div class=" text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-2 overflow-x-scroll disable-scrollbars">
                               <div class=" flex-shrink-0 ">
-                                {{{user.name}}} · {{{price}}} {{{educational_use}}}
+                                {{{communities.0.title}}}
                               </div>
                             </div>
                           </div>
@@ -261,7 +258,7 @@ $(document).on('turbolinks:load', function() {
         cssClasses: {
           searchableForm: "border-0 flex-shrink-0",
           searchableInput: "appearance-none py-1 bg-white text-sm w-full md:w-44 border-0 focus:outline-none focus:ring-0 ",
-          list: "mt-3 spacey-y-2",
+          list: "mt-3",
           count: "hidden",
           item: "flex items-center cursor-pointer",
           checkbox: "cursor-pointer appearance-none border-transparent rounded checked:bg-secondary checked:border-transparent  w-4 h-4",
