@@ -135,7 +135,7 @@ $(document).on('turbolinks:load', function() {
         },
         escapeHTML: false,
         templates: {
-          empty: 'No solutions have been found for "{{ query }}"',
+          empty: 'No solutions found for "{{ query }}". We\'re keen to help. Make a request and we\'ll get back to you within two days with a solution.',
           item: '<div>' +
                   '<div class="">' +
                       `<div class=" flex flex-col">
@@ -143,16 +143,6 @@ $(document).on('turbolinks:load', function() {
                           <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
                             <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player relative">
                               <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
-                                {{#show_votes}}
-                                  <div class="absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg">
-                                    <div class="flex items-centerjustify-center place-self-center">
-                                      {{{nb_votes}}}
-                                      <div class="ml-0.5">
-                                        ▲
-                                      </div>
-                                    </div>
-                                  </div>
-                                {{/show_votes}}
                                 <img src="//img.youtube.com/vi/{{{videos.0.youtube_id}}}/sddefault.jpg" class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}"/>
                               </div>
                             </div>
@@ -194,6 +184,17 @@ $(document).on('turbolinks:load', function() {
                 '</div>'
         },
       }),
+
+      // {{#show_votes}}
+      //   <div class="absolute right-2 top-2 text-white font-bold text-sm p-2 bg-primary rounded-lg">
+      //     <div class="flex items-centerjustify-center place-self-center">
+      //       {{{nb_votes}}}
+      //       <div class="ml-0.5">
+      //         ▲
+      //       </div>
+      //     </div>
+      //   </div>
+      // {{/show_votes}}
 
       // instantsearch.widgets.refinementList({
       //   container: '#tags',
