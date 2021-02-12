@@ -22,7 +22,7 @@
   %div{class: "py-1 w-full rounded-lg mt-1 text-base px-auto space-y-2"}
 
     %div{class: "text-sm"}
-      Welcome to solved, a place to learn about solutions from others in your industry / occupation. <br/>
+      Welcome to solved, a place to learn about how others in your industry / occupation solve their problems. <br/>
     %div{class: "text-sm"}
       🔍 Use the search bar above to find your industry / occupation.
       -#  above and find out how others in your field are solving their problems.
@@ -41,12 +41,12 @@
   - if @posts.today.any?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Today
-    %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+    %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
       = render @posts.today
   - if @posts.past_week.any?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Past Week
-    %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+    %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
       = render @posts.past_week
     -# %div{class: "flex items-center w-full"}
     -#   %div{class: "flex-1 relative"}
@@ -61,6 +61,6 @@
   - if @posts.past_month.any?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Past Month
-    %div{class: "mt-6 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+    %div{class: "mt-6 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
       = render @posts.past_month
 

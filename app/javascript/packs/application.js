@@ -37,7 +37,7 @@ $( document ).on('turbolinks:load', function() {
     var iframe = document.createElement('iframe');
     iframe.setAttribute(
       'src',
-      'https://www.youtube.com/embed/' + div.dataset.id + '?autoplay=1&rel=0'
+      'https://www.youtube.com/embed/' + div.dataset.id + '?rel=0'
     );
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', '1');
