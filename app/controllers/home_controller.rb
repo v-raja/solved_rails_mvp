@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     if params[:tag]
       @posts = Solution.tagged_with(params[:tag], on: :general_tags).includes([:user, :product, :plan])
     else
-      @posts = Solution.all.top.includes([:user, :product, :plan])
+      @posts = Solution.all.top.front_page.includes([:user, :product, :plan])
     end
     set_meta_tags title: "solved: Find new and better solutions to your problems from people like you.",
                   description: "solved is a community of problem solvers and makers helping you find (or build!) better solutions to problems you face. Learn about new ways of doing things in your industry or occupation from people like you all around the world. Give back to the community by sharing your experience with products you love. Connect with budding entrepreneurs and give them feedback on their products to help them build better products for you.",

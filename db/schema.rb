@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_220335) do
+ActiveRecord::Schema.define(version: 2021_02_13_021526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2021_02_10_220335) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_happy_user", default: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -342,6 +344,8 @@ ActiveRecord::Schema.define(version: 2021_02_10_220335) do
     t.boolean "is_creator", default: false
     t.integer "comments_count", default: 0, null: false
     t.bigint "plan_id"
+    t.text "demoer_name"
+    t.boolean "front_page", default: true
     t.index ["plan_id"], name: "index_solutions_on_plan_id"
     t.index ["product_id"], name: "index_solutions_on_product_id"
     t.index ["slug"], name: "index_solutions_on_slug", unique: true
@@ -462,6 +466,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_220335) do
     t.index ["solution_id"], name: "index_youtube_urls_on_solution_id"
   end
 
+  add_foreign_key "feedbacks", "users"
   add_foreign_key "group_solutions", "groups"
   add_foreign_key "group_solutions", "solutions"
   add_foreign_key "industries", "industry_categories"

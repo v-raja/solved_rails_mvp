@@ -114,7 +114,7 @@
                 data: {action: "change->data-binding#update"}, "data-binding-target": "problem-title", "data-binding-property": "textContent", "data-binding-value": "$source.value", "data-binding-initial": "#{params.dig(:solution, :title).blank? ? "false" : "true"}"
 
             %div{class: "text-gray-600 text-xs mt-1"}
-              Try to skip words like "How to" and concisely state the problem you're solving.
+              Try to skip words like "How to" and concisely state the problem you're solving. Don't make your title too general - it only needs to be understood by people in the community you're posting to.
 
 
             %div{class: "mt-6 flex items-center"}
@@ -279,7 +279,16 @@
               = f.text_field :demoer_name,
                   class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                   placeholder: ""
-
+              %div{class: "mt-4 flex items-center"}
+                %div{class: "font-medium"}
+                  Show on front page?
+              %div{class: "mt-2 flex items-center space-x-3"}
+                %div{class: "flex items-center space-x-1"}
+                  = f.radio_button :front_page, true, checked: true
+                  %div Yes
+                %div{class: "flex items-center space-x-1"}
+                  = f.radio_button :front_page, false
+                  %div No
           -# %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
           -#   %div{class: "flex items-center"}
           -#     %div{class: "font-semibold"}

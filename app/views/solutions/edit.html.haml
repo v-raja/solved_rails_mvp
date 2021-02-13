@@ -207,7 +207,16 @@
               = f.text_field :demoer_name,
                   class: "mt-1 block text-gray-900 w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50",
                   placeholder: ""
-
+              %div{class: "mt-4 flex items-center"}
+                %div{class: "font-medium"}
+                  Show on front page?
+              %div{class: "mt-2 flex items-center space-x-3"}
+                %div{class: "flex items-center space-x-1"}
+                  = f.radio_button :front_page, true, checked: true
+                  %div Yes
+                %div{class: "flex items-center space-x-1"}
+                  = f.radio_button :front_page, false
+                  %div No
 
           -# %div{class: "mt-6 p-4 bg-white rounded-sm shadow-sm text-sm border border-gray-400"}
           -#   %div{class: "flex items-center"}

@@ -86,6 +86,7 @@ class Solution < ApplicationRecord
   scope :by_occupations,   -> (occupations) { joins(:occupation_solutions).where("occupation_solutions.occupation_id IN (?)", occupations) }
   scope :by_communities,  -> (communities) { joins(:industry_solutions).joins(:occupation_solutions).where("industry_solutions.industry_id IN (?) OR occupation_solutions.occupation_id IN (?)", communities, communities).distinct }
 
+  scope :front_page, -> { where(front_page: true) }
 
   after_touch :index!
 
