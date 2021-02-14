@@ -38,7 +38,7 @@ $( document ).on('turbolinks:load', function() {
     console.log(div.dataset);
     iframe.setAttribute(
       'src',
-      'https://www.youtube.com/embed/' + div.dataset.id + `?autoload=${div.dataset.autoplay}&rel=0`
+      'https://www.youtube.com/embed/' + div.dataset.id + `?autoplay=${div.dataset.autoplay}&rel=0`
     );
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', '1');
@@ -103,7 +103,7 @@ $( document ).on('turbolinks:load', function() {
 
 
       div.setAttribute('data-id', videoId);
-      div.setAttribute('autoplay', autoplay);
+      div.setAttribute('data-autoplay', autoplay);
 
       div.appendChild(thumbNode);
       div.appendChild(upvoteOrPlayButton);
