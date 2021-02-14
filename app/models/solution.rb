@@ -163,7 +163,9 @@ class Solution < ApplicationRecord
     name = {
       'macos' => 'macOS',
       'ios' => 'iOS',
-      'api' => 'API'
+      'api' => 'API',
+      'iphone' => 'iPhone',
+      'ipad' => 'iPad',
     }[tag]
     return name.nil? ? tag.titleize : name
   end

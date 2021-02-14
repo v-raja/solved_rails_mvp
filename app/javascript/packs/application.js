@@ -35,9 +35,10 @@ $( document ).on('turbolinks:load', function() {
 
   function labnolIframe(div) {
     var iframe = document.createElement('iframe');
+    console.log(div.dataset);
     iframe.setAttribute(
       'src',
-      'https://www.youtube.com/embed/' + div.dataset.id + '?rel=0'
+      'https://www.youtube.com/embed/' + div.dataset.id + `?autoload=${div.dataset.autoplay}&rel=0`
     );
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', '1');
@@ -53,6 +54,7 @@ $( document ).on('turbolinks:load', function() {
     var playerElements = document.getElementsByClassName('youtube-player');
     for (var n = 0; n < playerElements.length; n++) {
       var videoId = playerElements[n].dataset.id;
+      var autoplay = playerElements[n].dataset.autoplay;
 
       var thumbNode = document.createElement('img');
       thumbNode.src = '//img.youtube.com/vi/ID/sddefault.jpg'.replace(
@@ -101,6 +103,7 @@ $( document ).on('turbolinks:load', function() {
 
 
       div.setAttribute('data-id', videoId);
+      div.setAttribute('autoplay', autoplay);
 
       div.appendChild(thumbNode);
       div.appendChild(upvoteOrPlayButton);
