@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_021526) do
+ActiveRecord::Schema.define(version: 2021_02_15_023644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.text "scope"
     t.datetime "created_at"
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
@@ -86,7 +85,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_group_solutions_on_group_id"
     t.index ["solution_id", "group_id"], name: "index_group_solutions_on_solution_id_and_group_id", unique: true
-    t.index ["solution_id"], name: "index_group_solutions_on_solution_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -143,7 +141,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["industry_id"], name: "index_industry_requests_on_industry_id"
     t.index ["request_id", "industry_id"], name: "index_industry_requests_on_request_id_and_industry_id", unique: true
-    t.index ["request_id"], name: "index_industry_requests_on_request_id"
   end
 
   create_table "industry_solutions", force: :cascade do |t|
@@ -154,7 +151,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.integer "solution_votes", default: 0, null: false
     t.index ["industry_id"], name: "index_industry_solutions_on_industry_id"
     t.index ["solution_id", "industry_id"], name: "index_industry_solutions_on_solution_id_and_industry_id", unique: true
-    t.index ["solution_id"], name: "index_industry_solutions_on_solution_id"
   end
 
   create_table "login_activities", force: :cascade do |t|
@@ -239,7 +235,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["occupation_id"], name: "index_occupation_requests_on_occupation_id"
     t.index ["request_id", "occupation_id"], name: "index_occupation_requests_on_request_id_and_occupation_id", unique: true
-    t.index ["request_id"], name: "index_occupation_requests_on_request_id"
   end
 
   create_table "occupation_solutions", force: :cascade do |t|
@@ -250,7 +245,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.integer "solution_votes", default: 0, null: false
     t.index ["occupation_id"], name: "index_occupation_solutions_on_occupation_id"
     t.index ["solution_id", "occupation_id"], name: "index_occupation_solutions_on_solution_id_and_occupation_id", unique: true
-    t.index ["solution_id"], name: "index_occupation_solutions_on_solution_id"
   end
 
   create_table "occupations", force: :cascade do |t|
@@ -385,13 +379,10 @@ ActiveRecord::Schema.define(version: 2021_02_13_021526) do
     t.datetime "created_at"
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
     t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
     t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
-    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
     t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
     t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
-    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
   create_table "tags", id: :serial, force: :cascade do |t|

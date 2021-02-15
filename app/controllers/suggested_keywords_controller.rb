@@ -3,12 +3,23 @@ class SuggestedKeywordsController < ApplicationController
 
   def create
     authorize SuggestedKeyword
+    # byebug
 
     @suggested_keyword = SuggestedKeyword.new(suggested_keyword_params)
     if user_signed_in?
       @suggested_keyword.user = current_user
     end
 
+    if user_signed_in? && current_user.admin?
+      if params[:add_directly] == "1"
+        if !suggested_keyword_params[:industry_slug].blank?
+          niche = Industry.find_by_slug(suggested_keyword_params[:industry_slug])
+        else
+          niche = Occupation.find_by_slug(suggested_keyword_params[:occupation_slug])
+        end
+        niche.add_user_suggested_keyword(suggested_keyword_params[:keyword])
+      end
+    end
     if @suggested_keyword.save
       flash[:notice] = "Thanks for the suggestion! We'll review it shortly."
       redirect_back fallback_location: root_path

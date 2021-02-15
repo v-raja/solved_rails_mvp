@@ -58,10 +58,23 @@
         %div{class: "pb-3 hidden space-y-3 h-28 overflow-y-scroll", "data-toggle-target": "toggleable"}
           = simple_format @niche.all_keywords.gsub(/;/, "\n\n"), wrapper_tag: "div"
         %div{class: "hidden mt-2", "data-toggle-target": "toggleable"}
-          = form_with model: @suggested_keyword, method: :post, local: true, html: {class: "flex w-full items-center"} do |f|
+          = form_with model: @suggested_keyword, method: :post, local: true, html: {class: "flex flex-col w-full"} do |f|
             = f.hidden_field "#{@niche.class.to_s.downcase}_slug", value: @niche.slug
-            = f.text_field :keyword, placeholder: "New keyword", class: "block text-xs py-1 text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
-            = f.submit "Suggest", class: "text-xs flex-shrink-0 ml-2 py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+            - if user_signed_in? && current_user.admin?
+              %div{class: "w-full mt-3"}
+                Add directly?
+              %div{class: "mb-3 w-full flex items-center space-x-2"}
+                %div{class: "flex items-center space-x-2"}
+                  %input{type: "radio", value: "1", name: "add_directly"}
+                  %div{}
+                    Yes
+                %div{class: "flex items-center space-x-2"}
+                  %input{type: "radio", value: "0", name: "add_directly", checked: true}
+                  %div{}
+                    No
+            %div{class: "w-full flex"}
+              = f.text_field :keyword, placeholder: "New keyword", class: "block text-xs py-1 text-gray-900 w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"
+              = f.submit "Suggest", class: "text-xs flex-shrink-0 ml-2 py-2 px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
 
     - active   = "text-secondary bg-gray-100 px-2 py-2 font-medium rounded"
     - inactive = "text-gray-700 px-2 py-2 font-medium rounded hover:bg-gray-200"
