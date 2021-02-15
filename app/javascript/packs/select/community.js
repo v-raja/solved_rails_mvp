@@ -60,7 +60,7 @@ $(document).on('turbolinks:load', function() {
           return 'Please enter 3 or more character to search';
         },
       },
-      closeOnSelect: false,
+      closeOnSelect: true,
       placeholder: 'Search for an industry / occupation',
       multiple: true,
       maximumSelectionLength: 8,
