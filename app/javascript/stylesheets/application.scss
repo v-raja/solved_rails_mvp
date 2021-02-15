@@ -9,6 +9,10 @@
 // @import 'comments';
 @import 'misc';
 @import 'read_more';
+
+.turbolinks-progress-bar {
+  visibility: hidden;
+}
 // @import 'search_signed_out_home';
 // @import 'search_navbar';
 // @import 'search_post';
