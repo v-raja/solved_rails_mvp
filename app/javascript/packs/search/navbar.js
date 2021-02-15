@@ -51,9 +51,9 @@ $(document).on('turbolinks:load', function() {
     }
 
     const search = instantsearch({
-      searchClient,
       indexName: 'niches_' + process.env.RAILS_ENV,
-      stalledSearchDelay: 800,
+      // stalledSearchDelay: 10,
+      searchClient,
       urlSync: true,
       routing: true,
       searchFunction(helper) {
@@ -73,9 +73,10 @@ $(document).on('turbolinks:load', function() {
       }
     });
 
+    let timerId;
     search.addWidgets([
       instantsearch.widgets.configure({
-        attributesToSnippet: ['description:100'],
+        attributesToSnippet: ['description:200'],
         hitsPerPage: 12,
         // filters: 'NOT categories:"Cell Phones"'
       }),
@@ -83,6 +84,10 @@ $(document).on('turbolinks:load', function() {
         container: '#searchbox_navbar',
         placeholder: "Search for your industry or occupation",
         searchAsYouType: true,
+        queryHook(query, refine) {
+          clearTimeout(timerId);
+          timerId = setTimeout(() => refine(query), 400);
+        },
         cssClasses: {
           form: "relative flex items-center",
           submit: "absolute inset-y-0 left-3 flex items-center",

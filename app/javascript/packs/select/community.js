@@ -66,6 +66,7 @@ $(document).on('turbolinks:load', function() {
       maximumSelectionLength: 8,
       ajax: {
         // Custom transport to call Algolia's API
+        delay: 400,
         transport: function(params, success, failure) {
           var queryParams = params.data;
           var q = queryParams.query;
@@ -74,7 +75,7 @@ $(document).on('turbolinks:load', function() {
         },
         // build Algolia's query parameters (with page starting at 0)
         data: function(params) {
-          return { query: params.term, hitsPerPage: 8, page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>' };
+          return { query: params.term, hitsPerPage: 8, restrictSearchableAttributes: ['title', 'keyword_list'], page: (params.page || 1) - 1, highlightPreTag: '<strong>', highlightPostTag: '</strong>' };
           // filters: `is_postable=1`
         },
 
