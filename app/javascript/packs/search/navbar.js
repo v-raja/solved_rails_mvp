@@ -3,7 +3,7 @@
 
 $(document).on('turbolinks:load', function() {
   if (document.getElementById("searchbox_navbar")) {
-    import(/* webpackChunkName: "solutions_routing" */ '../../src/solutions_routing').then(module => {
+    import(/* webpackChunkName: "navbar_routing" */ '../../src/navbar_routing').then(module => {
       function handleKeywords(keywordsArr) {
         if (keywordsArr == null) {
           return "";

@@ -47,18 +47,19 @@ function getCategoryName(slug) {
 }
 
 const router = instantsearch.routers.history({
-  windowTitle(state) {
+  // windowTitle(state) {
 
-    const query = state.q;
+  //   const query = state.q;
 
-    const queryTitle = query ? `Results for "${query}" | solved` : 'Search | solved';
+  //   const queryTitle = query ? `Results for "${query}" | solved` : 'Search | solved';
 
-    return queryTitle;
-  },
+  //   return queryTitle;
+  // },
 
   createURL({ qsModule, routeState, location }) {
-    const urlParts = location.href.match(/^(.*?)\/search\/solutions/);
-    const baseUrl = `${urlParts ? urlParts[1] : ''}/`;
+    // const urlParts = location.href.match(/^(.*?)/);
+    // const baseUrl = `${urlParts ? urlParts[1] : ''}/`;
+    const baseUrl = '';
 
     const queryParameters = {};
 
@@ -68,12 +69,10 @@ const router = instantsearch.routers.history({
     if (routeState.page !== 1) {
       queryParameters.page = routeState.page;
     }
-    if (routeState.tags) {
-      queryParameters.tags = routeState.tags.map(encodeURIComponent);
+    if (routeState.type) {
+      queryParameters.type = routeState.type.map(encodeURIComponent);
     }
-    if (routeState.communities) {
-      queryParameters.communities = routeState.communities.map(encodeURIComponent);
-    }
+
 
     const queryString = qsModule
       .stringify(queryParameters, {
@@ -81,61 +80,56 @@ const router = instantsearch.routers.history({
         arrayFormat: 'repeat',
       })
       .replace('query', 'q');
-    return `${baseUrl}search/solutions${queryString}`;
+    return `${baseUrl}${queryString}`;
   },
 
   parseURL({ qsModule, location }) {
 
-    const { q = '', page, tags = [], communities = [] } = qsModule.parse(
+    const { q = '', page, type = [] } = qsModule.parse(
       location.search.slice(1)
     );
 
 
     // `qs` does not return an array when there's a single value.
-    const allTags = Array.isArray(tags) ? tags : [tags].filter(Boolean);
-    const allCommunities = Array.isArray(communities) ? communities : [communities].filter(Boolean);
+    const allTypes = Array.isArray(type) ? type : [type].filter(Boolean);
 
     return {
       q: decodeURIComponent(q),
       page,
-      tags: allTags.map(decodeURIComponent),
-      communities: allCommunities.map(decodeURIComponent)
+      type: allTypes.map(decodeURIComponent)
     };
   },
 });
 
-const indexName = "solutions_" + process.env.NODE_ENV;
+const indexName = "niches_" + process.env.NODE_ENV;
 
 const stateMapping = {
   stateToRoute(uiState) {
     uiState = uiState[indexName]
     return {
       query: uiState.query,
-      tags: uiState.refinementList && uiState.refinementList._tags,
-      communities: uiState.refinementList && uiState.refinementList["communities.title"]
+      type: uiState.refinementList && uiState.refinementList.type,
     };
   },
 
   routeToState(routeState) {
     if (process.env.NODE_ENV == "development") {
       return {
-        "solutions_development": {
+        "niches_development": {
           query: routeState.q,
           page: routeState.page,
           refinementList: {
-            "communities.title": routeState.communities,
-            _tags: routeState.tags
+            type: routeState.type,
           },
         }
       };
     } else {
       return {
-        "solutions_production": {
+        "niches_production": {
           query: routeState.q,
           page: routeState.page,
           refinementList: {
-            "communities.title": routeState.communities,
-            _tags: routeState.tags
+            type: routeState.type,
           },
         }
       };
