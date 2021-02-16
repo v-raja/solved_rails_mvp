@@ -135,16 +135,16 @@ $(document).on('turbolinks:load', function() {
                             <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
                               <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player relative">
                                 <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
-                                  <picture class="h-full w-full object-cover cursor-pointer">
+                                  <picture class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}">
                                     <source srcset="//i.ytimg.com/vi_webp/{{{videos.0.youtube_id}}}/mqdefault.webp" type="image/webp">
                                     <source srcset="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" type="image/jpeg">
-                                    <img src="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" class="h-full w-full object-cover cursor-pointer">
+                                    <img src="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}">
                                   </picture>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <a href="{{{url}}}" class="btn-favorite" data-product-clicked-payload="{{{product_clicked_payload}}}">
+                          <a href="{{{url}}}" data-turbolinks="false" class="btn-favorite" data-product-clicked-payload="{{{product_clicked_payload}}}">
                             <div class=" flex mt-2">
                               <div class=" flex-grow flex flex-wrap ml-1">
                                 <div class=" w-full text-xs md:text-xssm font-medium two-lines-only">
