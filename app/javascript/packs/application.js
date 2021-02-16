@@ -56,7 +56,7 @@ $( document ).on('turbolinks:load', function() {
       var autoplay = playerElements[n].dataset.autoplay;
 
       var thumbNode = document.createElement('img');
-      thumbNode.src = '//img.youtube.com/vi/ID/sddefault.jpg'.replace(
+      thumbNode.src = '//i.ytimg.com/vi/ID/sddefault.jpg'.replace(
         'ID',
         videoId
       );

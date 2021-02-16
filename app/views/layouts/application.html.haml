@@ -33,15 +33,27 @@
         = render 'layouts/header'
         %div{class: "flex-grow pb-10 md:pb-0 flex overflow-y-auto"}
           = render 'layouts/sidebar'
+
           #app_body{class: "overflow-y-auto w-full"}
             = yield
 
-          #results{class: "overflow-y-auto hidden px-2 mt-4 w-full"}
-            %div{class: "text-lg"}
-              Choose your industry or occupation below 👇
-            %div{class: "text-base"}
-              = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
+          #results{class: "overflow-y-auto hidden px-2 w-full"}
+            %div{class: "mt-4 w-full flex items-center justify-between"}
+              %div
+                %div{class: "text-base md:text-lg"}
+                  Choose your industry or occupation below 👇
+                %div{class: "text-sm md:text-base"}
+                  = "(or #{link_to "explore", industry_categories_path, class: "user-link px-0.5", target: "_blank"} if you're unable to find your community)".html_safe
+              %div{id: "community_type", class: "hidden md:block"}
             #hits{class: "mt-6 mb-10 w-full"}
 
         = render 'layouts/mobile_footer'
 
+:javascript
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+  }

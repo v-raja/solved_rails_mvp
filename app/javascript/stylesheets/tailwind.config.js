@@ -148,6 +148,7 @@ module.exports = {
         900: '#7b341e',
       },
       yellow: {
+        'notion': '#fffefc',
         100: '#fffff0',
         200: '#fefcbf',
         300: '#faf089',

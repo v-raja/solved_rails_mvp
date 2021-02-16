@@ -87,6 +87,16 @@
                   = svg_tag "chevron-up", class: "w-5 h-5", "data-toggle-target": 'toggleable'
               #platforms{class: "mt-2 w-full hidden", "data-toggle-target": 'toggleable'}
 
+            %div{"data-controller": "toggle"}
+              %div{class: "w-full flex items-center justify-between border-b border-gray-400 cursor-pointer", "data-action": 'click->toggle#toggle touch->toggle#toggle'}
+                %div{class: "text-sm uppercase font-semibold "}
+                  Products
+                %div{class: "cursor-pointer p-2"}
+                  = svg_tag "chevron-down", class: "w-5 h-5 hidden", "data-toggle-target": 'toggleable'
+                  -# %div{class: "cursor-pointer p-2 hidden", "data-action": 'click->toggle#toggle touch->toggle#toggle'}
+                  = svg_tag "chevron-up", class: "w-5 h-5", "data-toggle-target": 'toggleable'
+              #products{class: "mt-2 w-full hidden", "data-toggle-target": 'toggleable'}
+
 
         %div{class: "mt-6 md:mt-0 w-full md:px-4 flex flex-wrap px-4"}
           %div{class: "flex items-end w-full"}
