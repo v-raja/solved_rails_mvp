@@ -11,7 +11,8 @@
 @import 'read_more';
 
 .turbolinks-progress-bar {
-  visibility: hidden;
+  // visibility: hidden;
+  height: 2px;
 }
 // @import 'search_signed_out_home';
 // @import 'search_navbar';
