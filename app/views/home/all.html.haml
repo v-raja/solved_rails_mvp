@@ -45,6 +45,21 @@
     %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
       = render @posts.today
 
+  - if @posts.past_week.any?
+    %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+      Past Week
+    %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+      = render @posts.past_week
+    -# %div{class: "flex items-center w-full"}
+    -#   %div{class: "flex-1 relative"}
+    -#     %div{class: "w-full absolute top-1/2 border-t-2 border-gray-300"}
+    -#   %div{class: "flex-shrink-0 px-2 py-1 text-secondary font-medium mx-3 rounded-md flex items-center hover:bg-gray-200 cursor-pointer"}
+    -#     Show more
+    -#     %div{class: "ml-1"}
+    -#       = svg_tag "chevron-down", class: "w-5 h-5"
+    -#   %div{class: "flex-1 relative"}
+    -#     %div{class: "w-full absolute top-1/2 border-t-2 border-gray-300"}
+
   %div{class: "w-full flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0 lg:space-x-0 justify-around my-8"}
     - cache(:popular_industries, expires_in: 30.minutes) do
       %div{class: "w-full lg:w-2/5 xl:w-1/3 text-sm bg-white pt-4 px-4 pb-3 rounded border border-gray-400"}
@@ -64,21 +79,6 @@
           = link_to c, class: "" do
             %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
               = "#{c.title}"
-
-  - if @posts.past_week.any?
-    %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
-      Past Week
-    %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-      = render @posts.past_week
-    -# %div{class: "flex items-center w-full"}
-    -#   %div{class: "flex-1 relative"}
-    -#     %div{class: "w-full absolute top-1/2 border-t-2 border-gray-300"}
-    -#   %div{class: "flex-shrink-0 px-2 py-1 text-secondary font-medium mx-3 rounded-md flex items-center hover:bg-gray-200 cursor-pointer"}
-    -#     Show more
-    -#     %div{class: "ml-1"}
-    -#       = svg_tag "chevron-down", class: "w-5 h-5"
-    -#   %div{class: "flex-1 relative"}
-    -#     %div{class: "w-full absolute top-1/2 border-t-2 border-gray-300"}
 
   - if @posts.past_month.any?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}

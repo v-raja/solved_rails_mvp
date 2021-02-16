@@ -6,4 +6,5 @@
       "data-votes": upvote_count(youtube_url.solution),
       "data-autoplay": "#{defined?(autoplay) ? "1" : "0"}",
       "data-yt-button": "#{defined?(yt_button) ? yt_button : false}"}
-  = image_tag "//i.ytimg.com/vi/#{youtube_url.youtube_id}/sddefault.jpg", class: "h-full w-full object-cover cursor-pointer"
+  - if defined?(only_thumbnail) && only_thumbnail
+    = image_tag "//i.ytimg.com/vi_webp/#{youtube_url.youtube_id}/hqdefault.webp", class: "h-full w-full object-cover cursor-pointer"
