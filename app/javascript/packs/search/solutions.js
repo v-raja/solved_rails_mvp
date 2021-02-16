@@ -135,7 +135,11 @@ $(document).on('turbolinks:load', function() {
                             <div class=" flex flex-col w-full h-full overflow-y-auto space-y-2">
                               <div class=" aspect-w-16 aspect-h-9 w-full flex-shrink-0 youtube-player relative">
                                 <div class="group" data-id="{{{videos.0.youtube_id}}}" onclick="convertToIframe(event)">
-                                  <img src="//i.ytimg.com/vi_webp/{{{videos.0.youtube_id}}}/mqdefault.webp" class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}"/>
+                                  <picture class="h-full w-full object-cover cursor-pointer">
+                                    <source srcset="//i.ytimg.com/vi_webp/{{{videos.0.youtube_id}}}/mqdefault.webp" type="image/webp">
+                                    <source srcset="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" type="image/jpeg">
+                                    <img src="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" class="h-full w-full object-cover cursor-pointer">
+                                  </picture>
                                 </div>
                               </div>
                             </div>

@@ -7,4 +7,7 @@
       "data-autoplay": "#{defined?(autoplay) ? "1" : "0"}",
       "data-yt-button": "#{defined?(yt_button) ? yt_button : false}"}
   - if defined?(only_thumbnail) && only_thumbnail
-    = image_tag "//i.ytimg.com/vi_webp/#{youtube_url.youtube_id}/hqdefault.webp", class: "h-full w-full object-cover cursor-pointer"
+    %picture{class: "h-full w-full object-cover cursor-pointer"}
+      %source{srcset: "//i.ytimg.com/vi_webp/#{youtube_url.youtube_id}/mqdefault.webp", type: "image/webp"}
+      %source{srcset: "//i.ytimg.com/vi/#{youtube_url.youtube_id}/mqdefault.jpg", type: "image/jpeg"}
+      = image_tag "//i.ytimg.com/vi/#{youtube_url.youtube_id}/mqdefault.jpg", class: "h-full w-full object-cover cursor-pointer"
