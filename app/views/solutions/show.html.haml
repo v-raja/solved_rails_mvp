@@ -20,7 +20,7 @@
             = "#{@solution.plan.name}"
             %div{class: "ml-3 text-xs text-gray-700"}
               = "#{number_to_currency(@solution.plan.price_per_month, precision: 2)} #{@solution.plan.is_price_per_user ? "/u" : nil}/mo."
-        = link_to "#{@solution.get_it_url.strip}?ref=solvedappio", target: :_blank do
+        = link_to "#{@solution.get_it_url.strip}?ref=solvedappio", target: :_blank, class: "learn-more", data: { title: @solution.title, postion: @solution.id } do
           %div{class: "text-sm flex-shrink-0 bg-secondary p-2 rounded text-white font-medium leading-none"}
             Learn More
       -# %div{class: "mt-8 aspect-w-7 aspect-h-4"}
@@ -39,17 +39,17 @@
             Posted to
           %div{class: "mt-1 flex text-sm flex-col space-y-1 max-h-40 overflow-y-auto"}
             - if @solution.groups.any?
-              - @solution.groups.each do |groups|
+              - @solution.groups.each do |group|
                 -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                = link_to "#{groups.title} (List)", groups, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
+                = link_to "#{groups.title} (List)", group, data: {title: group.title, position: group.id}, class: "posted-to text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
             - if @solution.industries.any?
               - @solution.industries.each do |industry|
                 -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
-                = link_to "#{industry.title} (Industry)", industry, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
+                = link_to "#{industry.title} (Industry)", industry, data: {title: industry.title, position: industry.id}, class: "posted-to text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
             - if @solution.occupations.any?
               - @solution.occupations.each do |occupation|
                 -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
-                = link_to "#{occupation.title} (Occupation)", occupation, class: "text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
+                = link_to "#{occupation.title} (Occupation)", occupation, data: {title: occupation.title, position: occupation.id}, class: "posted-to text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
 
 
     %div{class: "w-full md:ml-4 xl:ml-10"}

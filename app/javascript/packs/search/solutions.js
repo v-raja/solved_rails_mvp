@@ -112,7 +112,7 @@ $(document).on('turbolinks:load', function() {
                 JSON.stringify({
                   objectID: item.objectID,
                   position: item.__position,
-
+                  title: item.title,
                   index: indexName,
                   queryID: item.__queryID
                 })
@@ -138,7 +138,7 @@ $(document).on('turbolinks:load', function() {
                                   <picture class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}">
                                     <source srcset="//i.ytimg.com/vi_webp/{{{videos.0.youtube_id}}}/mqdefault.webp" type="image/webp">
                                     <source srcset="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" type="image/jpeg">
-                                    <img src="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}">
+                                    <img src="//i.ytimg.com/vi/{{{videos.0.youtube_id}}}/mqdefault.jpg" loading="lazy" class="btn-video h-full w-full object-cover cursor-pointer" data-product-clicked-payload="{{{product_clicked_payload}}}">
                                   </picture>
                                 </div>
                               </div>

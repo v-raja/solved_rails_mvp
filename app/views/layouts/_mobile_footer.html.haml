@@ -1,6 +1,6 @@
 %div{class: "bg-white border-t border-gray-300 fixed w-full bottom-0 z-40 md:hidden"}
   %div{class: "grid #{user_signed_in? ? "grid-cols-5" : "grid-cols-4"} border-0 px-4 py-3"}
-    = link_to all_path do
+    = link_to all_path, class: "popular" do
       - active = params[:controller] == "home" && params[:action] == "all"
       %div{class: "group text-gray-800 transition cursor-pointer flex flex-col items-center"}
         %div{class: "-m-2 p-2 group-hover:bg-gray-200 rounded-full"}
@@ -12,7 +12,7 @@
         %div{class: "text-xxs mt-0.5 #{active ? "text-black font-semibold" : nil}"}
           Popular
     - if user_signed_in?
-      = link_to home_path do
+      = link_to home_path, class: "home" do
         - active = params[:controller] == "home" && params[:action] != "all"
         %div{class: "group text-gray-800 transition cursor-pointer flex flex-col items-center"}
           %div{class: "-m-2 p-2 group-hover:bg-gray-200 rounded-full"}
@@ -22,7 +22,7 @@
               </svg>
           %div{class: "text-xxs mt-0.5 #{active ? "text-black font-semibold" : nil}"}
             Home
-    = link_to search_solutions_path, "data-turbolinks": false do
+    = link_to search_solutions_path, "data-turbolinks": false, class: "search-solutions" do
       - active = params[:controller] == "search" && params[:action] == "solutions"
       %div{class: "group text-gray-800 transition cursor-pointer flex flex-col items-center"}
         %div{class: "-m-2 p-2 group-hover:bg-gray-200 rounded-full"}

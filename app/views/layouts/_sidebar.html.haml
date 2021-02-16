@@ -24,7 +24,7 @@
           Beta
 
     %div{class: "border-b border-gray-300 py-2"}
-      = link_to all_path do
+      = link_to all_path, class: "popular" do
         - active = params[:controller] == "home" && params[:action] == "all"
         %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
           %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
@@ -41,7 +41,7 @@
 
       -# - path = user_signed_in? ? home_path : new_user_session_path
       - if user_signed_in?
-        = link_to home_path do
+        = link_to home_path, class: "home" do
           - active = params[:controller] == "home" && params[:action] != "all"
           %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
             %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
@@ -51,7 +51,7 @@
             %div{class: "ml-2 text-base mt-0.5 #{active ? "text-black font-semibold" : nil}"}
               Home
 
-      = link_to search_solutions_path, "data-turbolinks": false do
+      = link_to search_solutions_path, "data-turbolinks": false, class: "search-solutions" do
         - active = params[:controller] == "search" && params[:action] == "solutions"
         %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
           %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
@@ -61,7 +61,7 @@
           %div{class: "ml-2 text-base flex-shrink-0 mt-0.5 #{active ? "text-black font-semibold" : nil}"}
             Search Solutions
 
-      = link_to industry_categories_path do
+      = link_to industry_categories_path, class: "explore" do
         - active = request.path.starts_with?("/explore") || current_page?(controller: "products", action: "index")
         %div{class: "px-8 py-4  text-gray-800 #{active ? "bg-gray-200" : nil} transition hover:bg-gray-100 cursor-pointer flex items-center"}
           %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
@@ -130,7 +130,7 @@
 
 -# Sidebar
 %div{class: "hidden md:block overflow-y-hidden pt-4 pb-6 w-20 flex-none bg-white"}
-  = link_to all_path do
+  = link_to all_path, class: "popular" do
     - active = params[:controller] == "home" && params[:action] == "all"
     %div{class: "px-1 py-4  text-gray-800 active:bg-gray-100 transition hover:bg-gray-100 cursor-pointer flex flex-col items-center"}
       %div{class: "w-5 h-5 #{active ? "text-secondary" : nil}"}
@@ -155,7 +155,7 @@
           </svg>
         %div{class: "text-xs mt-0.5 #{active ? "text-black font-semibold" : nil}"}
           Home
-  = link_to search_solutions_path, "data-turbolinks": false do
+  = link_to search_solutions_path, "data-turbolinks": false, class: "search-solutions" do
     - active = params[:controller] == "search" && params[:action] == "solutions"
     %div{class: "px-1 py-4  text-gray-800 active:bg-gray-100 transition hover:bg-gray-100 cursor-pointer flex flex-col items-center"}
       %div{class: "w-4 h-4 #{active ? "text-secondary" : nil}"}
@@ -165,7 +165,7 @@
       %div{class: "text-xs text-center mt-0.5 flex #{active ? "text-black font-semibold" : nil}"}
         Search Solutions
 
-  = link_to industry_categories_path do
+  = link_to industry_categories_path, class: "explore" do
     - active = params[:controller] == "search" && params[:action] == "solutions"
     - active = request.path.starts_with?("/explore") || current_page?(controller: "products", action: "index")
     %div{class: "px-1 py-4  text-gray-800 active:bg-gray-100 transition hover:bg-gray-100 cursor-pointer flex flex-col items-center"}

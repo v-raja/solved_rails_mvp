@@ -34,6 +34,13 @@ application.register("data-binding", DataBindingController);
 $( document ).on('turbolinks:load', function() {
 
   function labnolIframe(div) {
+
+    analytics.track("Video Clicked", {
+      title: div.dataset.title,
+      objectID: div.dataset.position,
+      index: "solutions_" + process.env.RAILS_ENV
+    })
+
     var iframe = document.createElement('iframe');
     iframe.setAttribute(
       'src',
@@ -103,6 +110,8 @@ $( document ).on('turbolinks:load', function() {
 
       div.setAttribute('data-id', videoId);
       div.setAttribute('data-autoplay', autoplay);
+      div.setAttribute('data-position', playerElements[n].dataset.position);
+      div.setAttribute('data-title', playerElements[n].dataset.title);
 
       div.appendChild(thumbNode);
       div.appendChild(upvoteOrPlayButton);

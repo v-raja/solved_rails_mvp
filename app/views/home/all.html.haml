@@ -67,7 +67,7 @@
           Popular Industries
         - communities = Industry.popular.take(3)
         - communities.each do |c|
-          = link_to c, class: "" do
+          = link_to c, class: "popular-industry", data: { title: c.title, position: c.id } do
             %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
               = "#{c.title}"
     - cache(:popular_occupations, expires_in: 30.minutes) do
@@ -76,7 +76,7 @@
           Popular Occupations
         - communities = Occupation.popular.take(3)
         - communities.each do |c|
-          = link_to c, class: "" do
+          = link_to c, class: "popular-occupation", data: { title: c.title, position: c.id } do
             %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
               = "#{c.title}"
 
