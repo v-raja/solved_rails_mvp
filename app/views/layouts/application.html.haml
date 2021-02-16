@@ -15,8 +15,8 @@
     = render 'layouts/rails_default'
     = render 'application/favicon'
     = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload'
-    = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
+    = javascript_packs_with_chunks_tag 'search/navbar', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload', defer: true
     = yield :head
   %body
 
