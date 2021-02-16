@@ -2,7 +2,7 @@
 %html
   %head
     = include_gon
-    = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload'
+    = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload', defer: true
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

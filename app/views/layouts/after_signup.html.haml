@@ -14,8 +14,8 @@
     = render 'layouts/rails_default'
     = render 'layouts/shim'
     = javascript_packs_with_chunks_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_packs_with_chunks_tag 'select/confirm_community', 'data-turbolinks-track': 'reload'
-    = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload'
+    = javascript_packs_with_chunks_tag 'select/confirm_community', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_packs_with_chunks_tag 'segment/call', 'data-turbolinks-track': 'reload', defer: true
     = yield :head
   %body
     %div{class: "hidden", id: "turbolinkz", "data-turbolinkz-id": "#{user_signed_in? ? current_user.id : 0}"}

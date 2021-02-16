@@ -1,3 +1,5 @@
+
+// contains all segment identify and track events
 $(document).on("turbolinks:load", function(event) {
 
   if (gon.ffi) {
