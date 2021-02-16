@@ -2,7 +2,7 @@
 %html
   %head
     = include_gon
-    = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload', defer: true
+    = javascript_packs_with_chunks_tag 'segment/setup', 'data-turbolinks-track': 'reload'
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,13 +31,13 @@
 
       %div{class: "h-screen flex flex-col justify-between", "data-controller": "slideover", "data-action": "click@window->slideover#hide", "data-slideover-open-value": "false", "data-slideover-invisible-class": "-translate-x-full,opacity-0", "data-slideover-visible-class": "block,translate-x-0,opacity-100", "data-slideover-entering-class": "", "data-slideover-enter-timeout": "500,300", "data-slideover-leaving-class": "", "data-slideover-leave-timeout": "5,0"}
         = render 'layouts/header'
-        %div{class: "flex-grow pb-10 md:pb-0 flex overflow-y-auto"}
+        %div{class: "flex-grow flex overflow-y-auto"}
           = render 'layouts/sidebar'
 
-          #app_body{class: "overflow-y-auto w-full"}
+          #app_body{class: "pb-10 md:pb-0 overflow-y-scroll w-full", style: "overflow-y: scroll; -webkit-overflow-scrolling: touch;"}
             = yield
 
-          #results{class: "overflow-y-auto hidden px-2 w-full"}
+          #results{class: "pb-10 md:pb-0 overflow-y-auto hidden px-2 w-full", style: "overflow-y: scroll; -webkit-overflow-scrolling: touch;"}
             %div{class: "mt-4 w-full flex items-center justify-between"}
               %div
                 %div{class: "text-base md:text-lg"}
