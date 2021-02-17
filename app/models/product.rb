@@ -14,7 +14,7 @@ class Product < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   validates_presence_of :name, :thumbnail_url
-  validates :thumbnail_url, url: { no_local: true }
+  # validates :thumbnail_url, url: { no_local: true }
   has_many :solutions
   after_save { solutions.each(&:touch) }
 
