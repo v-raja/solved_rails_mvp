@@ -13,39 +13,37 @@
   %div{class: "mt-0 flex justify-center pb-10"}
     %div{class: "max-w-screen-lg w-full flex"}
       %div{class: "w-full px-4 pb-6 md:pb-0"}
+
         - if is_postable
           - if @solutions.any?
+            - if !user_signed_in?
+              %div{class: "w-full flex justify-center"}
+                %div{class: "mt-6 mx-4 max-w-lg w-full text-center"}
+                  = "#{link_to "Join", whatsapp_url(@niche), class: "border-b-3 border-primary leading-4 transition-all hover:bg-primary hover:text-white"} the WhatsApp chat to talk to others in your #{@niche.class.to_s.downcase} who want to learn and share better ways of doing things".html_safe
+                -# %div{class: "mt-6 max-w-md w-full text-base text-center"}
+                -#   = "Sign up and get notified weekly about new solutions posted to this community 👇"
 
-            -# - if @niche.tags.present?
-            -#   %div{class: "flex items-center #{params[:tag].present? ? "text-base" : "text-xs pb-4"}"}
-            -#     %h2{class: "font-semibold pb-4 flex-shrink-0"}
-            -#       Tags:
-            -#     - if params[:tag]
-            -#       %div{class: "flex-shrink-0 text-black mr-1 ml-3 pb-4 font-medium"}
-            -#         = params[:tag]
-            -#     %div{class: "ml-3 space-x-4 overflow-x-scroll flex items-center pb-4"}
-            -#       - @niche.tags.each do |tag|
-            -#         = link_to_unless_current(tag.name, [@niche, tag: tag.name], class: "flex-shrink-0 text-gray-600 hover:text-black") do end
-            -# - if params[:tag]
-            -#   %div{class: "mt-6 pb-6 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-            -#     = render @solutions, cached: true
-            -# - else
+              -# = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "text-sm mt-6 md:mt-4 w-full flex justify-center flex-wrap px-10 sm:flex-nowrap md:px-28"} do |f|
+              -#   %input{type: "email", name: "user[email]",
+              -#     placeholder: "Email",
+              -#     autocomplete: "email",
+              -#     class: "text-sm py-1.5 block text-gray-900 w-full max-w-xs sm:w-56 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+              -#   = f.submit "Sign Up & Get Notified", class: "text-sm mt-2 sm:mt-0 flex-shrink-0 sm:ml-2 py-1.5 px-4 mx-8 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
 
-            - if @solutions.today.any?
-              %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
-                Today
-              %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-                = render @solutions.today
-            - if @solutions.past_week.any?
-              %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
-                Past Week
-              %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-                = render @solutions.past_week
-            - if @solutions.past_month.any?
-              %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
-                Past Month
-              %div{class: "mt-6 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-                = render @solutions.past_month
+
+            - if @solutions.any?
+              %div{class: "mt-8 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+                = render @solutions
+            -# - if @solutions.past_week.any?
+            -#   %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+            -#     Past Week
+            -#   %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+            -#     = render @solutions.past_week
+            -# - if @solutions.past_month.any?
+            -#   %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+            -#     Past Month
+            -#   %div{class: "mt-6 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+            -#     = render @solutions.past_month
 
 
           - else
@@ -90,15 +88,17 @@
 
           - else
             %div{class: "w-full flex justify-center"}
-              %div{class: "mt-20 max-w-md w-full text-lg text-center"}
-                = "Sign up and get notified when solutions are posted to the #{@niche.title} community 👇"
+              %div{class: "mt-10 text-base mx-4 md:text-lg max-w-lg w-full text-center"}
+                = "#{link_to "Join", whatsapp_url(@niche), class: "border-b-3 border-primary leading-4 transition-all hover:bg-primary hover:text-white"} the WhatsApp chat to talk to others in your #{@niche.class.to_s.downcase} who want to learn and share better ways of doing things".html_safe
+            -#   %div{class: "mt-20 max-w-md w-full text-lg text-center"}
+            -#     = "Sign up and get notified when solutions are posted to the #{@niche.title} community 👇"
 
-            = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-6 md:mt-4 w-full flex justify-center flex-wrap px-10 sm:flex-nowrap md:px-28"} do |f|
-              %input{type: "email", name: "user[email]",
-                placeholder: "Email",
-                autocomplete: "email",
-                class: "block text-gray-900 w-full max-w-xs sm:w-56 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
-              = f.submit "Sign Up & Get Notified", class: "mt-2 sm:mt-0 flex-shrink-0 sm:ml-2 py-2 px-6 mx-8 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
+            -# = form_with url: [:follow, @niche], method: :get, local: true, html: {class: "mt-6 md:mt-4 w-full flex justify-center flex-wrap px-10 sm:flex-nowrap md:px-28"} do |f|
+            -#   %input{type: "email", name: "user[email]",
+            -#     placeholder: "Email",
+            -#     autocomplete: "email",
+            -#     class: "block text-gray-900 w-full max-w-xs sm:w-56 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-indigo-300 hover:ring hover:ring-indigo-200 hover:ring-opacity-50"}
+            -#   = f.submit "Sign Up & Get Notified", class: "mt-2 sm:mt-0 flex-shrink-0 sm:ml-2 py-2 px-6 mx-8 sm:mx-0 sm:px-4 bg-primary text-white rounded cursor-pointer hover:bg-opacity-90"
 
 
 

@@ -50,6 +50,10 @@ module ApplicationHelper
   def niche_type
     params[:type] if params[:type].in? niche_types
   end
+
+  def whatsapp_url(niche)
+    "https://wa.me/447444744189?text=" + URI.escape("Hey! Could you please add me to the \"#{niche.title} (#{niche.class.to_s})\" group?")
+  end
 end
 
 
