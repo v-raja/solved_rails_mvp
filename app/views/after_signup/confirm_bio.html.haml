@@ -41,7 +41,7 @@
               %div{class: "w-full text-xl font-medium"}
                 Enter an image link below (ex: Twitter, GitHub thumbnails) if you would like to change your thumbnail
               %div.w-full.mt-2
-                = f.text_field :thumbnail_url, value: nil, class: "bg-gray-fb text-xl border-0 focus:border-0 bg-opacity-0 text-md w-full", placeholder: "https://"
+                = f.url_field :thumbnail_url, value: nil, class: "bg-gray-fb text-xl border-0 focus:border-0 bg-opacity-0 text-md w-full", placeholder: "https://"
 
           -# %div{class: "fill-current h-8 w-48"}
           -#   -# Logo

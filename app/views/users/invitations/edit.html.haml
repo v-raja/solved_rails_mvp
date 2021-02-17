@@ -26,7 +26,7 @@
               (ex: Twitter, GitHub thumbnails) <br/>
             -# .text-sm
             -#   (Leave blank to update automatically)
-            = f.text_field :thumbnail_url, value: "#{is_oxro_url?(resource.thumbnail_url) ? nil : resource.thumbnail_url}", class: "w-full mt-3 py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "https://"
+            = f.url_field :thumbnail_url, value: "#{is_oxro_url?(resource.thumbnail_url) ? nil : resource.thumbnail_url}", class: "w-full mt-3 py-3 rounded-md border-gray-400 focus:border-indigo-300", placeholder: "https://"
             = f.hidden_field :old_thumbnail_url, value: resource.thumbnail_url
 
           %div{class: "w-full text-lg font-medium mt-8 flex items-center"}
