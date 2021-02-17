@@ -40,7 +40,7 @@ class Solution < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  validates_presence_of :title, :youtube_urls, :product
+  validates_presence_of :title, :youtube_urls, :product, :get_it_url
   validate :atleast_one_niche
   # validates_length_of :description
 
@@ -60,7 +60,7 @@ class Solution < ApplicationRecord
   accepts_nested_attributes_for :product, :reject_if => :check_if_product_exists
 
   validates_associated :product
-  validates :get_it_url, url: { no_local: true }
+  # validates :get_it_url, url: { no_local: true }
 
   belongs_to :user
   belongs_to :plan

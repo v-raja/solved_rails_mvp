@@ -43,11 +43,12 @@ class User < ApplicationRecord
 
   has_many :login_activities, as: :user
 
-  validates_presence_of :name
+  validates_presence_of :name, :thumbnail_url
   before_validation :add_thumbnail, except: :create
 
   before_validation :set_default_name_and_thumbnail, on: :create
-  validates :thumbnail_url, url: { no_local: true }
+  # validates :thumbnail_url, url: { no_local: true }
+
 
   # Problem: need to assign names and thumbnails when user signs up from a community page.
   # So we used a before_create callback. This works as expected.
