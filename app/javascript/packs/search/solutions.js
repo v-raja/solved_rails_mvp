@@ -92,7 +92,8 @@ $(document).on('turbolinks:load', function() {
             root: "w-full",
             list: "w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 xl:grid-cols-4",
             item: "",
-            loadMore: "focus:outline-none mt-8 w-full underline place-self-center text-sm block text-black"
+            loadMore: "focus:outline-none mt-8 w-full underline place-self-center text-sm block text-black",
+            disabledLoadMore: "hidden"
           },
           transformItems(items) {
 
