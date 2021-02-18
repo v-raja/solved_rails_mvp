@@ -230,6 +230,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      display: ['group-hover'],
       backgroundColor: ['checked'],
       borderColor: ['checked'],
       ringColor: ['hover'],

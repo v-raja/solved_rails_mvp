@@ -26,16 +26,9 @@ $(document).on("turbolinks:load", function(event) {
     });
   });
 
-  document.querySelectorAll('.posted-to').forEach(function(link) {
-    analytics.trackLink(link, "Posted To Community Clicked", {
-      title: link.dataset.title,
-      index: "niches_" + process.env.RAILS_ENV,
-      objectID: link.dataset.position
-    });
-  });
-
   document.querySelectorAll('.popular-industry').forEach(function(link) {
-    analytics.trackLink(link, "Popular Industry Clicked", {
+    analytics.trackLink(link, "Community Clicked", {
+      location: "popular_industries",
       title: link.dataset.title,
       index: "niches_" + process.env.RAILS_ENV,
       objectID: link.dataset.position
@@ -43,7 +36,42 @@ $(document).on("turbolinks:load", function(event) {
   });
 
   document.querySelectorAll('.popular-occupation').forEach(function(link) {
-    analytics.trackLink(link, "Popular Occupation Clicked", {
+    analytics.trackLink(link, "Community Clicked", {
+      location: "popular_occupations",
+      title: link.dataset.title,
+      index: "niches_" + process.env.RAILS_ENV,
+      objectID: link.dataset.position
+    });
+  });
+
+  document.querySelectorAll('.posted-to').forEach(function(link) {
+    analytics.trackLink(link, "Community Clicked", {
+      location: "posted_to",
+      title: link.dataset.title,
+      index: "niches_" + process.env.RAILS_ENV,
+      objectID: link.dataset.position
+    });
+  });
+
+  document.querySelectorAll('.link-to-community').forEach(function(link) {
+    analytics.trackLink(link, "Community Clicked", {
+      location: "solution_partial",
+      title: link.dataset.title,
+      index: "niches_" + process.env.RAILS_ENV,
+      objectID: link.dataset.position
+    });
+  });
+
+  document.querySelectorAll('.community-search').forEach(function(link) {
+    analytics.trackLink(link, "Search Community Clicked", {
+      title: link.dataset.title,
+      index: "niches_" + process.env.RAILS_ENV,
+      objectID: link.dataset.position
+    });
+  });
+
+  document.querySelectorAll('.join-wa-chat').forEach(function(link) {
+    analytics.trackLink(link, "Join WA Chat Clicked", {
       title: link.dataset.title,
       index: "niches_" + process.env.RAILS_ENV,
       objectID: link.dataset.position
@@ -66,4 +94,6 @@ $(document).on("turbolinks:load", function(event) {
   document.querySelectorAll('.explore').forEach(function(link) {
     analytics.trackLink(link, "Explore Nav Clicked");
   });
+
+
 })

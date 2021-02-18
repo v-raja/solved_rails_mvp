@@ -8,7 +8,7 @@
           -# = link_to (image_tag solution.product.thumbnail_url, class: "object-cover"), solution.product
           -# = image_tag solution.product.thumbnail_url
         %div{class: "flex-grow flex flex-col justify-between"}
-          = link_to solution.title, solution, class: "font-medium two-lines-only "
+          = link_to solution.title, solution, class: "font-medium two-lines-only"
           %div{class: "text-xs text-gray-600 flex flex-wrap items-center"}
 
             - niche = solution.industries.first || solution.occupations.first

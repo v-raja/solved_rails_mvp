@@ -19,7 +19,7 @@
             - if !user_signed_in?
               %div{class: "w-full flex justify-center"}
                 %div{class: "mt-6 mx-4 max-w-lg w-full text-center"}
-                  = "#{link_to "Join", whatsapp_url(@niche), class: "border-b-3 border-primary leading-4 transition-all hover:bg-primary hover:text-white"} the WhatsApp chat to talk to others in your #{@niche.class.to_s.downcase} who want to learn and share better ways of doing things.".html_safe
+                  = "#{link_to "Join", whatsapp_url(@niche), class: "border-b-3 border-primary leading-4 transition-all hover:bg-primary hover:text-white join-wa-chat", data: { title: @niche.title, position: @niche.id }} the WhatsApp chat to talk to others in your #{@niche.class.to_s.downcase} who want to learn and share better ways of doing things.".html_safe
                 -# %div{class: "mt-6 max-w-md w-full text-base text-center"}
                 -#   = "Sign up and get notified weekly about new solutions posted to this community 👇"
 
@@ -91,7 +91,7 @@
               %div{class: "mt-10 text-base md:text-lg"}
                 No solutions yet 😔
               %div{class: "mt-4 text-base mx-4 md:text-lg max-w-lg w-full text-center"}
-                = "#{link_to "Join", whatsapp_url(@niche), class: "border-b-3 border-primary leading-4 transition-all hover:bg-primary hover:text-white"} the WhatsApp chat to talk to others in your #{@niche.class.to_s.downcase} who want to learn and share better ways of doing things.".html_safe
+                = "#{link_to "Join", whatsapp_url(@niche), class: "border-b-3 border-primary leading-4 transition-all hover:bg-primary hover:text-white join-wa-chat", data: { title: @niche.title, position: @niche.id }} the WhatsApp chat to talk to others in your #{@niche.class.to_s.downcase} who want to learn and share better ways of doing things.".html_safe
             -#   %div{class: "mt-20 max-w-md w-full text-lg text-center"}
             -#     = "Sign up and get notified when solutions are posted to the #{@niche.title} community 👇"
 

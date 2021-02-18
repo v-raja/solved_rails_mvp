@@ -86,7 +86,7 @@
       %nav{class: "h-full text-base space-x-4"}
         = link_to_unless_current("Solutions", niche, class: "#{inactive}") do link_to 'Solutions', niche, class: "#{active}" end
         -# = link_to_unless_current("Requests", [niche, :requests], class: "#{inactive}") do link_to("Requests", [niche, :requests], class: "#{active}") end
-        = link_to_unless_current("Search", search_solutions_path(communities: niche.title), class: "#{inactive}") do link_to("Search", [niche, :search], class: "#{active}") end
+        = link_to_unless_current("Search", search_solutions_path(communities: niche.title), class: "#{inactive} community-search", data: { title: niche.title, position: niche.id }) do link_to("Search", [niche, :search], class: "#{active}") end
 
       -# %nav{class: "space-x-2 flex items-center text-sm"}
       -#   -# = link_to_unless_current("Requests", [niche, :requests], class: "hidden") do link_to("New Request", new_request_path(type: niche_type, code: niche.code), class: "text-gray-600 hover:text-white hover:bg-secondary p-2 font-medium rounded") end

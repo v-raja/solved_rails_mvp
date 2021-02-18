@@ -8,7 +8,8 @@
         autoplay: "#{defined?(autoplay) ? "1" : "0"}",
         position: youtube_url.solution.id,
         title: youtube_url.solution.title,
-        "yt-button": "#{defined?(yt_button) ? yt_button : false}"
+        "yt-button": "#{defined?(yt_button) ? yt_button : false}",
+        "no-initial-yt-button": "#{defined?(no_inital_yt_button) ? no_inital_yt_button : false}"
       }}
   - if defined?(only_thumbnail) && only_thumbnail
     %picture{class: "h-full w-full object-cover cursor-pointer"}

@@ -1,17 +1,18 @@
 - cache(solution) do
-  = link_to solution, class: "solution", data: { title: solution.title, position: solution.id }  do
-    %div{class: "flex flex-col"}
-      - if solution.youtube_urls.present?
-        %div{class: "video aspect-w-7 aspect-h-4 "}
-          %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
-            = render solution.youtube_urls.first, only_thumbnail: true
+  %div{class: "flex flex-col"}
 
+
+    - if solution.youtube_urls.present?
+      %div{class: "video aspect-w-7 aspect-h-4 "}
+        %div{class: "flex flex-col w-full h-full overflow-y-auto space-y-2"}
+          = render solution.youtube_urls.first, autoplay: true, yt_button: true, no_inital_yt_button: true
+    = link_to solution, class: "solution group", data: { title: solution.title, position: solution.id }  do
       %div{class: "flex mt-2"}
         -# %div{class: "flex-shrink-0"}
         -#   = image_tag solution.product.thumbnail_url, class: "w-8 h-8 object-cover rounded-full"
         %div{class: "flex-grow flex flex-wrap ml-1"}
-          %div{class: "w-full text-xs md:text-xssm font-medium two-lines-only"}
-            %div{class: "flex-shrink-0 "}
+          %div{class: "w-full -mt-1 -mx-1 -mb-0.5 pt-1 px-1 pb-0.5 text-xs md:text-xssm font-medium two-lines-only"}
+            %div{class: "flex-shrink-0 -mt-1 -mx-1 -mb-0.5 pt-1 px-1 pb-0.5 group-hover:bg-gray-300"}
               = solution.title
 
           %div{class: "mt-1 text-xxs md:text-xs text-gray-700 flex items-center overflow-x-scroll disable-scrollbars"}
@@ -45,10 +46,10 @@
                 = "#{number_to_currency(solution.plan.price_per_month, precision: 0)} #{solution.plan.is_price_per_user ? "/u" : nil}/mo."
 
 
-          %div{class: "text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-6 overflow-x-scroll disable-scrollbars"}
 
-            - niche = solution.industries.first || solution.occupations.first
-            %div{class: "flex-shrink-0 "}
-              = niche.title
+
+    - niche = solution.industries.first || solution.occupations.first
+    %div{class: "ml-1 flex-shrink-0 text-xxs hover:text-black md:text-xs w-full text-gray-700 flex items-center md:mr-6 overflow-x-scroll disable-scrollbars"}
+      = link_to niche.title, niche, class: "link-to-community", data: { title: niche.title, position: niche.id }
 
 

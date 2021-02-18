@@ -58,12 +58,13 @@ $(document).on('turbolinks:load', function() {
         routing: module.default,
       });
 
-
+      const sessionStorageCache = instantsearch.createInfiniteHitsSessionStorageCache();
       let timerId;
       search.addWidgets([
         instantsearch.widgets.configure({
           // attributesToSnippet: ['description_text:60'],
           clickAnalytics: true,
+          hitsPerPage: 15
           // enablePersonalization: true,
         }),
         instantsearch.widgets.searchBox({
@@ -84,12 +85,14 @@ $(document).on('turbolinks:load', function() {
           }
         }),
 
-        instantsearch.widgets.hits({
+        instantsearch.widgets.infiniteHits({
+          cache: sessionStorageCache,
           container: '#hits',
           cssClasses: {
             root: "w-full",
             list: "w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 xl:grid-cols-4",
-            item: ""
+            item: "",
+            loadMore: "focus:outline-none mt-8 w-full underline place-self-center text-sm block text-black"
           },
           transformItems(items) {
 
@@ -127,7 +130,8 @@ $(document).on('turbolinks:load', function() {
           },
           escapeHTML: false,
           templates: {
-            empty: 'No solutions found for "{{ query }}". We\'re keen to help. Make a request and we\'ll get back to you within two days with a solution.',
+            showMoreText: "Show more solutions",
+            empty: 'No solutions found for "{{ query }}". Try something else.',
             item: '<div>' +
                     '<div class="">' +
                         `<div class=" flex flex-col">
@@ -228,9 +232,6 @@ $(document).on('turbolinks:load', function() {
             delete: "ml-1 text-xxs font-bold pt-1 pl-1 pr-3 focus:outline-none"
           },
           transformItems(items) {
-            SolutionListFilteredEventWithItems(items);
-
-
             const attributeDisplayValue = {
               // "_tags": "tags",
               "communities.title": "communities",
@@ -244,6 +245,7 @@ $(document).on('turbolinks:load', function() {
               ...item,
               label: attributeDisplayValue[item.label] ? attributeDisplayValue[item.label] : item.label,
             }));
+            SolutionListFilteredEventWithItems(items);
             return itemz;
           },
         }),

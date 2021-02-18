@@ -49,7 +49,7 @@
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Past Week
     %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-      = render @posts.past_week, cached: true
+      = render @posts.past_week.take(12), cached: true
     -# %div{class: "flex items-center w-full"}
     -#   %div{class: "flex-1 relative"}
     -#     %div{class: "w-full absolute top-1/2 border-t-2 border-gray-300"}
@@ -84,5 +84,5 @@
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Past Month
     %div{class: "mt-6 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-      = render @posts.past_month, cached: true
+      = render @posts.past_month.take(12), cached: true
 
