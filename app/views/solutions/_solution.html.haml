@@ -46,6 +46,7 @@
 
 
           %div{class: "text-xxs md:text-xs w-full text-gray-700 flex items-center md:mr-6 overflow-x-scroll disable-scrollbars"}
+
             - niche = solution.industries.first || solution.occupations.first
             %div{class: "flex-shrink-0 "}
               = niche.title

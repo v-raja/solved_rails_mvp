@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   end
 
   def home
-    @posts = Solution.by_communities(current_user.niche_list).top.includes([:user, :product, :plan])
+    @posts = Solution.by_communities(current_user.niche_list).top.includes([:product, :plan])
     @is_solutions_page = true
     @is_top_results = true
     set_meta_tags title: "solved: Find new and better solutions to your problems from people like you.",
