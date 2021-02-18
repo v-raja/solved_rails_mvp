@@ -70,7 +70,7 @@ class User < ApplicationRecord
   has_many :mini_requests
   # , dependent: :destroy
 
-  after_save { solutions.each(&:touch) unless !self.name_changed? }
+  after_save { solutions.each(&:touch) unless (!self.name_changed? or !self.thumbnail_url_changed?) }
 
   acts_as_voter
   acts_as_follower
