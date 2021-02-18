@@ -17,18 +17,18 @@
       - if params[:tag]
         = render partial: "solutions/niche_preview", collection: @solutions, as: :solution, cached: true
       - else
-        - if @solutions.any?
-          - if @solutions.today.any?
+        - if @solutions.exists?
+          - if @solutions.today.exists?
             %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Today
             = render partial: "solutions/niche_preview", collection: @solutions.today, as: :solution, cached: true
             %div{class: "mt-6"}
-          - if @solutions.past_week.any?
+          - if @solutions.past_week.exists?
             %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Past Week
             = render partial: "solutions/niche_preview", collection: @solutions.past_week, as: :solution, cached: true
             %div{class: "mt-6"}
-          - if @solutions.past_month.any?
+          - if @solutions.past_month.exists?
             %h2{class: "w-full font-bold text-2xl mb-6 leading-none"}
               Past Month
             = render partial: "solutions/niche_preview", collection: @solutions.past_month, as: :solution, cached: true

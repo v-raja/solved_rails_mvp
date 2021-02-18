@@ -89,17 +89,17 @@
             = "Explore solutions from all industries and occupations #{link_to "here", all_path, class: "user-link pt-1"}.".html_safe
       - else
         %div{class: "mt-8"}
-          - if @posts.today.any?
+          - if @posts.today.exists?
             %div{class: "w-full font-semibold text-xl mb-8 leading-none"}
               Today
             = render @posts.today
             %div{class: "mt-8"}
-          - if @posts.past_week.any?
+          - if @posts.past_week.exists?
             %div{class: "w-full font-semibold text-xl mb-8 leading-none"}
               Past Week
             = render @posts.past_week
             %div{class: "mt-8"}
-          - if @posts.past_month.any?
+          - if @posts.past_month.exists?
             %div{class: "w-full font-semibold text-xl mb-8 leading-none"}
               Past Month
             = render @posts.past_month
@@ -135,7 +135,7 @@
 
         - if user_signed_in?
           - posts = current_user.following_by_type('Solution') + current_user.following_by_type('Request')
-          - if posts.any?
+          - if posts.exists?
             %div{class: " py-3 px-4 bg-white border border-gray-400 rounded"}
               %div{class: "w-full text-base font-medium"}
                 Discussion you're following

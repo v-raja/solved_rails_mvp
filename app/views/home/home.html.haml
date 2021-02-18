@@ -8,18 +8,18 @@
   %div{class: "text-base font-medium tracking-wide text-gray-700 mb-6"}
     Trending solutions from the communities you follow
 
-  - if @posts.today.any?
+  - if @posts.today.exists?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Today
     %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
       = render @posts.today
-  - if @posts.past_week.any?
+  - if @posts.past_week.exists?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Past Week
     %div{class: "mt-6 pb-6 border-b-2 border-gray-300 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
       = render @posts.past_week
 
-  - if @posts.past_month.any?
+  - if @posts.past_month.exists?
     %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
       Past Month
     %div{class: "mt-6 w-full grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}

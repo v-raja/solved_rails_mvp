@@ -38,15 +38,15 @@
           %div{class: "mt-6 md:mt-10 text-xs font-semibold text-gray-600"}
             Posted to
           %div{class: "mt-1 flex text-sm flex-col space-y-1 max-h-40 overflow-y-auto"}
-            - if @solution.groups.any?
+            - if @solution.groups.exists?
               - @solution.groups.each do |group|
                 -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
                 = link_to "#{groups.title} (List)", group, data: {title: group.title, position: group.id}, class: "posted-to text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
-            - if @solution.industries.any?
+            - if @solution.industries.exists?
               - @solution.industries.each do |industry|
                 -# %div{class: "text-xs mt-1 rounded-full text-center border-gray-300 px-2 py-1 bg-primary font-semibold text-white hover:text-gray-900 hover:border-gray-700"}
                 = link_to "#{industry.title} (Industry)", industry, data: {title: industry.title, position: industry.id}, class: "posted-to text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
-            - if @solution.occupations.any?
+            - if @solution.occupations.exists?
               - @solution.occupations.each do |occupation|
                 -# %div{class: "text-gray-600 text-center text-xs border border-gray-300 px-2 py-0.5 bg-white rounded-full hover:text-gray-900 hover:border-gray-700"}
                 = link_to "#{occupation.title} (Occupation)", occupation, data: {title: occupation.title, position: occupation.id}, class: "posted-to text-xs leading-tighter text-gray-700 mt-1 hover:text-black hover:bg-gray-300 p-1.5"
@@ -138,7 +138,7 @@
                     = link_to new_user_registration_path do
                       %button{class: "ml-2 bg-white border-2 border-primary px-2 py-2 text-sm font-medium text-primary rounded-md"}
                         Sign Up
-            - if @solution.root_comments.any?
+            - if @solution.root_comments.exists?
               - @solution.root_comments.includes(:user).each do |comment|
                 = render 'comments/comment', comment: comment, new_comment: @new_comment, cached: true
 
