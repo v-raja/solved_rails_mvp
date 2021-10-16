@@ -1,5 +1,7 @@
 ## solved MVP
 
+This repo is not indicative of code readability / documentation as this was quickly coded to test the idea out. The RBS Calculator [repo](https://github.com/allyourbasepair/rbscalculator) is a better representation of my level of documentation.
+
 ### The problem
 
 There are many feature-rich general SaaS software such as AirTable, ClickUp, monday.com, etc. that provide "building-blocks" for non-technical people to put together solutions to organise data better, create automated workflows, etc. that make them more productive.
@@ -19,6 +21,8 @@ You  can "follow" your industry / occupation (which is like a subreddit) and get
 Please note the demo is running on a free Heroku dyno so the site may take a few minutes to load if the dyno is sleeping.
 
 ## Screenshots
+
+The site is fully responsive. This section only includes screenshots from the desktop version of the site.
 
 #### Solution search page
 Features: 
