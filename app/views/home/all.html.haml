@@ -32,6 +32,26 @@
     %div{class: "text-sm"}
       👇 Alternatively, browse below to see popular solutions from all industries and occupations across solved.
 
+%div{class: "w-full flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0 lg:space-x-0 justify-around my-8"}
+  - cache(:popular_industries, expires_in: 30.minutes) do
+    %div{class: "w-full lg:w-2/5 xl:w-1/3 text-sm bg-white pt-4 px-4 pb-3 rounded border border-gray-400"}
+      %div{class: "font-semibold"}
+        Popular Industries
+      - communities = Industry.popular.take(3)
+      - communities.each do |c|
+        = link_to c, class: "popular-industry", data: { title: c.title, position: c.id } do
+          %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
+            = "#{c.title}"
+  - cache(:popular_occupations, expires_in: 30.minutes) do
+    %div{class: "w-full lg:w-2/5 xl:w-1/3 text-sm bg-white pt-4 px-4 pb-3 rounded border border-gray-400"}
+      %div{class: "font-semibold"}
+        Popular Occupations
+      - communities = Occupation.popular.take(3)
+      - communities.each do |c|
+        = link_to c, class: "popular-occupation", data: { title: c.title, position: c.id } do
+          %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
+            = "#{c.title}"
+
 %div{class: "mt-4 mb-10 px-4"}
 
   %div{class: "text-xl font-bold leading-tight"}
@@ -60,29 +80,9 @@
     -#   %div{class: "flex-1 relative"}
     -#     %div{class: "w-full absolute top-1/2 border-t-2 border-gray-300"}
 
-  %div{class: "w-full flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0 lg:space-x-0 justify-around my-8"}
-    - cache(:popular_industries, expires_in: 30.minutes) do
-      %div{class: "w-full lg:w-2/5 xl:w-1/3 text-sm bg-white pt-4 px-4 pb-3 rounded border border-gray-400"}
-        %div{class: "font-semibold"}
-          Popular Industries
-        - communities = Industry.popular.take(3)
-        - communities.each do |c|
-          = link_to c, class: "popular-industry", data: { title: c.title, position: c.id } do
-            %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
-              = "#{c.title}"
-    - cache(:popular_occupations, expires_in: 30.minutes) do
-      %div{class: "w-full lg:w-2/5 xl:w-1/3 text-sm bg-white pt-4 px-4 pb-3 rounded border border-gray-400"}
-        %div{class: "font-semibold"}
-          Popular Occupations
-        - communities = Occupation.popular.take(3)
-        - communities.each do |c|
-          = link_to c, class: "popular-occupation", data: { title: c.title, position: c.id } do
-            %div{class: "hover:bg-gray-200 text-xssm rounded mt-1 p-1.5"}
-              = "#{c.title}"
-
-  - if @posts.past_month.exists?
-    %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
-      Past Month
-    %div{class: "mt-6 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
-      = render @posts.past_month.take(12), cached: true
+  -# - if @posts.past_month.exists?
+  -# %div{class: "mt-8 w-full font-semibold text-lg leading-none"}
+  -#   Past Month
+  %div{class: "mt-6 w-full grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 lg:grid-cols-4"}
+    = render @posts.take(24), cached: true
 
