@@ -28,6 +28,7 @@
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-dev-server": "^3.11.0"
   },
+  "engines" : { "node": "14.19.1" },
   "scripts": {
     "webpack:analyze": "yarn webpack:build_json && yarn webpack:analyze_json",
     "webpack:build_json": "RAILS_ENV=${RAILS_ENV:-production} NODE_ENV=${NODE_ENV:-production} bin/webpack --profile --json > tmp/webpack-stats.json",
